@@ -1,6 +1,6 @@
 {
   "name": "eksi-sozluk",
-  "version": "1.0.0",
+  "version": "0.0.0-semantically-released",
   "description": "Ekşi Sözlük için yazılmış bir paket.",
   "main": "index.js",
   "directories": {
@@ -10,11 +10,13 @@
     "commit": "git-cz",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "semantic-release": "semantic-release",
+    "travis-deploy-once": "travis-deploy-once"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ridvanaltun/eksi-sozluk.git"
+    "url": "https://github.com/ridvanaltun/eksi-sozluk.git"
   },
   "keywords": [
     "ekşi",
@@ -41,7 +43,8 @@
     "eslint": "^7.1.0",
     "eslint-config-google": "^0.14.0",
     "husky": "^4.2.5",
-    "lint-staged": "^10.2.7"
+    "lint-staged": "^10.2.7",
+    "semantic-release": "^17.0.8"
   },
   "husky": {
     "hooks": {
