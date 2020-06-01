@@ -10,6 +10,10 @@
 
 **@todo**
 
+## Destekçiler
+
+- Orjinal `eksi-sozluk` paketi sahibi [@kucukkanat](https://github.com/kucukkanat)'a paketin isim haklarını bana devrettiği için teşekkür ederim.
+
 ## Lisans
 
 [GNU General Public License v3.0](https://github.com/ridvanaltun/eksi-sozluk/blob/master/LICENSE)
