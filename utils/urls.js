@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  base: 'https://eksisozluk.com/',
+  base: 'https://eksisozluk.com',
   entry: 'https://eksisozluk.com/entry/',
   user: 'https://eksisozluk.com/biri/',
   q: 'https://eksisozluk.com/?q=',
