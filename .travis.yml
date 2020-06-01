@@ -11,6 +11,8 @@ jobs:
       script: npm run lint
       script: echo "Test ..."
       script: npm run test
+      script: echo "Create Documentation ..."
+      script: npm run doc
 after-success:
   - echo "Semantic Release Deployment .."
   - npm run semantic-release

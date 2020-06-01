@@ -3,9 +3,6 @@ module.exports = {
   'plugins': [
     '@semantic-release/commit-analyzer',
     '@semantic-release/release-notes-generator',
-    ['@semantic-release/exec', {
-      'generateNotesCmd': 'npm run doc',
-    }],
     ['@semantic-release/changelog', {
       'changelogFile': 'CHANGELOG.md',
     }],
