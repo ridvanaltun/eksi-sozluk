@@ -1,15 +1,11 @@
 'use strict';
 
-const auth = require('./lib/auth');
-const entries = require('./lib/entries');
-const titles = require('./lib/titles');
-const users = require('./lib/users');
+const getEntryById = require('./lib/getEntryById');
+const getUser = require('./lib/getUser');
 
 const eksisozluk = {
-  auth,
-  entries,
-  titles,
-  users
+  getEntryById,
+  getUser
 };
 
 module.exports = eksisozluk;
