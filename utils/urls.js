@@ -5,5 +5,5 @@ module.exports = {
   entry: 'https://eksisozluk.com/entry/',
   user: 'https://eksisozluk.com/biri/',
   q: 'https://eksisozluk.com/?q=',
-  seyler: 'https://seyler.eksisozluk.com/'
+  seyler: 'https://seyler.eksisozluk.com/',
 };

@@ -7,7 +7,7 @@ const getDebe = require('./lib/getDebe');
 const eksisozluk = {
   getEntryById,
   getUser,
-  getDebe
+  getDebe,
 };
 
 module.exports = eksisozluk;
