@@ -12,7 +12,8 @@
     "lint:fix": "eslint . --fix",
     "test": "echo \"Error: no test specified\" && exit 0",
     "semantic-release": "semantic-release",
-    "travis-deploy-once": "travis-deploy-once"
+    "travis-deploy-once": "travis-deploy-once",
+    "doc": "jsdoc --configure jsdoc.json"
   },
   "repository": {
     "type": "git",
@@ -39,13 +40,16 @@
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/exec": "^5.0.0",
     "@semantic-release/git": "^9.0.0",
     "commitizen": "^4.1.2",
     "cz-conventional-changelog": "^3.2.0",
     "eslint": "^7.1.0",
     "eslint-config-google": "^0.14.0",
     "husky": "^4.2.5",
+    "jsdoc": "^3.6.4",
     "lint-staged": "^10.2.7",
+    "minami": "^1.2.3",
     "semantic-release": "^17.0.8"
   },
   "husky": {
