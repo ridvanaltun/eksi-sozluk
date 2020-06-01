@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/ridvanaltun/eksi-sozluk/compare/v1.0.0...v1.1.0) (2020-06-01)
+
+
+### Bug Fixes
+
+* **entry:** make null eksiseyler keys when eksiseyler not used in entry ([acf70a4](https://github.com/ridvanaltun/eksi-sozluk/commit/acf70a417ae2002d1478053b8c18050de3228cb4))
+
+
+### Features
+
+* add ability to batch pull entry from a title ([27bef2e](https://github.com/ridvanaltun/eksi-sozluk/commit/27bef2ed75d62d5e7d78fdd0796a95ebc27cd8d4))
+
 # 1.0.0 (2020-06-01)
 
 
