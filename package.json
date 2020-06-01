@@ -1,0 +1,32 @@
+{
+  "name": "eksi-sozluk",
+  "version": "1.0.0",
+  "description": "Ekşi Sözlük için yazılmış bir paket.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ridvanaltun/eksi-sozluk.git"
+  },
+  "keywords": [
+    "ekşi",
+    "sözlük",
+    "ekşisözlük"
+  ],
+  "author": "Rıdvan Altun",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ridvanaltun/eksi-sozluk/issues"
+  },
+  "homepage": "https://github.com/ridvanaltun/eksi-sozluk#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
+    "moment": "^2.26.0"
+  }
+}
