@@ -3,10 +3,13 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
 
-module.exports = (endpoint, id, callback) => {
+module.exports = (usrOptions, callback) => {
+
+  let endpoint = usrOptions.id ? usrOptions.endpoint + '/' + usrOptions.id : usrOptions.endpoint;
+
   const options = {
     method: 'get',
-    url: 'http://eksisozluk.com/' + endpoint + '/' + id,
+    url: 'http://eksisozluk.com/' + endpoint,
     transformResponse: body => {
       return cheerio.load(body, {
         normalizeWhitespace: true,
