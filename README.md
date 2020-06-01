@@ -8,7 +8,9 @@
 
 ## Doküman
 
-**@todo**
+Doküman, [JSDoc](https://github.com/jsdoc/jsdoc) ile her yeni sürüm sonrası otomatik olarak oluşturulur.
+
+[Kendisine buradan ulaşabilirsiniz!](https://ridvanaltun.github.io/eksi-sozluk/)
 
 ## Destekçiler
 
