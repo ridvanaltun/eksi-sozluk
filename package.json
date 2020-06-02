@@ -10,7 +10,7 @@
     "commit": "git-cz",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "mocha test.js --reporter spec --timeout 15000",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once",
     "doc": "jsdoc --configure jsdoc.json"
@@ -45,10 +45,12 @@
     "cz-conventional-changelog": "^3.2.0",
     "eslint": "^7.1.0",
     "eslint-config-google": "^0.14.0",
+    "expect.js": "^0.3.1",
     "husky": "^4.2.5",
     "jsdoc": "^3.6.4",
     "lint-staged": "^10.2.7",
     "minami": "^1.2.3",
+    "mocha": "^7.2.0",
     "semantic-release": "^17.0.8"
   },
   "husky": {
