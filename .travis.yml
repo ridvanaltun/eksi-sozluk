@@ -9,7 +9,7 @@ jobs:
       script:
         - echo "Testing Started ..."
         - echo "Linting ..." && npm run lint
-        - echo "Test ..." && npm run test
+        - echo "Code Coverage and Test ..." && npm run test:coverage
         - echo "Create Documentation ..." && npm run doc
 after-success:
   - echo "Semantic Release Deployment .."
@@ -17,3 +17,6 @@ after-success:
 branches:
   only:
   - master
+notifications:
+  email: false
+
