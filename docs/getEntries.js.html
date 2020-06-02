@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>getEntries.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-get-debe.html">Fetch Debe</a></li><li class="nav-item"><a href="tutorial-get-entries.html">Fetch Entries</a></li><li class="nav-item"><a href="tutorial-get-entry.html">Fetch Entry</a></li><li class="nav-item"><a href="tutorial-get-today-in-history.html">Fetch Debe</a></li><li class="nav-item"><a href="tutorial-get-user.html">Fetch User</a></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getDebe">getDebe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntries">getEntries</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntryById">getEntryById</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getTodayInHistory">getTodayInHistory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getUser">getUser</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">getEntries.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+const r = require('../utils/request');
+const d = require('../utils/date');
+const urls = require('../utils/urls');
+const axios = require('axios');
+
+const getActualPath = async (title) => {
+  const response = await axios.get(urls.base + '/' + title);
+  const actualPath = response.request.path;
+
+  return actualPath;
+};
+
+/**
+ * Callback function for return entry list of specific page.
+ *
+ * @callback entriesCallback
+ * @param {Object} entries - Entries object.
+ */
+
+/**
+ * Fetch entries of specified page.
+ *
+ * @param   {string}           title             Title itself.
+ * @param   {Object}           usrOptions        Parameters that the user can specify.
+ * @param   {number}           usrOptions.page   Page number of title.
+ * @param   {entriesCallback}  callback          The function run after the process.
+ */
+const getEntries = async (title, usrOptions, callback) => {
+  let {page} = usrOptions;
+
+  if (!page) {
+    page = 1;
+  }
+
+  const options = {
+    endpoint: await getActualPath(title) + '?p=' + page,
+  };
+
+  r(options, ($) => {
+    const status = $.statusCode;
+    const entries = {status};
+    entries.data = [];
+
+    switch (status) {
+      case 200:
+        $('ul#entry-item-list li').each(function(i, elm) {
+          const date = d($(elm).find('a.entry-date').text());
+          const isEksiseylerExist = $(elm).data('seyler-slug') !== '';
+
+          entries.data.push({
+            author: $(elm).data('author'),
+            author_id: $(elm).data('author-id'),
+            author_url: urls.user + $(elm).data('author'),
+            content: $(elm).find('div.content').html(),
+            content_encoded: $(elm).find('div.content').text().trim(),
+            date_created: date.created,
+            date_modified: date.modified,
+            eksiseyler_link: isEksiseylerExist ? urls.seyler + $(elm).data('seyler-slug') : null,
+            eksiseyler_slug: isEksiseylerExist ? $(elm).data('seyler-slug') : null,
+            entry_id: $(elm).data('id'),
+            favorite_count: $(elm).data('favorite-count'),
+            permalink: urls.base + $(elm).find('a.entry-date').attr('href'),
+            title: $('h1#title').data('title'),
+            title_id: $('h1#title').data('id'),
+            title_slug: $('h1#title').data('slug'),
+            title_url: urls.base + $('h1#title a').attr('href'),
+          });
+        });
+        break;
+
+      case 404:
+        entries.data = {
+          error: 'Not Found',
+          message: 'Entry does not exist.',
+        };
+        break;
+
+      default:
+        entries.data = {
+          error: 'Unknow Error',
+          message: 'An unknow error occurred.',
+        };
+        break;
+    }
+
+    callback(entries);
+  });
+};
+
+module.exports = getEntries;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> on Tue Jun 02 2020 16:33:29 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/ridvanaltun/eksi-sozluk/compare/v1.2.0...v2.0.0) (2020-06-02)
+
+
+### Bug Fixes
+
+* **get-entries:** move out title param from user options to root of func ([b425558](https://github.com/ridvanaltun/eksi-sozluk/commit/b425558c2f7afc0df81c52d90fb88bbb426b1818))
+
+
+### BREAKING CHANGES
+
+* **get-entries:** Function of getEntries works different now.
+
 # [1.2.0](https://github.com/ridvanaltun/eksi-sozluk/compare/v1.1.0...v1.2.0) (2020-06-02)
 
 

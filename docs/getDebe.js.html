@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Home - Documentation</title>
+    <title>getDebe.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,44 +29,83 @@
 
 <div id="main">
     
+    <h1 class="page-title">getDebe.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
 
+const r = require('../utils/request');
+const urls = require('../utils/urls');
 
+/**
+ * Callback function for return debe list.
+ *
+ * @callback debeCallback
+ * @param {Object} debe - Debe object.
+ */
 
+/**
+ * Fetch yesterday's top entries.
+ *
+ * @param   {Object}        usrOptions        Parameters that the user can specify.
+ * @param   {number}        usrOptions.limit  The result limits.
+ * @param   {debeCallback}  callback          The function run after the process.
+ */
+const getDebe = (usrOptions, callback) => {
+  const options = {
+    endpoint: 'm/debe',
+  };
 
+  const {limit} = usrOptions;
 
+  r(options, ($) => {
+    const status = $.statusCode;
+    const debe = {status};
 
+    switch (status) {
+      case 200:
+        debe.data = $('li', 'ul.topic-list.partial.mobile').map(function() {
+          return {
+            title: $(this).text().trim(),
+            url: urls.base + $(this).find('a').attr('href'),
+          };
+        }).get();
 
+        if (limit) {
+          debe.data = debe.data.slice(0, limit);
+        }
+        break;
 
+      case 404:
+        debe.data = {
+          error: 'Not Found',
+          message: 'Debe does not exist.',
+        };
+        break;
 
-    
+      default:
+        debe.data = {
+          error: 'Unknow Error',
+          message: 'An unknow error occurred.',
+        };
+        break;
+    }
 
+    callback(debe);
+  });
+};
 
-    <section class="readme">
-        <article><h1>Ekşi Sözlük NodeJS Client</h1>
-<p><a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly"></a>
-<a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
-<a href="https://travis-ci.org/ridvanaltun/eksi-sozluk"><img src="https://travis-ci.org/ridvanaltun/eksi-sozluk.png?branch=master" alt="Build Status"></a></p>
-<blockquote>
-<p>Ekşi Sözlük kullanan uygulamalar geliştirirken kullanabileceğiniz bir NodeJS paketi.</p>
-</blockquote>
-<h2>Doküman</h2>
-<p>Doküman, <a href="https://github.com/jsdoc/jsdoc">JSDoc</a> ile her yeni sürüm sonrası otomatik olarak oluşturulur.</p>
-<p><a href="https://ridvanaltun.github.io/eksi-sozluk/">Kendisine buradan ulaşabilirsiniz!</a></p>
-<h2>Destekçiler</h2>
-<ul>
-<li>Orjinal <code>eksi-sozluk</code> paketi sahibi <a href="https://github.com/kucukkanat">@kucukkanat</a>'a paketin isim haklarını bana devrettiği için teşekkür ederim.</li>
-</ul>
-<h2>Lisans</h2>
-<p><a href="https://github.com/ridvanaltun/eksi-sozluk/blob/master/LICENSE">GNU General Public License v3.0</a></p></article>
+module.exports = getDebe;
+</code></pre>
+        </article>
     </section>
-
-
 
 
 
