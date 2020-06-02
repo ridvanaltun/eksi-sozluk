@@ -1,6 +1,6 @@
 {
   "name": "eksi-sozluk",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Eksi Sozluk NodeJS client.",
   "main": "index.js",
   "directories": {
