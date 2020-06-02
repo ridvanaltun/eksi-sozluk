@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/ridvanaltun/eksi-sozluk/compare/v1.1.0...v1.2.0) (2020-06-02)
+
+
+### Features
+
+* add ability to fetch today in history ([199339c](https://github.com/ridvanaltun/eksi-sozluk/commit/199339c1d2b8e6731c8f84d016f69d11f9575be4))
+
 # [1.1.0](https://github.com/ridvanaltun/eksi-sozluk/compare/v1.0.0...v1.1.0) (2020-06-01)
 
 
