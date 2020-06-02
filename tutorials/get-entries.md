@@ -1,0 +1,221 @@
+```javascript
+const eksisozluk = require('eksi-sozluk');
+
+const options = {
+  title: 'pena',
+  page: 1,
+};
+
+eksisozluk.getEntries(options, (result) => {
+  console.log(result);
+});
+```
+
+### Result
+
+```json
+{
+  status: 200,
+  data: [
+    {
+      author: 'ssg',
+      author_id: 8097,
+      author_url: 'https://eksisozluk.com/biri/ssg',
+      content: ' gitar calmak icin kullanilan minik plastik garip nesne. ',
+      content_encoded: 'gitar calmak icin kullanilan minik plastik garip nesne.',
+      date_created: '1999-02-15T00:00:00+02:00',
+      date_modified: null,
+      eksiseyler_link: 'https://seyler.eksisozluk.com/pena',
+      eksiseyler_slug: 'pena',
+      entry_id: 1,
+      favorite_count: 11378,
+      permalink: 'https://eksisozluk.com/entry/1',
+      title: 'pena',
+      title_id: 31782,
+      title_slug: 'pena',
+      title_url: 'https://eksisozluk.com/pena--31782'
+    },
+    {
+      author: 'ssg',
+      author_id: 8097,
+      author_url: 'https://eksisozluk.com/biri/ssg',
+      content: ' gitar calmak icin kullanilan minik plastik garip nesne. ',
+      content_encoded: 'gitar calmak icin kullanilan minik plastik garip nesne.',
+      date_created: '1999-02-15T00:00:00+02:00',
+      date_modified: null,
+      eksiseyler_link: 'https://seyler.eksisozluk.com/20-yil-once-bugun-girilen-eksi-sozlukun-ilk-entrysi-pena-nin-hikayesi',
+      eksiseyler_slug: '20-yil-once-bugun-girilen-eksi-sozlukun-ilk-entrysi-pena-nin-hikayesi',
+      entry_id: 1,
+      favorite_count: 11378,
+      permalink: 'https://eksisozluk.com/entry/1',
+      title: 'pena',
+      title_id: 31782,
+      title_slug: 'pena',
+      title_url: 'https://eksisozluk.com/pena--31782'
+    },
+    {
+      author: 'otisabi',
+      author_id: 7894,
+      author_url: 'https://eksisozluk.com/biri/otisabi',
+      content: ' en iyi pena ayak ba&#x15F;parmaklar&#x131;n&#x131;zdan elde edece&#x11F;iniz t&#x131;rnaklardan yap&#x131;l&#x131;r.z&#xFC;&#x11F;&#xFC;rt i&#x15F;i penad&#x131;r, en hassas penad&#x131;r. ',
+      content_encoded: 'en iyi pena ayak başparmaklarınızdan elde edeceğiniz tırnaklardan yapılır.züğürt işi penadır, en hassas penadır.',
+      date_created: '1999-12-13T02:23:00+02:00',
+      date_modified: null,
+      eksiseyler_link: null,
+      eksiseyler_slug: null,
+      entry_id: 69759,
+      favorite_count: 183,
+      permalink: 'https://eksisozluk.com/entry/69759',
+      title: 'pena',
+      title_id: 31782,
+      title_slug: 'pena',
+      title_url: 'https://eksisozluk.com/pena--31782'
+    },
+    {
+      author: 'stranger',
+      author_id: 8105,
+      author_url: 'https://eksisozluk.com/biri/stranger',
+      content: ' bass&apos;c&#x131;n&#x131;n ihtiyac duymad&#x131;g&#x131; seylerin ilk&apos;i.. ',
+      content_encoded: "bass'cının ihtiyac duymadıgı seylerin ilk'i..",
+      date_created: '1999-12-17T12:35:00+02:00',
+      date_modified: null,
+      eksiseyler_link: null,
+      eksiseyler_slug: null,
+      entry_id: 72191,
+      favorite_count: 77,
+      permalink: 'https://eksisozluk.com/entry/72191',
+      title: 'pena',
+      title_id: 31782,
+      title_slug: 'pena',
+      title_url: 'https://eksisozluk.com/pena--31782'
+    },
+    {
+      author: 'cyrano',
+      author_id: 7355,
+      author_url: 'https://eksisozluk.com/biri/cyrano',
+      content: ' (bkz: <a class="b" href="/?q=tezene">tezene</a>)<br/>(bkz: <a class="b" href="/?q=mizrap">mizrap</a>) ',
+      content_encoded: '(bkz: tezene)(bkz: mizrap)',
+      date_created: '1999-12-17T12:50:00+02:00',
+      date_modified: null,
+      eksiseyler_link: null,
+      eksiseyler_slug: null,
+      entry_id: 72198,
+      favorite_count: 30,
+      permalink: 'https://eksisozluk.com/entry/72198',
+      title: 'pena',
+      title_id: 31782,
+      title_slug: 'pena',
+      title_url: 'https://eksisozluk.com/pena--31782'
+    },
+    {
+      author: 'holyrider',
+      author_id: 7587,
+      author_url: 'https://eksisozluk.com/biri/holyrider',
+      content: ' kaybedilmemesi mucize olan ara&#xE7;, gere&#xE7;, edavat. az&#x131;msanmayacak kadar &#xE7;ok pena kaybettikten sonra; ilkokulda, ortas&#x131;ndan delip boynuma ast&#x131;&#x11F;&#x131;m silgimi an&#x131;msad&#x131;m. hemen gidip bir pena daha ald&#x131;m. ortas&#x131;ndan deldim boynuma ast&#x131;m. art&#x131;k hem kaybetmiyorum, hemde elim terledi&#x11F;i nde elimden kaym&#x131;yo. ip biraz zorluk &#xE7;&#x131;kar&#x131;yor o kadar. ',
+      content_encoded: 'kaybedilmemesi mucize olan araç, gereç, edavat. azımsanmayacak kadar çok pena kaybettikten sonra; ilkokulda, ortasından delip boynuma astığım silgimi anımsadım. hemen gidip bir pena daha aldım. ortasından deldim boynuma astım. artık hem kaybetmiyorum, hemde elim terlediği nde elimden kaymıyo. ip biraz zorluk çıkarıyor o kadar.',
+      date_created: '2000-02-15T06:07:00+02:00',
+      date_modified: null,
+      eksiseyler_link: null,
+      eksiseyler_slug: null,
+      entry_id: 104773,
+      favorite_count: 47,
+      permalink: 'https://eksisozluk.com/entry/104773',
+      title: 'pena',
+      title_id: 31782,
+      title_slug: 'pena',
+      title_url: 'https://eksisozluk.com/pena--31782'
+    },
+    {
+      author: 'barbar',
+      author_id: 7182,
+      author_url: 'https://eksisozluk.com/biri/barbar',
+      content: ' al&#x131;rs&#x131;n durur evde &#xE7;alars&#x131;n tak&#x131;l&#x131;rs&#x131;n vs. ama s&#xFC;rekli kaybolur. sittin sene sonra alakas&#x131;z bir yerden &#xE7;&#x131;kabilece&#x11F;i gibi yoklu&#x11F;a da ula&#x15F;m&#x131;&#x15F; olabilir , bir s&#xFC;r&#xFC; &#xE7;e&#x15F;idi vard&#x131;r. ayr&#x131;ca <br/>(bkz: <a class="b" href="/?q=pena+teknigi">pena teknigi</a>) ',
+      content_encoded: 'alırsın durur evde çalarsın takılırsın vs. ama sürekli kaybolur. sittin sene sonra alakasız bir yerden çıkabileceği gibi yokluğa da ulaşmış olabilir , bir sürü çeşidi vardır. ayrıca (bkz: pena teknigi)',
+      date_created: '2000-10-27T21:40:00+03:00',
+      date_modified: null,
+      eksiseyler_link: null,
+      eksiseyler_slug: null,
+      entry_id: 250140,
+      favorite_count: 17,
+      permalink: 'https://eksisozluk.com/entry/250140',
+      title: 'pena',
+      title_id: 31782,
+      title_slug: 'pena',
+      title_url: 'https://eksisozluk.com/pena--31782'
+    },
+    {
+      author: 'ahmet corleone',
+      author_id: 7810,
+      author_url: 'https://eksisozluk.com/biri/ahmet corleone',
+      content: ' dunyada en fazla kaybolan nesne olduguna inaniyorum.<br/>daha 2 dakika once elimde iken uctu gitti.<br/>nerede cikacagini merak ediyorum hep kaybolan penalarin.<br/>(bkz: <a class="b" href="/?q=pena+cenneti">pena cenneti</a>) ',
+      content_encoded: 'dunyada en fazla kaybolan nesne olduguna inaniyorum.daha 2 dakika once elimde iken uctu gitti.nerede cikacagini merak 
+ediyorum hep kaybolan penalarin.(bkz: pena cenneti)',
+      date_created: '2001-03-27T21:59:00+03:00',
+      date_modified: null,
+      eksiseyler_link: null,
+      eksiseyler_slug: null,
+      entry_id: 343616,
+      favorite_count: 41,
+      permalink: 'https://eksisozluk.com/entry/343616',
+      title: 'pena',
+      title_id: 31782,
+      title_slug: 'pena',
+      title_url: 'https://eksisozluk.com/pena--31782'
+    },
+    {
+      author: 'nevermind',
+      author_id: 7854,
+      author_url: 'https://eksisozluk.com/biri/nevermind',
+      content: ' ta$inma halinde odamin ce$itli yerlerinden yuzlercesi cikacak olan, en sik kaybolan nesne olmasinin yaninda kaybolunca asla bulunamayan tek nesnedir. ',
+      content_encoded: 'ta$inma halinde odamin ce$itli yerlerinden yuzlercesi cikacak olan, en sik kaybolan nesne olmasinin yaninda kaybolunca asla bulunamayan tek nesnedir.',
+      date_created: '2001-06-13T21:30:00+03:00',
+      date_modified: '2006-05-24T21:18:00+03:00',
+      eksiseyler_link: null,
+      eksiseyler_slug: null,
+      entry_id: 456465,
+      favorite_count: 12,
+      permalink: 'https://eksisozluk.com/entry/456465',
+      title: 'pena',
+      title_id: 31782,
+      title_slug: 'pena',
+      title_url: 'https://eksisozluk.com/pena--31782'
+    },
+    {
+      author: 'supernova',
+      author_id: 9469,
+      author_url: 'https://eksisozluk.com/biri/supernova',
+      content: ' elimden kurtulup ka&#xE7;maya &#xE7;al&#x131;&#x15F;t&#x131;&#x11F;&#x131;na inand&#x131;&#x11F;&#x131;m nesne. d&#xFC;&#x15F;t&#xFC;&#x11F;&#xFC; zaman olas&#x131; b&#xF6;lgelerden uzakta, alakas&#x131;z e&#x15F;yalar&#x131;n alt&#x131;nda gizlenir. ',
+      content_encoded: 'elimden kurtulup kaçmaya çalıştığına inandığım nesne. düştüğü zaman olası bölgelerden uzakta, alakasız eşyaların altında gizlenir.',
+      date_created: '2001-06-13T21:35:00+03:00',
+      date_modified: '2009-09-14T22:29:00+03:00',
+      eksiseyler_link: null,
+      eksiseyler_slug: null,
+      entry_id: 456474,
+      favorite_count: 9,
+      permalink: 'https://eksisozluk.com/entry/456474',
+      title: 'pena',
+      title_id: 31782,
+      title_slug: 'pena',
+      title_url: 'https://eksisozluk.com/pena--31782'
+    },
+    {
+      author: 'supernova',
+      author_id: 9469,
+      author_url: 'https://eksisozluk.com/biri/supernova',
+      content: ' bukalemun gibidir. d&#xFC;&#x15F;t&#xFC;&#x11F;&#xFC; yerin desenine kar&#x131;&#x15F;&#x131;r. ',
+      content_encoded: 'bukalemun gibidir. düştüğü yerin desenine karışır.',
+      date_created: '2001-06-13T21:37:00+03:00',
+      date_modified: null,
+      eksiseyler_link: null,
+      eksiseyler_slug: null,
+      entry_id: 456479,
+      favorite_count: 94,
+      permalink: 'https://eksisozluk.com/entry/456479',
+      title: 'pena',
+      title_id: 31782,
+      title_slug: 'pena',
+      title_url: 'https://eksisozluk.com/pena--31782'
+    }
+  ]
+}
+```
