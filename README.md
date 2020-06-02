@@ -20,7 +20,7 @@ The document is automatically created with [JSDoc](https://github.com/jsdoc/jsdo
 
 ## Special Thanks
 
-I would like to thank the owner of the original `eksi-sozluk` package [@kucukkanat](https://github.com/kucukkanat) for transferring the package's rights to me.
+I would like to thank [@kucukkanat](https://github.com/kucukkanat) the owner original `eksi-sozluk` package for transferring the package's rights to me.
 
 ## License
 
