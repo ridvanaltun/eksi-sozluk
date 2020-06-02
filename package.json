@@ -1,7 +1,7 @@
 {
   "name": "eksi-sozluk",
   "version": "3.0.0",
-  "description": "Ekşi Sözlük için yazılmış bir paket.",
+  "description": "Eksi Sozluk NodeJS client.",
   "main": "index.js",
   "directories": {
     "lib": "lib"
