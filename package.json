@@ -1,6 +1,6 @@
 {
   "name": "eksi-sozluk",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Ekşi Sözlük için yazılmış bir paket.",
   "main": "index.js",
   "directories": {
