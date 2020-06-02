@@ -25,7 +25,7 @@ describe('Entry Test', () => {
     });
   });
   it('Entries Test', () => {
-    return eksisozluk.getEntries({title: 'pena', page: 1}, (result) => {
+    return eksisozluk.getEntries('pena', {page: 1}, (result) => {
       expect(result).to.be.an('object');
       expect(result.status).to.eql(200);
       expect(result.data.length).to.eql(11);
