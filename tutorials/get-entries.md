@@ -2,11 +2,10 @@
 const eksisozluk = require('eksi-sozluk');
 
 const options = {
-  title: 'pena',
   page: 1,
 };
 
-eksisozluk.getEntries(options, (result) => {
+eksisozluk.getEntries('pena', options, (result) => {
   console.log(result);
 });
 ```
