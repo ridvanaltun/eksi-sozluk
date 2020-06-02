@@ -1,21 +1,27 @@
-# Ekşi Sözlük NodeJS Client
+# 🍋 Eksi Sozluk NodeJS Client
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Build Status](https://travis-ci.org/ridvanaltun/eksi-sozluk.png?branch=master)](https://travis-ci.org/ridvanaltun/eksi-sozluk)
 
-> Ekşi Sözlük kullanan uygulamalar geliştirirken kullanabileceğiniz bir NodeJS paketi.
+> Consume Eksi Sozluk with NodeJS.
 
-## Doküman
+## Installation
 
-Doküman, [JSDoc](https://github.com/jsdoc/jsdoc) ile her yeni sürüm sonrası otomatik olarak oluşturulur.
+```bash
+$ npm install eksi-sozluk --save
+```
 
-[Kendisine buradan ulaşabilirsiniz!](https://ridvanaltun.github.io/eksi-sozluk/)
+## Document
 
-## Destekçiler
+The document is automatically created with [JSDoc](https://github.com/jsdoc/jsdoc) after each new release.
 
-- Orjinal `eksi-sozluk` paketi sahibi [@kucukkanat](https://github.com/kucukkanat)'a paketin isim haklarını bana devrettiği için teşekkür ederim.
+[You can find the document here!](https://ridvanaltun.github.io/eksi-sozluk/)
 
-## Lisans
+## Special Thanks
+
+I would like to thank the owner of the original `eksi-sozluk` package [@kucukkanat](https://github.com/kucukkanat) for transferring the package's rights to me.
+
+## License
 
 [GNU General Public License v3.0](https://github.com/ridvanaltun/eksi-sozluk/blob/master/LICENSE)
