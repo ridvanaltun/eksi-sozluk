@@ -12,7 +12,7 @@ describe('Entry Test', () => {
       expect(result.data.content).to.eql(' gitar calmak icin kullanilan minik plastik garip nesne. ');
       expect(result.data.content_encoded).to.eql('gitar calmak icin kullanilan minik plastik garip nesne.');
       expect(result.data.date_created).to.eql('1999-02-15T00:00:00+02:00');
-      expect(result.data.date_modified).to.eql(null);
+      expect(result.data.date_modified).to.be(null);
       expect(result.data.eksiseyler_link).to.eql('https://seyler.eksisozluk.com/20-yil-once-bugun-girilen-eksi-sozlukun-ilk-entrysi-pena-nin-hikayesi');
       expect(result.data.eksiseyler_slug).to.eql('20-yil-once-bugun-girilen-eksi-sozlukun-ilk-entrysi-pena-nin-hikayesi');
       expect(result.data.entry_id).to.eql(1);
@@ -35,7 +35,7 @@ describe('Entry Test', () => {
       expect(result.data[0].content).to.eql(' gitar calmak icin kullanilan minik plastik garip nesne. ');
       expect(result.data[0].content_encoded).to.eql('gitar calmak icin kullanilan minik plastik garip nesne.');
       expect(result.data[0].date_created).to.eql('1999-02-15T00:00:00+02:00');
-      expect(result.data[0].date_modified).to.eql(null);
+      expect(result.data[0].date_modified).to.be(null);
       expect(result.data[0].eksiseyler_link).to.eql('https://seyler.eksisozluk.com/pena');
       expect(result.data[0].eksiseyler_slug).to.eql('pena');
       expect(result.data[0].entry_id).to.eql(1);
