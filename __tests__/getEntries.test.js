@@ -10,10 +10,6 @@ describe('Entries Test', () => {
           expect(data[0].author_url).toBe('https://eksisozluk.com/biri/ssg');
           expect(data[0].content).toBe(' gitar calmak icin kullanilan minik plastik garip nesne. ');
           expect(data[0].content_encoded).toBe('gitar calmak icin kullanilan minik plastik garip nesne.');
-          expect(data[0].date_created).toBe('1999-02-15T00:00:00+02:00');
-          expect(data[0].date_modified).toBe(null);
-          expect(data[0].eksiseyler_link).toBe('https://seyler.eksisozluk.com/pena');
-          expect(data[0].eksiseyler_slug).toBe('pena');
           expect(data[0].entry_id).toBe(1);
           expect(typeof data[0].favorite_count).toBe('number');
           expect(data[0].permalink).toBe('https://eksisozluk.com/entry/1');
