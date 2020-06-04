@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Fetch Entry - Documentation</title>
+    <title>exceptions/NotFoundError.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,50 +29,45 @@
 
 <div id="main">
     
-    <h1 class="page-title">Fetch Entry</h1>
+    <h1 class="page-title">exceptions/NotFoundError.js</h1>
     
 
+    
+
+
+
+    
     <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
 
-<header>
-    
-</header>
-
-<article>
-    <pre class="prettyprint source lang-javascript"><code>const eksisozluk = require('eksi-sozluk');
-
-eksisozluk
-    .getEntryById(1)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-</code></pre>
-<h3>Result</h3>
-<pre class="prettyprint source lang-json"><code>{
-  author: 'ssg',
-  author_id: 8097,
-  author_url: 'https://eksisozluk.com/biri/ssg',
-  content: ' gitar calmak icin kullanilan minik plastik garip nesne. ',
-  content_encoded: 'gitar calmak icin kullanilan minik plastik garip nesne.',
-  date_created: '1999-02-15T00:00:00+02:00',
-  date_modified: null,
-  eksiseyler_link: 'https://seyler.eksisozluk.com/20-yil-once-bugun-girilen-eksi-sozlukun-ilk-entrysi-pena-nin-hikayesi',
-  eksiseyler_slug: '20-yil-once-bugun-girilen-eksi-sozlukun-ilk-entrysi-pena-nin-hikayesi',
-  entry_id: 1,
-  favorite_count: 11378,
-  permalink: 'https://eksisozluk.com/entry/1',
-  title: 'pena',
-  title_id: 31782,
-  title_slug: 'pena',
-  title_url: 'https://eksisozluk.com/pena--31782'
+/**
+ * Not found error.
+ *
+ * @property {string} name Error name.
+ * @property {string} message Error message.
+ */
+class NotFoundError extends Error {
+  /**
+   * Create not found error.
+   *
+   * @param {string} message Error message.
+   */
+  constructor(message) {
+    super();
+    Error.captureStackTrace(this, this.constructor);
+    this.name = 'NotFoundError';
+    this.message = message;
+  }
 }
-</code></pre>
-</article>
 
-</section>
+module.exports = NotFoundError;
+</code></pre>
+        </article>
+    </section>
+
+
+
 
 </div>
 

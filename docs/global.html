@@ -24,7 +24,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-get-debe.html">Fetch Debe</a></li><li class="nav-item"><a href="tutorial-get-entries.html">Fetch Entries</a></li><li class="nav-item"><a href="tutorial-get-entry.html">Fetch Entry</a></li><li class="nav-item"><a href="tutorial-get-today-in-history.html">Fetch Debe</a></li><li class="nav-item"><a href="tutorial-get-user.html">Fetch User</a></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getDebe">getDebe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntries">getEntries</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntryById">getEntryById</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getTodayInHistory">getTodayInHistory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getUser">getUser</a></span></li>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-get-debe.html">Fetch Debe</a></li><li class="nav-item"><a href="tutorial-get-entries.html">Fetch Entries</a></li><li class="nav-item"><a href="tutorial-get-entry.html">Fetch Entry</a></li><li class="nav-item"><a href="tutorial-get-today-in-history.html">Fetch Debe</a></li><li class="nav-item"><a href="tutorial-get-user.html">Fetch User</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="NotFoundError.html">NotFoundError</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getDebe">getDebe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntries">getEntries</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntryById">getEntryById</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getTodayInHistory">getTodayInHistory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getUser">getUser</a></span></li>
 </nav>
 
 <div id="main">
@@ -117,7 +117,7 @@
 
     
 
-    <h4 class="name" id="getDebe"><span class="type-signature"></span>getDebe<span class="signature">(usrOptions, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getDebe"><span class="type-signature"></span>getDebe<span class="signature">(usrOptions)</span><span class="type-signature"> &rarr; {YesterdayTopEntries}</span></h4>
 
     
 
@@ -160,7 +160,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="getDebe.js.html">getDebe.js</a>, <a href="getDebe.js.html#line20">line 20</a>
+        <a href="lib_getDebe.js.html">lib/getDebe.js</a>, <a href="lib_getDebe.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -221,7 +221,7 @@
             
 
             <td class="description last">
-                <p>Parameters that the user can specify.</p>
+                <p>Parameters that user can specify.</p>
                 
                     
 
@@ -278,32 +278,6 @@
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#debeCallback">debeCallback</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The function run after the process.</p>
-                
-            </td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -320,6 +294,31 @@
 
 
 
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>YesterdayTopEntries</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the yesterday's top entries.</p>
+</div>
+
+    
+</div>
+
 
 
 </div>
@@ -329,14 +328,14 @@
 
     
 
-    <h4 class="name" id="getEntries"><span class="type-signature">(async) </span>getEntries<span class="signature">(title, usrOptions, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getEntries"><span class="type-signature"></span>getEntries<span class="signature">(title, usrOptions)</span><span class="type-signature"> &rarr; {Entries}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Fetch entries of specified page.</p>
+    <p>Fetch entries.</p>
 </div>
 
 
@@ -372,7 +371,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="getEntries.js.html">getEntries.js</a>, <a href="getEntries.js.html#line30">line 30</a>
+        <a href="lib_getEntries.js.html">lib/getEntries.js</a>, <a href="lib_getEntries.js.html#line55">line 55</a>
     </li></ul></dd>
     
 
@@ -459,7 +458,7 @@
             
 
             <td class="description last">
-                <p>Parameters that the user can specify.</p>
+                <p>Parameters that user can specify.</p>
                 
                     
 
@@ -516,32 +515,6 @@
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#entriesCallback">entriesCallback</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The function run after the process.</p>
-                
-            </td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -558,6 +531,31 @@
 
 
 
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Entries</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the entries.</p>
+</div>
+
+    
+</div>
+
 
 
 </div>
@@ -567,14 +565,14 @@
 
     
 
-    <h4 class="name" id="getEntryById"><span class="type-signature"></span>getEntryById<span class="signature">(entryID, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getEntryById"><span class="type-signature"></span>getEntryById<span class="signature">(entryId)</span><span class="type-signature"> &rarr; {Entry}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Fetch entry of given Id.</p>
+    <p>Fetch entry by id.</p>
 </div>
 
 
@@ -610,7 +608,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="getEntryById.js.html">getEntryById.js</a>, <a href="getEntryById.js.html#line20">line 20</a>
+        <a href="lib_getEntryById.js.html">lib/getEntryById.js</a>, <a href="lib_getEntryById.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -654,7 +652,7 @@
 
         <tr>
             
-                <td class="name"><code>entryID</code></td>
+                <td class="name"><code>entryId</code></td>
             
 
             <td class="type">
@@ -677,32 +675,6 @@
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#entryCallback">entryCallback</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The function run after the process.</p>
-                
-            </td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -719,6 +691,31 @@
 
 
 
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Entry</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the entry by id.</p>
+</div>
+
+    
+</div>
+
 
 
 </div>
@@ -728,14 +725,14 @@
 
     
 
-    <h4 class="name" id="getTodayInHistory"><span class="type-signature"></span>getTodayInHistory<span class="signature">(year, usrOptions, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getTodayInHistory"><span class="type-signature"></span>getTodayInHistory<span class="signature">(year, usrOptions)</span><span class="type-signature"> &rarr; {TodayInHistory}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Fetch title list for today in history.</p>
+    <p>Fetch today in history.</p>
 </div>
 
 
@@ -771,7 +768,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="getTodayInHistory.js.html">getTodayInHistory.js</a>, <a href="getTodayInHistory.js.html#line37">line 37</a>
+        <a href="lib_getTodayInHistory.js.html">lib/getTodayInHistory.js</a>, <a href="lib_getTodayInHistory.js.html#line61">line 61</a>
     </li></ul></dd>
     
 
@@ -858,7 +855,7 @@
             
 
             <td class="description last">
-                <p>Parameters that the user can specify.</p>
+                <p>Parameters that user can specify.</p>
                 
                     
 
@@ -915,32 +912,6 @@
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#todayInHistoryCallback">todayInHistoryCallback</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The function run after the process.</p>
-                
-            </td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -957,6 +928,31 @@
 
 
 
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>TodayInHistory</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the today in history.</p>
+</div>
+
+    
+</div>
+
 
 
 </div>
@@ -966,14 +962,14 @@
 
     
 
-    <h4 class="name" id="getUser"><span class="type-signature"></span>getUser<span class="signature">(username, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getUser"><span class="type-signature"></span>getUser<span class="signature">(username)</span><span class="type-signature"> &rarr; {User}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Fetch user with given username.</p>
+    <p>Fetch user.</p>
 </div>
 
 
@@ -1009,7 +1005,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="getUser.js.html">getUser.js</a>, <a href="getUser.js.html#line46">line 46</a>
+        <a href="lib_getUser.js.html">lib/getUser.js</a>, <a href="lib_getUser.js.html#line59">line 59</a>
     </li></ul></dd>
     
 
@@ -1076,32 +1072,6 @@
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#userCallback">userCallback</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The function run after the process.</p>
-                
-            </td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -1118,691 +1088,37 @@
 
 
 
-
-
-</div>
-        
-    
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
+<div class="section-returns">
+<h5>Returns:</h5>
 
         
-                
-<div class="section-method">
 
-    
-
-    <h4 class="name" id="debeCallback"><span class="type-signature"></span>debeCallback<span class="signature">(debe)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Callback function for return debe list.</p>
-</div>
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>User</code></span>
 
 
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="getDebe.js.html">getDebe.js</a>, <a href="getDebe.js.html#line6">line 6</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
+    </dd>
 </dl>
 
 
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>debe</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Object</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>Debe object.</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div class="param-desc">
+    <p>A promise for the user.</p>
 </div>
-            
-                
-<div class="section-method">
 
     
-
-    <h4 class="name" id="entriesCallback"><span class="type-signature"></span>entriesCallback<span class="signature">(entries)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Callback function for return entry list of specific page.</p>
 </div>
 
 
 
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="getEntries.js.html">getEntries.js</a>, <a href="getEntries.js.html#line15">line 15</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>entries</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Object</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>Entries object.</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
-            
-                
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="entryCallback"><span class="type-signature"></span>entryCallback<span class="signature">(entry)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Callback function for return an entry.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="getEntryById.js.html">getEntryById.js</a>, <a href="getEntryById.js.html#line7">line 7</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
         
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
     
 
-        <tr>
-            
-                <td class="name"><code>entry</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Object</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>Entry object.</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-            
-                
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="todayInHistoryCallback"><span class="type-signature"></span>todayInHistoryCallback<span class="signature">(todayInHistory)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Callback function for return today in history.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="getTodayInHistory.js.html">getTodayInHistory.js</a>, <a href="getTodayInHistory.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>todayInHistory</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Object</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>Collection of titles within an object.</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-            
-                
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="userCallback"><span class="type-signature"></span>userCallback<span class="signature">(user)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Callback function for return user.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="getUser.js.html">getUser.js</a>, <a href="getUser.js.html#line33">line 33</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>user</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Object</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>User object.</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-            
     
 
     
@@ -1818,7 +1134,7 @@
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> on Tue Jun 02 2020 20:12:10 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> on Thu Jun 04 2020 03:13:20 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
