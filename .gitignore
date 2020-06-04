@@ -1,3 +1,6 @@
+# Secure
+.coveralls.yml
+
 # Logs
 logs
 *.log
