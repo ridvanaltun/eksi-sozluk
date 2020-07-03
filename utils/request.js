@@ -6,7 +6,7 @@ const axios = require('axios');
 module.exports = (endpoint, callback) => {
   const options = {
     method: 'get',
-    url: 'http://eksisozluk.com' + endpoint,
+    url: encodeURI('http://eksisozluk.com' + endpoint),
     transformResponse: (body) => {
       return cheerio.load(body, {
         normalizeWhitespace: true,
