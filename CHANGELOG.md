@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/ridvanaltun/eksi-sozluk/compare/v4.0.0...v4.0.1) (2020-09-23)
+
+
+### Bug Fixes
+
+* **packages:** update all ([8e72ef3](https://github.com/ridvanaltun/eksi-sozluk/commit/8e72ef3904b98bd99c2b678ba8f5f32618ea81bb))
+
 # [4.0.0](https://github.com/ridvanaltun/eksi-sozluk/compare/v3.0.1...v4.0.0) (2020-06-04)
 
 
