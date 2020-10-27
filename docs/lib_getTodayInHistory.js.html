@@ -24,7 +24,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-get-debe.html">Debe</a></li><li class="nav-item"><a href="tutorial-get-entries.html">Entries</a></li><li class="nav-item"><a href="tutorial-get-entry.html">Entry</a></li><li class="nav-item"><a href="tutorial-get-today-in-history.html">Today in History</a></li><li class="nav-item"><a href="tutorial-get-user.html">User</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="NotFoundError.html">NotFoundError</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getDebe">getDebe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntries">getEntries</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntryById">getEntryById</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getTodayInHistory">getTodayInHistory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getUser">getUser</a></span></li>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-get-debe.html">Debe</a></li><li class="nav-item"><a href="tutorial-get-entries.html">Entries</a></li><li class="nav-item"><a href="tutorial-get-entry.html">Entry</a></li><li class="nav-item"><a href="tutorial-get-today-in-history.html">Today in History</a></li><li class="nav-item"><a href="tutorial-get-user.html">User</a></li><li class="nav-item"><a href="tutorial-vote.html">Vote</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="NotFoundError.html">NotFoundError</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="VoteError.html">VoteError</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#downvote">downvote</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getDebe">getDebe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntries">getEntries</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntryById">getEntryById</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getTodayInHistory">getTodayInHistory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getUser">getUser</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#upvote">upvote</a></span></li>
 </nav>
 
 <div id="main">
@@ -39,11 +39,11 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
+            <pre class="prettyprint source linenums"><code>'use strict'
 
-const r = require('../utils/request');
-const urls = require('../utils/urls');
-const e = require('../exceptions');
+const r = require('../utils/request')
+const urls = require('../utils/urls')
+const e = require('../exceptions')
 
 /**
  * Clear given title.
@@ -57,8 +57,8 @@ const e = require('../exceptions');
  * @ignore
  */
 const clearTitle = (title, entryCount) => {
-  return title.substring(0, title.length - (entryCount.length + 1));
-};
+  return title.substring(0, title.length - (entryCount.length + 1))
+}
 
 /**
  * Calculates entry count from given string.
@@ -71,16 +71,16 @@ const clearTitle = (title, entryCount) => {
  * @ignore
  */
 const calEntryCount = (strEntryCount) => {
-  let entryCount;
+  let entryCount
 
-  if (strEntryCount.includes("b")) {
-    entryCount = 1000 * parseInt(strEntryCount);
+  if (strEntryCount.includes('b')) {
+    entryCount = 1000 * parseInt(strEntryCount)
   } else {
-    entryCount = parseInt(strEntryCount);
+    entryCount = parseInt(strEntryCount)
   }
 
-  return entryCount;
-};
+  return entryCount
+}
 
 /**
  * A promise for today in history.
@@ -97,42 +97,41 @@ const calEntryCount = (strEntryCount) => {
  * @param   {Object}  usrOptions        Parameters that user can specify.
  * @param   {number}  usrOptions.page   Page number.
  *
- * @returns {TodayInHistory} A promise for the today in history.
+ * @return {TodayInHistory} A promise for the today in history.
  */
 const getTodayInHistory = (year, usrOptions) => {
   return new Promise((resolve, reject) => {
-    let {page} = usrOptions;
+    let { page } = usrOptions
 
-    if (!page) page = 1;
+    if (!page) page = 1
 
-    const endpoint = '/basliklar/m/tarihte-bugun?year=' + year + '&amp;p=' + page;
+    const endpoint = '/basliklar/m/tarihte-bugun?year=' + year + '&amp;p=' + page
 
     r(endpoint, ($) => {
-      const status = $.statusCode;
-      let titles = [];
+      const status = $.statusCode
+      const titles = []
 
       if (status === 200) {
-        $('ul.topic-list.partial.mobile li').each(function(i, elm) {
-          const title = $(elm).text().trim();
-          const entryCount = $(elm).find('a small').text().trim();
+        $('ul.topic-list.partial.mobile li').each(function (i, elm) {
+          const title = $(elm).text().trim()
+          const entryCount = $(elm).find('a small').text().trim()
           titles.push({
             title: clearTitle(title, entryCount),
             title_url: urls.base + $(elm).find('a').attr('href'),
-            entry_count: calEntryCount(entryCount),
-          });
-        });
-        resolve(titles);
-      } else if(status === 404) {
-        reject(new e.NotFoundError('Today in history not found.'));
+            entry_count: calEntryCount(entryCount)
+          })
+        })
+        resolve(titles)
+      } else if (status === 404) {
+        reject(new e.NotFoundError('Today in history not found.'))
       } else {
-        reject(new Error('An unknown error occurred.'));
+        reject(new Error('An unknown error occurred.'))
       }
-    });
+    })
+  })
+}
 
-  });
-};
-
-module.exports = getTodayInHistory;
+module.exports = getTodayInHistory
 </code></pre>
         </article>
     </section>
@@ -145,7 +144,7 @@ module.exports = getTodayInHistory;
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Wed Sep 23 2020 00:54:31 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Tue Oct 27 2020 13:20:35 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

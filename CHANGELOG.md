@@ -1,3 +1,10 @@
+# [4.1.0](https://github.com/ridvanaltun/eksi-sozluk/compare/v4.0.1...v4.1.0) (2020-10-27)
+
+
+### Features
+
+* upvote and downvote ([352ce68](https://github.com/ridvanaltun/eksi-sozluk/commit/352ce68c7a3398b87d80b3b67789c666f88acb90))
+
 ## [4.0.1](https://github.com/ridvanaltun/eksi-sozluk/compare/v4.0.0...v4.0.1) (2020-09-23)
 
 

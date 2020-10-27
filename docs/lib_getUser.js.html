@@ -24,7 +24,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-get-debe.html">Debe</a></li><li class="nav-item"><a href="tutorial-get-entries.html">Entries</a></li><li class="nav-item"><a href="tutorial-get-entry.html">Entry</a></li><li class="nav-item"><a href="tutorial-get-today-in-history.html">Today in History</a></li><li class="nav-item"><a href="tutorial-get-user.html">User</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="NotFoundError.html">NotFoundError</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getDebe">getDebe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntries">getEntries</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntryById">getEntryById</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getTodayInHistory">getTodayInHistory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getUser">getUser</a></span></li>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-get-debe.html">Debe</a></li><li class="nav-item"><a href="tutorial-get-entries.html">Entries</a></li><li class="nav-item"><a href="tutorial-get-entry.html">Entry</a></li><li class="nav-item"><a href="tutorial-get-today-in-history.html">Today in History</a></li><li class="nav-item"><a href="tutorial-get-user.html">User</a></li><li class="nav-item"><a href="tutorial-vote.html">Vote</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="NotFoundError.html">NotFoundError</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="VoteError.html">VoteError</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#downvote">downvote</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getDebe">getDebe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntries">getEntries</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntryById">getEntryById</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getTodayInHistory">getTodayInHistory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getUser">getUser</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#upvote">upvote</a></span></li>
 </nav>
 
 <div id="main">
@@ -39,11 +39,11 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
+            <pre class="prettyprint source linenums"><code>'use strict'
 
-const r = require('../utils/request');
-const urls = require('../utils/urls');
-const e = require('../exceptions');
+const r = require('../utils/request')
+const urls = require('../utils/urls')
+const e = require('../exceptions')
 
 /**
  * Returns user badges.
@@ -56,31 +56,31 @@ const e = require('../exceptions');
  * @ignore
  */
 const getKarma = ($) => {
-  const badges = [];
-  let badgePoints = null;
-  const badgeCount = $('ul#user-badges li').length;
+  const badges = []
+  let badgePoints = null
+  const badgeCount = $('ul#user-badges li').length
 
   $('ul#user-badges li').each((i, elm) => {
     if (i === (badgeCount - 1)) {
       // last badge
-      const badgeText = $(elm).text();
-      const badge = (badgeText.replace(/[0-9]/g, ''));
+      const badgeText = $(elm).text()
+      const badge = (badgeText.replace(/[0-9]/g, ''))
       badges.push({
         name: badge.substring(0, badge.length - 3),
-        description: null,
-      });
+        description: null
+      })
       // scrape badge points
-      badgePoints = parseInt(badgeText.replace(/^.*?(\d+).*/, '$1'));
+      badgePoints = parseInt(badgeText.replace(/^.*?(\d+).*/, '$1'))
     } else {
       badges.push({
         name: $(elm).text(),
-        description: $(elm).find('a').attr('title'),
-      });
+        description: $(elm).find('a').attr('title')
+      })
     }
-  });
+  })
 
-  return {badges, badgePoints};
-};
+  return { badges, badgePoints }
+}
 
 /**
  * A promise for fetch user.
@@ -95,16 +95,16 @@ const getKarma = ($) => {
  *
  * @param   {string}  username  Username.
  *
- * @returns {User} A promise for the user.
+ * @return {User} A promise for the user.
  */
 const getUser = (username) => {
   return new Promise((resolve, reject) => {
     // make username url ready
-    username = username.replace(' ', '-');
+    username = username.replace(' ', '-')
 
     r(`/biri/${username}`, ($) => {
-      const status = $.statusCode;
-      const {badges, badgePoints} = getKarma($);
+      const status = $.statusCode
+      const { badges, badgePoints } = getKarma($)
 
       if (status === 200) {
         const user = {
@@ -116,19 +116,19 @@ const getUser = (username) => {
           entry_count_lastmonth: parseInt($('ul li#entry-count-lastmonth').text()),
           entry_count_lastweek: parseInt($('ul li#entry-count-lastweek').text()),
           entry_count_today: parseInt($('ul li#entry-count-today').text()),
-          last_entry_time: $('ul li#last-entry-time').text().trim(),
-        };
-        resolve(user);
-      } else if(status === 404) {
-        reject(new e.NotFoundError('User not found.'));
+          last_entry_time: $('ul li#last-entry-time').text().trim()
+        }
+        resolve(user)
+      } else if (status === 404) {
+        reject(new e.NotFoundError('User not found.'))
       } else {
-        reject(new Error('An unknown error occurred.'));
+        reject(new Error('An unknown error occurred.'))
       }
-    });
-  });
-};
+    })
+  })
+}
 
-module.exports = getUser;
+module.exports = getUser
 </code></pre>
         </article>
     </section>
@@ -141,7 +141,7 @@ module.exports = getUser;
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Wed Sep 23 2020 00:54:31 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Tue Oct 27 2020 13:20:35 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

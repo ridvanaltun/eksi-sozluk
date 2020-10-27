@@ -24,7 +24,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-get-debe.html">Debe</a></li><li class="nav-item"><a href="tutorial-get-entries.html">Entries</a></li><li class="nav-item"><a href="tutorial-get-entry.html">Entry</a></li><li class="nav-item"><a href="tutorial-get-today-in-history.html">Today in History</a></li><li class="nav-item"><a href="tutorial-get-user.html">User</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="NotFoundError.html">NotFoundError</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getDebe">getDebe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntries">getEntries</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntryById">getEntryById</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getTodayInHistory">getTodayInHistory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getUser">getUser</a></span></li>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-get-debe.html">Debe</a></li><li class="nav-item"><a href="tutorial-get-entries.html">Entries</a></li><li class="nav-item"><a href="tutorial-get-entry.html">Entry</a></li><li class="nav-item"><a href="tutorial-get-today-in-history.html">Today in History</a></li><li class="nav-item"><a href="tutorial-get-user.html">User</a></li><li class="nav-item"><a href="tutorial-vote.html">Vote</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="NotFoundError.html">NotFoundError</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="VoteError.html">VoteError</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#downvote">downvote</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getDebe">getDebe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntries">getEntries</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getEntryById">getEntryById</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getTodayInHistory">getTodayInHistory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getUser">getUser</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#upvote">upvote</a></span></li>
 </nav>
 
 <div id="main">
@@ -39,11 +39,11 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>"use strict";
+            <pre class="prettyprint source linenums"><code>'use strict'
 
-const r = require("../utils/request");
-const urls = require("../utils/urls");
-const e = require("../exceptions");
+const r = require('../utils/request')
+const urls = require('../utils/urls')
+const e = require('../exceptions')
 
 /**
  * A promise for the yesterday's top entries.
@@ -59,38 +59,38 @@ const e = require("../exceptions");
  * @param   {Object}        usrOptions        Parameters that user can specify.
  * @param   {number}        usrOptions.limit  The result limits.
  *
- * @returns {YesterdayTopEntries} A promise for the yesterday's top entries.
+ * @return {YesterdayTopEntries} A promise for the yesterday's top entries.
  */
 const getDebe = (usrOptions) => {
   return new Promise((resolve, reject) => {
-    const {limit} = usrOptions;
+    const { limit } = usrOptions
 
     r('/m/debe', ($) => {
-      const status = $.statusCode;
+      const status = $.statusCode
 
       if (status === 200) {
-        let debe = $("li", "ul.topic-list.partial.mobile")
+        let debe = $('li', 'ul.topic-list.partial.mobile')
           .map(function () {
             return {
               title: $(this).text().trim(),
-              url: urls.base + $(this).find("a").attr("href"),
-            };
+              url: urls.base + $(this).find('a').attr('href')
+            }
           })
-          .get();
+          .get()
 
-        if (limit) debe = debe.slice(0, limit);
+        if (limit) debe = debe.slice(0, limit)
 
-        resolve(debe);
-      } else if(status === 404) {
-        reject(new e.NotFoundError('Debe not found.'));
+        resolve(debe)
+      } else if (status === 404) {
+        reject(new e.NotFoundError('Debe not found.'))
       } else {
-        reject(new Error('An unknown error occurred.'));
+        reject(new Error('An unknown error occurred.'))
       }
-    });
-  });
-};
+    })
+  })
+}
 
-module.exports = getDebe;
+module.exports = getDebe
 </code></pre>
         </article>
     </section>
@@ -103,7 +103,7 @@ module.exports = getDebe;
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Wed Sep 23 2020 00:54:31 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Tue Oct 27 2020 13:20:35 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
