@@ -1,10 +1,10 @@
-const eksisozluk = require('../index');
+const eksisozluk = require('../index')
 
 describe('Today in History Test', () => {
   test('Getting Today in History', () => {
-    return eksisozluk.getTodayInHistory('2018', {page: 1})
-        .then((data) => {
-          expect(data.length).toBe(50);
-        });
-  });
-});
+    return eksisozluk.getTodayInHistory('2018', { page: 1 })
+      .then((data) => {
+        expect(data.length).toBe(50)
+      })
+  })
+})

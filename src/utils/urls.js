@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
   base: 'https://eksisozluk.com',
@@ -6,5 +6,5 @@ module.exports = {
   user: 'https://eksisozluk.com/biri/',
   q: 'https://eksisozluk.com/?q=',
   seyler: 'https://seyler.eksisozluk.com/',
-  vote: 'https://eksisozluk.com/entry/vote',
-};
+  vote: 'https://eksisozluk.com/entry/vote'
+}

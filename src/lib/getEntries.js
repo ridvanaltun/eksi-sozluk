@@ -1,11 +1,10 @@
-'use strict';
+'use strict'
 
-const r = require('../utils/request');
-const d = require('../utils/date');
-const urls = require('../utils/urls');
-const e = require("../exceptions");
-const axios = require('axios');
-const { upvote, downvote } = require("./vote");
+const r = require('../utils/request')
+const d = require('../utils/date')
+const urls = require('../utils/urls')
+const e = require('../exceptions')
+const { upvote, downvote } = require('./vote')
 
 /**
  * A promise for entries.
@@ -22,24 +21,24 @@ const { upvote, downvote } = require("./vote");
  * @param   {Object}  usrOptions        Parameters that user can specify.
  * @param   {number}  usrOptions.page   Page number of title.
  *
- * @returns {Entries} A promise for the entries.
+ * @return {Entries} A promise for the entries.
  */
 const getEntries = (title, usrOptions) => {
   return new Promise((resolve, reject) => {
-    let {page} = usrOptions;
+    let { page } = usrOptions
 
-    if (!page) page = 1;
+    if (!page) page = 1
 
-    const endpoint = '/?q=' + title + '&p=' + page;
+    const endpoint = '/?q=' + title + '&p=' + page
 
     r(endpoint, ($) => {
-      const status = $.statusCode;
-      let entries = [];
+      const status = $.statusCode
+      const entries = []
 
       if (status === 200) {
-        $('ul#entry-item-list li').each(function(i, elm) {
-          const date = d($(elm).find('a.entry-date').text());
-          const isEksiseylerExist = $(elm).data('seyler-slug') !== '';
+        $('ul#entry-item-list li').each(function (i, elm) {
+          const date = d($(elm).find('a.entry-date').text())
+          const isEksiseylerExist = $(elm).data('seyler-slug') !== ''
 
           entries.push({
             author: $(elm).data('author'),
@@ -59,17 +58,17 @@ const getEntries = (title, usrOptions) => {
             title_slug: $('h1#title').data('slug'),
             title_url: urls.base + $('h1#title a').attr('href'),
             upvote,
-            downvote,
-          });
-        });
-        resolve(entries);
-      } else if(status === 404) {
-        reject(new e.NotFoundError('Entries not found.'));
+            downvote
+          })
+        })
+        resolve(entries)
+      } else if (status === 404) {
+        reject(new e.NotFoundError('Entries not found.'))
       } else {
-        reject(new Error('An unknown error occurred.'));
+        reject(new Error('An unknown error occurred.'))
       }
-    });
-  });
+    })
+  })
 }
 
-module.exports = getEntries;
+module.exports = getEntries

@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
-const r = require('../utils/request');
-const urls = require('../utils/urls');
-const e = require('../exceptions');
+const r = require('../utils/request')
+const urls = require('../utils/urls')
+const e = require('../exceptions')
 
 /**
  * Clear given title.
@@ -16,8 +16,8 @@ const e = require('../exceptions');
  * @ignore
  */
 const clearTitle = (title, entryCount) => {
-  return title.substring(0, title.length - (entryCount.length + 1));
-};
+  return title.substring(0, title.length - (entryCount.length + 1))
+}
 
 /**
  * Calculates entry count from given string.
@@ -30,16 +30,16 @@ const clearTitle = (title, entryCount) => {
  * @ignore
  */
 const calEntryCount = (strEntryCount) => {
-  let entryCount;
+  let entryCount
 
-  if (strEntryCount.includes("b")) {
-    entryCount = 1000 * parseInt(strEntryCount);
+  if (strEntryCount.includes('b')) {
+    entryCount = 1000 * parseInt(strEntryCount)
   } else {
-    entryCount = parseInt(strEntryCount);
+    entryCount = parseInt(strEntryCount)
   }
 
-  return entryCount;
-};
+  return entryCount
+}
 
 /**
  * A promise for today in history.
@@ -56,39 +56,38 @@ const calEntryCount = (strEntryCount) => {
  * @param   {Object}  usrOptions        Parameters that user can specify.
  * @param   {number}  usrOptions.page   Page number.
  *
- * @returns {TodayInHistory} A promise for the today in history.
+ * @return {TodayInHistory} A promise for the today in history.
  */
 const getTodayInHistory = (year, usrOptions) => {
   return new Promise((resolve, reject) => {
-    let {page} = usrOptions;
+    let { page } = usrOptions
 
-    if (!page) page = 1;
+    if (!page) page = 1
 
-    const endpoint = '/basliklar/m/tarihte-bugun?year=' + year + '&p=' + page;
+    const endpoint = '/basliklar/m/tarihte-bugun?year=' + year + '&p=' + page
 
     r(endpoint, ($) => {
-      const status = $.statusCode;
-      let titles = [];
+      const status = $.statusCode
+      const titles = []
 
       if (status === 200) {
-        $('ul.topic-list.partial.mobile li').each(function(i, elm) {
-          const title = $(elm).text().trim();
-          const entryCount = $(elm).find('a small').text().trim();
+        $('ul.topic-list.partial.mobile li').each(function (i, elm) {
+          const title = $(elm).text().trim()
+          const entryCount = $(elm).find('a small').text().trim()
           titles.push({
             title: clearTitle(title, entryCount),
             title_url: urls.base + $(elm).find('a').attr('href'),
-            entry_count: calEntryCount(entryCount),
-          });
-        });
-        resolve(titles);
-      } else if(status === 404) {
-        reject(new e.NotFoundError('Today in history not found.'));
+            entry_count: calEntryCount(entryCount)
+          })
+        })
+        resolve(titles)
+      } else if (status === 404) {
+        reject(new e.NotFoundError('Today in history not found.'))
       } else {
-        reject(new Error('An unknown error occurred.'));
+        reject(new Error('An unknown error occurred.'))
       }
-    });
+    })
+  })
+}
 
-  });
-};
-
-module.exports = getTodayInHistory;
+module.exports = getTodayInHistory

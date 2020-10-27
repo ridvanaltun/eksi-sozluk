@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * Vote error.
@@ -12,12 +12,12 @@ class VoteError extends Error {
    *
    * @param {string} message Error message.
    */
-  constructor(message) {
-    super();
-    Error.captureStackTrace(this, this.constructor);
-    this.name = 'VoteError';
-    this.message = message;
+  constructor (message) {
+    super()
+    Error.captureStackTrace(this, this.constructor)
+    this.name = 'VoteError'
+    this.message = message
   }
 }
 
-module.exports = VoteError;
+module.exports = VoteError

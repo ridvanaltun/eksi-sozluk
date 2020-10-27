@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
-const d = require('../utils/date');
-const r = require('../utils/request');
-const urls = require('../utils/urls');
-const e = require("../exceptions");
-const { upvote, downvote } = require("./vote");
+const d = require('../utils/date')
+const r = require('../utils/request')
+const urls = require('../utils/urls')
+const e = require('../exceptions')
+const { upvote, downvote } = require('./vote')
 
 /**
  * A promise for entry by id.
@@ -19,16 +19,16 @@ const { upvote, downvote } = require("./vote");
  *
  * @param   {number}  entryId Entry Id.
  *
- * @returns {Entry} A promise for the entry by id.
+ * @return {Entry} A promise for the entry by id.
  */
 const getEntryById = (entryId) => {
   return new Promise((resolve, reject) => {
     r(`/entry/${entryId}`, ($) => {
-      const status = $.statusCode;
+      const status = $.statusCode
 
       if (status === 200) {
-        const date = d($('ul#entry-item-list li footer div.info a.permalink').text());
-        const isEksiseylerExist = $('ul#entry-item-list li').data('seyler-slug') !== '';
+        const date = d($('ul#entry-item-list li footer div.info a.permalink').text())
+        const isEksiseylerExist = $('ul#entry-item-list li').data('seyler-slug') !== ''
         const entry = {
           author: $('ul#entry-item-list li').data('author'),
           author_id: $('ul#entry-item-list li').data('author-id'),
@@ -47,16 +47,16 @@ const getEntryById = (entryId) => {
           title_slug: $('h1#title').data('slug'),
           title_url: urls.base + $('h1#title a').attr('href'),
           upvote,
-          downvote,
-        };
-        resolve(entry);
-      } else if(status === 404) {
-        reject(new e.NotFoundError('Entry not found.'));
+          downvote
+        }
+        resolve(entry)
+      } else if (status === 404) {
+        reject(new e.NotFoundError('Entry not found.'))
       } else {
-        reject(new Error('An unknown error occurred.'));
+        reject(new Error('An unknown error occurred.'))
       }
-    });
-  });
-};
+    })
+  })
+}
 
-module.exports = getEntryById;
+module.exports = getEntryById

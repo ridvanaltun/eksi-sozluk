@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * Not found error.
@@ -12,12 +12,12 @@ class NotFoundError extends Error {
    *
    * @param {string} message Error message.
    */
-  constructor(message) {
-    super();
-    Error.captureStackTrace(this, this.constructor);
-    this.name = 'NotFoundError';
-    this.message = message;
+  constructor (message) {
+    super()
+    Error.captureStackTrace(this, this.constructor)
+    this.name = 'NotFoundError'
+    this.message = message
   }
 }
 
-module.exports = NotFoundError;
+module.exports = NotFoundError

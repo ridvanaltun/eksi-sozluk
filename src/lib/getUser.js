@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
-const r = require('../utils/request');
-const urls = require('../utils/urls');
-const e = require('../exceptions');
+const r = require('../utils/request')
+const urls = require('../utils/urls')
+const e = require('../exceptions')
 
 /**
  * Returns user badges.
@@ -15,31 +15,31 @@ const e = require('../exceptions');
  * @ignore
  */
 const getKarma = ($) => {
-  const badges = [];
-  let badgePoints = null;
-  const badgeCount = $('ul#user-badges li').length;
+  const badges = []
+  let badgePoints = null
+  const badgeCount = $('ul#user-badges li').length
 
   $('ul#user-badges li').each((i, elm) => {
     if (i === (badgeCount - 1)) {
       // last badge
-      const badgeText = $(elm).text();
-      const badge = (badgeText.replace(/[0-9]/g, ''));
+      const badgeText = $(elm).text()
+      const badge = (badgeText.replace(/[0-9]/g, ''))
       badges.push({
         name: badge.substring(0, badge.length - 3),
-        description: null,
-      });
+        description: null
+      })
       // scrape badge points
-      badgePoints = parseInt(badgeText.replace(/^.*?(\d+).*/, '$1'));
+      badgePoints = parseInt(badgeText.replace(/^.*?(\d+).*/, '$1'))
     } else {
       badges.push({
         name: $(elm).text(),
-        description: $(elm).find('a').attr('title'),
-      });
+        description: $(elm).find('a').attr('title')
+      })
     }
-  });
+  })
 
-  return {badges, badgePoints};
-};
+  return { badges, badgePoints }
+}
 
 /**
  * A promise for fetch user.
@@ -54,16 +54,16 @@ const getKarma = ($) => {
  *
  * @param   {string}  username  Username.
  *
- * @returns {User} A promise for the user.
+ * @return {User} A promise for the user.
  */
 const getUser = (username) => {
   return new Promise((resolve, reject) => {
     // make username url ready
-    username = username.replace(' ', '-');
+    username = username.replace(' ', '-')
 
     r(`/biri/${username}`, ($) => {
-      const status = $.statusCode;
-      const {badges, badgePoints} = getKarma($);
+      const status = $.statusCode
+      const { badges, badgePoints } = getKarma($)
 
       if (status === 200) {
         const user = {
@@ -75,16 +75,16 @@ const getUser = (username) => {
           entry_count_lastmonth: parseInt($('ul li#entry-count-lastmonth').text()),
           entry_count_lastweek: parseInt($('ul li#entry-count-lastweek').text()),
           entry_count_today: parseInt($('ul li#entry-count-today').text()),
-          last_entry_time: $('ul li#last-entry-time').text().trim(),
-        };
-        resolve(user);
-      } else if(status === 404) {
-        reject(new e.NotFoundError('User not found.'));
+          last_entry_time: $('ul li#last-entry-time').text().trim()
+        }
+        resolve(user)
+      } else if (status === 404) {
+        reject(new e.NotFoundError('User not found.'))
       } else {
-        reject(new Error('An unknown error occurred.'));
+        reject(new Error('An unknown error occurred.'))
       }
-    });
-  });
-};
+    })
+  })
+}
 
-module.exports = getUser;
+module.exports = getUser

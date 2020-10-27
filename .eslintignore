@@ -5,3 +5,4 @@
 /docs
 package.json
 package-lock.json
+/__tests__
