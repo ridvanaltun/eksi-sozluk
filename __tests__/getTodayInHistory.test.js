@@ -1,4 +1,4 @@
-const eksisozluk = require('../index')
+const eksisozluk = require('../src/index')
 
 describe('Today in History Test', () => {
   test('Getting Today in History', () => {
