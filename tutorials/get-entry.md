@@ -3,8 +3,8 @@ const eksisozluk = require('eksi-sozluk');
 
 eksisozluk
     .getEntryById(1)
-    .then((res) => {
-      console.log(res);
+    .then((entry) => {
+      console.log(entry);
     })
     .catch((err) => {
       console.log(err);
@@ -30,6 +30,8 @@ eksisozluk
   title: 'pena',
   title_id: 31782,
   title_slug: 'pena',
-  title_url: 'https://eksisozluk.com/pena--31782'
+  title_url: 'https://eksisozluk.com/pena--31782',
+  upvote: [Function: upvote],
+  downvote: [Function: downvote]
 }
 ```
