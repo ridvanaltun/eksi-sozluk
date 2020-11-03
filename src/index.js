@@ -36,10 +36,7 @@ class EksiSozluk extends EksiGeneral {
     }, options)
 
     // make http client ready
-    this.httpClient = axios.create({
-      timeout: _options.httpClient.timeout,
-      baseURL: _options.httpClient.baseURL
-    })
+    this.httpClient = axios.create(_options.httpClient)
   }
 
   /**
