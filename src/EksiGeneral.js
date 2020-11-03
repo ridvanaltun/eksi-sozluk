@@ -1,7 +1,8 @@
 'use strict'
 
 const axios = require('axios')
-const { request: r, date: d, toEncodeFormUrl } = require('./utils')
+const objectAssignDeep = require('object-assign-deep')
+const { date: d, toEncodeFormUrl } = require('./utils')
 const e = require('./exceptions')
 const c = require('./constants')
 
@@ -9,6 +10,8 @@ const c = require('./constants')
  * Eksi Sozluk General
  *
  * Not login required actions.
+ *
+ * @ignore
  */
 class EksiGeneral {
   /**
@@ -22,6 +25,8 @@ class EksiGeneral {
    * Upvote.
    *
    * @return {Vote} Promise object
+   *
+   * @ignore
    */
   _upvote (authorId, entryId) {
     return () => {
@@ -53,6 +58,8 @@ class EksiGeneral {
    * Downvote.
    *
    * @return {Vote} Promise object
+   *
+   * @ignore
    */
   _downvote (authorId, entryId) {
     return () => {
@@ -91,16 +98,19 @@ class EksiGeneral {
   /**
    * Fetch yesterday's top entries.
    *
-   * @param   {Object}        usrOptions        Parameters that user can specify.
-   * @param   {number}        usrOptions.limit  The result limits.
+   * @param   {Object}        options               Parameters that user can specify.
+   * @param   {number}        [options.limit=null]  The result limits.
    *
    * @return {YesterdayTopEntries} A promise for the yesterday's top entries.
    */
-  debe (usrOptions = {}) {
+  debe (options) {
     return new Promise((resolve, reject) => {
-      const { limit } = usrOptions
+      // handle default options
+      const _options = objectAssignDeep({
+        limit: null
+      }, options)
 
-      r('/m/debe', ($) => {
+      this._request('/m/debe', ($) => {
         const status = $.statusCode
 
         if (status === 200) {
@@ -113,7 +123,7 @@ class EksiGeneral {
             })
             .get()
 
-          if (limit) debe = debe.slice(0, limit)
+          if (_options.limit) debe = debe.slice(0, _options.limit)
 
           resolve(debe)
         } else if (status === 404) {
@@ -144,7 +154,7 @@ class EksiGeneral {
     return new Promise((resolve, reject) => {
       const { _upvote: upvote, _downvote: downvote } = this
 
-      r(`/entry/${entryId}`, ($) => {
+      this._request(`/entry/${entryId}`, ($) => {
         const status = $.statusCode
 
         if (status === 200) {
@@ -204,20 +214,23 @@ class EksiGeneral {
    * Fetch entries.
    *
    * @param   {string}  title             Title itself.
-   * @param   {Object}  usrOptions        Parameters that user can specify.
-   * @param   {number}  usrOptions.page   Page number of title.
+   * @param   {Object}  options           Parameters that user can specify.
+   * @param   {number}  [options.page=1]  Page number of title.
    *
    * @return {Entries} A promise for the entries.
    */
-  entries (title, usrOptions = { page: 1 }) {
+  entries (title, options) {
     return new Promise((resolve, reject) => {
-      const { page } = usrOptions
+      // handle default options
+      const _options = objectAssignDeep({
+        page: 1
+      }, options)
 
       const { _upvote: upvote, _downvote: downvote } = this
 
-      const endpoint = '/?q=' + title + '&p=' + page
+      const endpoint = '/?q=' + title + '&p=' + _options.page
 
-      r(endpoint, ($) => {
+      this._request(endpoint, ($) => {
         const status = $.statusCode
         const entries = []
 
@@ -276,18 +289,21 @@ class EksiGeneral {
    * Fetch today in history.
    *
    * @param   {string}  year              A year.
-   * @param   {Object}  usrOptions        Parameters that user can specify.
-   * @param   {number}  usrOptions.page   Page number.
+   * @param   {Object}  options           Parameters that user can specify.
+   * @param   {number}  [options.page=1]  Page number.
    *
    * @return {TodayInHistory} A promise for the today in history.
    */
-  todayInHistory (year, usrOptions = { page: 1 }) {
+  todayInHistory (year, options) {
     return new Promise((resolve, reject) => {
-      const { page } = usrOptions
+      // handle default options
+      const _options = objectAssignDeep({
+        page: 1
+      }, options)
 
-      const endpoint = '/basliklar/m/tarihte-bugun?year=' + year + '&p=' + page
+      const endpoint = '/basliklar/m/tarihte-bugun?year=' + year + '&p=' + _options.page
 
-      r(endpoint, ($) => {
+      this._request(endpoint, ($) => {
         const status = $.statusCode
         const titles = []
 
@@ -333,7 +349,7 @@ class EksiGeneral {
       // make username url ready
       username = username.replace(' ', '-')
 
-      r(`/biri/${username}`, ($) => {
+      this._request(`/biri/${username}`, ($) => {
         const status = $.statusCode
 
         if (status === 200) {
