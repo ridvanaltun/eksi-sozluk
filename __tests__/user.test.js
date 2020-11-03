@@ -1,8 +1,10 @@
 const eksisozluk = require('../src/index')
 
+const instance = new eksisozluk()
+
 describe('User Test', () => {
   test('Getting User', () => {
-    return eksisozluk.getUser('ssg')
+    return instance.user('ssg')
       .then((data) => {
         expect(data.username).toBe('ssg')
         expect(data.user_url).toBe('https://eksisozluk.com/biri/ssg')

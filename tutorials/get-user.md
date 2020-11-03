@@ -1,8 +1,10 @@
 ```javascript
 const eksisozluk = require('eksi-sozluk');
 
-eksisozluk
-    .getUser('ssg')
+const session = new eksisozluk();
+
+session
+    .user('ssg')
     .then((res) => {
       console.log(res);
     })
@@ -13,7 +15,7 @@ eksisozluk
 
 ### Result
 
-```json
+```js
 {
   username: 'ssg',
   user_url: 'https://eksisozluk.com/biri/ssg',

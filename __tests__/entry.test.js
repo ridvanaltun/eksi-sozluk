@@ -1,8 +1,10 @@
 const eksisozluk = require('../src/index')
 
+const instance = new eksisozluk()
+
 describe('Entry Test', () => {
   test('Getting Entry By Id', () => {
-    return eksisozluk.getEntryById(1)
+    return instance.entryById(1)
       .then((data) => {
         expect(data.author).toBe('ssg')
         expect(data.author_id).toBe(8097)

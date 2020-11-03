@@ -1,8 +1,10 @@
 ```javascript
 const eksisozluk = require('eksi-sozluk');
 
-eksisozluk
-    .getEntries('pena', {
+const session = new eksisozluk();
+
+session
+    .entries('pena', {
       page: 1,
     })
     .then((entries) => {
@@ -15,7 +17,7 @@ eksisozluk
 
 ### Result
 
-```json
+```js
 [
   {
     author: 'ssg',

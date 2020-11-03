@@ -1,8 +1,10 @@
 ```javascript
 const eksisozluk = require('eksi-sozluk');
 
-eksisozluk
-    .getTodayInHistory('2018', {
+const session = new eksisozluk();
+
+session
+    .todayInHistory('2018', {
       page: 1,
     })
     .then((res) => {
@@ -15,7 +17,7 @@ eksisozluk
 
 ### Result
 
-```json
+```js
 [
   {
     title: '3 haziran 2018 fenerbahçe seçimli genel kurulu',

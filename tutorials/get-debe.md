@@ -1,8 +1,10 @@
 ```javascript
 const eksisozluk = require('eksi-sozluk');
 
-eksisozluk
-    .getDebe({
+const session = new eksisozluk();
+
+session
+    .debe({
       limit: 5,
     })
     .then((res) => {
@@ -15,7 +17,7 @@ eksisozluk
 
 ### Result
 
-```json
+```js
 [
   {
     title: 'rotator cuff',

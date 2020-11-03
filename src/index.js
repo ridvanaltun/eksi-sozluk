@@ -1,17 +1,14 @@
 'use strict'
 
-const getEntryById = require('./lib/getEntryById')
-const getEntries = require('./lib/getEntries')
-const getTodayInHistory = require('./lib/getTodayInHistory')
-const getUser = require('./lib/getUser')
-const getDebe = require('./lib/getDebe')
+const EksiGeneral = require('./EksiGeneral')
 
-const eksisozluk = {
-  getEntryById,
-  getEntries,
-  getTodayInHistory,
-  getUser,
-  getDebe
+/**
+ * Eksi Sozluk
+ *
+ * All eksisozluk abilities.
+ */
+class EksiSozluk extends EksiGeneral {
+  // @todo
 }
 
-module.exports = eksisozluk
+module.exports = EksiSozluk

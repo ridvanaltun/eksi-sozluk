@@ -1,8 +1,10 @@
 ```javascript
 const eksisozluk = require('eksi-sozluk');
 
-eksisozluk
-    .getEntryById(1)
+const session = new eksisozluk();
+
+session
+    .entryById(1)
     .then(async (entry) => {
       // Upvote
       await entry.upvote();
