@@ -37,12 +37,21 @@ class EksiGeneral {
   _request (options, cb) {
     // handle default options
     const _options = objectAssignDeep({
-      method: 'get'
+      method: 'get',
+      ajax: false
     }, options)
+
+    let headers = {}
+
+    // x-requested-with
+    if (_options.ajax) {
+      headers = { ...headers, 'x-requested-with': 'XMLHttpRequest' }
+    }
 
     this.httpClient({
       method: _options.method,
       url: encodeURI(_options.endpoint),
+      headers,
       transformResponse: (body) => {
         return cheerio.load(body, {
           normalizeWhitespace: true,
@@ -356,6 +365,47 @@ class EksiGeneral {
           })
 
           resolve(tags)
+        } else {
+          reject(new Error('An unknown error occurred.'))
+        }
+      })
+    })
+  }
+
+  /**
+   * A promise for agenda.
+   *
+   * @promise Agenda
+   * @fulfill {Object} The agenda.
+   */
+
+  /**
+   * Fetch agenda.
+   *
+   * @return {Agenda} A promise for the agenda.
+   */
+  agenda () {
+    return new Promise((resolve, reject) => {
+      this._request({ endpoint: '/basliklar/gundem', ajax: true }, ($) => {
+        const status = $.statusCode
+
+        if (status === 200) {
+          const agenda = []
+
+          $('ul.topic-list.partial li a').each(function (i, elm) {
+            const title = $(elm).text()
+            const entryCount = $(elm).find('small').text()
+
+            agenda.push({
+              title: title.substring(0, title.length - (entryCount.length + 1)), // clear title,
+              title_link: c.urls.base + $(elm).attr('href'),
+              entry_count: entryCount.includes('b')
+                ? 1000 * parseInt(entryCount)
+                : parseInt(entryCount) // calculate entry count,
+            })
+          })
+
+          resolve(agenda)
         } else {
           reject(new Error('An unknown error occurred.'))
         }
