@@ -1,6 +1,7 @@
 'use strict'
 
 const EksiGeneral = require('./EksiGeneral')
+const EksiMember = require('./EksiMember')
 const axios = require('axios')
 const objectAssignDeep = require('object-assign-deep')
 const c = require('./constants')
@@ -36,6 +37,18 @@ class EksiSozluk extends EksiGeneral {
 
     // make http client ready
     this.httpClient = axios.create(_options.httpClient)
+  }
+
+  /**
+   * Login with Eksi Sozluk cookies
+   *
+   * @param   {string}      cookies   Eksi Sozluk member cookies
+   *
+   * @return  {EksiMember}            Access of Eksi Sozluk member functionalities
+   */
+  loginWithCookies (cookies) {
+    // todo: test cookies
+    return new EksiMember(cookies, this.httpClient)
   }
 }
 

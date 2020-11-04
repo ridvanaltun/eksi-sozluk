@@ -29,6 +29,8 @@ class EksiGeneral {
    *
    * @param   {Object}          options               HTTP request options
    * @param   {string}          options.endpoint      Endpoint of the request
+   * @param   {string}          [options.cookie]      Auth cookie
+   * @param   {boolean}         [options.ajax=false]  Use ajax HTTP calls
    * @param   {string}          [options.method=get]  HTTP request method
    * @param   {requestCallback} cb                    The callback that handles the response.
    *
@@ -42,6 +44,11 @@ class EksiGeneral {
     }, options)
 
     let headers = {}
+
+    // cookie
+    if (_options.cookie) {
+      headers = { ...headers, cookie: _options.cookie }
+    }
 
     // x-requested-with
     if (_options.ajax) {
