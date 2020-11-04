@@ -328,6 +328,42 @@ class EksiGeneral {
   }
 
   /**
+   * A promise for tags.
+   *
+   * @promise Tags
+   * @fulfill {Object} The tags.
+   */
+
+  /**
+   * Fetch tags.
+   *
+   * @return  {Tags} A promise for the tags.
+   */
+  tags () {
+    return new Promise((resolve, reject) => {
+      this._request({ endpoint: '/kanallar' }, ($) => {
+        const status = $.statusCode
+
+        if (status === 200) {
+          const tags = []
+
+          $('ul#channel-follow-list li').each(function (i, elm) {
+            tags.push({
+              name: $(elm).find('h3 a').text().substring(1, $(elm).find('h3 a').text().length),
+              description: $(elm).find('p').text(),
+              link: c.urls.base + $(elm).find('h3 a').attr('href')
+            })
+          })
+
+          resolve(tags)
+        } else {
+          reject(new Error('An unknown error occurred.'))
+        }
+      })
+    })
+  }
+
+  /**
    * A promise for today in history.
    *
    * @promise TodayInHistory
