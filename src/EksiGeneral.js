@@ -1,6 +1,7 @@
 'use strict'
 
 const axios = require('axios')
+const cheerio = require('cheerio')
 const objectAssignDeep = require('object-assign-deep')
 const { date: d, toEncodeFormUrl } = require('./utils')
 const e = require('./exceptions')
@@ -14,6 +15,55 @@ const c = require('./constants')
  * @ignore
  */
 class EksiGeneral {
+  /**
+   * This callback is displayed as part of the EksiSozluk class.
+   *
+   * @callback Requester~requestCallback
+   *
+   * @param {Object} data            Calculated body from cheerio
+   * @param {Object} data.statusCode Status code of the request
+   */
+
+  /**
+   * Make HTTP request to Eksi Sozluk via this function
+   *
+   * @param   {Object}          options               HTTP request options
+   * @param   {string}          options.endpoint      Endpoint of the request
+   * @param   {string}          [options.method=get]  HTTP request method
+   * @param   {requestCallback} cb                    The callback that handles the response.
+   *
+   * @ignore
+   */
+  _request (options, cb) {
+    // handle default options
+    const _options = objectAssignDeep({
+      method: 'get'
+    }, options)
+
+    this.httpClient({
+      method: _options.method,
+      url: encodeURI(_options.endpoint),
+      transformResponse: (body) => {
+        return cheerio.load(body, {
+          normalizeWhitespace: true,
+          xmlMode: true
+        })
+      }
+    })
+      .then((res) => {
+        const { data } = res
+        data.statusCode = res.status
+        cb(data)
+      })
+      .catch((err) => {
+        // todo: handle edge cases
+        console.log(err)
+        const { data } = err.response
+        data.statusCode = err.response.status
+        cb(data)
+      })
+  }
+
   /**
    * A promise for fetch user.
    *
@@ -110,7 +160,7 @@ class EksiGeneral {
         limit: null
       }, options)
 
-      this._request('/m/debe', ($) => {
+      this._request({ endpoint: '/m/debe' }, ($) => {
         const status = $.statusCode
 
         if (status === 200) {
@@ -154,7 +204,7 @@ class EksiGeneral {
     return new Promise((resolve, reject) => {
       const { _upvote: upvote, _downvote: downvote } = this
 
-      this._request(`/entry/${entryId}`, ($) => {
+      this._request({ endpoint: `/entry/${entryId}` }, ($) => {
         const status = $.statusCode
 
         if (status === 200) {
@@ -230,7 +280,7 @@ class EksiGeneral {
 
       const endpoint = '/?q=' + title + '&p=' + _options.page
 
-      this._request(endpoint, ($) => {
+      this._request({ endpoint }, ($) => {
         const status = $.statusCode
         const entries = []
 
@@ -303,7 +353,7 @@ class EksiGeneral {
 
       const endpoint = '/basliklar/m/tarihte-bugun?year=' + year + '&p=' + _options.page
 
-      this._request(endpoint, ($) => {
+      this._request({ endpoint }, ($) => {
         const status = $.statusCode
         const titles = []
 
@@ -349,7 +399,7 @@ class EksiGeneral {
       // make username url ready
       username = username.replace(' ', '-')
 
-      this._request(`/biri/${username}`, ($) => {
+      this._request({ endpoint: `/biri/${username}` }, ($) => {
         const status = $.statusCode
 
         if (status === 200) {
