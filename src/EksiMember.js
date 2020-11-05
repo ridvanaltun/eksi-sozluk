@@ -95,6 +95,46 @@ class EksiMember extends EksiGeneral {
       })
     })
   }
+
+  /**
+   * A promise for events.
+   *
+   * @promise Events
+   * @fulfill {Object} The events.
+   */
+
+  /**
+   * Fetch events.
+   *
+   * @return {Events} A promise for the events.
+   */
+  events () {
+    return new Promise((resolve, reject) => {
+      this._request({ endpoint: '/basliklar/olay', ajax: true, cookie: this.cookies }, ($) => {
+        const status = $.statusCode
+
+        if (status === 200) {
+          const events = []
+
+          $('ul.topic-list.partial li').each(function (i, elm) {
+            const title = $(elm).text().trim()
+            const entryCount = $(elm).find('a small').text().trim()
+            events.push({
+              title: title.substring(0, title.length - (entryCount.length)).trim(), // clear title
+              title_url: c.urls.base + $(elm).find('a').attr('href'),
+              entry_count: entryCount.includes('b')
+                ? 1000 * parseInt(entryCount)
+                : parseInt(entryCount) ? parseInt(entryCount) : 0 // calculate entry count
+            })
+          })
+
+          resolve(events)
+        } else {
+          reject(new Error('An unknown error occurred.'))
+        }
+      })
+    })
+  }
 }
 
 module.exports = EksiMember
