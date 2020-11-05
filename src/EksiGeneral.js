@@ -8,32 +8,25 @@ const e = require('./exceptions')
 const c = require('./constants')
 
 /**
- * Eksi Sozluk General
- *
- * Not login required actions.
- *
+ * @classdesc Not login required actions.
  * @ignore
  */
 class EksiGeneral {
   /**
    * This callback is displayed as part of the EksiSozluk class.
-   *
    * @callback Requester~requestCallback
-   *
    * @param {Object} data            Calculated body from cheerio
    * @param {Object} data.statusCode Status code of the request
    */
 
   /**
-   * Make HTTP request to Eksi Sozluk via this function
-   *
+   * You can make HTTP requests to Eksi Sozluk via this function
    * @param   {Object}          options               HTTP request options
    * @param   {string}          options.endpoint      Endpoint of the request
    * @param   {string}          [options.cookie]      Auth cookie
    * @param   {boolean}         [options.ajax=false]  Use ajax HTTP calls
    * @param   {string}          [options.method=get]  HTTP request method
    * @param   {requestCallback} cb                    The callback that handles the response.
-   *
    * @ignore
    */
   _request (options, cb) {
@@ -82,17 +75,10 @@ class EksiGeneral {
   }
 
   /**
-   * A promise for fetch user.
-   *
-   * @promise Vote
-   * @reject  {VoteError} Throws when vote error.
-   */
-
-  /**
-   * Upvote.
-   *
-   * @return {Vote} Promise object
-   *
+   * Upvote given entry.
+   * @name Upvote
+   * @function
+   * @return {Promise} Promise.
    * @ignore
    */
   _upvote (authorId, entryId) {
@@ -122,10 +108,10 @@ class EksiGeneral {
   }
 
   /**
-   * Downvote.
-   *
-   * @return {Vote} Promise object
-   *
+   * Downvote given entry.
+   * @name Downvote
+   * @function
+   * @return {Promise} Promise.
    * @ignore
    */
   _downvote (authorId, entryId) {
@@ -155,20 +141,16 @@ class EksiGeneral {
   }
 
   /**
-   * A promise for the yesterday's top entries.
-   *
-   * @promise YesterdayTopEntries
-   * @fulfill {Object} The yesterday's top entries.
-   * @reject {NotFoundError} Throws when debe not found.
+   * @typedef YesterdayTopEntry
+   * @property {string} title Title.
+   * @property {string} url   Title URL.
    */
 
   /**
    * Fetch yesterday's top entries.
-   *
-   * @param   {Object}        options               Parameters that user can specify.
-   * @param   {number}        [options.limit=null]  The result limits.
-   *
-   * @return {YesterdayTopEntries} A promise for the yesterday's top entries.
+   * @param   {Object}                            options               Parameters that user can specify.
+   * @param   {number}                            [options.limit=null]  The result limits.
+   * @return  {Promise.Array<YesterdayTopEntry>}                        A promise for the yesterday's top entries.
    */
   debe (options) {
     return new Promise((resolve, reject) => {
@@ -203,19 +185,31 @@ class EksiGeneral {
   }
 
   /**
-   * A promise for entry by id.
-   *
-   * @promise Entry
-   * @fulfill {Object} The entry.
-   * @reject {NotFoundError} Throws when entry not found.
+   * @typedef Entry
+   * @property {string}        author           Entry author.
+   * @property {number}        author_id        Entry author id.
+   * @property {string}        author_url       Entry author URL.
+   * @property {string}        content          Raw entry content.
+   * @property {string}        content_encoded  Cleaned entry content.
+   * @property {string}        date_created     Created date.
+   * @property {(string|null)} date_modified    Modified date.
+   * @property {(string|null)} eksiseyler_link  Eksi Seyler URL.
+   * @property {(string|null)} eksiseyler_slug  Eksi Seyler slug.
+   * @property {number}        entry_id         Entry id.
+   * @property {number}        favorite_count   Favorite count.
+   * @property {string}        permalink        Entry link.
+   * @property {string}        title            Entry title.
+   * @property {number}        title_id         Entry title id.
+   * @property {string}        title_slug       Entry title slug.
+   * @property {string}        title_url        Entry title URL.
+   * @property {Upvote}        upvote           Upvote function.
+   * @property {Downvote}      downvote         Downvote function.
    */
 
   /**
    * Fetch entry by id.
-   *
-   * @param   {number}  entryId Entry Id.
-   *
-   * @return {Entry} A promise for the entry by id.
+   * @param   {number}          entryId Entry Id.
+   * @return  {Promise.<Entry>}         A promise for the entry.
    */
   entryById (entryId) {
     return new Promise((resolve, reject) => {
@@ -270,21 +264,11 @@ class EksiGeneral {
   }
 
   /**
-   * A promise for entries.
-   *
-   * @promise Entries
-   * @fulfill {Object} The entries.
-   * @reject {NotFoundError} Throws when entries not found.
-   */
-
-  /**
    * Fetch entries.
-   *
-   * @param   {string}  title             Title itself.
-   * @param   {Object}  options           Parameters that user can specify.
-   * @param   {number}  [options.page=1]  Page number of title.
-   *
-   * @return {Entries} A promise for the entries.
+   * @param   {string}                title             Title itself.
+   * @param   {Object}                options           Parameters that user can specify.
+   * @param   {number}                [options.page=1]  Page number of title.
+   * @return  {Promise.Array<Entry>}                    A promise for the entries.
    */
   entries (title, options) {
     return new Promise((resolve, reject) => {
@@ -345,18 +329,17 @@ class EksiGeneral {
   }
 
   /**
-   * A promise for titles by tag.
-   *
-   * @promise TitlesByTag
-   * @fulfill {Object} The titles by tag.
+   * @typedef TitleByTag
+   * @property {string} title       Title.
+   * @property {string} title_link  Title URL.
+   * @property {number} entry_count Entry count.
    */
 
   /**
    * Fetch titles by tag.
-   *
-   * @param   {Object}      options           Parameters that user can specify.
-   * @param   {number}      [options.page=1]  Page.
-   * @return  {TitlesByTag}                   A promise for the titles by tag.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.Array<TitleByTag>}                   A promise for the titles by tag.
    */
   titlesByTag (tagName, options) {
     // handle default options
@@ -404,16 +387,15 @@ class EksiGeneral {
   }
 
   /**
-   * A promise for tags.
-   *
-   * @promise Tags
-   * @fulfill {Object} The tags.
+   * @typedef Tag
+   * @property {string} name        Tag name.
+   * @property {string} description Tag description.
+   * @property {string} link        Tag URL.
    */
 
   /**
    * Fetch tags.
-   *
-   * @return  {Tags} A promise for the tags.
+   * @return  {Promise.Array<Tag>} A promise for the tags.
    */
   tags () {
     return new Promise((resolve, reject) => {
@@ -440,16 +422,15 @@ class EksiGeneral {
   }
 
   /**
-   * A promise for agenda.
-   *
-   * @promise Agenda
-   * @fulfill {Object} The agenda.
+   * @typedef Agenda
+   * @property {string} title       Entry title.
+   * @property {string} title_link  Entry title link.
+   * @property {number} entry_count Entry count.
    */
 
   /**
    * Fetch agenda.
-   *
-   * @return {Agenda} A promise for the agenda.
+   * @return {Promise.Array<Agenda>} A promise for the agenda.
    */
   agenda () {
     return new Promise((resolve, reject) => {
@@ -481,16 +462,16 @@ class EksiGeneral {
   }
 
   /**
-   * A promise for question.
-   *
-   * @promise Question
-   * @fulfill {Object} The question.
+   * @typedef Question
+   * @property {string} title           Entry title.
+   * @property {string} question_title  Question title.
+   * @property {string} question_link   Question URL.
+   * @property {number} answer_count    Answer count.
    */
 
   /**
    * Fetch questions.
-   *
-   * @return {Question} A promise for the question.
+   * @return {Promise.Array<Question>} A promise for the question.
    */
   questions () {
     return new Promise((resolve, reject) => {
@@ -524,21 +505,18 @@ class EksiGeneral {
   }
 
   /**
-   * A promise for today in history.
-   *
-   * @promise TodayInHistory
-   * @fulfill {Object} The today in history.
-   * @reject {NotFoundError} Throws when today in history not found.
+   * @typedef TodayInHistory
+   * @property {string} title       Entry title.
+   * @property {string} title_link  Entry title link.
+   * @property {number} entry_count Entry count.
    */
 
   /**
    * Fetch today in history.
-   *
-   * @param   {string}  year              A year.
-   * @param   {Object}  options           Parameters that user can specify.
-   * @param   {number}  [options.page=1]  Page number.
-   *
-   * @return {TodayInHistory} A promise for the today in history.
+   * @param   {string}                        year              A year.
+   * @param   {Object}                        options           Parameters that user can specify.
+   * @param   {number}                        [options.page=1]  Page number.
+   * @return  {Promise.Array<TodayInHistory>}                   A promise for the today in history.
    */
   todayInHistory (year, options) {
     return new Promise((resolve, reject) => {
@@ -576,19 +554,28 @@ class EksiGeneral {
   }
 
   /**
-   * A promise for fetch user.
-   *
-   * @promise User
-   * @fulfill {Object} The user.
-   * @reject {NotFoundError} Throws when user not found.
+   * @typedef UserBadge
+   * @property {string}         name        Badge name.
+   * @property {(string|null)}  description Badge description.
+   */
+
+  /**
+   * @typedef User
+   * @property {string}           username              Username.
+   * @property {string}           user_url              User URL.
+   * @property {Array<UserBadge>} user_badges           Badge list.
+   * @property {number}           user_badge_points     Badge points.
+   * @property {number}           entry_count_total     Total entry count.
+   * @property {number}           entry_count_lastmonth Last month entry count.
+   * @property {number}           entry_count_lastweek  Last week entry count.
+   * @property {number}           entry_count_today     Today entry count.
+   * @property {string}           last_entry_time       Last entry time.
    */
 
   /**
    * Fetch user.
-   *
-   * @param   {string}  username  Username.
-   *
-   * @return {User} A promise for the user.
+   * @param   {string}          username  Username.
+   * @return  {Promise.<User>}            A promise for the user.
    */
   user (username) {
     return new Promise((resolve, reject) => {

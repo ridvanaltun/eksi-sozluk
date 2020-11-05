@@ -7,18 +7,12 @@ const objectAssignDeep = require('object-assign-deep')
 const c = require('./constants')
 
 /**
- * Eksi Sozluk
- *
- * Manage all Eksi Sozluk abilities from this class.
- *
- * @augments EksiGeneral
+ * @classdesc Manage all Eksi Sozluk abilities.
+ * @augments  EksiGeneral
  */
 class EksiSozluk extends EksiGeneral {
   /**
    * Create an Eksi Sozluk instance
-   *
-   * @constructor
-   *
    * @param   {Object}  options                                             Eksi Sozluk instance settings
    * @param   {Object}  options.httpClient                                  Axios settings as HTTP client, all Axios settings are useable
    * @param   {number}  [options.httpClient.timeout=3000]                   Timeout of requests in miliseconds
@@ -41,9 +35,7 @@ class EksiSozluk extends EksiGeneral {
 
   /**
    * Login with Eksi Sozluk cookies
-   *
    * @param   {string}      cookies   Eksi Sozluk member cookies
-   *
    * @return  {EksiMember}            Access of Eksi Sozluk member functionalities
    */
   loginWithCookies (cookies) {
