@@ -277,11 +277,15 @@ class EksiGeneral {
         page: 1
       }, options)
 
+      // handle params
+      const params = {
+        q: title,
+        p: _options.page
+      }
+
       const { _upvote: upvote, _downvote: downvote } = this
 
-      const endpoint = '/?q=' + title + '&p=' + _options.page
-
-      this._request({ endpoint }, ($) => {
+      this._request({ endpoint: '/', params }, ($) => {
         const status = $.statusCode
         const entries = []
 
@@ -525,9 +529,13 @@ class EksiGeneral {
         page: 1
       }, options)
 
-      const endpoint = '/basliklar/m/tarihte-bugun?year=' + year + '&p=' + _options.page
+      // handle params
+      const params = {
+        year,
+        p: _options.page
+      }
 
-      this._request({ endpoint }, ($) => {
+      this._request({ endpoint: '/basliklar/m/tarihte-bugun', params }, ($) => {
         const status = $.statusCode
         const titles = []
 
