@@ -1,3 +1,4 @@
+const objectAssignDeep = require('object-assign-deep')
 const EksiGeneral = require('./EksiGeneral')
 const c = require('./constants')
 
@@ -167,6 +168,61 @@ class EksiMember extends EksiGeneral {
           })
 
           resolve(drafts)
+        } else {
+          reject(new Error('An unknown error occurred.'))
+        }
+      })
+    })
+  }
+
+  /**
+   * A promise for followed user entries.
+   *
+   * @promise FollowedUserEntries
+   * @fulfill {Object} The followed user entries.
+   */
+
+  /**
+   * Fetch followed user entries.
+   *
+   * @param   {Object}  options           Parameters that user can specify.
+   * @param   {number}  [options.page=1]  Page.
+   * @return  {FollowedUserEntries}       A promise for the followed user entries.
+   */
+  followedUserEntries (options) {
+    // handle default options
+    const _options = objectAssignDeep({
+      page: 1
+    }, options)
+
+    // handle params
+    const params = {
+      p: _options.page
+    }
+
+    return new Promise((resolve, reject) => {
+      this._request({
+        endpoint: '/basliklar/takipentry',
+        ajax: true,
+        cookie: this.cookies,
+        params
+      }, ($) => {
+        const status = $.statusCode
+
+        if (status === 200) {
+          const followedUserEntries = []
+
+          $('ul.topic-list.partial li').each(function (i, elm) {
+            const title = $(elm).text().trim()
+            const owner = $(elm).find('a div').text().trim()
+            followedUserEntries.push({
+              title: title.substring(0, title.length - (owner.length)).trim(), // clear title
+              title_url: c.urls.base + $(elm).find('a').attr('href'),
+              entry_owner: owner
+            })
+          })
+
+          resolve(followedUserEntries)
         } else {
           reject(new Error('An unknown error occurred.'))
         }

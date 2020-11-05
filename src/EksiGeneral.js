@@ -59,6 +59,7 @@ class EksiGeneral {
       method: _options.method,
       url: encodeURI(_options.endpoint),
       headers,
+      params: _options.params ? _options.params : {},
       transformResponse: (body) => {
         return cheerio.load(body, {
           normalizeWhitespace: true,
