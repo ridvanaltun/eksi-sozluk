@@ -135,6 +135,44 @@ class EksiMember extends EksiGeneral {
       })
     })
   }
+
+  /**
+   * A promise for drafts.
+   *
+   * @promise Drafts
+   * @fulfill {Object} The drafts.
+   */
+
+  /**
+   * Fetch drafts.
+   *
+   * @return {Drafts} A promise for the drafts.
+   */
+  drafts () {
+    return new Promise((resolve, reject) => {
+      this._request({ endpoint: '/basliklar/kenar', ajax: true, cookie: this.cookies }, ($) => {
+        const status = $.statusCode
+
+        if (status === 200) {
+          const drafts = []
+
+          $('ul.topic-list.partial li').each(function (i, elm) {
+            const title = $(elm).text().trim()
+            const date = $(elm).find('a div').text().trim()
+            drafts.push({
+              title: title.substring(0, title.length - (date.length)).trim(), // clear title
+              title_url: c.urls.base + $(elm).find('a').attr('href'),
+              draft_date: date
+            })
+          })
+
+          resolve(drafts)
+        } else {
+          reject(new Error('An unknown error occurred.'))
+        }
+      })
+    })
+  }
 }
 
 module.exports = EksiMember
