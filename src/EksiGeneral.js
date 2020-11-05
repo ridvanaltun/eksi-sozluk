@@ -345,6 +345,65 @@ class EksiGeneral {
   }
 
   /**
+   * A promise for titles by tag.
+   *
+   * @promise TitlesByTag
+   * @fulfill {Object} The titles by tag.
+   */
+
+  /**
+   * Fetch titles by tag.
+   *
+   * @param   {Object}      options           Parameters that user can specify.
+   * @param   {number}      [options.page=1]  Page.
+   * @return  {TitlesByTag}                   A promise for the titles by tag.
+   */
+  titlesByTag (tagName, options) {
+    // handle default options
+    const _options = objectAssignDeep(
+      {
+        page: 1
+      },
+      options
+    )
+
+    // handle params
+    const params = {
+      p: _options.page
+    }
+
+    return new Promise((resolve, reject) => {
+      this._request({
+        endpoint: `/basliklar/kanal/${tagName}`,
+        ajax: true,
+        params
+      }, ($) => {
+        const status = $.statusCode
+
+        if (status === 200) {
+          const titles = []
+
+          $('ul.topic-list.partial li a').each(function (i, elm) {
+            const title = $(elm).text()
+            const entryCount = $(elm).find('small').text()
+            titles.push({
+              title: title.substring(0, title.length - (entryCount.length)).trim(),
+              title_link: c.urls.base + $(elm).attr('href'),
+              entry_count: entryCount.includes('b')
+                ? 1000 * parseInt(entryCount)
+                : parseInt(entryCount) ? parseInt(entryCount) : 1 // calculate entry count,,
+            })
+          })
+
+          resolve(titles)
+        } else {
+          reject(new Error('An unknown error occurred.'))
+        }
+      })
+    })
+  }
+
+  /**
    * A promise for tags.
    *
    * @promise Tags
