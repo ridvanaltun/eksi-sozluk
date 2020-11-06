@@ -107,11 +107,13 @@ class EksiSozluk {
   /**
    * Upvote given entry.
    * @name Upvote
-   * @function
-   * @return {Promise} Promise.
+   * @param  {number}  authorId  Author ID.
+   * @param  {number}  entryId   Entry ID.
+   * @param  {string}  cookie    Cookie string.
+   * @return {Promise}           Promise.
    * @ignore
    */
-  _upvote (authorId, entryId) {
+  _upvote (authorId, entryId, cookie) {
     return () => {
       return new Promise((resolve, reject) => {
         const rate = 1
@@ -119,7 +121,10 @@ class EksiSozluk {
         axios({
           url: c.urls.vote,
           method: 'post',
-          headers: { 'x-requested-with': 'XMLHttpRequest' },
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            cookie
+          },
           data: toEncodeFormUrl({
             id: entryId,
             rate,
@@ -140,11 +145,13 @@ class EksiSozluk {
   /**
    * Downvote given entry.
    * @name Downvote
-   * @function
-   * @return {Promise} Promise.
+   * @param  {number}  authorId  Author ID.
+   * @param  {number}  entryId   Entry ID.
+   * @param  {string}  cookie    Cookie string.
+   * @return {Promise}           Promise.
    * @ignore
    */
-  _downvote (authorId, entryId) {
+  _downvote (authorId, entryId, cookie) {
     return () => {
       return new Promise((resolve, reject) => {
         const rate = -1
@@ -152,10 +159,48 @@ class EksiSozluk {
         axios({
           url: c.urls.vote,
           method: 'post',
-          headers: { 'x-requested-with': 'XMLHttpRequest' },
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            cookie
+          },
           data: toEncodeFormUrl({
             id: entryId,
             rate,
+            owner: authorId
+          })
+        })
+          .then((res) => {
+            // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
+            resolve()
+          })
+          .catch((error) => {
+            reject(new e.VoteError(error.message))
+          })
+      })
+    }
+  }
+
+  /**
+   * Remove vote given entry.
+   * @name Removevote
+   * @param  {number}  authorId  Author ID.
+   * @param  {number}  entryId   Entry ID.
+   * @param  {string}  cookie    Cookie string.
+   * @return {Promise}           Promise.
+   * @ignore
+   */
+  _removevote (authorId, entryId, cookie) {
+    return () => {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: c.urls.removevote,
+          method: 'post',
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            cookie
+          },
+          data: toEncodeFormUrl({
+            id: entryId,
             owner: authorId
           })
         })
@@ -234,6 +279,7 @@ class EksiSozluk {
    * @property {string}        title_url        Entry title URL.
    * @property {Upvote}        upvote           Upvote function.
    * @property {Downvote}      downvote         Downvote function.
+   * @property {Removevote}    removevote       Remove vote function.
    */
 
   /**
@@ -243,11 +289,12 @@ class EksiSozluk {
    */
   entryById (entryId) {
     return new Promise((resolve, reject) => {
-      const { _upvote: upvote, _downvote: downvote } = this
+      const { _upvote: upvote, _downvote: downvote, _removevote: removevote } = this
 
       this._request({ endpoint: `/entry/${entryId}` }, ($) => {
         const status = $.statusCode
 
+        // success
         if (status === 200) {
           const date = d(
             $('ul#entry-item-list li footer div.info a.permalink').text()
@@ -280,14 +327,15 @@ class EksiSozluk {
             title_id: $('h1#title').data('id'),
             title_slug: $('h1#title').data('slug'),
             title_url: c.urls.base + $('h1#title a').attr('href'),
-            upvote: upvote(authorId, entryId),
-            downvote: downvote(authorId, entryId)
+            upvote: upvote(authorId, entryId, this.cookies),
+            downvote: downvote(authorId, entryId, this.cookies),
+            removevote: removevote(authorId, entryId, this.cookies)
           }
           resolve(entry)
-        } else if (status === 404) {
+        }
+
+        if (status === 404) {
           reject(new e.NotFoundError('Entry not found.'))
-        } else {
-          reject(new Error('An unknown error occurred.'))
         }
       })
     })
@@ -313,13 +361,14 @@ class EksiSozluk {
         p: _options.page
       }
 
-      const { _upvote: upvote, _downvote: downvote } = this
+      const { _upvote: upvote, _downvote: downvote, _removevote: removevote } = this
 
       this._request({ endpoint: '/', params }, ($) => {
         const status = $.statusCode
-        const entries = []
 
+        // success
         if (status === 200) {
+          const entries = []
           $('ul#entry-item-list li').each(function (i, elm) {
             const date = d($(elm).find('a.entry-date').text())
             const isEksiseylerExist = $(elm).data('seyler-slug') !== ''
@@ -348,15 +397,17 @@ class EksiSozluk {
               title_id: $('h1#title').data('id'),
               title_slug: $('h1#title').data('slug'),
               title_url: c.urls.base + $('h1#title a').attr('href'),
-              upvote: upvote(authorId, entryId),
-              downvote: downvote(authorId, entryId)
+              upvote: upvote(authorId, entryId, this.cookies),
+              downvote: downvote(authorId, entryId, this.cookies),
+              removevote: removevote(authorId, entryId, this.cookies)
             })
           })
           resolve(entries)
-        } else if (status === 404) {
+        }
+
+        // title has not an entry
+        if (status === 404) {
           reject(new e.NotFoundError('Entries not found.'))
-        } else {
-          reject(new Error('An unknown error occurred.'))
         }
       })
     })
@@ -397,9 +448,9 @@ class EksiSozluk {
       }, ($) => {
         const status = $.statusCode
 
+        // success
         if (status === 200) {
           const titles = []
-
           $('ul.topic-list.partial li a').each(function (i, elm) {
             const title = $(elm).text()
             const entryCount = $(elm).find('small').text()
@@ -411,10 +462,7 @@ class EksiSozluk {
                 : parseInt(entryCount) ? parseInt(entryCount) : 1 // calculate entry count,,
             })
           })
-
           resolve(titles)
-        } else {
-          reject(new Error('An unknown error occurred.'))
         }
       })
     })
@@ -436,9 +484,9 @@ class EksiSozluk {
       this._request({ endpoint: '/kanallar' }, ($) => {
         const status = $.statusCode
 
+        // success
         if (status === 200) {
           const tags = []
-
           $('ul#channel-follow-list li').each(function (i, elm) {
             tags.push({
               name: $(elm).find('h3 a').text().substring(1, $(elm).find('h3 a').text().length),
@@ -446,10 +494,7 @@ class EksiSozluk {
               link: c.urls.base + $(elm).find('h3 a').attr('href')
             })
           })
-
           resolve(tags)
-        } else {
-          reject(new Error('An unknown error occurred.'))
         }
       })
     })
@@ -471,13 +516,12 @@ class EksiSozluk {
       this._request({ endpoint: '/basliklar/gundem', ajax: true }, ($) => {
         const status = $.statusCode
 
+        // success
         if (status === 200) {
           const agenda = []
-
           $('ul.topic-list.partial li a').each(function (i, elm) {
             const title = $(elm).text()
             const entryCount = $(elm).find('small').text()
-
             agenda.push({
               title: title.substring(0, title.length - (entryCount.length + 1)), // clear title,
               title_link: c.urls.base + $(elm).attr('href'),
@@ -486,10 +530,7 @@ class EksiSozluk {
                 : parseInt(entryCount) // calculate entry count,
             })
           })
-
           resolve(agenda)
-        } else {
-          reject(new Error('An unknown error occurred.'))
         }
       })
     })
@@ -512,14 +553,13 @@ class EksiSozluk {
       this._request({ endpoint: '/basliklar/sorunsal', ajax: true }, ($) => {
         const status = $.statusCode
 
+        // success
         if (status === 200) {
           const questions = []
-
           $('ul.topic-list.partial li a').each(function (i, elm) {
             const title = $(elm).find('div').text()
             const answerCount = $(elm).find('small').text()
             const questionTitle = $(elm).text().split(title)[0]
-
             questions.push({
               title: title.substring(1, title.length - 1), // clear title,
               question_title: questionTitle.substring(0, questionTitle.length - 1), // delete last white space
@@ -529,10 +569,7 @@ class EksiSozluk {
                 : parseInt(answerCount) // calculate answer count,
             })
           })
-
           resolve(questions)
-        } else {
-          reject(new Error('An unknown error occurred.'))
         }
       })
     })
@@ -567,9 +604,10 @@ class EksiSozluk {
 
       this._request({ endpoint: '/basliklar/m/tarihte-bugun', params }, ($) => {
         const status = $.statusCode
-        const titles = []
 
+        // success
         if (status === 200) {
+          const titles = []
           $('ul.topic-list.partial.mobile li').each(function (i, elm) {
             const title = $(elm).text().trim()
             const entryCount = $(elm).find('a small').text().trim()
@@ -582,10 +620,10 @@ class EksiSozluk {
             })
           })
           resolve(titles)
-        } else if (status === 404) {
+        }
+
+        if (status === 404) {
           reject(new e.NotFoundError('Today in history not found.'))
-        } else {
-          reject(new Error('An unknown error occurred.'))
         }
       })
     })
@@ -623,6 +661,7 @@ class EksiSozluk {
       this._request({ endpoint: `/biri/${username}` }, ($) => {
         const status = $.statusCode
 
+        // success
         if (status === 200) {
           // start - split badges
           const badges = []
@@ -665,10 +704,10 @@ class EksiSozluk {
             last_entry_time: $('ul li#last-entry-time').text().trim()
           }
           resolve(user)
-        } else if (status === 404) {
+        }
+
+        if (status === 404) {
           reject(new e.NotFoundError('User not found.'))
-        } else {
-          reject(new Error('An unknown error occurred.'))
         }
       })
     })
