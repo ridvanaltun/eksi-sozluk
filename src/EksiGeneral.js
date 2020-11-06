@@ -67,7 +67,6 @@ class EksiGeneral {
       })
       .catch((err) => {
         // todo: handle edge cases
-        console.log(err)
         const { data } = err.response
         data.statusCode = err.response.status
         cb(data)
@@ -267,7 +266,7 @@ class EksiGeneral {
    * Fetch entries.
    * @param   {string}                title             Title itself.
    * @param   {Object}                options           Parameters that user can specify.
-   * @param   {number}                [options.page=1]  Page number of title.
+   * @param   {number}                [options.page=1]  Page number.
    * @return  {Promise.Array<Entry>}                    A promise for the entries.
    */
   entries (title, options) {
