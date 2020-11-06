@@ -1,7 +1,7 @@
 ```javascript
-const eksisozluk = require('eksi-sozluk');
+const { EksiSozluk } = require('eksi-sozluk');
 
-const session = new eksisozluk();
+const session = new EksiSozluk();
 
 session
     .debe({
@@ -17,7 +17,7 @@ session
 
 ### Result
 
-```js
+```javascript
 [
   {
     title: 'rotator cuff',

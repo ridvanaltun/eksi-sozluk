@@ -1,6 +1,6 @@
-const eksisozluk = require('../src/index')
+const { EksiSozluk } = require('../src/index')
 
-const instance = new eksisozluk()
+const instance = new EksiSozluk()
 
 describe('Today in History Test', () => {
   test('Getting Today in History', () => {

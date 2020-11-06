@@ -5,7 +5,7 @@ const cheerio = require('cheerio')
 const objectAssignDeep = require('object-assign-deep')
 const { date: d, toEncodeFormUrl } = require('./utils')
 const c = require('./constants')
-const e = require('./exceptions')
+const { AuthError, VoteError, NotFoundError } = require('./exceptions')
 
 /**
  * @classdesc Manage all Eksi Sozluk abilities.
@@ -136,7 +136,7 @@ class EksiSozluk {
             resolve()
           })
           .catch((error) => {
-            reject(new e.VoteError(error.message))
+            reject(new VoteError(error.message))
           })
       })
     }
@@ -174,7 +174,7 @@ class EksiSozluk {
             resolve()
           })
           .catch((error) => {
-            reject(new e.VoteError(error.message))
+            reject(new VoteError(error.message))
           })
       })
     }
@@ -209,7 +209,7 @@ class EksiSozluk {
             resolve()
           })
           .catch((error) => {
-            reject(new e.VoteError(error.message))
+            reject(new VoteError(error.message))
           })
       })
     }
@@ -251,7 +251,7 @@ class EksiSozluk {
 
           resolve(debe)
         } else if (status === 404) {
-          reject(new e.NotFoundError('Debe not found.'))
+          reject(new NotFoundError('Debe not found.'))
         } else {
           reject(new Error('An unknown error occurred.'))
         }
@@ -335,7 +335,7 @@ class EksiSozluk {
         }
 
         if (status === 404) {
-          reject(new e.NotFoundError('Entry not found.'))
+          reject(new NotFoundError('Entry not found.'))
         }
       })
     })
@@ -407,7 +407,7 @@ class EksiSozluk {
 
         // title has not an entry
         if (status === 404) {
-          reject(new e.NotFoundError('Entries not found.'))
+          reject(new NotFoundError('Entries not found.'))
         }
       })
     })
@@ -623,7 +623,7 @@ class EksiSozluk {
         }
 
         if (status === 404) {
-          reject(new e.NotFoundError('Today in history not found.'))
+          reject(new NotFoundError('Today in history not found.'))
         }
       })
     })
@@ -707,7 +707,7 @@ class EksiSozluk {
         }
 
         if (status === 404) {
-          reject(new e.NotFoundError('User not found.'))
+          reject(new NotFoundError('User not found.'))
         }
       })
     })
@@ -772,7 +772,7 @@ class EksiSozluk {
 
         // not authorized
         if (status === 404) {
-          reject(new e.AuthError())
+          reject(new AuthError())
         }
       })
     })
@@ -837,7 +837,7 @@ class EksiSozluk {
 
         // not authorized
         if (status === 403) {
-          reject(new e.AuthError())
+          reject(new AuthError())
         }
       })
     })
@@ -888,7 +888,7 @@ class EksiSozluk {
 
         // not authorized
         if (status === 403) {
-          reject(new e.AuthError())
+          reject(new AuthError())
         }
       })
     })
@@ -949,7 +949,7 @@ class EksiSozluk {
 
         // not authorized
         if (status === 403) {
-          reject(new e.AuthError())
+          reject(new AuthError())
         }
       })
     })
@@ -1010,11 +1010,16 @@ class EksiSozluk {
 
         // not authorized
         if (status === 403) {
-          reject(new e.AuthError())
+          reject(new AuthError())
         }
       })
     })
   }
 }
 
-module.exports = EksiSozluk
+module.exports = {
+  EksiSozluk,
+  AuthError,
+  VoteError,
+  NotFoundError
+}

@@ -1,7 +1,7 @@
 ```javascript
-const eksisozluk = require('eksi-sozluk');
+const { EksiSozluk } = require('eksi-sozluk');
 
-const session = new eksisozluk();
+const session = new EksiSozluk();
 
 session
     .entryById(1)
@@ -15,7 +15,7 @@ session
 
 ### Result
 
-```js
+```javascript
 {
   author: 'ssg',
   author_id: 8097,
