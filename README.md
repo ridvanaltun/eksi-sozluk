@@ -13,11 +13,11 @@
 $ npm install eksi-sozluk --save
 ```
 
-## Document
+## Documentation
 
-The document is automatically created with [JSDoc](https://github.com/jsdoc/jsdoc) after each new release.
+Documentation is automatically created with [JSDoc](https://github.com/jsdoc/jsdoc) after each new release.
 
-[You can find the document here!](https://ridvanaltun.github.io/eksi-sozluk/)
+[You can find the documentation here!](https://ridvanaltun.github.io/eksi-sozluk/)
 
 ## Special Thanks
 
