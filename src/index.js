@@ -958,9 +958,10 @@ class EksiSozluk {
 
   /**
    * @typedef Draft
-   * @property {string} title       Title.
-   * @property {string} title_url   Title URL.
-   * @property {string} draft_date  Draft date.
+   * @property {string}         title         Title.
+   * @property {string}         title_url     Title URL.
+   * @property {string}         date_created  Created date.
+   * @property {(string|null)}  date_modified Modified date.
    */
 
   /**
@@ -1000,10 +1001,12 @@ class EksiSozluk {
           $('ul.topic-list.partial li').each(function (i, elm) {
             const title = $(elm).text().trim()
             const date = $(elm).find('a div').text().trim()
+            const calculatedDate = d(date)
             drafts.push({
               title: title.substring(0, title.length - date.length).trim(), // clear title
               title_url: c.urls.base + $(elm).find('a').attr('href'),
-              draft_date: date
+              date_created: calculatedDate.created,
+              date_modified: calculatedDate.modified
             })
           })
           resolve(drafts)
