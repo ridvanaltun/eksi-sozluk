@@ -116,10 +116,10 @@ class EksiSozluk {
           .catch((error) => {
             reject(new Error(error.message))
           })
+      } else {
+        // cookies not exist, return false
+        resolve(false)
       }
-
-      // cookies not exist, return false
-      resolve(false)
     })
   }
 
