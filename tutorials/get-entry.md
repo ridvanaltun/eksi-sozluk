@@ -32,9 +32,6 @@ session
   title: 'pena',
   title_id: 31782,
   title_slug: 'pena',
-  title_url: 'https://eksisozluk.com/pena--31782',
-  upvote: [Function: upvote],
-  downvote: [Function: downvote],
-  removevote: [Function: removevote]
+  title_url: 'https://eksisozluk.com/pena--31782'
 }
 ```

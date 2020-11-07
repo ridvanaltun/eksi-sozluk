@@ -35,10 +35,7 @@ session
     title: 'pena',
     title_id: 31782,
     title_slug: 'pena',
-    title_url: 'https://eksisozluk.com/pena--31782',
-    upvote: [Function: upvote],
-    downvote: [Function: downvote],
-    removevote: [Function: removevote]
+    title_url: 'https://eksisozluk.com/pena--31782'
   },
   {
     author: 'ssg',
@@ -56,10 +53,7 @@ session
     title: 'pena',
     title_id: 31782,
     title_slug: 'pena',
-    title_url: 'https://eksisozluk.com/pena--31782',
-    upvote: [Function: upvote],
-    downvote: [Function: downvote],
-    removevote: [Function: removevote]
+    title_url: 'https://eksisozluk.com/pena--31782'
   },
   {
     author: 'otisabi',
@@ -77,10 +71,7 @@ session
     title: 'pena',
     title_id: 31782,
     title_slug: 'pena',
-    title_url: 'https://eksisozluk.com/pena--31782',
-    upvote: [Function: upvote],
-    downvote: [Function: downvote],
-    removevote: [Function: removevote]
+    title_url: 'https://eksisozluk.com/pena--31782'
   },
   {
     author: 'stranger',
@@ -98,10 +89,7 @@ session
     title: 'pena',
     title_id: 31782,
     title_slug: 'pena',
-    title_url: 'https://eksisozluk.com/pena--31782',
-    upvote: [Function: upvote],
-    downvote: [Function: downvote],
-    removevote: [Function: removevote]
+    title_url: 'https://eksisozluk.com/pena--31782'
   },
   {
     author: 'cyrano',
@@ -119,10 +107,7 @@ session
     title: 'pena',
     title_id: 31782,
     title_slug: 'pena',
-    title_url: 'https://eksisozluk.com/pena--31782',
-    upvote: [Function: upvote],
-    downvote: [Function: downvote],
-    removevote: [Function: removevote]
+    title_url: 'https://eksisozluk.com/pena--31782'
   },
   {
     author: 'holyrider',
@@ -140,10 +125,7 @@ session
     title: 'pena',
     title_id: 31782,
     title_slug: 'pena',
-    title_url: 'https://eksisozluk.com/pena--31782',
-    upvote: [Function: upvote],
-    downvote: [Function: downvote],
-    removevote: [Function: removevote]
+    title_url: 'https://eksisozluk.com/pena--31782'
   },
   {
     author: 'barbar',
@@ -161,10 +143,7 @@ session
     title: 'pena',
     title_id: 31782,
     title_slug: 'pena',
-    title_url: 'https://eksisozluk.com/pena--31782',
-    upvote: [Function: upvote],
-    downvote: [Function: downvote],
-    removevote: [Function: removevote]
+    title_url: 'https://eksisozluk.com/pena--31782'
   },
   {
     author: 'ahmet corleone',
@@ -183,10 +162,7 @@ eiyorum hep kaybolan penalarin.(bkz: pena cenneti)',
     title: 'pena',
     title_id: 31782,
     title_slug: 'pena',
-    title_url: 'https://eksisozluk.com/pena--31782',
-    upvote: [Function: upvote],
-    downvote: [Function: downvote],
-    removevote: [Function: removevote]
+    title_url: 'https://eksisozluk.com/pena--31782'
   },
   {
     author: 'nevermind',
@@ -204,10 +180,7 @@ eiyorum hep kaybolan penalarin.(bkz: pena cenneti)',
     title: 'pena',
     title_id: 31782,
     title_slug: 'pena',
-    title_url: 'https://eksisozluk.com/pena--31782',
-    upvote: [Function: upvote],
-    downvote: [Function: downvote],
-    removevote: [Function: removevote]
+    title_url: 'https://eksisozluk.com/pena--31782'
   },
   {
     author: 'supernova',
@@ -225,10 +198,7 @@ eiyorum hep kaybolan penalarin.(bkz: pena cenneti)',
     title: 'pena',
     title_id: 31782,
     title_slug: 'pena',
-    title_url: 'https://eksisozluk.com/pena--31782',
-    upvote: [Function: upvote],
-    downvote: [Function: downvote],
-    removevote: [Function: removevote]
+    title_url: 'https://eksisozluk.com/pena--31782'
   },
   {
     author: 'supernova',
@@ -246,10 +216,7 @@ eiyorum hep kaybolan penalarin.(bkz: pena cenneti)',
     title: 'pena',
     title_id: 31782,
     title_slug: 'pena',
-    title_url: 'https://eksisozluk.com/pena--31782',
-    upvote: [Function: upvote],
-    downvote: [Function: downvote],
-    removevote: [Function: removevote]
+    title_url: 'https://eksisozluk.com/pena--31782'
   }
 ]
 ```

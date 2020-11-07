@@ -96,11 +96,46 @@ class EksiSozluk {
   }
 
   /**
-   * Login with Eksi Sozluk cookies
-   * @param {string} cookies Eksi Sozluk member cookies
+   * Chech is user authenticated or not.
+   * @return  {Promise.<boolean>}  If user authenticated returns true, otherwise false.
    */
-  loginWithCookies (cookies) {
-    // todo: test cookies
+  isAuthenticated (cookies = this.cookies) {
+    return new Promise((resolve, reject) => {
+      if (cookies) {
+        axios({
+          url: c.urls.base,
+          method: 'get',
+          headers: {
+            cookie: cookies
+          }
+        })
+          .then((res) => {
+            const isLoggedIn = res.data.includes('data-logged-in="true"')
+            resolve(isLoggedIn)
+          })
+          .catch((error) => {
+            reject(new Error(error.message))
+          })
+      }
+
+      // cookies not exist, return false
+      resolve(false)
+    })
+  }
+
+  /**
+   * Login with Eksi Sozluk cookies
+   * @param  {string}    cookies Eksi Sozluk member's session cookies.
+   * @throws {AuthError}         User not authorized.
+   */
+  async loginWithCookies (cookies) {
+    const isAuthenticated = await this.isAuthenticated(cookies)
+
+    if (!isAuthenticated) {
+      throw new AuthError()
+    }
+
+    // success, save cookies
     this.cookies = cookies
   }
 
@@ -133,7 +168,11 @@ class EksiSozluk {
         })
           .then((res) => {
             // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
-            resolve()
+            if (res.data.Success) {
+              resolve()
+            } else {
+              reject(new VoteError('Something goes wrong.'))
+            }
           })
           .catch((error) => {
             reject(new VoteError(error.message))
@@ -171,7 +210,11 @@ class EksiSozluk {
         })
           .then((res) => {
             // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
-            resolve()
+            if (res.data.Success) {
+              resolve()
+            } else {
+              reject(new VoteError('Something goes wrong.'))
+            }
           })
           .catch((error) => {
             reject(new VoteError(error.message))
@@ -206,7 +249,11 @@ class EksiSozluk {
         })
           .then((res) => {
             // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
-            resolve()
+            if (res.data.Success) {
+              resolve()
+            } else {
+              reject(new VoteError('Entry not voted before.'))
+            }
           })
           .catch((error) => {
             reject(new VoteError(error.message))
@@ -289,8 +336,6 @@ class EksiSozluk {
    */
   entryById (entryId) {
     return new Promise((resolve, reject) => {
-      const { _upvote: upvote, _downvote: downvote, _removevote: removevote } = this
-
       this._request({ endpoint: `/entry/${entryId}` }, ($) => {
         const status = $.statusCode
 
@@ -304,7 +349,7 @@ class EksiSozluk {
 
           const authorId = $('ul#entry-item-list li').data('author-id')
 
-          const entry = {
+          let entry = {
             author: $('ul#entry-item-list li').data('author'),
             author_id: authorId,
             author_url: c.urls.user + $('ul#entry-item-list li').data('author'),
@@ -326,11 +371,20 @@ class EksiSozluk {
             title: $('h1#title').data('title'),
             title_id: $('h1#title').data('id'),
             title_slug: $('h1#title').data('slug'),
-            title_url: c.urls.base + $('h1#title a').attr('href'),
-            upvote: upvote(authorId, entryId, this.cookies),
-            downvote: downvote(authorId, entryId, this.cookies),
-            removevote: removevote(authorId, entryId, this.cookies)
+            title_url: c.urls.base + $('h1#title a').attr('href')
           }
+
+          // bind authenticated user properties
+          if (this.cookies) {
+            const { _upvote: upvote, _downvote: downvote, _removevote: removevote } = this
+            entry = {
+              ...entry,
+              upvote: upvote(authorId, entryId, this.cookies),
+              downvote: downvote(authorId, entryId, this.cookies),
+              removevote: removevote(authorId, entryId, this.cookies)
+            }
+          }
+
           resolve(entry)
         }
 
@@ -361,8 +415,6 @@ class EksiSozluk {
         p: _options.page
       }
 
-      const { _upvote: upvote, _downvote: downvote, _removevote: removevote } = this
-
       this._request({ endpoint: '/', params }, ($) => {
         const status = $.statusCode
 
@@ -376,7 +428,7 @@ class EksiSozluk {
             const authorId = $(elm).data('author-id')
             const entryId = $(elm).data('id')
 
-            entries.push({
+            let entry = {
               author: $(elm).data('author'),
               author_id: authorId,
               author_url: c.urls.user + $(elm).data('author'),
@@ -396,11 +448,21 @@ class EksiSozluk {
               title: $('h1#title').data('title'),
               title_id: $('h1#title').data('id'),
               title_slug: $('h1#title').data('slug'),
-              title_url: c.urls.base + $('h1#title a').attr('href'),
-              upvote: upvote(authorId, entryId, this.cookies),
-              downvote: downvote(authorId, entryId, this.cookies),
-              removevote: removevote(authorId, entryId, this.cookies)
-            })
+              title_url: c.urls.base + $('h1#title a').attr('href')
+            }
+
+            // bind authenticated user properties
+            if (this.cookies) {
+              const { _upvote: upvote, _downvote: downvote, _removevote: removevote } = this
+              entry = {
+                ...entry,
+                upvote: upvote(authorId, entryId, this.cookies),
+                downvote: downvote(authorId, entryId, this.cookies),
+                removevote: removevote(authorId, entryId, this.cookies)
+              }
+            }
+
+            entries.push(entry)
           })
           resolve(entries)
         }
