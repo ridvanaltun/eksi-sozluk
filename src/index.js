@@ -97,7 +97,8 @@ class EksiSozluk {
 
   /**
    * Chech is user authenticated or not.
-   * @return  {Promise.<boolean>}  If user authenticated returns true, otherwise false.
+   * @param   {string}            [cookies=this.cookies]  Cookies string.
+   * @return  {Promise.<boolean>}                         If user authenticated returns true, otherwise false.
    */
   isAuthenticated (cookies = this.cookies) {
     return new Promise((resolve, reject) => {
@@ -119,6 +120,64 @@ class EksiSozluk {
       } else {
         // cookies not exist, return false
         resolve(false)
+      }
+    })
+  }
+
+  /**
+   * Check if unreaded message available.
+   * @return  {Promise.<boolean>} New message available or not.
+   * @throws  {AuthError}         User not authorized.
+   */
+  isNewMessageAvailable () {
+    return new Promise((resolve, reject) => {
+      if (this.cookies) {
+        axios({
+          url: c.urls.base,
+          method: 'get',
+          headers: {
+            cookie: this.cookies
+          }
+        })
+          .then((res) => {
+            const regex = /href="\/mesaj"\n*\s*class="new-update"/g
+            resolve(regex.test(res.data))
+          })
+          .catch((error) => {
+            reject(new Error(error.message))
+          })
+      } else {
+        // cookies not exist
+        throw new AuthError()
+      }
+    })
+  }
+
+  /**
+   * Check if unreaded event available.
+   * @return  {Promise.<boolean>} New event available or not.
+   * @throws  {AuthError}         User not authorized.
+   */
+  isNewEventAvailable () {
+    return new Promise((resolve, reject) => {
+      if (this.cookies) {
+        axios({
+          url: c.urls.base,
+          method: 'get',
+          headers: {
+            cookie: this.cookies
+          }
+        })
+          .then((res) => {
+            const regex = /title="olaylar olaylar"\n*\s*class="new-update"/g
+            resolve(regex.test(res.data))
+          })
+          .catch((error) => {
+            reject(new Error(error.message))
+          })
+      } else {
+        // cookies not exist
+        throw new AuthError()
       }
     })
   }
