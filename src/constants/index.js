@@ -9,6 +9,7 @@ module.exports = {
     seyler: 'https://seyler.eksisozluk.com/',
     vote: 'https://eksisozluk.com/entry/vote',
     removevote: 'https://eksisozluk.com/entry/removevote',
-    tags: 'https://eksisozluk.com/kanallar'
+    tags: 'https://eksisozluk.com/kanallar',
+    trash: 'https://eksisozluk.com/cop'
   }
 }

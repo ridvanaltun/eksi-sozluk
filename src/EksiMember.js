@@ -198,6 +198,73 @@ class EksiMember extends EksiGuest {
   }
 
   /**
+   * Delete an entry from trash.
+   * @name DeleteEntryFromTrash
+   * @param  {number}  entryId   Entry ID.
+   * @return {Promise}           Promise.
+   * @ignore
+   */
+  _deleteEntryFromTrash (entryId) {
+    return () => {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `${c.urls.trash}/sil`,
+          method: 'post',
+          params: {
+            id: entryId
+          },
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            cookie: this.cookies
+          }
+        })
+          .then((res) => {
+            resolve()
+          })
+          .catch((error) => {
+            reject(new Error(error.message))
+          })
+      })
+    }
+  }
+
+  /**
+   * Recover an entry from trash.
+   * @name RecoverEntryFromTrash
+   * @deprecated This feature closed, not working.
+   * @param  {number}  entryId   Entry ID.
+   * @return {Promise}           Promise.
+   * @ignore
+   */
+  _recoverEntryFromTrash (entryId) {
+    return () => {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `${c.urls.trash}/canlandir`,
+          method: 'post',
+          params: {
+            id: entryId
+          },
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            cookie: this.cookies
+          }
+        })
+          .then((res) => {
+            resolve()
+          })
+          .catch((error) => {
+            if (error.response && error.response.status === 403) {
+              reject(new Error('Not Permitted'))
+            } else {
+              reject(new Error(error.message))
+            }
+          })
+      })
+    }
+  }
+
+  /**
    * Check if unreaded message available.
    * @return  {Promise.<boolean>} New message available or not.
    */
@@ -648,6 +715,76 @@ class EksiMember extends EksiGuest {
             })
           })
           resolve(tags)
+        }
+      })
+    })
+  }
+
+  /**
+   * @typedef Trash
+   * @property {string}                title                   Title.
+   * @property {number}                entry_id                Entry ID.
+   * @property {string}                entry_url               Entry URL.
+   * @property {string}                entry_modify_url        Entry modify URL.
+   * @property {boolean}               modify_required         Is modify required?
+   * @property {boolean}               deleted_from_eksisozluk Is deleted from Eksi Sozluk?
+   * @property {string}                entry_content           Entry content.
+   * @property {string}                date_created            Entry date.
+   * @property {string}                date_trashed            When trashed.
+   * @property {DeleteEntryFromTrash}  delete                  Delete entry.
+   * @property {RecoverEntryFromTrash} recover                 Recover entry.
+   */
+
+  /**
+   * Fetch trash.
+   * @param   {Object}                options           Parameters that user can specify.
+   * @param   {number}                [options.page=1]  Page number.
+   * @return  {Promise.Array<Trash>}                    A promise for the trash.
+   */
+  trash (options) {
+    // handle default options
+    const _options = objectAssignDeep(
+      {
+        page: 1
+      },
+      options
+    )
+
+    // handle params
+    const params = {
+      p: _options.page
+    }
+
+    return new Promise((resolve, reject) => {
+      const requestOptions = {
+        endpoint: '/cop',
+        cookie: this.cookies,
+        params
+      }
+      this._request(requestOptions, ($) => {
+        const status = $.statusCode
+
+        // success
+        if (status === 200) {
+          const trash = []
+          $('ul#trash-items li article').each((i, elm) => {
+            const entryId = parseInt($(elm).find('h2 > a').attr('href').split('/')[2])
+            const entryDate = parseDate($(elm).find('footer').text().replace('düzelt canlandır sil', '').trim())
+            trash.push({
+              title: $(elm).find('h2 > a').text().trim(),
+              entry_id: entryId,
+              entry_url: c.urls.base + $(elm).find('h2 > a').attr('href'),
+              entry_modify_url: c.urls.base + $(elm).find('.links > a').attr('href'),
+              entry_content: $(elm).find('div > p').text().trim(),
+              date_created: entryDate.created,
+              date_trashed: $(elm).find('time').attr('datetime'),
+              deleted_from_eksisozluk: $(elm).find('h2 span a').text() === '@ekşisözlük',
+              modify_required: $(elm).find('.delete-info').text().includes('düzeltmeniz şart'),
+              delete: this._deleteEntryFromTrash(entryId),
+              recover: this._recoverEntryFromTrash(entryId)
+            })
+          })
+          resolve(trash)
         }
       })
     })
