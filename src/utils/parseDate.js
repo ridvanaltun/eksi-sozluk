@@ -7,7 +7,12 @@ const regexes = [
   /(((\d{2}\.){2}\d{4}\s\d{2}:\d{2})\s~\s((\d{2}\.){2}\d{4}\s\d{2}:\d{2}))/
 ]
 
-module.exports = (date) => {
+/**
+ * Parse given date string
+ * @param   {string}                                    date  Ex. 08.06.2016 13:59 ~ 31.08.2016 08:50
+ * @return  {{created: string, modified: string|null}}        Parsed date.
+ */
+const parseDate = (date) => {
   // localize moment
   moment.locale('tr')
 
@@ -37,3 +42,5 @@ module.exports = (date) => {
 
   return d
 }
+
+module.exports = parseDate

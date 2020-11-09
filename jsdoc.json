@@ -4,7 +4,14 @@
       "dictionaries": ["jsdoc"]
   },
   "source": {
-      "include": ["README.md", "src/index.js", "src/exceptions"],
+      "include": [
+        "README.md",
+        "src/index.js",
+        "src/EksiGuest.js",
+        "src/EksiMember.js",
+        "src/EksiSozluk.js",
+        "src/exceptions"
+      ],
       "includePattern": ".js$",
       "excludePattern": "(node_modules/|docs)"
   },

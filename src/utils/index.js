@@ -1,9 +1,11 @@
 'use strict'
 
-const date = require('./date')
+const parseDate = require('./parseDate')
 const toEncodeFormUrl = require('./toEncodeFormUrl')
+const request = require('./request')
 
 module.exports = {
-  date,
-  toEncodeFormUrl
+  parseDate,
+  toEncodeFormUrl,
+  request
 }
