@@ -3,7 +3,7 @@ const objectAssignDeep = require('object-assign-deep')
 const EksiGuest = require('./EksiGuest')
 const c = require('./constants')
 const { toEncodeFormUrl, parseDate } = require('./utils')
-const { AuthError, VoteError } = require('./exceptions')
+const { AuthError, VoteError, TagError } = require('./exceptions')
 const { entryById, entries } = require('./lib')
 
 /**
@@ -139,6 +139,62 @@ class EksiMember extends EksiGuest {
           })
           .catch((error) => {
             reject(new VoteError(error.message))
+          })
+      })
+    }
+  }
+
+  /**
+   * Follow tag.
+   * @name FollowTag
+   * @param  {number}  tagId   Tag ID.
+   * @return {Promise}         Promise.
+   * @ignore
+   */
+  _followTag (tagId) {
+    return () => {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `${c.urls.tags}/${tagId}/follow`,
+          method: 'post',
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            cookie: this.cookies
+          }
+        })
+          .then((res) => {
+            resolve()
+          })
+          .catch((error) => {
+            reject(new TagError(error.message))
+          })
+      })
+    }
+  }
+
+  /**
+   * Unfollow tag.
+   * @name UnfollowTag
+   * @param  {number}  tagId   Tag ID.
+   * @return {Promise}         Promise.
+   * @ignore
+   */
+  _unfollowTag (tagId) {
+    return () => {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `${c.urls.tags}/${tagId}/unfollow`,
+          method: 'post',
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            cookie: this.cookies
+          }
+        })
+          .then((res) => {
+            resolve()
+          })
+          .catch((error) => {
+            reject(new TagError(error.message))
           })
       })
     }
@@ -568,6 +624,47 @@ class EksiMember extends EksiGuest {
         // not authorized
         if (status === 403) {
           reject(new AuthError())
+        }
+      })
+    })
+  }
+
+  /**
+   * @typedef TagForMember
+   * @property {number}       id          Tag ID.
+   * @property {string}       name        Tag name.
+   * @property {string}       description Tag description.
+   * @property {string}       link        Tag URL.
+   * @property {boolean}      followed    Is tag followed?
+   * @property {FollowTag}    follow      Follow the tag.
+   * @property {UnfollowTag}  unfollow    Unfollow the tag.
+   */
+
+  /**
+   * Fetch tags.
+   * @return  {Promise.Array<TagForMember>} A promise for the tags.
+   */
+  tags () {
+    return new Promise((resolve, reject) => {
+      this._request({ endpoint: '/kanallar', cookie: this.cookies }, ($) => {
+        const status = $.statusCode
+
+        // success
+        if (status === 200) {
+          const tags = []
+          $('ul#channel-follow-list li').each((i, elm) => {
+            const tagId = parseInt($(elm).find('button').data('follow-url').split('/')[2])
+            tags.push({
+              id: tagId,
+              name: $(elm).find('h3 a').text().substring(1, $(elm).find('h3 a').text().length),
+              description: $(elm).find('p').text(),
+              link: c.urls.base + $(elm).find('h3 a').attr('href'),
+              followed: $(elm).find('button').data('followed'),
+              follow: this._followTag(tagId),
+              unfollow: this._unfollowTag(tagId)
+            })
+          })
+          resolve(tags)
         }
       })
     })

@@ -3,7 +3,7 @@
 const EksiSozluk = require('./EksiSozluk')
 const EksiMember = require('./EksiMember')
 const EksiGuest = require('./EksiGuest')
-const { AuthError, VoteError, NotFoundError } = require('./exceptions')
+const { AuthError, VoteError, TagError, NotFoundError } = require('./exceptions')
 
 module.exports = {
   EksiSozluk,
@@ -11,5 +11,6 @@ module.exports = {
   EksiGuest,
   AuthError,
   VoteError,
+  TagError,
   NotFoundError
 }
