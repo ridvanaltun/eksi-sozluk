@@ -26,11 +26,10 @@ class EksiMember extends EksiGuest {
    * @name Upvote
    * @param  {number}  authorId  Author ID.
    * @param  {number}  entryId   Entry ID.
-   * @param  {string}  cookie    Cookie string.
    * @return {Promise}           Promise.
    * @ignore
    */
-  _upvote (authorId, entryId, cookie) {
+  _upvote (authorId, entryId) {
     return () => {
       return new Promise((resolve, reject) => {
         const rate = 1
@@ -40,7 +39,7 @@ class EksiMember extends EksiGuest {
           method: 'post',
           headers: {
             'x-requested-with': 'XMLHttpRequest',
-            cookie
+            cookie: this.cookies
           },
           data: toEncodeFormUrl({
             id: entryId,
@@ -68,11 +67,10 @@ class EksiMember extends EksiGuest {
    * @name Downvote
    * @param  {number}  authorId  Author ID.
    * @param  {number}  entryId   Entry ID.
-   * @param  {string}  cookie    Cookie string.
    * @return {Promise}           Promise.
    * @ignore
    */
-  _downvote (authorId, entryId, cookie) {
+  _downvote (authorId, entryId) {
     return () => {
       return new Promise((resolve, reject) => {
         const rate = -1
@@ -82,7 +80,7 @@ class EksiMember extends EksiGuest {
           method: 'post',
           headers: {
             'x-requested-with': 'XMLHttpRequest',
-            cookie
+            cookie: this.cookies
           },
           data: toEncodeFormUrl({
             id: entryId,
@@ -110,11 +108,10 @@ class EksiMember extends EksiGuest {
    * @name Removevote
    * @param  {number}  authorId  Author ID.
    * @param  {number}  entryId   Entry ID.
-   * @param  {string}  cookie    Cookie string.
    * @return {Promise}           Promise.
    * @ignore
    */
-  _removevote (authorId, entryId, cookie) {
+  _removevote (authorId, entryId) {
     return () => {
       return new Promise((resolve, reject) => {
         axios({
@@ -122,7 +119,7 @@ class EksiMember extends EksiGuest {
           method: 'post',
           headers: {
             'x-requested-with': 'XMLHttpRequest',
-            cookie
+            cookie: this.cookies
           },
           data: toEncodeFormUrl({
             id: entryId,
@@ -203,58 +200,46 @@ class EksiMember extends EksiGuest {
   /**
    * Check if unreaded message available.
    * @return  {Promise.<boolean>} New message available or not.
-   * @throws  {AuthError}         User not authorized.
    */
   isNewMessageAvailable () {
     return new Promise((resolve, reject) => {
-      if (this.cookies) {
-        axios({
-          url: c.urls.base,
-          method: 'get',
-          headers: {
-            cookie: this.cookies
-          }
+      axios({
+        url: c.urls.base,
+        method: 'get',
+        headers: {
+          cookie: this.cookies
+        }
+      })
+        .then((res) => {
+          const regex = /href="\/mesaj"\n*\s*class="new-update"/g
+          resolve(regex.test(res.data))
         })
-          .then((res) => {
-            const regex = /href="\/mesaj"\n*\s*class="new-update"/g
-            resolve(regex.test(res.data))
-          })
-          .catch((error) => {
-            reject(new Error(error.message))
-          })
-      } else {
-        // cookies not exist
-        throw new AuthError()
-      }
+        .catch((error) => {
+          reject(new Error(error.message))
+        })
     })
   }
 
   /**
    * Check if unreaded event available.
    * @return  {Promise.<boolean>} New event available or not.
-   * @throws  {AuthError}         User not authorized.
    */
   isNewEventAvailable () {
     return new Promise((resolve, reject) => {
-      if (this.cookies) {
-        axios({
-          url: c.urls.base,
-          method: 'get',
-          headers: {
-            cookie: this.cookies
-          }
+      axios({
+        url: c.urls.base,
+        method: 'get',
+        headers: {
+          cookie: this.cookies
+        }
+      })
+        .then((res) => {
+          const regex = /title="olaylar olaylar"\n*\s*class="new-update"/g
+          resolve(regex.test(res.data))
         })
-          .then((res) => {
-            const regex = /title="olaylar olaylar"\n*\s*class="new-update"/g
-            resolve(regex.test(res.data))
-          })
-          .catch((error) => {
-            reject(new Error(error.message))
-          })
-      } else {
-        // cookies not exist
-        throw new AuthError()
-      }
+        .catch((error) => {
+          reject(new Error(error.message))
+        })
     })
   }
 
@@ -290,14 +275,13 @@ class EksiMember extends EksiGuest {
     const entry = await entryById(this._request, entryId)
 
     // bind authenticated user properties
-    const { _upvote: upvote, _downvote: downvote, _removevote: removevote } = this
     const { author_id: authorId } = entry
 
     return {
       ...entry,
-      upvote: upvote(authorId, entryId, this.cookies),
-      downvote: downvote(authorId, entryId, this.cookies),
-      removevote: removevote(authorId, entryId, this.cookies)
+      upvote: this._upvote(authorId, entryId),
+      downvote: this._downvote(authorId, entryId),
+      removevote: this._removevote(authorId, entryId)
     }
   }
 
@@ -312,12 +296,11 @@ class EksiMember extends EksiGuest {
     const _entries = await entries(this._request, title, options)
 
     // bind authenticated user properties
-    const { _upvote: upvote, _downvote: downvote, _removevote: removevote } = this
     _entries.forEach(entry => {
       const { author_id: authorId, entry_id: entryId } = entry
-      entry.upvote = upvote(authorId, entryId, this.cookies)
-      entry.downvote = downvote(authorId, entryId, this.cookies)
-      entry.removevote = removevote(authorId, entryId, this.cookies)
+      entry.upvote = this._upvote(authorId, entryId)
+      entry.downvote = this._downvote(authorId, entryId)
+      entry.removevote = this._removevote(authorId, entryId)
     })
 
     return _entries

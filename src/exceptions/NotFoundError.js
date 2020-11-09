@@ -2,14 +2,12 @@
 
 /**
  * Not found error.
- *
- * @property {string} name Error name.
- * @property {string} message Error message.
+ * @property {string} [name=NotFoundError]  Error name.
+ * @property {string} message               Error message.
  */
 class NotFoundError extends Error {
   /**
    * Create not found error.
-   *
    * @param {string} message Error message.
    */
   constructor (message) {
