@@ -1,5 +1,7 @@
+const axios = require('axios')
 const { entryById, entries, todayInHistory, user, tags, titlesByTag, agenda, debe, questions } = require('./lib')
 const { request } = require('./utils')
+const c = require('./constants')
 
 /**
  * @classdesc Eksi Sozluk guest class.
@@ -13,6 +15,43 @@ class EksiGuest {
   constructor (httpClient) {
     this.httpClient = httpClient
     this._request = request(httpClient)
+  }
+
+  /**
+   * @typedef SearchResult
+   * @property {string} query   Search text itself.
+   * @property {string} nicks   Mached nicks.
+   * @property {string} titles  Mached titles.
+   */
+
+  /**
+   * Search things.
+   * @param   {string}                  text  Search query.
+   * @return  {Promise.<SearchResult>}        A promise for the search.
+   */
+  search (text) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: c.urls.search,
+        method: 'get',
+        headers: {
+          'x-requested-with': 'XMLHttpRequest'
+        },
+        params: {
+          q: text
+        }
+      })
+        .then((res) => {
+          resolve({
+            query: res.data.Query,
+            nicks: res.data.Nicks,
+            titles: res.data.Titles
+          })
+        })
+        .catch((error) => {
+          reject(new Error(error.message))
+        })
+    })
   }
 
   /**
