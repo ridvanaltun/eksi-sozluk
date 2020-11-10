@@ -12,6 +12,8 @@ module.exports = {
     tags: 'https://eksisozluk.com/kanallar',
     trash: 'https://eksisozluk.com/cop',
     search: 'https://eksisozluk.com/autocomplete/query',
+    message: 'https://eksisozluk.com/mesaj',
+    sendMessage: 'https://eksisozluk.com/mesaj/yolla',
     followUser: 'https://eksisozluk.com/userrelation/addrelation',
     unfollowUser: 'https://eksisozluk.com/userrelation/removerelation',
     blockUser: 'https://eksisozluk.com/userrelation/addrelation',

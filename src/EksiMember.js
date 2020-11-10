@@ -451,6 +451,63 @@ class EksiMember extends EksiGuest {
   }
 
   /**
+   * Send message to an user.
+   * @typedef {Function} sendMessage
+   * @param   {string}  message Message.
+   * @return  {Promise}         Promise.
+   */
+
+  /**
+   * Create send message function for an user.
+   * @param   {string}      username  Username.
+   * @return  {sendMessage}           Send message via this function.
+   * @ignore
+   */
+  _sendMessage (username) {
+    return (message) => {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: c.urls.message,
+          method: 'get',
+          headers: {
+            cookie: this.cookies
+          }
+        }).then((res) => {
+          // parse csrf token
+          const csrfRegex = new RegExp('(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)', 'g')
+
+          // 0 -> message list form, 1 -> message send
+          // if 1 not exist 0 -> message send
+          const csrfTokens = csrfRegex.exec(res.data)
+          const csrfToken = csrfTokens.length === 2 ? csrfTokens[1] : csrfTokens[0]
+
+          return csrfToken
+        }).then(async (csrfToken) => {
+          // send message
+          const _res = await axios({
+            url: c.urls.sendMessage,
+            method: 'post',
+            headers: {
+              cookie: this.cookies
+            },
+            data: toEncodeFormUrl({
+              __RequestVerificationToken: csrfToken,
+              To: username,
+              Message: message
+            })
+          })
+
+          return _res
+        }).then((res) => {
+          resolve()
+        }).catch((error) => {
+          reject(new Error(error.message))
+        })
+      })
+    }
+  }
+
+  /**
    * Check if unreaded message available.
    * @return  {Promise.<boolean>} New message available or not.
    */
@@ -581,6 +638,7 @@ class EksiMember extends EksiGuest {
    * @property {UnblockUser}        unblock               Unblock the user.
    * @property {BlockUserTitles}    blockTitles           Block user titles.
    * @property {UnblockUserTitles}  unblockTitles         Unblock user titles.
+   * @property {sendMessage}        sendMessage           Send message to user.
    */
 
   /**
@@ -600,7 +658,8 @@ class EksiMember extends EksiGuest {
       block: this._blockUser(userId),
       unblock: this._unblockUser(userId),
       blockTitles: this._blockUserTitles(userId),
-      unblockTitles: this._unblockUserTitles(userId)
+      unblockTitles: this._unblockUserTitles(userId),
+      sendMessage: this._sendMessage(username)
     }
   }
 
