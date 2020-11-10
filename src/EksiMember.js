@@ -789,6 +789,50 @@ class EksiMember extends EksiGuest {
       })
     })
   }
+
+  /**
+   * Empty trash.
+   * @return  {Promise}  Promise.
+   */
+  emptyTrash () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${c.urls.trash}`,
+        method: 'get',
+        headers: {
+          cookie: this.cookies
+        }
+      }).then((res) => {
+        // parse csrf token
+        const csrfRegex = new RegExp('(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)', 'u')
+        const csrfToken = csrfRegex.exec(res.data)[0]
+
+        return csrfToken
+      }).then(async (csrfToken) => {
+        // empty trash
+        const _res = await axios({
+          url: `${c.urls.trash}/bosalt`,
+          method: 'post',
+          headers: {
+            cookie: this.cookies
+          },
+          data: toEncodeFormUrl({
+            __RequestVerificationToken: csrfToken
+          })
+        })
+
+        return _res
+      }).then((res) => {
+        if (res.data.includes('<title>büyük başarısızlıklar sözkonusu - ekşi sözlük</title>')) {
+          reject(new Error('Unknown Error'))
+        } else {
+          resolve()
+        }
+      }).catch((error) => {
+        reject(new Error(error.message))
+      })
+    })
+  }
 }
 
 module.exports = EksiMember
