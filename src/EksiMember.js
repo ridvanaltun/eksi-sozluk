@@ -4,7 +4,7 @@ const EksiGuest = require('./EksiGuest')
 const c = require('./constants')
 const { toEncodeFormUrl, parseDate } = require('./utils')
 const { AuthError, VoteError, TagError } = require('./exceptions')
-const { entryById, entries, user } = require('./lib')
+const { entryById, entries, user, tags } = require('./lib')
 
 /**
  * @classdesc Eksi Sozluk member class.
@@ -793,30 +793,15 @@ class EksiMember extends EksiGuest {
    * Fetch tags.
    * @return  {Promise.Array<TagForMember>} A promise for the tags.
    */
-  tags () {
-    return new Promise((resolve, reject) => {
-      this._request({ endpoint: '/kanallar', cookie: this.cookies }, ($) => {
-        const status = $.statusCode
+  async tags () {
+    const _tags = await tags(this._request, this.cookies)
 
-        // success
-        if (status === 200) {
-          const tags = []
-          $('ul#channel-follow-list li').each((i, elm) => {
-            const tagId = parseInt($(elm).find('button').data('follow-url').split('/')[2])
-            tags.push({
-              id: tagId,
-              name: $(elm).find('h3 a').text().substring(1, $(elm).find('h3 a').text().length),
-              description: $(elm).find('p').text(),
-              link: c.urls.base + $(elm).find('h3 a').attr('href'),
-              followed: $(elm).find('button').data('followed'),
-              follow: this._followTag(tagId),
-              unfollow: this._unfollowTag(tagId)
-            })
-          })
-          resolve(tags)
-        }
-      })
+    _tags.forEach(tag => {
+      tag.follow = this._followTag(tag.id)
+      tag.unfollow = this._unfollowTag(tag.id)
     })
+
+    return _tags
   }
 
   /**
