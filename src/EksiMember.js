@@ -23,10 +23,15 @@ class EksiMember extends EksiGuest {
 
   /**
    * Upvote given entry.
-   * @name Upvote
+   * @typedef {Function} Upvote
+   * @return  {Promise} Promise.
+   */
+
+  /**
+   * Create upvote function.
    * @param  {number}  authorId  Author ID.
    * @param  {number}  entryId   Entry ID.
-   * @return {Promise}           Promise.
+   * @return {Upvote}            Upvote via this function.
    * @ignore
    */
   _upvote (authorId, entryId) {
@@ -64,10 +69,15 @@ class EksiMember extends EksiGuest {
 
   /**
    * Downvote given entry.
-   * @name Downvote
-   * @param  {number}  authorId  Author ID.
-   * @param  {number}  entryId   Entry ID.
-   * @return {Promise}           Promise.
+   * @typedef {Function} Downvote
+   * @return  {Promise} Promise.
+   */
+
+  /**
+   * Create downvote function.
+   * @param  {number}   authorId  Author ID.
+   * @param  {number}   entryId   Entry ID.
+   * @return {Downvote}           Downvote via this function.
    * @ignore
    */
   _downvote (authorId, entryId) {
@@ -105,10 +115,15 @@ class EksiMember extends EksiGuest {
 
   /**
    * Remove vote given entry.
-   * @name Removevote
+   * @typedef {Function} Removevote
+   * @return  {Promise} Promise.
+   */
+
+  /**
+   * Create remove vote function.
    * @param  {number}  authorId  Author ID.
    * @param  {number}  entryId   Entry ID.
-   * @return {Promise}           Promise.
+   * @return {Removevote}        Remove vote via this function.
    * @ignore
    */
   _removevote (authorId, entryId) {
@@ -143,9 +158,14 @@ class EksiMember extends EksiGuest {
 
   /**
    * Follow tag.
-   * @name FollowTag
-   * @param  {number}  tagId   Tag ID.
-   * @return {Promise}         Promise.
+   * @typedef {Function} FollowTag
+   * @return  {Promise} Promise.
+   */
+
+  /**
+   * Create follow tag function.
+   * @param  {number}   tagId   Tag ID.
+   * @return {FollowTag}        Follow tag via this function.
    * @ignore
    */
   _followTag (tagId) {
@@ -171,9 +191,14 @@ class EksiMember extends EksiGuest {
 
   /**
    * Unfollow tag.
-   * @name UnfollowTag
-   * @param  {number}  tagId   Tag ID.
-   * @return {Promise}         Promise.
+   * @typedef {Function} UnfollowTag
+   * @return  {Promise} Promise.
+   */
+
+  /**
+   * Create unfollow tag function.
+   * @param  {number}       tagId   Tag ID.
+   * @return {UnfollowTag}          Unfollow tag via this function.
    * @ignore
    */
   _unfollowTag (tagId) {
@@ -199,9 +224,14 @@ class EksiMember extends EksiGuest {
 
   /**
    * Delete an entry from trash.
-   * @name DeleteEntryFromTrash
-   * @param  {number}  entryId   Entry ID.
-   * @return {Promise}           Promise.
+   * @typedef {Function} DeleteEntryFromTrash
+   * @return  {Promise} Promise.
+   */
+
+  /**
+   * Create delete entry from trash function.
+   * @param  {number}               entryId Entry ID.
+   * @return {DeleteEntryFromTrash}         Delete entry from trash via this function.
    * @ignore
    */
   _deleteEntryFromTrash (entryId) {
@@ -230,10 +260,15 @@ class EksiMember extends EksiGuest {
 
   /**
    * Recover an entry from trash.
-   * @name RecoverEntryFromTrash
+   * @typedef {Function} RecoverEntryFromTrash
+   * @return  {Promise} Promise.
+   */
+
+  /**
+   * Create recover entry function.
    * @deprecated This feature closed, not working.
-   * @param  {number}  entryId   Entry ID.
-   * @return {Promise}           Promise.
+   * @param  {number}                 entryId   Entry ID.
+   * @return {RecoverEntryFromTrash}            Recover entry via this function.
    * @ignore
    */
   _recoverEntryFromTrash (entryId) {
@@ -266,9 +301,14 @@ class EksiMember extends EksiGuest {
 
   /**
    * Follow an user.
-   * @name FollowUser
-   * @param  {number}  userId   User ID.
-   * @return {Promise}          Promise.
+   * @typedef {Function} FollowUser
+   * @return  {Promise} Promise.
+   */
+
+  /**
+   * Create follow user function.
+   * @param  {number}     userId   User ID.
+   * @return {FollowUser}          Follow user via this function.
    * @ignore
    */
   _followUser (userId) {
@@ -297,9 +337,14 @@ class EksiMember extends EksiGuest {
 
   /**
    * Unfollow an user.
-   * @name UnfollowUser
-   * @param  {number}  userId   User ID.
-   * @return {Promise}          Promise.
+   * @typedef {Function} UnfollowUser
+   * @return  {Promise} Promise.
+   */
+
+  /**
+   * Create unfollow user function.
+   * @param  {number}       userId   User ID.
+   * @return {UnfollowUser}          Unfollow user via this function.
    * @ignore
    */
   _unfollowUser (userId) {
@@ -328,9 +373,14 @@ class EksiMember extends EksiGuest {
 
   /**
    * Block an user.
-   * @name BlockUser
-   * @param  {number}  userId   User ID.
-   * @return {Promise}          Promise.
+   * @typedef {Function} BlockUser
+   * @return  {Promise} Promise.
+   */
+
+  /**
+   * Create block user function.
+   * @param  {number}     userId   User ID.
+   * @return {BlockUser}           Block user via this function.
    * @ignore
    */
   _blockUser (userId) {
@@ -359,9 +409,14 @@ class EksiMember extends EksiGuest {
 
   /**
    * Unblock an user.
-   * @name UnblockUser
-   * @param  {number}  userId   User ID.
-   * @return {Promise}          Promise.
+   * @typedef {Function} UnblockUser
+   * @return  {Promise} Promise.
+   */
+
+  /**
+   * Create unblock user function.
+   * @param  {number}       userId   User ID.
+   * @return {UnblockUser}           Unblock user via this function.
    * @ignore
    */
   _unblockUser (userId) {
@@ -390,9 +445,14 @@ class EksiMember extends EksiGuest {
 
   /**
    * Block user titles.
-   * @name BlockUserTitles
-   * @param  {number}  userId   User ID.
-   * @return {Promise}          Promise.
+   * @typedef {Function} BlockTitles
+   * @return  {Promise} Promise.
+   */
+
+  /**
+   * Create block user titles function.
+   * @param  {number}       userId   User ID.
+   * @return {BlockTitles}           Block user titles via this function.
    * @ignore
    */
   _blockUserTitles (userId) {
@@ -421,9 +481,14 @@ class EksiMember extends EksiGuest {
 
   /**
    * Unblock user titles.
-   * @name UnblockUserTitles
-   * @param  {number}  userId   User ID.
-   * @return {Promise}          Promise.
+   * @typedef {Function} UnblockTitles
+   * @return  {Promise} Promise.
+   */
+
+  /**
+   * Create unblock user titles function.
+   * @param  {number}         userId   User ID.
+   * @return {UnblockTitles}           Unblock user titles via this function.
    * @ignore
    */
   _unblockUserTitles (userId) {
@@ -452,15 +517,15 @@ class EksiMember extends EksiGuest {
 
   /**
    * Send message to an user.
-   * @typedef {Function} sendMessage
+   * @typedef {Function} SendMessage
    * @param   {string}  message Message.
    * @return  {Promise}         Promise.
    */
 
   /**
-   * Create send message function for an user.
+   * Create send message function.
    * @param   {string}      username  Username.
-   * @return  {sendMessage}           Send message via this function.
+   * @return  {SendMessage}           Send message via this function.
    * @ignore
    */
   _sendMessage (username) {
@@ -618,27 +683,27 @@ class EksiMember extends EksiGuest {
 
   /**
    * @typedef UserForMember
-   * @property {number}             id                    User ID.
-   * @property {string}             username              Username.
-   * @property {string}             user_url              User URL.
-   * @property {Array<UserBadge>}   user_badges           Badge list.
-   * @property {number}             user_badge_points     Badge points.
-   * @property {number}             entry_count_total     Total entry count.
-   * @property {number}             entry_count_lastmonth Last month entry count.
-   * @property {number}             entry_count_lastweek  Last week entry count.
-   * @property {number}             entry_count_today     Today entry count.
-   * @property {string}             last_entry_time       Last entry time.
-   * @property {boolean}            followed              Is user followed?
-   * @property {boolean}            blocked               Is user blocked?
-   * @property {boolean}            titles_blocked        Is user titles blocked?
-   * @property {boolean}            note                  User note.
-   * @property {FollowUser}         follow                Follow the user.
-   * @property {UnfollowUser}       unfollow              Unfollow the user.
-   * @property {BlockUser}          block                 Block the user.
-   * @property {UnblockUser}        unblock               Unblock the user.
-   * @property {BlockUserTitles}    blockTitles           Block user titles.
-   * @property {UnblockUserTitles}  unblockTitles         Unblock user titles.
-   * @property {sendMessage}        sendMessage           Send message to user.
+   * @property {number}               id                    User ID.
+   * @property {string}               username              Username.
+   * @property {string}               user_url              User URL.
+   * @property {Array<UserBadge>}     user_badges           Badge list.
+   * @property {number}               user_badge_points     Badge points.
+   * @property {number}               entry_count_total     Total entry count.
+   * @property {number}               entry_count_lastmonth Last month entry count.
+   * @property {number}               entry_count_lastweek  Last week entry count.
+   * @property {number}               entry_count_today     Today entry count.
+   * @property {string}               last_entry_time       Last entry time.
+   * @property {boolean}              followed              Is user followed?
+   * @property {boolean}              blocked               Is user blocked?
+   * @property {boolean}              titles_blocked        Is user titles blocked?
+   * @property {boolean}              note                  User note.
+   * @property {FollowUser}           follow                Follow the user.
+   * @property {UnfollowUser}         unfollow              Unfollow the user.
+   * @property {BlockUser}            block                 Block the user.
+   * @property {UnblockUser}          unblock               Unblock the user.
+   * @property {BlockTitles}          blockTitles           Block user titles.
+   * @property {UnblockTitles}        unblockTitles         Unblock user titles.
+   * @property {SendMessage}          sendMessage           Send message to user.
    */
 
   /**
