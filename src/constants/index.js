@@ -15,6 +15,8 @@ module.exports = {
     followUser: 'https://eksisozluk.com/userrelation/addrelation',
     unfollowUser: 'https://eksisozluk.com/userrelation/removerelation',
     blockUser: 'https://eksisozluk.com/userrelation/addrelation',
-    unblockUser: 'https://eksisozluk.com/userrelation/removerelation'
+    unblockUser: 'https://eksisozluk.com/userrelation/removerelation',
+    blockUserTitles: 'https://eksisozluk.com/userrelation/addrelation',
+    unblockUserTitles: 'https://eksisozluk.com/userrelation/removerelation'
   }
 }
