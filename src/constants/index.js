@@ -13,6 +13,8 @@ module.exports = {
     trash: 'https://eksisozluk.com/cop',
     search: 'https://eksisozluk.com/autocomplete/query',
     followUser: 'https://eksisozluk.com/userrelation/addrelation',
-    unfollowUser: 'https://eksisozluk.com/userrelation/removerelation'
+    unfollowUser: 'https://eksisozluk.com/userrelation/removerelation',
+    blockUser: 'https://eksisozluk.com/userrelation/addrelation',
+    unblockUser: 'https://eksisozluk.com/userrelation/removerelation'
   }
 }

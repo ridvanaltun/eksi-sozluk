@@ -327,6 +327,68 @@ class EksiMember extends EksiGuest {
   }
 
   /**
+   * Block an user.
+   * @name BlockUser
+   * @param  {number}  userId   User ID.
+   * @return {Promise}          Promise.
+   * @ignore
+   */
+  _blockUser (userId) {
+    return () => {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `${c.urls.blockUser}/${userId}`,
+          method: 'post',
+          params: {
+            r: 'm'
+          },
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            cookie: this.cookies
+          }
+        })
+          .then((res) => {
+            resolve()
+          })
+          .catch((error) => {
+            reject(new Error(error.message))
+          })
+      })
+    }
+  }
+
+  /**
+   * Unblock an user.
+   * @name UnblockUser
+   * @param  {number}  userId   User ID.
+   * @return {Promise}          Promise.
+   * @ignore
+   */
+  _unblockUser (userId) {
+    return () => {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `${c.urls.unblockUser}/${userId}`,
+          method: 'post',
+          params: {
+            r: 'm'
+          },
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            cookie: this.cookies
+          }
+        })
+          .then((res) => {
+            resolve()
+          })
+          .catch((error) => {
+            reject(new Error(error.message))
+          })
+      })
+    }
+  }
+
+  /**
    * Check if unreaded message available.
    * @return  {Promise.<boolean>} New message available or not.
    */
@@ -451,8 +513,10 @@ class EksiMember extends EksiGuest {
    * @property {boolean}          blocked               Is user blocked?
    * @property {boolean}          titles_blocked        Is user titles blocked?
    * @property {boolean}          note                  User note.
-   * @property {FollowUser}                             Follow the user.
-   * @property {UnfollowUser}                           Unfollow the user.
+   * @property {FollowUser}       follow                Follow the user.
+   * @property {UnfollowUser}     unfollow              Unfollow the user.
+   * @property {BlockUser}        block                 Block the user.
+   * @property {UnblockUser}      unblock               Unblock the user.
    */
 
   /**
@@ -468,7 +532,9 @@ class EksiMember extends EksiGuest {
     return {
       ..._user,
       follow: this._followUser(userId),
-      unfollow: this._unfollowUser(userId)
+      unfollow: this._unfollowUser(userId),
+      block: this._blockUser(userId),
+      unblock: this._unblockUser(userId)
     }
   }
 
