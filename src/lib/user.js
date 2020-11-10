@@ -1,12 +1,12 @@
 const c = require('../constants')
 const { NotFoundError } = require('../exceptions')
 
-const user = (_request, username) => {
+const user = (_request, username, cookie = null) => {
   return new Promise((resolve, reject) => {
     // make username url ready
     username = username.replace(' ', '-')
 
-    _request({ endpoint: `/biri/${username}` }, ($) => {
+    _request({ endpoint: `/biri/${username}`, cookie }, ($) => {
       const status = $.statusCode
 
       // success
@@ -51,6 +51,16 @@ const user = (_request, username) => {
           entry_count_today: parseInt($('ul li#entry-count-today').text()),
           last_entry_time: $('ul li#last-entry-time').text().trim()
         }
+
+        // bind auth user properties
+        if (cookie) {
+          user.id = parseInt($('#who').attr('value'))
+          user.followed = $('#buddy-link').data('added') || false
+          user.blocked = $('#blocked-link').data('added') || false
+          user.titles_blocked = $('#blocked-index-title-link').data('added') || false
+          user.note = $('#user-note').text()
+        }
+
         resolve(user)
       }
 

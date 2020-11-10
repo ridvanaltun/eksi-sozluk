@@ -11,6 +11,8 @@ module.exports = {
     removevote: 'https://eksisozluk.com/entry/removevote',
     tags: 'https://eksisozluk.com/kanallar',
     trash: 'https://eksisozluk.com/cop',
-    search: 'https://eksisozluk.com/autocomplete/query'
+    search: 'https://eksisozluk.com/autocomplete/query',
+    followUser: 'https://eksisozluk.com/userrelation/addrelation',
+    unfollowUser: 'https://eksisozluk.com/userrelation/removerelation'
   }
 }

@@ -4,7 +4,7 @@ const EksiGuest = require('./EksiGuest')
 const c = require('./constants')
 const { toEncodeFormUrl, parseDate } = require('./utils')
 const { AuthError, VoteError, TagError } = require('./exceptions')
-const { entryById, entries } = require('./lib')
+const { entryById, entries, user } = require('./lib')
 
 /**
  * @classdesc Eksi Sozluk member class.
@@ -265,6 +265,68 @@ class EksiMember extends EksiGuest {
   }
 
   /**
+   * Follow an user.
+   * @name FollowUser
+   * @param  {number}  userId   User ID.
+   * @return {Promise}          Promise.
+   * @ignore
+   */
+  _followUser (userId) {
+    return () => {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `${c.urls.followUser}/${userId}`,
+          method: 'post',
+          params: {
+            r: 'b'
+          },
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            cookie: this.cookies
+          }
+        })
+          .then((res) => {
+            resolve()
+          })
+          .catch((error) => {
+            reject(new Error(error.message))
+          })
+      })
+    }
+  }
+
+  /**
+   * Unfollow an user.
+   * @name UnfollowUser
+   * @param  {number}  userId   User ID.
+   * @return {Promise}          Promise.
+   * @ignore
+   */
+  _unfollowUser (userId) {
+    return () => {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `${c.urls.unfollowUser}/${userId}`,
+          method: 'post',
+          params: {
+            r: 'b'
+          },
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            cookie: this.cookies
+          }
+        })
+          .then((res) => {
+            resolve()
+          })
+          .catch((error) => {
+            reject(new Error(error.message))
+          })
+      })
+    }
+  }
+
+  /**
    * Check if unreaded message available.
    * @return  {Promise.<boolean>} New message available or not.
    */
@@ -371,6 +433,43 @@ class EksiMember extends EksiGuest {
     })
 
     return _entries
+  }
+
+  /**
+   * @typedef UserForMember
+   * @property {number}           id                    User ID.
+   * @property {string}           username              Username.
+   * @property {string}           user_url              User URL.
+   * @property {Array<UserBadge>} user_badges           Badge list.
+   * @property {number}           user_badge_points     Badge points.
+   * @property {number}           entry_count_total     Total entry count.
+   * @property {number}           entry_count_lastmonth Last month entry count.
+   * @property {number}           entry_count_lastweek  Last week entry count.
+   * @property {number}           entry_count_today     Today entry count.
+   * @property {string}           last_entry_time       Last entry time.
+   * @property {boolean}          followed              Is user followed?
+   * @property {boolean}          blocked               Is user blocked?
+   * @property {boolean}          titles_blocked        Is user titles blocked?
+   * @property {boolean}          note                  User note.
+   * @property {FollowUser}                             Follow the user.
+   * @property {UnfollowUser}                           Unfollow the user.
+   */
+
+  /**
+   * Fetch user.
+   * @param   {string}                  username  Username.
+   * @return  {Promise.<UserForMember>}           A promise for the user.
+   */
+  async user (username) {
+    const _user = await user(this._request, username, this.cookies)
+
+    const { id: userId } = _user
+
+    return {
+      ..._user,
+      follow: this._followUser(userId),
+      unfollow: this._unfollowUser(userId)
+    }
   }
 
   /**
