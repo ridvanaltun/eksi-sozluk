@@ -2,9 +2,10 @@ const axios = require('axios')
 const objectAssignDeep = require('object-assign-deep')
 const EksiGuest = require('./EksiGuest')
 const c = require('./constants')
+const { EntryForMember, UserForMember, Title, FollowedUserTitle, DraftTitle } = require('./models')
 const { toEncodeFormUrl, parseDate } = require('./utils')
-const { AuthError, VoteError, TagError } = require('./exceptions')
-const { entryById, entries, user, tags } = require('./lib')
+const { AuthError } = require('./exceptions')
+const { entries, tags, trashEntries, debeEntries } = require('./lib')
 
 /**
  * @classdesc Eksi Sozluk member class.
@@ -19,557 +20,6 @@ class EksiMember extends EksiGuest {
   constructor (httpClient, cookies) {
     super(httpClient)
     this.cookies = cookies
-  }
-
-  /**
-   * Upvote given entry.
-   * @typedef {Function} Upvote
-   * @return  {Promise} Promise.
-   */
-
-  /**
-   * Create upvote function.
-   * @param  {number}  authorId  Author ID.
-   * @param  {number}  entryId   Entry ID.
-   * @return {Upvote}            Upvote via this function.
-   * @ignore
-   */
-  _upvote (authorId, entryId) {
-    return () => {
-      return new Promise((resolve, reject) => {
-        const rate = 1
-
-        axios({
-          url: c.urls.vote,
-          method: 'post',
-          headers: {
-            'x-requested-with': 'XMLHttpRequest',
-            cookie: this.cookies
-          },
-          data: toEncodeFormUrl({
-            id: entryId,
-            rate,
-            owner: authorId
-          })
-        })
-          .then((res) => {
-            // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
-            if (res.data.Success) {
-              resolve()
-            } else {
-              reject(new VoteError('Something goes wrong.'))
-            }
-          })
-          .catch((error) => {
-            reject(new VoteError(error.message))
-          })
-      })
-    }
-  }
-
-  /**
-   * Downvote given entry.
-   * @typedef {Function} Downvote
-   * @return  {Promise} Promise.
-   */
-
-  /**
-   * Create downvote function.
-   * @param  {number}   authorId  Author ID.
-   * @param  {number}   entryId   Entry ID.
-   * @return {Downvote}           Downvote via this function.
-   * @ignore
-   */
-  _downvote (authorId, entryId) {
-    return () => {
-      return new Promise((resolve, reject) => {
-        const rate = -1
-
-        axios({
-          url: c.urls.vote,
-          method: 'post',
-          headers: {
-            'x-requested-with': 'XMLHttpRequest',
-            cookie: this.cookies
-          },
-          data: toEncodeFormUrl({
-            id: entryId,
-            rate,
-            owner: authorId
-          })
-        })
-          .then((res) => {
-            // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
-            if (res.data.Success) {
-              resolve()
-            } else {
-              reject(new VoteError('Something goes wrong.'))
-            }
-          })
-          .catch((error) => {
-            reject(new VoteError(error.message))
-          })
-      })
-    }
-  }
-
-  /**
-   * Remove vote given entry.
-   * @typedef {Function} Removevote
-   * @return  {Promise} Promise.
-   */
-
-  /**
-   * Create remove vote function.
-   * @param  {number}  authorId  Author ID.
-   * @param  {number}  entryId   Entry ID.
-   * @return {Removevote}        Remove vote via this function.
-   * @ignore
-   */
-  _removevote (authorId, entryId) {
-    return () => {
-      return new Promise((resolve, reject) => {
-        axios({
-          url: c.urls.removevote,
-          method: 'post',
-          headers: {
-            'x-requested-with': 'XMLHttpRequest',
-            cookie: this.cookies
-          },
-          data: toEncodeFormUrl({
-            id: entryId,
-            owner: authorId
-          })
-        })
-          .then((res) => {
-            // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
-            if (res.data.Success) {
-              resolve()
-            } else {
-              reject(new VoteError('Entry not voted before.'))
-            }
-          })
-          .catch((error) => {
-            reject(new VoteError(error.message))
-          })
-      })
-    }
-  }
-
-  /**
-   * Follow tag.
-   * @typedef {Function} FollowTag
-   * @return  {Promise} Promise.
-   */
-
-  /**
-   * Create follow tag function.
-   * @param  {number}   tagId   Tag ID.
-   * @return {FollowTag}        Follow tag via this function.
-   * @ignore
-   */
-  _followTag (tagId) {
-    return () => {
-      return new Promise((resolve, reject) => {
-        axios({
-          url: `${c.urls.tags}/${tagId}/follow`,
-          method: 'post',
-          headers: {
-            'x-requested-with': 'XMLHttpRequest',
-            cookie: this.cookies
-          }
-        })
-          .then((res) => {
-            resolve()
-          })
-          .catch((error) => {
-            reject(new TagError(error.message))
-          })
-      })
-    }
-  }
-
-  /**
-   * Unfollow tag.
-   * @typedef {Function} UnfollowTag
-   * @return  {Promise} Promise.
-   */
-
-  /**
-   * Create unfollow tag function.
-   * @param  {number}       tagId   Tag ID.
-   * @return {UnfollowTag}          Unfollow tag via this function.
-   * @ignore
-   */
-  _unfollowTag (tagId) {
-    return () => {
-      return new Promise((resolve, reject) => {
-        axios({
-          url: `${c.urls.tags}/${tagId}/unfollow`,
-          method: 'post',
-          headers: {
-            'x-requested-with': 'XMLHttpRequest',
-            cookie: this.cookies
-          }
-        })
-          .then((res) => {
-            resolve()
-          })
-          .catch((error) => {
-            reject(new TagError(error.message))
-          })
-      })
-    }
-  }
-
-  /**
-   * Delete an entry from trash.
-   * @typedef {Function} DeleteEntryFromTrash
-   * @return  {Promise} Promise.
-   */
-
-  /**
-   * Create delete entry from trash function.
-   * @param  {number}               entryId Entry ID.
-   * @return {DeleteEntryFromTrash}         Delete entry from trash via this function.
-   * @ignore
-   */
-  _deleteEntryFromTrash (entryId) {
-    return () => {
-      return new Promise((resolve, reject) => {
-        axios({
-          url: `${c.urls.trash}/sil`,
-          method: 'post',
-          params: {
-            id: entryId
-          },
-          headers: {
-            'x-requested-with': 'XMLHttpRequest',
-            cookie: this.cookies
-          }
-        })
-          .then((res) => {
-            resolve()
-          })
-          .catch((error) => {
-            reject(new Error(error.message))
-          })
-      })
-    }
-  }
-
-  /**
-   * Recover an entry from trash.
-   * @typedef {Function} RecoverEntryFromTrash
-   * @return  {Promise} Promise.
-   */
-
-  /**
-   * Create recover entry function.
-   * @deprecated This feature closed, not working.
-   * @param  {number}                 entryId   Entry ID.
-   * @return {RecoverEntryFromTrash}            Recover entry via this function.
-   * @ignore
-   */
-  _recoverEntryFromTrash (entryId) {
-    return () => {
-      return new Promise((resolve, reject) => {
-        axios({
-          url: `${c.urls.trash}/canlandir`,
-          method: 'post',
-          params: {
-            id: entryId
-          },
-          headers: {
-            'x-requested-with': 'XMLHttpRequest',
-            cookie: this.cookies
-          }
-        })
-          .then((res) => {
-            resolve()
-          })
-          .catch((error) => {
-            if (error.response && error.response.status === 403) {
-              reject(new Error('Not Permitted'))
-            } else {
-              reject(new Error(error.message))
-            }
-          })
-      })
-    }
-  }
-
-  /**
-   * Follow an user.
-   * @typedef {Function} FollowUser
-   * @return  {Promise} Promise.
-   */
-
-  /**
-   * Create follow user function.
-   * @param  {number}     userId   User ID.
-   * @return {FollowUser}          Follow user via this function.
-   * @ignore
-   */
-  _followUser (userId) {
-    return () => {
-      return new Promise((resolve, reject) => {
-        axios({
-          url: `${c.urls.followUser}/${userId}`,
-          method: 'post',
-          params: {
-            r: 'b'
-          },
-          headers: {
-            'x-requested-with': 'XMLHttpRequest',
-            cookie: this.cookies
-          }
-        })
-          .then((res) => {
-            resolve()
-          })
-          .catch((error) => {
-            reject(new Error(error.message))
-          })
-      })
-    }
-  }
-
-  /**
-   * Unfollow an user.
-   * @typedef {Function} UnfollowUser
-   * @return  {Promise} Promise.
-   */
-
-  /**
-   * Create unfollow user function.
-   * @param  {number}       userId   User ID.
-   * @return {UnfollowUser}          Unfollow user via this function.
-   * @ignore
-   */
-  _unfollowUser (userId) {
-    return () => {
-      return new Promise((resolve, reject) => {
-        axios({
-          url: `${c.urls.unfollowUser}/${userId}`,
-          method: 'post',
-          params: {
-            r: 'b'
-          },
-          headers: {
-            'x-requested-with': 'XMLHttpRequest',
-            cookie: this.cookies
-          }
-        })
-          .then((res) => {
-            resolve()
-          })
-          .catch((error) => {
-            reject(new Error(error.message))
-          })
-      })
-    }
-  }
-
-  /**
-   * Block an user.
-   * @typedef {Function} BlockUser
-   * @return  {Promise} Promise.
-   */
-
-  /**
-   * Create block user function.
-   * @param  {number}     userId   User ID.
-   * @return {BlockUser}           Block user via this function.
-   * @ignore
-   */
-  _blockUser (userId) {
-    return () => {
-      return new Promise((resolve, reject) => {
-        axios({
-          url: `${c.urls.blockUser}/${userId}`,
-          method: 'post',
-          params: {
-            r: 'm'
-          },
-          headers: {
-            'x-requested-with': 'XMLHttpRequest',
-            cookie: this.cookies
-          }
-        })
-          .then((res) => {
-            resolve()
-          })
-          .catch((error) => {
-            reject(new Error(error.message))
-          })
-      })
-    }
-  }
-
-  /**
-   * Unblock an user.
-   * @typedef {Function} UnblockUser
-   * @return  {Promise} Promise.
-   */
-
-  /**
-   * Create unblock user function.
-   * @param  {number}       userId   User ID.
-   * @return {UnblockUser}           Unblock user via this function.
-   * @ignore
-   */
-  _unblockUser (userId) {
-    return () => {
-      return new Promise((resolve, reject) => {
-        axios({
-          url: `${c.urls.unblockUser}/${userId}`,
-          method: 'post',
-          params: {
-            r: 'm'
-          },
-          headers: {
-            'x-requested-with': 'XMLHttpRequest',
-            cookie: this.cookies
-          }
-        })
-          .then((res) => {
-            resolve()
-          })
-          .catch((error) => {
-            reject(new Error(error.message))
-          })
-      })
-    }
-  }
-
-  /**
-   * Block user titles.
-   * @typedef {Function} BlockTitles
-   * @return  {Promise} Promise.
-   */
-
-  /**
-   * Create block user titles function.
-   * @param  {number}       userId   User ID.
-   * @return {BlockTitles}           Block user titles via this function.
-   * @ignore
-   */
-  _blockUserTitles (userId) {
-    return () => {
-      return new Promise((resolve, reject) => {
-        axios({
-          url: `${c.urls.blockUserTitles}/${userId}`,
-          method: 'post',
-          params: {
-            r: 'i'
-          },
-          headers: {
-            'x-requested-with': 'XMLHttpRequest',
-            cookie: this.cookies
-          }
-        })
-          .then((res) => {
-            resolve()
-          })
-          .catch((error) => {
-            reject(new Error(error.message))
-          })
-      })
-    }
-  }
-
-  /**
-   * Unblock user titles.
-   * @typedef {Function} UnblockTitles
-   * @return  {Promise} Promise.
-   */
-
-  /**
-   * Create unblock user titles function.
-   * @param  {number}         userId   User ID.
-   * @return {UnblockTitles}           Unblock user titles via this function.
-   * @ignore
-   */
-  _unblockUserTitles (userId) {
-    return () => {
-      return new Promise((resolve, reject) => {
-        axios({
-          url: `${c.urls.unblockUserTitles}/${userId}`,
-          method: 'post',
-          params: {
-            r: 'i'
-          },
-          headers: {
-            'x-requested-with': 'XMLHttpRequest',
-            cookie: this.cookies
-          }
-        })
-          .then((res) => {
-            resolve()
-          })
-          .catch((error) => {
-            reject(new Error(error.message))
-          })
-      })
-    }
-  }
-
-  /**
-   * Send message to an user.
-   * @typedef {Function} SendMessage
-   * @param   {string}  message Message.
-   * @return  {Promise}         Promise.
-   */
-
-  /**
-   * Create send message function.
-   * @param   {string}      username  Username.
-   * @return  {SendMessage}           Send message via this function.
-   * @ignore
-   */
-  _sendMessage (username) {
-    return (message) => {
-      return new Promise((resolve, reject) => {
-        axios({
-          url: c.urls.message,
-          method: 'get',
-          headers: {
-            cookie: this.cookies
-          }
-        }).then((res) => {
-          // parse csrf token
-          const csrfRegex = new RegExp('(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)', 'g')
-
-          // 0 -> message list form, 1 -> message send
-          // if 1 not exist 0 -> message send
-          const csrfTokens = csrfRegex.exec(res.data)
-          const csrfToken = csrfTokens.length === 2 ? csrfTokens[1] : csrfTokens[0]
-
-          return csrfToken
-        }).then(async (csrfToken) => {
-          // send message
-          const _res = await axios({
-            url: c.urls.sendMessage,
-            method: 'post',
-            headers: {
-              cookie: this.cookies
-            },
-            data: toEncodeFormUrl({
-              __RequestVerificationToken: csrfToken,
-              To: username,
-              Message: message
-            })
-          })
-
-          return _res
-        }).then((res) => {
-          resolve()
-        }).catch((error) => {
-          reject(new Error(error.message))
-        })
-      })
-    }
   }
 
   /**
@@ -619,45 +69,15 @@ class EksiMember extends EksiGuest {
   }
 
   /**
-   * @typedef EntryForMember
-   * @property {string}        author           Entry author.
-   * @property {number}        author_id        Entry author id.
-   * @property {string}        author_url       Entry author URL.
-   * @property {string}        content          Raw entry content.
-   * @property {string}        content_encoded  Cleaned entry content.
-   * @property {string}        date_created     Created date.
-   * @property {(string|null)} date_modified    Modified date.
-   * @property {(string|null)} eksiseyler_link  Eksi Seyler URL.
-   * @property {(string|null)} eksiseyler_slug  Eksi Seyler slug.
-   * @property {number}        entry_id         Entry id.
-   * @property {number}        favorite_count   Favorite count.
-   * @property {string}        permalink        Entry link.
-   * @property {string}        title            Entry title.
-   * @property {number}        title_id         Entry title id.
-   * @property {string}        title_slug       Entry title slug.
-   * @property {string}        title_url        Entry title URL.
-   * @property {Upvote}        upvote           Upvote.
-   * @property {Downvote}      downvote         Downvote.
-   * @property {Removevote}    removevote       Remove vote.
-   */
-
-  /**
    * Fetch entry by id.
    * @param   {number}                    entryId Entry Id.
    * @return  {Promise.<EntryForMember>}          A promise for the entry.
    */
   async entryById (entryId) {
-    const entry = await entryById(this._request, entryId)
+    const entry = new EntryForMember(this._request, entryId, this.cookies)
+    await entry.retrieve()
 
-    // bind authenticated user properties
-    const { author_id: authorId } = entry
-
-    return {
-      ...entry,
-      upvote: this._upvote(authorId, entryId),
-      downvote: this._downvote(authorId, entryId),
-      removevote: this._removevote(authorId, entryId)
-    }
+    return entry
   }
 
   /**
@@ -668,79 +88,27 @@ class EksiMember extends EksiGuest {
    * @return  {Promise.Array<EntryForMember>}                   A promise for the entries.
    */
   async entries (title, options) {
-    const _entries = await entries(this._request, title, options)
-
-    // bind authenticated user properties
-    _entries.forEach(entry => {
-      const { author_id: authorId, entry_id: entryId } = entry
-      entry.upvote = this._upvote(authorId, entryId)
-      entry.downvote = this._downvote(authorId, entryId)
-      entry.removevote = this._removevote(authorId, entryId)
-    })
-
-    return _entries
+    return await entries(this._request, title, { ...options, cookies: this.cookies })
   }
-
-  /**
-   * @typedef UserForMember
-   * @property {number}               id                    User ID.
-   * @property {string}               username              Username.
-   * @property {string}               user_url              User URL.
-   * @property {Array<UserBadge>}     user_badges           Badge list.
-   * @property {number}               user_badge_points     Badge points.
-   * @property {number}               entry_count_total     Total entry count.
-   * @property {number}               entry_count_lastmonth Last month entry count.
-   * @property {number}               entry_count_lastweek  Last week entry count.
-   * @property {number}               entry_count_today     Today entry count.
-   * @property {string}               last_entry_time       Last entry time.
-   * @property {boolean}              followed              Is user followed?
-   * @property {boolean}              blocked               Is user blocked?
-   * @property {boolean}              titles_blocked        Is user titles blocked?
-   * @property {boolean}              note                  User note.
-   * @property {FollowUser}           follow                Follow the user.
-   * @property {UnfollowUser}         unfollow              Unfollow the user.
-   * @property {BlockUser}            block                 Block the user.
-   * @property {UnblockUser}          unblock               Unblock the user.
-   * @property {BlockTitles}          blockTitles           Block user titles.
-   * @property {UnblockTitles}        unblockTitles         Unblock user titles.
-   * @property {SendMessage}          sendMessage           Send message to user.
-   */
 
   /**
    * Fetch user.
-   * @param   {string}                  username  Username.
-   * @return  {Promise.<UserForMember>}           A promise for the user.
+   * @param   {string}                    username  Entry Id.
+   * @return  {Promise.<UserForMember>}             A promise for the entry.
    */
   async user (username) {
-    const _user = await user(this._request, username, this.cookies)
+    const user = new UserForMember(this._request, username, this.cookies)
+    await user.retrieve()
 
-    const { id: userId } = _user
-
-    return {
-      ..._user,
-      follow: this._followUser(userId),
-      unfollow: this._unfollowUser(userId),
-      block: this._blockUser(userId),
-      unblock: this._unblockUser(userId),
-      blockTitles: this._blockUserTitles(userId),
-      unblockTitles: this._unblockUserTitles(userId),
-      sendMessage: this._sendMessage(username)
-    }
+    return user
   }
 
   /**
-   * @typedef TodayEntry
-   * @property {string} title       Title.
-   * @property {string} title_url   Title URL.
-   * @property {number} entry_count Entry count.
-   */
-
-  /**
-   * Fetch today.
-   * @param   {Object}                    options           Parameters that user can specify.
-   * @param   {number}                    [options.page=1]  Page number.
-   * @return  {Promise.Array<TodayEntry>}                   A promise for the today.
-   * @throws  {AuthError}                                   User not authorized.
+   * Fetch today entries.
+   * @param   {Object}                options           Parameters that user can specify.
+   * @param   {number}                [options.page=1]  Page number.
+   * @return  {Promise.Array<Title>}                    A promise for the titles of today.
+   * @throws  {AuthError}                               User not authorized.
    */
   today (options) {
     // handle default options
@@ -766,48 +134,41 @@ class EksiMember extends EksiGuest {
       this._request(requestOptions, ($) => {
         const status = $.statusCode
 
-        // success
-        if (status === 200) {
-          const today = []
-          $('ul.topic-list.partial li').each(function (i, elm) {
-            const title = $(elm).text().trim()
-            const entryCount = $(elm).find('a small').text().trim()
-            today.push({
-              title: title.substring(0, title.length - (entryCount.length + 1)), // clear title
-              title_url: c.urls.base + $(elm).find('a').attr('href'),
-              entry_count: entryCount.includes('b')
-                ? 1000 * parseInt(entryCount)
-                : parseInt(entryCount)
-                  ? parseInt(entryCount)
-                  : 1 // calculate entry count
-            })
-          })
-          resolve(today)
-        }
-
         // not authorized
         if (status === 404) {
-          reject(new AuthError())
+          return reject(new AuthError())
         }
+
+        if (status !== 200) {
+          return reject(new Error('An unknown error occurred.'))
+        }
+
+        const titles = []
+
+        $('ul.topic-list.partial li').each((i, elm) => {
+          const title = new Title()
+          const name = $(elm).text().trim()
+          const entryCountStr = $(elm).find('a small').text().trim()
+          const entryCount = parseInt(entryCountStr)
+          title.name = name.substring(0, name.length - (entryCountStr.length)).trim()
+          title.url = c.urls.base + $(elm).find('a').attr('href')
+          title.entryCount = entryCountStr.includes('b') ? (1000 * entryCount) : entryCount || 1
+          titles.push(title)
+        })
+
+        resolve(titles)
       })
     })
   }
 
   /**
-   * @typedef RookieEntry
-   * @property {string} title       Title.
-   * @property {string} title_url   Title URL.
-   * @property {number} entry_count Entry count.
-   */
-
-  /**
    * Fetch rookie entries.
-   * @param   {Object}                      options           Parameters that user can specify.
-   * @param   {number}                      [options.page=1]  Page number.
-   * @return  {Promise.Array<RookieEntry>}                    A promise for the rookie entries.
-   * @throws  {AuthError}                                     User not authorized.
+   * @param   {Object}                options           Parameters that user can specify.
+   * @param   {number}                [options.page=1]  Page number.
+   * @return  {Promise.Array<Title>}                    A promise for the rookie titles.
+   * @throws  {AuthError}                               User not authorized.
    */
-  rookieEntries (options) {
+  rookieTitles (options) {
     // handle default options
     const _options = objectAssignDeep(
       {
@@ -831,43 +192,36 @@ class EksiMember extends EksiGuest {
       this._request(requestOptions, ($) => {
         const status = $.statusCode
 
-        // success
-        if (status === 200) {
-          const rookieEntries = []
-          $('ul.topic-list.partial li').each(function (i, elm) {
-            const title = $(elm).text().trim()
-            const entryCount = $(elm).find('a small').text().trim()
-            rookieEntries.push({
-              title: title.substring(0, title.length - (entryCount.length + 1)), // clear title
-              title_url: c.urls.base + $(elm).find('a').attr('href'),
-              entry_count: entryCount.includes('b')
-                ? 1000 * parseInt(entryCount)
-                : parseInt(entryCount)
-                  ? parseInt(entryCount)
-                  : 1 // calculate entry count
-            })
-          })
-          resolve(rookieEntries)
-        }
-
         // not authorized
         if (status === 403) {
-          reject(new AuthError())
+          return reject(new AuthError())
         }
+
+        if (status !== 200) {
+          return reject(new Error('An unknown error occurred.'))
+        }
+
+        const titles = []
+
+        $('ul.topic-list.partial li').each((i, elm) => {
+          const title = new Title()
+          const name = $(elm).text().trim()
+          const entryCountStr = $(elm).find('a small').text().trim()
+          const entryCount = parseInt(entryCountStr)
+          title.name = name.substring(0, name.length - (entryCountStr.length)).trim()
+          title.url = c.urls.base + $(elm).find('a').attr('href')
+          title.entryCount = entryCountStr.includes('b') ? (1000 * entryCount) : entryCount || 1
+          titles.push(title)
+        })
+
+        resolve(titles)
       })
     })
   }
 
   /**
-   * @typedef Event
-   * @property {string} title       Title.
-   * @property {string} title_url   Title URL.
-   * @property {number} entry_count Entry count.
-   */
-
-  /**
    * Fetch events.
-   * @return {Promise.Array<Event>} A promise for the events.
+   * @return {Promise.Array<Title>} A promise for the titles of events.
    * @throws {AuthError}            User not authorized.
    */
   events () {
@@ -880,49 +234,39 @@ class EksiMember extends EksiGuest {
       this._request(requestOptions, ($) => {
         const status = $.statusCode
 
-        // success
-        if (status === 200) {
-          const events = []
-          $('ul.topic-list.partial li').each(function (i, elm) {
-            const title = $(elm).text().trim()
-            const entryCount = $(elm).find('a small').text().trim()
-            events.push({
-              title: title
-                .substring(0, title.length - entryCount.length)
-                .trim(), // clear title
-              title_url: c.urls.base + $(elm).find('a').attr('href'),
-              entry_count: entryCount.includes('b')
-                ? 1000 * parseInt(entryCount)
-                : parseInt(entryCount)
-                  ? parseInt(entryCount)
-                  : 0 // calculate entry count
-            })
-          })
-          resolve(events)
-        }
-
         // not authorized
         if (status === 403) {
-          reject(new AuthError())
+          return reject(new AuthError())
         }
+
+        if (status !== 200) {
+          return reject(new Error('An unknown error occurred.'))
+        }
+
+        const titles = []
+
+        $('ul.topic-list.partial li').each((i, elm) => {
+          const title = new Title()
+          const name = $(elm).text().trim()
+          const entryCountStr = $(elm).find('a small').text().trim()
+          const entryCount = parseInt(entryCountStr)
+          title.name = name.substring(0, name.length - entryCountStr.length).trim()
+          title.url = c.urls.base + $(elm).find('a').attr('href')
+          title.entryCount = entryCountStr.includes('b') ? (1000 * entryCount) : entryCount || 0
+          titles.push(title)
+        })
+
+        resolve(titles)
       })
     })
   }
 
   /**
-   * @typedef Draft
-   * @property {string}         title         Title.
-   * @property {string}         title_url     Title URL.
-   * @property {string}         date_created  Created date.
-   * @property {(string|null)}  date_modified Modified date.
-   */
-
-  /**
-   * Fetch drafts.
-   * @param   {Object}                options           Parameters that user can specify.
-   * @param   {number}                [options.page=1]  Page number.
-   * @return  {Promise.Array<Draft>}                    A promise for the drafts.
-   * @throws  {AuthError}                               User not authorized.
+   * Fetch draft entries.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.Array<DraftTitle>}                   A promise for the titles of drafts.
+   * @throws  {AuthError}                                   User not authorized.
    */
   drafts (options) {
     // handle default options
@@ -948,43 +292,39 @@ class EksiMember extends EksiGuest {
       this._request(requestOptions, ($) => {
         const status = $.statusCode
 
-        // success
-        if (status === 200) {
-          const drafts = []
-          $('ul.topic-list.partial li').each(function (i, elm) {
-            const title = $(elm).text().trim()
-            const date = $(elm).find('a div').text().trim()
-            const calculatedDate = parseDate(date)
-            drafts.push({
-              title: title.substring(0, title.length - date.length).trim(), // clear title
-              title_url: c.urls.base + $(elm).find('a').attr('href'),
-              date_created: calculatedDate.created,
-              date_modified: calculatedDate.modified
-            })
-          })
-          resolve(drafts)
-        }
-
         // not authorized
         if (status === 403) {
-          reject(new AuthError())
+          return reject(new AuthError())
         }
+
+        if (status !== 200) {
+          return reject(new Error('An unknown error occurred.'))
+        }
+
+        const titles = []
+
+        $('ul.topic-list.partial li').each((i, elm) => {
+          const title = new DraftTitle()
+          const name = $(elm).text().trim()
+          const date = $(elm).find('a div').text().trim()
+          const calculatedDate = parseDate(date)
+          title.name = name.substring(0, name.length - date.length).trim()
+          title.url = c.urls.base + $(elm).find('a').attr('href')
+          title.dateCreated = calculatedDate.created
+          title.dateModified = calculatedDate.modified
+          titles.push(title)
+        })
+
+        resolve(titles)
       })
     })
   }
 
   /**
-   * @typedef FollowedUserEntry
-   * @property {string} title       Title.
-   * @property {string} title_url   Title URL.
-   * @property {string} entry_owner Author username.
-   */
-
-  /**
    * Fetch followed user entries.
    * @param   {Object}                            options           Parameters that user can specify.
    * @param   {number}                            [options.page=1]  Page number.
-   * @return  {Promise.Array<FollowedUserEntry>}                    A promise for the followed user entries.
+   * @return  {Promise.Array<FollowedUserTitle>}                    A promise for the followed user entries.
    * @throws  {AuthError}                                           User not authorized.
    */
   followedUserEntries (options) {
@@ -1011,128 +351,57 @@ class EksiMember extends EksiGuest {
       this._request(requestOptions, ($) => {
         const status = $.statusCode
 
-        // success
-        if (status === 200) {
-          const followedUserEntries = []
-          $('ul.topic-list.partial li').each(function (i, elm) {
-            const title = $(elm).text().trim()
-            const owner = $(elm).find('a div').text().trim()
-            followedUserEntries.push({
-              title: title.substring(0, title.length - owner.length).trim(), // clear title
-              title_url: c.urls.base + $(elm).find('a').attr('href'),
-              entry_owner: owner
-            })
-          })
-          resolve(followedUserEntries)
+        // not authorized
+        if (status === 404) {
+          return reject(new AuthError())
         }
 
-        // not authorized
-        if (status === 403) {
-          reject(new AuthError())
+        if (status !== 200) {
+          return reject(new Error('An unknown error occurred.'))
         }
+
+        const titles = []
+
+        $('ul.topic-list.partial li').each((i, elm) => {
+          const title = new FollowedUserTitle()
+          title.serialize($, elm)
+          titles.push(title)
+        })
+
+        resolve(titles)
       })
     })
   }
-
-  /**
-   * @typedef TagForMember
-   * @property {number}       id          Tag ID.
-   * @property {string}       name        Tag name.
-   * @property {string}       description Tag description.
-   * @property {string}       link        Tag URL.
-   * @property {boolean}      followed    Is tag followed?
-   * @property {FollowTag}    follow      Follow the tag.
-   * @property {UnfollowTag}  unfollow    Unfollow the tag.
-   */
 
   /**
    * Fetch tags.
    * @return  {Promise.Array<TagForMember>} A promise for the tags.
    */
   async tags () {
-    const _tags = await tags(this._request, this.cookies)
-
-    _tags.forEach(tag => {
-      tag.follow = this._followTag(tag.id)
-      tag.unfollow = this._unfollowTag(tag.id)
-    })
-
-    return _tags
+    return await tags(this._request, this.cookies)
   }
 
   /**
-   * @typedef Trash
-   * @property {string}                title                   Title.
-   * @property {number}                entry_id                Entry ID.
-   * @property {string}                entry_url               Entry URL.
-   * @property {string}                entry_modify_url        Entry modify URL.
-   * @property {boolean}               modify_required         Is modify required?
-   * @property {boolean}               deleted_from_eksisozluk Is deleted from Eksi Sozluk?
-   * @property {string}                entry_content           Entry content.
-   * @property {string}                date_created            Entry date.
-   * @property {string}                date_trashed            When trashed.
-   * @property {DeleteEntryFromTrash}  delete                  Delete entry.
-   * @property {RecoverEntryFromTrash} recover                 Recover entry.
+   * Fetch yesterday's top entries.
+   * @return  {Promise.Array<EntryForMember>} A promise for the yesterday's top entries.
    */
+  async debeEntries () {
+    return await debeEntries(this._request, this.cookies)
+  }
 
   /**
-   * Fetch trash.
-   * @param   {Object}                options           Parameters that user can specify.
-   * @param   {number}                [options.page=1]  Page number.
-   * @return  {Promise.Array<Trash>}                    A promise for the trash.
+   * Fetch trash entries.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.Array<TrashEntry>}                   A promise for the trash entries.
    */
-  trash (options) {
-    // handle default options
-    const _options = objectAssignDeep(
-      {
-        page: 1
-      },
-      options
-    )
-
-    // handle params
-    const params = {
-      p: _options.page
-    }
-
-    return new Promise((resolve, reject) => {
-      const requestOptions = {
-        endpoint: '/cop',
-        cookie: this.cookies,
-        params
-      }
-      this._request(requestOptions, ($) => {
-        const status = $.statusCode
-
-        // success
-        if (status === 200) {
-          const trash = []
-          $('ul#trash-items li article').each((i, elm) => {
-            const entryId = parseInt($(elm).find('h2 > a').attr('href').split('/')[2])
-            const entryDate = parseDate($(elm).find('footer').text().replace('düzelt canlandır sil', '').trim())
-            trash.push({
-              title: $(elm).find('h2 > a').text().trim(),
-              entry_id: entryId,
-              entry_url: c.urls.base + $(elm).find('h2 > a').attr('href'),
-              entry_modify_url: c.urls.base + $(elm).find('.links > a').attr('href'),
-              entry_content: $(elm).find('div > p').text().trim(),
-              date_created: entryDate.created,
-              date_trashed: $(elm).find('time').attr('datetime'),
-              deleted_from_eksisozluk: $(elm).find('h2 span a').text() === '@ekşisözlük',
-              modify_required: $(elm).find('.delete-info').text().includes('düzeltmeniz şart'),
-              delete: this._deleteEntryFromTrash(entryId),
-              recover: this._recoverEntryFromTrash(entryId)
-            })
-          })
-          resolve(trash)
-        }
-      })
-    })
+  async trashEntries (options) {
+    return await trashEntries(this._request, this.cookies, options)
   }
 
   /**
    * Empty trash.
-   * @return  {Promise}  Promise.
+   * @return  {Promise} Promise.
    */
   emptyTrash () {
     return new Promise((resolve, reject) => {

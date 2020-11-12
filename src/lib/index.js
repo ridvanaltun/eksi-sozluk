@@ -1,23 +1,21 @@
 'use strict'
 
-const entryById = require('./entryById')
 const entries = require('./entries')
 const todayInHistory = require('./todayInHistory')
-const user = require('./user')
 const tags = require('./tags')
 const titlesByTag = require('./titlesByTag')
 const agenda = require('./agenda')
-const debe = require('./debe')
+const debeEntries = require('./debeEntries')
 const questions = require('./questions')
+const trashEntries = require('./trashEntries')
 
 module.exports = {
-  entryById,
   entries,
   todayInHistory,
-  user,
   tags,
   titlesByTag,
   agenda,
-  debe,
-  questions
+  debeEntries,
+  questions,
+  trashEntries
 }

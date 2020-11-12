@@ -1,30 +1,23 @@
-const c = require('../constants')
+const { Tag, TagForMember } = require('../models')
 
 const tags = (_request, cookie = null) => {
   return new Promise((resolve, reject) => {
     _request({ endpoint: '/kanallar', cookie }, ($) => {
       const status = $.statusCode
 
-      // success
-      if (status === 200) {
-        const tags = []
-        $('ul#channel-follow-list li').each(function (i, elm) {
-          const tag = {
-            name: $(elm).find('h3 a').text().substring(1, $(elm).find('h3 a').text().length),
-            description: $(elm).find('p').text(),
-            link: c.urls.base + $(elm).find('h3 a').attr('href')
-          }
-
-          // bind user properties
-          if (cookie) {
-            tag.id = parseInt($(elm).find('button').data('follow-url').split('/')[2])
-            tag.followed = $(elm).find('button').data('followed')
-          }
-
-          tags.push(tag)
-        })
-        resolve(tags)
+      if (status !== 200) {
+        return reject(new Error('An unknown error occurred.'))
       }
+
+      const tags = []
+
+      $('ul#channel-follow-list li').each((i, elm) => {
+        const tag = cookie ? new TagForMember(cookie) : new Tag()
+        tag.serialize($, elm)
+        tags.push(tag)
+      })
+
+      resolve(tags)
     })
   })
 }

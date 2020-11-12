@@ -10,6 +10,7 @@
         "src/EksiGuest.js",
         "src/EksiMember.js",
         "src/EksiSozluk.js",
+        "src/models",
         "src/exceptions"
       ],
       "includePattern": ".js$",

@@ -1,5 +1,5 @@
 const objectAssignDeep = require('object-assign-deep')
-const c = require('../constants')
+const { Title } = require('../models')
 const { NotFoundError } = require('../exceptions')
 
 const todayInHistory = (_request, year, options) => {
@@ -18,26 +18,23 @@ const todayInHistory = (_request, year, options) => {
     _request({ endpoint: '/basliklar/m/tarihte-bugun', params }, ($) => {
       const status = $.statusCode
 
-      // success
-      if (status === 200) {
-        const titles = []
-        $('ul.topic-list.partial.mobile li').each(function (i, elm) {
-          const title = $(elm).text().trim()
-          const entryCount = $(elm).find('a small').text().trim()
-          titles.push({
-            title: title.substring(0, title.length - (entryCount.length + 1)), // clear title
-            title_url: c.urls.base + $(elm).find('a').attr('href'),
-            entry_count: entryCount.includes('b')
-              ? 1000 * parseInt(entryCount)
-              : parseInt(entryCount) // calculate entry count
-          })
-        })
-        resolve(titles)
+      if (status === 404) {
+        return reject(new NotFoundError('Today in history not found.'))
       }
 
-      if (status === 404) {
-        reject(new NotFoundError('Today in history not found.'))
+      if (status !== 200) {
+        return reject(new Error('An unknown error occurred.'))
       }
+
+      const titles = []
+
+      $('ul.topic-list.partial.mobile li').each((i, elm) => {
+        const title = new Title()
+        title.serialize($, elm)
+        titles.push(title)
+      })
+
+      resolve(titles)
     })
   })
 }

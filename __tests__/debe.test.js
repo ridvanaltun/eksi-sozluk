@@ -4,9 +4,9 @@ const instance = new EksiSozluk()
 
 describe('Debe Test', () => {
   test('Getting Debe', () => {
-    return instance.debe({ limit: 5 })
+    return instance.debeEntries()
       .then((data) => {
-        expect(data.length).toBe(5)
+        // todo: write debe tests
       })
   })
 })

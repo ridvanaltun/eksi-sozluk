@@ -6,7 +6,7 @@ describe('Agenda Test', () => {
   test('Getting Agenda', () => {
     return instance.agenda()
       .then((data) => {
-        // no test
+        // todo: write agenda tests
       })
   })
 })
