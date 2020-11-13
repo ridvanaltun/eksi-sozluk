@@ -80,10 +80,10 @@ class EksiGuest {
 
   /**
    * Fetch today in history.
-   * @param   {string}                        year              A year.
-   * @param   {Object}                        options           Parameters that user can specify.
-   * @param   {number}                        [options.page=1]  Page number.
-   * @return  {Promise.Array<Title>}                            A promise for the titles of today in history.
+   * @param   {string}                year              A year.
+   * @param   {Object}                options           Parameters that user can specify.
+   * @param   {number}                [options.page=1]  Page number.
+   * @return  {Promise.Array<Title>}                    A promise for the titles of today in history.
    */
   async todayInHistory (year, options) {
     return await todayInHistory(this._request, year, options)
@@ -111,9 +111,9 @@ class EksiGuest {
 
   /**
    * Fetch titles by tag.
-   * @param   {Object}                    options           Parameters that user can specify.
-   * @param   {number}                    [options.page=1]  Page number.
-   * @return  {Promise.Array<Title>}                        A promise for the titles of given tag.
+   * @param   {Object}                options           Parameters that user can specify.
+   * @param   {number}                [options.page=1]  Page number.
+   * @return  {Promise.Array<Title>}                    A promise for the titles of given tag.
    */
   async titlesByTag (tagName, options) {
     return await titlesByTag(this._request, tagName, options)
@@ -121,10 +121,12 @@ class EksiGuest {
 
   /**
    * Fetch agenda.
-   * @return {Promise.Array<Title>} A promise for the agenda titles.
+   * @param   {Object}                options           Parameters that user can specify.
+   * @param   {number}                [options.page=1]  Page number.
+   * @return  {Promise.Array<Title>}                    A promise for the agenda titles.
    */
-  async agenda () {
-    return await agenda(this._request)
+  async agenda (options) {
+    return await agenda(this._request, options)
   }
 
   /**

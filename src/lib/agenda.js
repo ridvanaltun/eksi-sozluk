@@ -1,8 +1,22 @@
+const objectAssignDeep = require('object-assign-deep')
 const { Title } = require('../models')
 
-const agenda = (_request) => {
+const agenda = (_request, options) => {
+  // handle default options
+  const _options = objectAssignDeep(
+    {
+      page: 1
+    },
+    options
+  )
+
+  // handle params
+  const params = {
+    p: _options.page
+  }
+
   return new Promise((resolve, reject) => {
-    _request({ endpoint: '/basliklar/gundem', ajax: true }, ($) => {
+    _request({ endpoint: '/basliklar/gundem', ajax: true, params }, ($) => {
       const status = $.statusCode
 
       if (status !== 200) {
