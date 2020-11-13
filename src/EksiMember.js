@@ -3,7 +3,7 @@ const objectAssignDeep = require('object-assign-deep')
 const EksiGuest = require('./EksiGuest')
 const c = require('./constants')
 const { EntryForMember, UserForMember, Title, FollowedUserTitle, DraftTitle } = require('./models')
-const { toEncodeFormUrl, parseDate } = require('./utils')
+const { toEncodeFormUrl } = require('./utils')
 const { AuthError } = require('./exceptions')
 const { entries, tags, trashEntries, debeEntries } = require('./lib')
 
@@ -296,13 +296,7 @@ class EksiMember extends EksiGuest {
 
         $('ul.topic-list.partial li').each((i, elm) => {
           const title = new DraftTitle()
-          const name = $(elm).text().trim()
-          const date = $(elm).find('a div').text().trim()
-          const calculatedDate = parseDate(date)
-          title.name = name.substring(0, name.length - date.length).trim()
-          title.url = c.urls.base + $(elm).find('a').attr('href')
-          title.dateCreated = calculatedDate.created
-          title.dateModified = calculatedDate.modified
+          title.serialize($, elm)
           titles.push(title)
         })
 

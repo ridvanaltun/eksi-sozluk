@@ -1,3 +1,6 @@
+const { parseDate } = require('../utils')
+const c = require('../constants')
+
 /**
  * Draft title.
  */
@@ -15,6 +18,12 @@ class DraftTitle {
   url
 
   /**
+   * Title slug.
+   * @type {string}
+   */
+  slug
+
+  /**
    * Title created date.
    * @type {string}
    */
@@ -25,6 +34,23 @@ class DraftTitle {
    * @type {(string|null)}
    */
   dateModified
+
+  /**
+   * Parse properties with given document.
+   * @param   {Object}  $    Cheerio document.
+   * @param   {Object}  elm  Cheerio element.
+   * @ignore
+   */
+  serialize ($, elm) {
+    const name = $(elm).text().trim()
+    const date = $(elm).find('a div').text().trim()
+    const calculatedDate = parseDate(date)
+    this.name = name.substring(0, name.length - date.length).trim()
+    this.url = c.urls.base + $(elm).find('a').attr('href')
+    this.slug = $(elm).find('a').attr('href').replace(/(\/|\?q=)/g, '').split('&')[0]
+    this.dateCreated = calculatedDate.created
+    this.dateModified = calculatedDate.modified
+  }
 }
 
 module.exports = DraftTitle
