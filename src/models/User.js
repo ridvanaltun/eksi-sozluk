@@ -67,7 +67,7 @@ class User {
 
   /**
    * Last entry time.
-   * @type {string}
+   * @type {(string|null)}
    */
   lastEntryTime
 
@@ -123,13 +123,13 @@ class User {
       if (i === badgeCount - 1) {
         // last badge
         const badgeText = $(elm).text()
-        const badge = badgeText.replace(/[0-9]/g, '')
+        const badge = badgeText.replace(/[0-9]|\(|\)/g, '').trim()
         badges.push({
-          name: badge.substring(0, badge.length - 3),
+          name: badge,
           description: null
         })
         // scrape badge points
-        badgePoints = parseInt(badgeText.replace(/^.*?(\d+).*/, '$1'))
+        badgePoints = parseInt(badgeText.replace(/^.*?(\d+).*/, '$1')) || 0
       } else {
         badges.push({
           name: $(elm).text(),
@@ -139,6 +139,8 @@ class User {
     })
     // end - split badges
 
+    const lastEntryTime = $('ul li#last-entry-time').text().trim()
+
     this.username = $('h1#user-profile-title a').text()
     this.url = c.urls.user + this.username
     this.badges = badges
@@ -147,15 +149,16 @@ class User {
     this.entryCountLastmonth = parseInt($('ul li#entry-count-lastmonth').text())
     this.entryCountLastweek = parseInt($('ul li#entry-count-lastweek').text())
     this.entryCountToday = parseInt($('ul li#entry-count-today').text())
-    this.lastEntryTime = $('ul li#last-entry-time').text().trim()
+    this.lastEntryTime = lastEntryTime === '' ? null : lastEntryTime
 
     // bind auth properties
     if (this._cookies) {
+      const note = $('#user-note').text()
       this.id = parseInt($('#who').attr('value'))
       this.isFollowed = $('#buddy-link').data('added') || false
       this.isBlocked = $('#blocked-link').data('added') || false
       this.isTitlesBlocked = $('#blocked-index-title-link').data('added') || false
-      this.note = $('#user-note').text()
+      this.note = note === '' ? null : note
     }
   }
 
