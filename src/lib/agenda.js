@@ -11,7 +11,7 @@ const agenda = (_request) => {
 
       const titles = []
 
-      $('ul.topic-list.partial li a').each((i, elm) => {
+      $('ul.topic-list.partial li').each((i, elm) => {
         const title = new Title()
         title.serialize($, elm)
         titles.push(title)
