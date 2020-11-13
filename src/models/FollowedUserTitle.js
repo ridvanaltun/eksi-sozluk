@@ -5,6 +5,12 @@ const c = require('../constants')
  */
 class FollowedUserTitle {
   /**
+   * Title id.
+   * @type {number}
+   */
+  id
+
+  /**
    * Title name.
    * @type {string}
    */
@@ -15,6 +21,12 @@ class FollowedUserTitle {
    * @type {string}
    */
   url
+
+  /**
+   * Title slug.
+   * @type {string}
+   */
+  slug
 
   /**
    * Title owner.
@@ -31,9 +43,12 @@ class FollowedUserTitle {
   serialize ($, elm) {
     const name = $(elm).text().trim()
     const owner = $(elm).find('a div').text().trim()
+    const slug = $(elm).find('a').attr('href').split('?')[0].replace('/', '')
 
+    this.id = parseInt(slug.split('--')[1])
     this.name = name.substring(0, name.length - owner.length).trim()
     this.url = c.urls.base + $(elm).find('a').attr('href')
+    this.slug = slug
     this.owner = owner
   }
 }

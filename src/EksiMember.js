@@ -147,12 +147,7 @@ class EksiMember extends EksiGuest {
 
         $('ul.topic-list.partial li').each((i, elm) => {
           const title = new Title()
-          const name = $(elm).text().trim()
-          const entryCountStr = $(elm).find('a small').text().trim()
-          const entryCount = parseInt(entryCountStr)
-          title.name = name.substring(0, name.length - (entryCountStr.length)).trim()
-          title.url = c.urls.base + $(elm).find('a').attr('href')
-          title.entryCount = entryCountStr.includes('b') ? (1000 * entryCount) : entryCount || 1
+          title.serialize($, elm)
           titles.push(title)
         })
 
@@ -205,12 +200,7 @@ class EksiMember extends EksiGuest {
 
         $('ul.topic-list.partial li').each((i, elm) => {
           const title = new Title()
-          const name = $(elm).text().trim()
-          const entryCountStr = $(elm).find('a small').text().trim()
-          const entryCount = parseInt(entryCountStr)
-          title.name = name.substring(0, name.length - (entryCountStr.length)).trim()
-          title.url = c.urls.base + $(elm).find('a').attr('href')
-          title.entryCount = entryCountStr.includes('b') ? (1000 * entryCount) : entryCount || 1
+          title.serialize($, elm)
           titles.push(title)
         })
 
@@ -247,12 +237,13 @@ class EksiMember extends EksiGuest {
 
         $('ul.topic-list.partial li').each((i, elm) => {
           const title = new Title()
-          const name = $(elm).text().trim()
+          title.serialize($, elm)
+
+          // correct entry count
           const entryCountStr = $(elm).find('a small').text().trim()
           const entryCount = parseInt(entryCountStr)
-          title.name = name.substring(0, name.length - entryCountStr.length).trim()
-          title.url = c.urls.base + $(elm).find('a').attr('href')
           title.entryCount = entryCountStr.includes('b') ? (1000 * entryCount) : entryCount || 0
+
           titles.push(title)
         })
 
