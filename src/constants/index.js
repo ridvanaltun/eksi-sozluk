@@ -1,6 +1,9 @@
 'use strict'
 
 module.exports = {
+  defaults: {
+    titleCountPerPage: 50
+  },
   urls: {
     base: 'https://eksisozluk.com',
     entry: 'https://eksisozluk.com/entry/',

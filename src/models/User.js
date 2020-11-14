@@ -98,10 +98,10 @@ class User {
   /**
    * Create user.
    * @param   {Object}  request         Axios client.
-   * @param   {number}  username        Username.
+   * @param   {string}  username        Username.
    * @param   {string}  [cookies=null]  Cookie string.
    */
-  constructor (request, username, cookies) {
+  constructor (request, username, cookies = null) {
     this._request = request
     this._cookies = cookies
     this.username = username

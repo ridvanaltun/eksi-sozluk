@@ -1,7 +1,7 @@
 const axios = require('axios')
-const { entries, todayInHistory, tags, titlesByTag, agenda, debeEntries, questions } = require('./lib')
+const { entries, tags, debeEntries, questions } = require('./lib')
 const { request } = require('./utils')
-const { Entry, User } = require('./models')
+const { Entry, User, TitleCollection } = require('./models')
 const c = require('./constants')
 
 /**
@@ -80,13 +80,16 @@ class EksiGuest {
 
   /**
    * Fetch today in history.
-   * @param   {string}                year              A year.
-   * @param   {Object}                options           Parameters that user can specify.
-   * @param   {number}                [options.page=1]  Page number.
-   * @return  {Promise.Array<Title>}                    A promise for the titles of today in history.
+   * @param   {string}                    year              Which year.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.<TitleCollection>}                   A promise for the titles of today in history.
    */
   async todayInHistory (year, options) {
-    return await todayInHistory(this._request, year, options)
+    const collection = new TitleCollection(this._request, `/basliklar/tarihte-bugun?year=${year}`, { ...options })
+    await collection.retrieve()
+
+    return collection
   }
 
   /**
@@ -111,22 +114,28 @@ class EksiGuest {
 
   /**
    * Fetch titles by tag.
-   * @param   {Object}                options           Parameters that user can specify.
-   * @param   {number}                [options.page=1]  Page number.
-   * @return  {Promise.Array<Title>}                    A promise for the titles of given tag.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.<TitleCollection>}                   A promise for the titles of given tag.
    */
   async titlesByTag (tagName, options) {
-    return await titlesByTag(this._request, tagName, options)
+    const collection = new TitleCollection(this._request, `/basliklar/kanal/${tagName}`, { ...options })
+    await collection.retrieve()
+
+    return collection
   }
 
   /**
    * Fetch agenda.
-   * @param   {Object}                options           Parameters that user can specify.
-   * @param   {number}                [options.page=1]  Page number.
-   * @return  {Promise.Array<Title>}                    A promise for the agenda titles.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.<TitleCollection>}                   A promise for the agenda titles.
    */
   async agenda (options) {
-    return await agenda(this._request, options)
+    const collection = new TitleCollection(this._request, '/basliklar/gundem', { ...options })
+    await collection.retrieve()
+
+    return collection
   }
 
   /**

@@ -1,10 +1,9 @@
 const axios = require('axios')
-const objectAssignDeep = require('object-assign-deep')
 const EksiGuest = require('./EksiGuest')
 const c = require('./constants')
-const { EntryForMember, UserForMember, Title, FollowedUserTitle, DraftTitle } = require('./models')
+const { TITLE_TYPES } = require('./enums')
+const { EntryForMember, UserForMember, TitleCollection } = require('./models')
 const { toEncodeFormUrl } = require('./utils')
-const { AuthError } = require('./exceptions')
 const { entries, tags, trashEntries, debeEntries } = require('./lib')
 
 /**
@@ -105,257 +104,65 @@ class EksiMember extends EksiGuest {
 
   /**
    * Fetch today entries.
-   * @param   {Object}                options           Parameters that user can specify.
-   * @param   {number}                [options.page=1]  Page number.
-   * @return  {Promise.Array<Title>}                    A promise for the titles of today.
-   * @throws  {AuthError}                               User not authorized.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.<TitleCollection>}                   A promise for the titles of today.
    */
-  today (options) {
-    // handle default options
-    const _options = objectAssignDeep(
-      {
-        page: 1
-      },
-      options
-    )
+  async today (options) {
+    const collection = new TitleCollection(this._request, '/basliklar/bugun', { ...options, cookies: this.cookies })
+    await collection.retrieve()
 
-    // handle params
-    const params = {
-      p: _options.page
-    }
-
-    return new Promise((resolve, reject) => {
-      const requestOptions = {
-        endpoint: '/basliklar/bugun',
-        ajax: true,
-        cookie: this.cookies,
-        params
-      }
-      this._request(requestOptions, ($) => {
-        const status = $.statusCode
-
-        // not authorized
-        if (status === 404) {
-          return reject(new AuthError())
-        }
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
-        const titles = []
-
-        $('ul.topic-list.partial li').each((i, elm) => {
-          const title = new Title()
-          title.serialize($, elm)
-          titles.push(title)
-        })
-
-        resolve(titles)
-      })
-    })
+    return collection
   }
 
   /**
    * Fetch rookie entries.
-   * @param   {Object}                options           Parameters that user can specify.
-   * @param   {number}                [options.page=1]  Page number.
-   * @return  {Promise.Array<Title>}                    A promise for the rookie titles.
-   * @throws  {AuthError}                               User not authorized.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.<TitleCollection>}                   A promise for the rookie titles.
    */
-  rookieTitles (options) {
-    // handle default options
-    const _options = objectAssignDeep(
-      {
-        page: 1
-      },
-      options
-    )
+  async rookieTitles (options) {
+    const collection = new TitleCollection(this._request, '/basliklar/caylaklar', { ...options, cookies: this.cookies })
+    await collection.retrieve()
 
-    // handle params
-    const params = {
-      p: _options.page
-    }
-
-    return new Promise((resolve, reject) => {
-      const requestOptions = {
-        endpoint: '/basliklar/caylaklar',
-        ajax: true,
-        cookie: this.cookies,
-        params
-      }
-      this._request(requestOptions, ($) => {
-        const status = $.statusCode
-
-        // not authorized
-        if (status === 403) {
-          return reject(new AuthError())
-        }
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
-        const titles = []
-
-        $('ul.topic-list.partial li').each((i, elm) => {
-          const title = new Title()
-          title.serialize($, elm)
-          titles.push(title)
-        })
-
-        resolve(titles)
-      })
-    })
+    return collection
   }
 
   /**
    * Fetch events.
-   * @return {Promise.Array<Title>} A promise for the titles of events.
-   * @throws {AuthError}            User not authorized.
+   * @return {Promise.<TitleCollection>} A promise for the titles of events.
    */
-  events () {
-    return new Promise((resolve, reject) => {
-      const requestOptions = {
-        endpoint: '/basliklar/olay',
-        ajax: true,
-        cookie: this.cookies
-      }
-      this._request(requestOptions, ($) => {
-        const status = $.statusCode
+  async events () {
+    const collection = new TitleCollection(this._request, '/basliklar/olay', { defaultEntryCount: 0, cookies: this.cookies })
+    await collection.retrieve()
 
-        // not authorized
-        if (status === 403) {
-          return reject(new AuthError())
-        }
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
-        const titles = []
-
-        $('ul.topic-list.partial li').each((i, elm) => {
-          const title = new Title()
-          title.serialize($, elm)
-
-          // correct entry count
-          const entryCountStr = $(elm).find('a small').text().trim()
-          const entryCount = parseInt(entryCountStr)
-          title.entryCount = entryCountStr.includes('b') ? (1000 * entryCount) : entryCount || 0
-
-          titles.push(title)
-        })
-
-        resolve(titles)
-      })
-    })
+    return collection
   }
 
   /**
    * Fetch draft entries.
    * @param   {Object}                    options           Parameters that user can specify.
    * @param   {number}                    [options.page=1]  Page number.
-   * @return  {Promise.Array<DraftTitle>}                   A promise for the titles of drafts.
-   * @throws  {AuthError}                                   User not authorized.
+   * @return  {Promise.<TitleCollection>}                   A promise for the titles of drafts.
    */
-  drafts (options) {
-    // handle default options
-    const _options = objectAssignDeep(
-      {
-        page: 1
-      },
-      options
-    )
+  async drafts (options) {
+    const collection = new TitleCollection(this._request, '/basliklar/kenar', { type: TITLE_TYPES.DRAFT, cookies: this.cookies })
+    await collection.retrieve()
 
-    // handle params
-    const params = {
-      p: _options.page
-    }
-
-    return new Promise((resolve, reject) => {
-      const requestOptions = {
-        endpoint: '/basliklar/kenar',
-        ajax: true,
-        cookie: this.cookies,
-        params
-      }
-      this._request(requestOptions, ($) => {
-        const status = $.statusCode
-
-        // not authorized
-        if (status === 403) {
-          return reject(new AuthError())
-        }
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
-        const titles = []
-
-        $('ul.topic-list.partial li').each((i, elm) => {
-          const title = new DraftTitle()
-          title.serialize($, elm)
-          titles.push(title)
-        })
-
-        resolve(titles)
-      })
-    })
+    return collection
   }
 
   /**
-   * Fetch followed user entries.
-   * @param   {Object}                            options           Parameters that user can specify.
-   * @param   {number}                            [options.page=1]  Page number.
-   * @return  {Promise.Array<FollowedUserTitle>}                    A promise for the followed user entries.
-   * @throws  {AuthError}                                           User not authorized.
+   * Fetch followed user titles.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.<TitleCollection>}                   A promise for the followed user entries.
    */
-  followedUserEntries (options) {
-    // handle default options
-    const _options = objectAssignDeep(
-      {
-        page: 1
-      },
-      options
-    )
+  async followedUserTitles (options) {
+    const collection = new TitleCollection(this._request, '/basliklar/takipentry', { type: TITLE_TYPES.FOLLOWED_USER, cookies: this.cookies })
+    await collection.retrieve()
 
-    // handle params
-    const params = {
-      p: _options.page
-    }
-
-    return new Promise((resolve, reject) => {
-      const requestOptions = {
-        endpoint: '/basliklar/takipentry',
-        ajax: true,
-        cookie: this.cookies,
-        params
-      }
-      this._request(requestOptions, ($) => {
-        const status = $.statusCode
-
-        // not authorized
-        if (status === 404) {
-          return reject(new AuthError())
-        }
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
-        const titles = []
-
-        $('ul.topic-list.partial li').each((i, elm) => {
-          const title = new FollowedUserTitle()
-          title.serialize($, elm)
-          titles.push(title)
-        })
-
-        resolve(titles)
-      })
-    })
+    return collection
   }
 
   /**
