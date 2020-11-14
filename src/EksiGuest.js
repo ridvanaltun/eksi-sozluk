@@ -93,6 +93,19 @@ class EksiGuest {
   }
 
   /**
+   * Fetch untagged titles.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.<TitleCollection>}                   A promise for untagged titles.
+   */
+  async untaggedTitles (options) {
+    const collection = new TitleCollection(this._request, '/basliklar/basiboslar', { ...options })
+    await collection.retrieve()
+
+    return collection
+  }
+
+  /**
    * Fetch user.
    * @param   {string}          username  Username.
    * @return  {Promise.<User>}            A promise for the user.
