@@ -169,6 +169,19 @@ class EksiMember extends EksiGuest {
   }
 
   /**
+   * Fetch followed user favorite entries.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.<TitleCollection>}                   A promise for the followed user titles.
+   */
+  async followedUserFavoriteEntries (options) {
+    const collection = new TitleCollection(this._request, '/basliklar/takipfav', { type: TITLE_TYPES.FOLLOWED_USER_FAVORITE_ENTRY, cookies: this.cookies, ...options })
+    await collection.retrieve()
+
+    return collection
+  }
+
+  /**
    * Fetch tags.
    * @return  {Promise.Array<TagForMember>} A promise for the tags.
    */

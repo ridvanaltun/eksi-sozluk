@@ -1,6 +1,7 @@
 const objectAssignDeep = require('object-assign-deep')
 const Title = require('./Title')
 const FollowedUserTitle = require('./FollowedUserTitle')
+const FollowedUserFavoriteEntry = require('./FollowedUserFavoriteEntry')
 const DraftTitle = require('./DraftTitle')
 const { AuthError } = require('../exceptions')
 const { DEFAULTS } = require('../constants')
@@ -126,29 +127,52 @@ class TitleCollection {
           return reject(new Error('An unknown error occurred.'))
         }
 
-        const totalTitleCount = parseInt($('div.clearfix.dropdown h2').attr('title'))
+        const totalTitleCount = parseInt(
+          $('div.clearfix.dropdown h2').attr('title')
+        )
 
         const titles = []
 
         $('ul.topic-list.partial li').each((i, elm) => {
-          const isPlainTitle = this._type === TITLE_TYPES.TITLE
-          const isDraftTitle = this._type === TITLE_TYPES.DRAFT
+          let title
 
-          const title = isPlainTitle ? new Title(this._request) : isDraftTitle ? new DraftTitle() : new FollowedUserTitle(this._request, this._cookies)
+          switch (this._type) {
+            case TITLE_TYPES.TITLE:
+              title = new Title(this._request)
+              break
+
+            case TITLE_TYPES.DRAFT:
+              title = new DraftTitle()
+              break
+
+            case TITLE_TYPES.FOLLOWED_USER:
+              title = new FollowedUserTitle(this._request, this._cookies)
+              break
+
+            case TITLE_TYPES.FOLLOWED_USER_FAVORITE_ENTRY:
+              title = new FollowedUserFavoriteEntry(this._request, this._cookies)
+              break
+          }
+
           title.serialize($, elm)
+
+          const isPlainTitle = this._type === TITLE_TYPES.TITLE
 
           // correct entry count
           if (isPlainTitle) {
             const entryCountStr = $(elm).find('a small').text().trim()
             const entryCount = parseInt(entryCountStr)
-            title.entryCount = entryCountStr.includes('b') ? (1000 * entryCount) : entryCount || this._defaultEntryCount
+            title.entryCount = entryCountStr.includes('b')
+              ? 1000 * entryCount
+              : entryCount || this._defaultEntryCount
           }
 
           titles.push(title)
         })
 
         this.totalTitleCount = totalTitleCount || null
-        this.pageCount = Math.ceil(totalTitleCount / DEFAULTS.TITLE_COUNT_PER_PAGE) || null
+        this.pageCount =
+          Math.ceil(totalTitleCount / DEFAULTS.TITLE_COUNT_PER_PAGE) || null
         this.titles = titles
 
         resolve()

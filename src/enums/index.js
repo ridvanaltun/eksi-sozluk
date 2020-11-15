@@ -12,7 +12,8 @@
 var TITLE_TYPES = {
   TITLE: 1,
   DRAFT: 2,
-  FOLLOWED_USER: 3
+  FOLLOWED_USER: 3,
+  FOLLOWED_USER_FAVORITE_ENTRY: 4
 }
 
 module.exports = {

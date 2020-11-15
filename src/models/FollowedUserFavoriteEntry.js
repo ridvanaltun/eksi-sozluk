@@ -1,39 +1,46 @@
 const { URLS } = require('../constants')
 const UserForMember = require('./UserForMember')
+const EntryForMember = require('./EntryForMember')
 
 /**
- * Followed user title.
+ * Followed user favorite entry.
  */
-class FollowedUserTitle {
+class FollowedUserFavoriteEntry {
   /**
-   * Title ID.
+   * Entry ID.
    * @type {number}
    */
-  id
+  entryId
 
   /**
    * Title name.
    * @type {string}
    */
-  name
+  titleName
 
   /**
-   * Title URL.
+   * Entry URL.
    * @type {string}
    */
-  url
+  entryUrl
 
   /**
    * Title slug.
    * @type {string}
    */
-  slug
+  titleSlug
 
   /**
-   * Title owner.
+   * Entry owner.
    * @type {UserForMember}
    */
   owner
+
+  /**
+   * Entry itself.
+   * @type {EntryForMember}
+   */
+  entry
 
   /**
    * Create title.
@@ -52,17 +59,18 @@ class FollowedUserTitle {
    * @ignore
    */
   serialize ($, elm) {
-    const name = $(elm).text().trim()
+    const titleName = $(elm).text().trim()
     const owner = $(elm).find('a div').text().trim()
-    const slug = $(elm).find('a').attr('href').split('?')[0].replace('/', '')
+    const entryId = parseInt($(elm).find('a').attr('href').split('/')[2])
 
-    this.id = parseInt(slug.split('--')[1])
-    this.name = name.substring(0, name.length - owner.length).trim()
-    this.url = URLS.BASE + $(elm).find('a').attr('href')
-    this.slug = slug
+    this.entryId = entryId
+    this.titleName = titleName.substring(0, titleName.length - owner.length).trim()
+    this.entryUrl = URLS.BASE + $(elm).find('a').attr('href')
+    this.titleSlug = $(elm).find('a').attr('href').replace('/', '')
 
     this.owner = new UserForMember(this._request, owner, this._cookies)
+    this.entry = new EntryForMember(this._request, entryId, this._cookies)
   }
 }
 
-module.exports = FollowedUserTitle
+module.exports = FollowedUserFavoriteEntry

@@ -7,6 +7,7 @@ const UserForMember = require('./UserForMember')
 const TrashEntry = require('./TrashEntry')
 const Title = require('./Title')
 const FollowedUserTitle = require('./FollowedUserTitle')
+const FollowedUserFavoriteEntry = require('./FollowedUserFavoriteEntry')
 const DraftTitle = require('./DraftTitle')
 const Question = require('./Question')
 const TitleCollection = require('./TitleCollection')
@@ -22,6 +23,7 @@ module.exports = {
   TrashEntry,
   Title,
   FollowedUserTitle,
+  FollowedUserFavoriteEntry,
   DraftTitle,
   Question,
   TitleCollection,
