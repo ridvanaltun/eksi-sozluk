@@ -10,6 +10,7 @@ const FollowedUserTitle = require('./FollowedUserTitle')
 const DraftTitle = require('./DraftTitle')
 const Question = require('./Question')
 const TitleCollection = require('./TitleCollection')
+const EntryCollection = require('./EntryCollection')
 
 module.exports = {
   Entry,
@@ -23,5 +24,6 @@ module.exports = {
   FollowedUserTitle,
   DraftTitle,
   Question,
-  TitleCollection
+  TitleCollection,
+  EntryCollection
 }

@@ -2,9 +2,9 @@ const axios = require('axios')
 const EksiGuest = require('./EksiGuest')
 const c = require('./constants')
 const { TITLE_TYPES } = require('./enums')
-const { EntryForMember, UserForMember, TitleCollection } = require('./models')
+const { EntryForMember, UserForMember, TitleCollection, EntryCollection } = require('./models')
 const { toEncodeFormUrl } = require('./utils')
-const { entries, tags, trashEntries, debeEntries } = require('./lib')
+const { tags, trashEntries, debeEntries } = require('./lib')
 
 /**
  * @classdesc Eksi Sozluk member class.
@@ -81,13 +81,16 @@ class EksiMember extends EksiGuest {
 
   /**
    * Fetch entries.
-   * @param   {string}                        title             Title itself.
-   * @param   {Object}                        options           Parameters that user can specify.
-   * @param   {number}                        [options.page=1]  Page number.
-   * @return  {Promise.Array<EntryForMember>}                   A promise for the entries.
+   * @param   {string}                    title             Title itself.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.<EntryCollection>}                   A promise for the entries.
    */
   async entries (title, options) {
-    return await entries(this._request, title, { ...options, cookies: this.cookies })
+    const collection = new EntryCollection(this._request, title, { ...options, cookies: this.cookies })
+    await collection.retrieve()
+
+    return collection
   }
 
   /**
@@ -156,7 +159,7 @@ class EksiMember extends EksiGuest {
    * Fetch followed user titles.
    * @param   {Object}                    options           Parameters that user can specify.
    * @param   {number}                    [options.page=1]  Page number.
-   * @return  {Promise.<TitleCollection>}                   A promise for the followed user entries.
+   * @return  {Promise.<TitleCollection>}                   A promise for the followed user titles.
    */
   async followedUserTitles (options) {
     const collection = new TitleCollection(this._request, '/basliklar/takipentry', { type: TITLE_TYPES.FOLLOWED_USER, cookies: this.cookies })

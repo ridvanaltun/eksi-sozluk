@@ -1,7 +1,7 @@
 const axios = require('axios')
-const { entries, tags, debeEntries, questions } = require('./lib')
+const { tags, debeEntries, questions } = require('./lib')
 const { request } = require('./utils')
-const { Entry, User, TitleCollection } = require('./models')
+const { Entry, User, TitleCollection, EntryCollection } = require('./models')
 const c = require('./constants')
 
 /**
@@ -69,13 +69,16 @@ class EksiGuest {
 
   /**
    * Fetch entries.
-   * @param   {string}                title             Title itself.
-   * @param   {Object}                options           Parameters that user can specify.
-   * @param   {number}                [options.page=1]  Page number.
-   * @return  {Promise.Array<Entry>}                    A promise for the entries.
+   * @param   {string}                    title             Title itself.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.<EntryCollection>}                   A promise for the entries.
    */
   async entries (title, options) {
-    return await entries(this._request, title, options)
+    const collection = new EntryCollection(this._request, title, options)
+    await collection.retrieve()
+
+    return collection
   }
 
   /**

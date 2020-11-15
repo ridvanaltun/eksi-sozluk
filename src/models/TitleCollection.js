@@ -100,7 +100,7 @@ class TitleCollection {
   }
 
   /**
-   * Retrieve user.
+   * Retrieve title collection.
    * @return  {Promise} Promise.
    */
   retrieve () {
