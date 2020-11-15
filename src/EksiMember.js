@@ -149,7 +149,7 @@ class EksiMember extends EksiGuest {
    * @return  {Promise.<TitleCollection>}                   A promise for the titles of drafts.
    */
   async drafts (options) {
-    const collection = new TitleCollection(this._request, '/basliklar/kenar', { type: TITLE_TYPES.DRAFT, cookies: this.cookies })
+    const collection = new TitleCollection(this._request, '/basliklar/kenar', { ...options, type: TITLE_TYPES.DRAFT, cookies: this.cookies })
     await collection.retrieve()
 
     return collection
@@ -162,7 +162,7 @@ class EksiMember extends EksiGuest {
    * @return  {Promise.<TitleCollection>}                   A promise for the followed user titles.
    */
   async followedUserTitles (options) {
-    const collection = new TitleCollection(this._request, '/basliklar/takipentry', { type: TITLE_TYPES.FOLLOWED_USER, cookies: this.cookies })
+    const collection = new TitleCollection(this._request, '/basliklar/takipentry', { ...options, type: TITLE_TYPES.FOLLOWED_USER, cookies: this.cookies })
     await collection.retrieve()
 
     return collection
@@ -175,7 +175,7 @@ class EksiMember extends EksiGuest {
    * @return  {Promise.<TitleCollection>}                   A promise for the followed user titles.
    */
   async followedUserFavoriteEntries (options) {
-    const collection = new TitleCollection(this._request, '/basliklar/takipfav', { type: TITLE_TYPES.FOLLOWED_USER_FAVORITE_ENTRY, cookies: this.cookies, ...options })
+    const collection = new TitleCollection(this._request, '/basliklar/takipfav', { ...options, type: TITLE_TYPES.FOLLOWED_USER_FAVORITE_ENTRY, cookies: this.cookies })
     await collection.retrieve()
 
     return collection
