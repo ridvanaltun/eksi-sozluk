@@ -11,6 +11,7 @@
         "src/EksiMember.js",
         "src/EksiSozluk.js",
         "src/models",
+        "src/enums",
         "src/exceptions"
       ],
       "includePattern": ".js$",

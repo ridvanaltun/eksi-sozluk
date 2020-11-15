@@ -1,16 +1,14 @@
 'use strict'
 
 const EksiSozluk = require('./EksiSozluk')
-const EksiMember = require('./EksiMember')
-const EksiGuest = require('./EksiGuest')
+const { TAGS } = require('./enums')
 const { AuthError, VoteError, TagError, NotFoundError } = require('./exceptions')
 
 module.exports = {
   EksiSozluk,
-  EksiMember,
-  EksiGuest,
   AuthError,
   VoteError,
   TagError,
-  NotFoundError
+  NotFoundError,
+  TAGS
 }

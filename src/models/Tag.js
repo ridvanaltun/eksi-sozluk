@@ -12,7 +12,7 @@ class Tag {
 
   /**
    * Tag name.
-   * @type {string}
+   * @type {TagName}
    */
   name
 
@@ -36,7 +36,7 @@ class Tag {
 
   /**
    * Create tag.
-   * @param   {string}  [cookies=null]  Cookie string.
+   * @param {string}  [cookies=null]  Cookie string.
    */
   constructor (cookies = null) {
     this._cookies = cookies
@@ -44,8 +44,8 @@ class Tag {
 
   /**
    * Parse properties with given document.
-   * @param   {Object}  $    Cheerio document.
-   * @param   {Object}  elm  Cheerio element.
+   * @param {Object}  $   Cheerio document.
+   * @param {Object}  elm Cheerio element.
    * @ignore
    */
   serialize ($, elm) {

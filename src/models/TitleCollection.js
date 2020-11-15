@@ -38,12 +38,12 @@ class TitleCollection {
   /**
    * Create a title collection.
    * @param {Object}    request                       Axios client.
-   * @param {string}    path                          Titles path.
+   * @param {string}    path                          Title path.
    * @param {Object}    options                       Parameters that user can specify.
    * @param {number}    [options.page=1]              Page number.
    * @param {number}    [options.defaultEntryCount=1] Default entry count, using if entry count not provided.
    * @param {string}    [options.cookies=null]        Cookie string.
-   * @param {TitleType} [options.type=1]              Type of title, defualt: Title.
+   * @param {TitleType} [options.type=1]              Type of title.
    */
   constructor (request, path, options) {
     // handle default options
