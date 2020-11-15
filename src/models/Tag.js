@@ -1,4 +1,4 @@
-const c = require('../constants')
+const { URLS } = require('../constants')
 
 /**
  * Tag.
@@ -51,7 +51,7 @@ class Tag {
   serialize ($, elm) {
     this.name = $(elm).find('h3 a').text().substring(1, $(elm).find('h3 a').text().length)
     this.description = $(elm).find('p').text()
-    this.link = c.urls.base + $(elm).find('h3 a').attr('href')
+    this.link = URLS.BASE + $(elm).find('h3 a').attr('href')
 
     // bind auth properties
     if (this._cookies) {

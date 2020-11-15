@@ -1,4 +1,4 @@
-const c = require('../constants')
+const { URLS } = require('../constants')
 
 /**
  * Followed user title.
@@ -47,7 +47,7 @@ class FollowedUserTitle {
 
     this.id = parseInt(slug.split('--')[1])
     this.name = name.substring(0, name.length - owner.length).trim()
-    this.url = c.urls.base + $(elm).find('a').attr('href')
+    this.url = URLS.BASE + $(elm).find('a').attr('href')
     this.slug = slug
     this.owner = owner
   }

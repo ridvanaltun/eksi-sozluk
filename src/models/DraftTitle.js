@@ -1,5 +1,5 @@
 const { parseDate } = require('../utils')
-const c = require('../constants')
+const { URLS } = require('../constants')
 
 /**
  * Draft title.
@@ -46,7 +46,7 @@ class DraftTitle {
     const date = $(elm).find('a div').text().trim()
     const calculatedDate = parseDate(date)
     this.name = name.substring(0, name.length - date.length).trim()
-    this.url = c.urls.base + $(elm).find('a').attr('href')
+    this.url = URLS.BASE + $(elm).find('a').attr('href')
     this.slug = $(elm).find('a').attr('href').replace(/(\/|\?q=)/g, '').split('&')[0]
     this.dateCreated = calculatedDate.created
     this.dateModified = calculatedDate.modified

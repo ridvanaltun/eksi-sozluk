@@ -1,6 +1,6 @@
 const { parseDate } = require('../utils')
 const { NotFoundError } = require('../exceptions')
-const c = require('../constants')
+const { URLS } = require('../constants')
 
 /**
  * Entry.
@@ -145,19 +145,19 @@ class Entry {
 
     this.author = $(elm).data('author')
     this.authorId = authorId
-    this.authorUrl = c.urls.user + $(elm).data('author')
+    this.authorUrl = URLS.USER + $(elm).data('author')
     this.content = $(elm).find('div.content').html()
     this.contentEncoded = $(elm).find('div.content').text().trim()
     this.dateCreated = date.created
     this.dateModified = date.modified
-    this.eksiseylerLink = isEksiseylerExist ? c.urls.seyler + $(elm).data('seyler-slug') : null
+    this.eksiseylerLink = isEksiseylerExist ? URLS.SEYLER + $(elm).data('seyler-slug') : null
     this.eksiseylerSlug = isEksiseylerExist ? $(elm).data('seyler-slug') : null
     this.favoriteCount = $(elm).data('favorite-count')
-    this.permalink = c.urls.entry + this.id
+    this.permalink = URLS.ENTRY + this.id
     this.title = $('h1#title').data('title')
     this.titleId = $('h1#title').data('id')
     this.titleSlug = $('h1#title').data('slug')
-    this.titleUrl = c.urls.base + $('h1#title a').attr('href')
+    this.titleUrl = URLS.BASE + $('h1#title a').attr('href')
 
     // bind auth properties
     if (this._cookies) {

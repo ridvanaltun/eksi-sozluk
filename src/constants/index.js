@@ -1,27 +1,26 @@
 'use strict'
 
 module.exports = {
-  defaults: {
-    titleCountPerPage: 50
+  DEFAULTS: {
+    TITLE_COUNT_PER_PAGE: 50
   },
-  urls: {
-    base: 'https://eksisozluk.com',
-    entry: 'https://eksisozluk.com/entry/',
-    user: 'https://eksisozluk.com/biri/',
-    q: 'https://eksisozluk.com/?q=',
-    seyler: 'https://seyler.eksisozluk.com/',
-    vote: 'https://eksisozluk.com/entry/vote',
-    removevote: 'https://eksisozluk.com/entry/removevote',
-    tags: 'https://eksisozluk.com/kanallar',
-    trash: 'https://eksisozluk.com/cop',
-    search: 'https://eksisozluk.com/autocomplete/query',
-    message: 'https://eksisozluk.com/mesaj',
-    sendMessage: 'https://eksisozluk.com/mesaj/yolla',
-    followUser: 'https://eksisozluk.com/userrelation/addrelation',
-    unfollowUser: 'https://eksisozluk.com/userrelation/removerelation',
-    blockUser: 'https://eksisozluk.com/userrelation/addrelation',
-    unblockUser: 'https://eksisozluk.com/userrelation/removerelation',
-    blockUserTitles: 'https://eksisozluk.com/userrelation/addrelation',
-    unblockUserTitles: 'https://eksisozluk.com/userrelation/removerelation'
+  URLS: {
+    BASE: 'https://eksisozluk.com',
+    ENTRY: 'https://eksisozluk.com/entry/',
+    USER: 'https://eksisozluk.com/biri/',
+    SEYLER: 'https://seyler.eksisozluk.com/',
+    VOTE: 'https://eksisozluk.com/entry/vote',
+    REMOVE_VOTE: 'https://eksisozluk.com/entry/removevote',
+    TAGS: 'https://eksisozluk.com/kanallar',
+    TRASH: 'https://eksisozluk.com/cop',
+    SEARCH: 'https://eksisozluk.com/autocomplete/query',
+    MESSAGE: 'https://eksisozluk.com/mesaj',
+    SEND_MESSAGE: 'https://eksisozluk.com/mesaj/yolla',
+    FOLLOW_USER: 'https://eksisozluk.com/userrelation/addrelation',
+    UNFOLLOW_USER: 'https://eksisozluk.com/userrelation/removerelation',
+    BLOCK_USER: 'https://eksisozluk.com/userrelation/addrelation',
+    UNBLOCK_USER: 'https://eksisozluk.com/userrelation/removerelation',
+    BLOCK_USER_TITLES: 'https://eksisozluk.com/userrelation/addrelation',
+    UNBLOCK_USER_TITLES: 'https://eksisozluk.com/userrelation/removerelation'
   }
 }

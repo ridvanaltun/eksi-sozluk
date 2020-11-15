@@ -3,7 +3,7 @@ const Title = require('./Title')
 const FollowedUserTitle = require('./FollowedUserTitle')
 const DraftTitle = require('./DraftTitle')
 const { AuthError } = require('../exceptions')
-const c = require('../constants')
+const { DEFAULTS } = require('../constants')
 const { TITLE_TYPES } = require('../enums')
 
 /**
@@ -148,7 +148,7 @@ class TitleCollection {
         })
 
         this.totalTitleCount = totalTitleCount || null
-        this.pageCount = Math.ceil(totalTitleCount / c.defaults.titleCountPerPage) || null
+        this.pageCount = Math.ceil(totalTitleCount / DEFAULTS.TITLE_COUNT_PER_PAGE) || null
         this.titles = titles
 
         resolve()

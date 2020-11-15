@@ -2,7 +2,7 @@ const axios = require('axios')
 const { tags, debeEntries, questions } = require('./lib')
 const { request } = require('./utils')
 const { Entry, User, TitleCollection, EntryCollection } = require('./models')
-const c = require('./constants')
+const { URLS } = require('./constants')
 
 /**
  * @classdesc Eksi Sozluk guest class.
@@ -33,8 +33,8 @@ class EksiGuest {
   search (text) {
     return new Promise((resolve, reject) => {
       axios({
-        url: c.urls.search,
-        method: 'get',
+        url: URLS.SEARCH,
+        method: 'GET',
         headers: {
           'x-requested-with': 'XMLHttpRequest'
         },

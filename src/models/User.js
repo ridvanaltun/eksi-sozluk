@@ -1,4 +1,4 @@
-const c = require('../constants')
+const { URLS } = require('../constants')
 const { NotFoundError } = require('../exceptions')
 
 /**
@@ -142,7 +142,7 @@ class User {
     const lastEntryTime = $('ul li#last-entry-time').text().trim()
 
     this.username = $('h1#user-profile-title a').text()
-    this.url = c.urls.user + this.username
+    this.url = URLS.USER + this.username
     this.badges = badges
     this.badgePoints = badgePoints
     this.entryCountTotal = parseInt($('ul li#entry-count-total').text())

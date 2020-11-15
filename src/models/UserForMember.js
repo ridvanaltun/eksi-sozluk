@@ -1,6 +1,6 @@
 const axios = require('axios')
 const User = require('./User')
-const c = require('../constants')
+const { URLS } = require('../constants')
 const { toEncodeFormUrl } = require('../utils')
 
 /**
@@ -45,8 +45,8 @@ class UserForMember extends User {
   follow () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${c.urls.followUser}/${this.id}`,
-        method: 'post',
+        url: `${URLS.FOLLOW_USER}/${this.id}`,
+        method: 'POST',
         params: {
           r: 'b'
         },
@@ -71,8 +71,8 @@ class UserForMember extends User {
   unfollow () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${c.urls.unfollowUser}/${this.id}`,
-        method: 'post',
+        url: `${URLS.UNFOLLOW_USER}/${this.id}`,
+        method: 'POST',
         params: {
           r: 'b'
         },
@@ -97,8 +97,8 @@ class UserForMember extends User {
   block () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${c.urls.blockUser}/${this.id}`,
-        method: 'post',
+        url: `${URLS.BLOCK_USER}/${this.id}`,
+        method: 'POST',
         params: {
           r: 'm'
         },
@@ -123,8 +123,8 @@ class UserForMember extends User {
   unblock () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${c.urls.unblockUser}/${this.id}`,
-        method: 'post',
+        url: `${URLS.UNBLOCK_USER}/${this.id}`,
+        method: 'POST',
         params: {
           r: 'm'
         },
@@ -149,8 +149,8 @@ class UserForMember extends User {
   blockTitles () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${c.urls.blockUserTitles}/${this.id}`,
-        method: 'post',
+        url: `${URLS.BLOCK_USER_TITLES}/${this.id}`,
+        method: 'POST',
         params: {
           r: 'i'
         },
@@ -175,8 +175,8 @@ class UserForMember extends User {
   unblockTitles () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${c.urls.unblockUserTitles}/${this.id}`,
-        method: 'post',
+        url: `${URLS.UNBLOCK_USER_TITLES}/${this.id}`,
+        method: 'POST',
         params: {
           r: 'i'
         },
@@ -202,8 +202,8 @@ class UserForMember extends User {
   sendMessage (message) {
     return new Promise((resolve, reject) => {
       axios({
-        url: c.urls.message,
-        method: 'get',
+        url: URLS.MESSAGE,
+        method: 'GET',
         headers: {
           cookie: this._cookies
         }
@@ -220,8 +220,8 @@ class UserForMember extends User {
       }).then(async (csrfToken) => {
         // send message
         const _res = await axios({
-          url: c.urls.sendMessage,
-          method: 'post',
+          url: URLS.SEND_MESSAGE,
+          method: 'POST',
           headers: {
             cookie: this._cookies
           },

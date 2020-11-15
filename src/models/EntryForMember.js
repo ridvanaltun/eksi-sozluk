@@ -1,6 +1,6 @@
 const axios = require('axios')
 const Entry = require('./Entry')
-const c = require('../constants')
+const { URLS } = require('../constants')
 const { toEncodeFormUrl } = require('../utils')
 const { VoteError } = require('../exceptions')
 
@@ -40,8 +40,8 @@ class EntryForMember extends Entry {
   upvote () {
     return new Promise((resolve, reject) => {
       axios({
-        url: c.urls.vote,
-        method: 'post',
+        url: URLS.VOTE,
+        method: 'POST',
         headers: {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
@@ -73,8 +73,8 @@ class EntryForMember extends Entry {
   downvote () {
     return new Promise((resolve, reject) => {
       axios({
-        url: c.urls.vote,
-        method: 'post',
+        url: URLS.VOTE,
+        method: 'POST',
         headers: {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
@@ -106,8 +106,8 @@ class EntryForMember extends Entry {
   removevote () {
     return new Promise((resolve, reject) => {
       axios({
-        url: c.urls.removevote,
-        method: 'post',
+        url: URLS.REMOVE_VOTE,
+        method: 'POST',
         headers: {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
@@ -138,8 +138,8 @@ class EntryForMember extends Entry {
   deleteFromTrash () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${c.urls.trash}/sil`,
-        method: 'post',
+        url: `${URLS.TRASH}/sil`,
+        method: 'POST',
         params: {
           id: this.id
         },
@@ -164,8 +164,8 @@ class EntryForMember extends Entry {
   recoverFromTrash () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${c.urls.trash}/canlandir`,
-        method: 'post',
+        url: `${URLS.TRASH}/canlandir`,
+        method: 'POST',
         params: {
           id: this.id
         },

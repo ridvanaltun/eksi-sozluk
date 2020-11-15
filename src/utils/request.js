@@ -15,7 +15,7 @@ const cheerio = require('cheerio')
  * @param   {string}          options.endpoint      Endpoint of the request.
  * @param   {string}          [options.cookie]      Auth cookie.
  * @param   {boolean}         [options.ajax=false]  Use ajax HTTP calls.
- * @param   {string}          [options.method=get]  HTTP request method.
+ * @param   {string}          [options.method=GET]  HTTP request method.
  * @param   {requestCallback} cb                    The callback that handles the response.
  * @ignore
  */
@@ -23,7 +23,7 @@ const request = (httpClient) => {
   return (options, cb) => {
     // handle default options
     const _options = objectAssignDeep({
-      method: 'get',
+      method: 'GET',
       ajax: false
     }, options)
 

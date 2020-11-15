@@ -1,5 +1,5 @@
 const { Question } = require('../models')
-const c = require('../constants')
+const { URLS } = require('../constants')
 
 const questions = (_request) => {
   return new Promise((resolve, reject) => {
@@ -21,7 +21,7 @@ const questions = (_request) => {
         const question = new Question()
         question.title = title.substring(1, title.length - 1)
         question.questionTitle = questionTitle.substring(0, questionTitle.length).trim()
-        question.questionLink = c.urls.base + $(elm).attr('href')
+        question.questionLink = URLS.BASE + $(elm).attr('href')
         question.answerCount = answerCountStr.includes('b') ? (1000 * answerCount) : answerCount || 0
         questions.push(question)
       })

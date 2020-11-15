@@ -1,5 +1,5 @@
 const { Entry, EntryForMember } = require('../models')
-const c = require('../constants')
+const { URLS } = require('../constants')
 const { NotFoundError } = require('../exceptions')
 
 const debeEntries = (_request, cookie = null) => {
@@ -21,7 +21,7 @@ const debeEntries = (_request, cookie = null) => {
         const entryId = parseInt($(elm).find('a').attr('href').split('/')[2])
         const entry = cookie ? new EntryForMember(_request, entryId, cookie) : new Entry(_request, entryId)
         entry.title = $(elm).text().trim()
-        entry.permalink = c.urls.base + $(elm).find('a').attr('href')
+        entry.permalink = URLS.BASE + $(elm).find('a').attr('href')
         entries.push(entry)
       })
 

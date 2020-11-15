@@ -3,7 +3,7 @@ const objectAssignDeep = require('object-assign-deep')
 const EksiGuest = require('./EksiGuest')
 const EksiMember = require('./EksiMember')
 const { request } = require('./utils')
-const c = require('./constants')
+const { URLS } = require('./constants')
 const { AuthError } = require('./exceptions')
 
 /**
@@ -23,7 +23,7 @@ class EksiSozluk extends EksiGuest {
     const _options = objectAssignDeep({
       httpClient: {
         timeout: 3000,
-        baseURL: c.urls.base
+        baseURL: URLS.BASE
       }
     }, options)
 
@@ -44,8 +44,8 @@ class EksiSozluk extends EksiGuest {
     return new Promise((resolve, reject) => {
       if (cookies) {
         axios({
-          url: c.urls.base,
-          method: 'get',
+          url: URLS.BASE,
+          method: 'GET',
           headers: {
             cookie: cookies
           }

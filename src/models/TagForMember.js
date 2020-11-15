@@ -1,6 +1,6 @@
 const axios = require('axios')
 const Tag = require('./Tag')
-const c = require('../constants')
+const { URLS } = require('../constants')
 const { TagError } = require('../exceptions')
 
 /**
@@ -27,8 +27,8 @@ class TagForMember extends Tag {
   follow () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${c.urls.tags}/${this.id}/follow`,
-        method: 'post',
+        url: `${URLS.TAGS}/${this.id}/follow`,
+        method: 'POST',
         headers: {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
@@ -50,8 +50,8 @@ class TagForMember extends Tag {
   unfollow () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${c.urls.tags}/${this.id}/unfollow`,
-        method: 'post',
+        url: `${URLS.TAGS}/${this.id}/unfollow`,
+        method: 'POST',
         headers: {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies

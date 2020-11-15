@@ -1,4 +1,4 @@
-const c = require('../constants')
+const { URLS } = require('../constants')
 
 /**
  * Title.
@@ -48,7 +48,7 @@ class Title {
 
     this.id = parseInt(slug.split('--')[1]) || null
     this.name = name.substring(0, name.length - (entryCountStr.length)).trim()
-    this.url = c.urls.base + $(elm).find('a').attr('href')
+    this.url = URLS.BASE + $(elm).find('a').attr('href')
     this.slug = slug
     this.entryCount = entryCountStr.includes('b') ? (1000 * entryCount) : entryCount || 1
   }

@@ -1,6 +1,6 @@
 const axios = require('axios')
 const EksiGuest = require('./EksiGuest')
-const c = require('./constants')
+const { URLS } = require('./constants')
 const { TITLE_TYPES } = require('./enums')
 const { EntryForMember, UserForMember, TitleCollection, EntryCollection } = require('./models')
 const { toEncodeFormUrl } = require('./utils')
@@ -28,8 +28,8 @@ class EksiMember extends EksiGuest {
   isNewMessageAvailable () {
     return new Promise((resolve, reject) => {
       axios({
-        url: c.urls.base,
-        method: 'get',
+        url: URLS.BASE,
+        method: 'GET',
         headers: {
           cookie: this.cookies
         }
@@ -51,8 +51,8 @@ class EksiMember extends EksiGuest {
   isNewEventAvailable () {
     return new Promise((resolve, reject) => {
       axios({
-        url: c.urls.base,
-        method: 'get',
+        url: URLS.BASE,
+        method: 'GET',
         headers: {
           cookie: this.cookies
         }
@@ -201,8 +201,8 @@ class EksiMember extends EksiGuest {
   emptyTrash () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${c.urls.trash}`,
-        method: 'get',
+        url: `${URLS.TRASH}`,
+        method: 'GET',
         headers: {
           cookie: this.cookies
         }
@@ -215,8 +215,8 @@ class EksiMember extends EksiGuest {
       }).then(async (csrfToken) => {
         // empty trash
         const _res = await axios({
-          url: `${c.urls.trash}/bosalt`,
-          method: 'post',
+          url: `${URLS.TRASH}/bosalt`,
+          method: 'POST',
           headers: {
             cookie: this.cookies
           },
