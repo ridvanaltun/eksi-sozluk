@@ -2,7 +2,7 @@ const axios = require('axios')
 const objectAssignDeep = require('object-assign-deep')
 const Entry = require('./Entry')
 const EntryForMember = require('./EntryForMember')
-const { urls } = require('../constants')
+const { URLS } = require('../constants')
 const { NotFoundError } = require('../exceptions')
 
 /**
@@ -73,7 +73,7 @@ class EntryCollection {
    */
   _getActualPath () {
     return new Promise((resolve, reject) => {
-      const target = encodeURI(urls.base + '/' + this.title)
+      const target = encodeURI(URLS.BASE + '/' + this.title)
       axios.get(target)
         .then(res => {
           resolve(res.request.path)
