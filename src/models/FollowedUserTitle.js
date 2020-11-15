@@ -36,8 +36,8 @@ class FollowedUserTitle {
 
   /**
    * Parse properties with given document.
-   * @param   {Object}  $    Cheerio document.
-   * @param   {Object}  elm  Cheerio element.
+   * @param {Object}  $    Cheerio document.
+   * @param {Object}  elm  Cheerio element.
    * @ignore
    */
   serialize ($, elm) {

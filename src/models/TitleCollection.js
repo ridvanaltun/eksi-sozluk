@@ -134,7 +134,7 @@ class TitleCollection {
           const isPlainTitle = this._type === TITLE_TYPES.TITLE
           const isDraftTitle = this._type === TITLE_TYPES.DRAFT
 
-          const title = isPlainTitle ? new Title() : isDraftTitle ? new DraftTitle() : new FollowedUserTitle()
+          const title = isPlainTitle ? new Title(this._request) : isDraftTitle ? new DraftTitle() : new FollowedUserTitle()
           title.serialize($, elm)
 
           // correct entry count

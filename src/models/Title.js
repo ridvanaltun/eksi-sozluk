@@ -1,4 +1,5 @@
 const { URLS } = require('../constants')
+const EntryCollection = require('./EntryCollection')
 
 /**
  * Title.
@@ -35,9 +36,23 @@ class Title {
   entryCount
 
   /**
+   * Entry collection.
+   * @type {EntryCollection}
+   */
+  entries
+
+  /**
+   * Create title.
+   * @param {Object}  request Axios client.
+   */
+  constructor (request) {
+    this._request = request
+  }
+
+  /**
    * Parse properties with given document.
-   * @param   {Object}  $    Cheerio document.
-   * @param   {Object}  elm  Cheerio element.
+   * @param {Object}  $   Cheerio document.
+   * @param {Object}  elm Cheerio element.
    * @ignore
    */
   serialize ($, elm) {
@@ -51,6 +66,9 @@ class Title {
     this.url = URLS.BASE + $(elm).find('a').attr('href')
     this.slug = slug
     this.entryCount = entryCountStr.includes('b') ? (1000 * entryCount) : entryCount || 1
+
+    const endpoint = $(elm).find('a').attr('href').replace('/', '')
+    this.entries = new EntryCollection(this._request, endpoint)
   }
 }
 

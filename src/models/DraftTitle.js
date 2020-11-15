@@ -37,14 +37,15 @@ class DraftTitle {
 
   /**
    * Parse properties with given document.
-   * @param   {Object}  $    Cheerio document.
-   * @param   {Object}  elm  Cheerio element.
+   * @param {Object}  $    Cheerio document.
+   * @param {Object}  elm  Cheerio element.
    * @ignore
    */
   serialize ($, elm) {
     const name = $(elm).text().trim()
     const date = $(elm).find('a div').text().trim()
     const calculatedDate = parseDate(date)
+
     this.name = name.substring(0, name.length - date.length).trim()
     this.url = URLS.BASE + $(elm).find('a').attr('href')
     this.slug = $(elm).find('a').attr('href').replace(/(\/|\?q=)/g, '').split('&')[0]
