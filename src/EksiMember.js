@@ -2,7 +2,7 @@ const axios = require('axios')
 const EksiGuest = require('./EksiGuest')
 const { URLS } = require('./constants')
 const { TITLE_TYPES } = require('./enums')
-const { EntryForMember, UserForMember, TitleCollection, EntryCollection } = require('./models')
+const { EntryForMember, UserForMember, TitleCollection, EntryCollection, SearchResults } = require('./models')
 const { toEncodeFormUrl } = require('./utils')
 const { tags, trashEntries, debeEntries } = require('./lib')
 
@@ -19,6 +19,18 @@ class EksiMember extends EksiGuest {
   constructor (httpClient, cookies) {
     super(httpClient)
     this.cookies = cookies
+  }
+
+  /**
+   * Search things.
+   * @param   {string}                  text  Search text.
+   * @return  {Promise.<SearchResults>}        A promise for the search results.
+   */
+  async search (text) {
+    const results = new SearchResults(this._request, text, this.cookies)
+    await results.retrieve()
+
+    return results
   }
 
   /**

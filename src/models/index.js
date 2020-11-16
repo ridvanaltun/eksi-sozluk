@@ -12,6 +12,7 @@ const DraftTitle = require('./DraftTitle')
 const Question = require('./Question')
 const TitleCollection = require('./TitleCollection')
 const EntryCollection = require('./EntryCollection')
+const SearchResults = require('./SearchResults')
 
 module.exports = {
   Entry,
@@ -27,5 +28,6 @@ module.exports = {
   DraftTitle,
   Question,
   TitleCollection,
-  EntryCollection
+  EntryCollection,
+  SearchResults
 }

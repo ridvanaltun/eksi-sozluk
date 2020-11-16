@@ -1,8 +1,6 @@
-const axios = require('axios')
 const { tags, debeEntries } = require('./lib')
 const { request } = require('./utils')
-const { Entry, User, TitleCollection, EntryCollection } = require('./models')
-const { URLS } = require('./constants')
+const { Entry, User, TitleCollection, EntryCollection, SearchResults } = require('./models')
 const { TITLE_TYPES } = require('./enums')
 
 /**
@@ -20,40 +18,15 @@ class EksiGuest {
   }
 
   /**
-   * @typedef SearchResult
-   * @property {string} query   Search text itself.
-   * @property {string} nicks   Mached nicks.
-   * @property {string} titles  Mached titles.
-   */
-
-  /**
    * Search things.
-   * @param   {string}                  text  Search query.
-   * @return  {Promise.<SearchResult>}        A promise for the search.
+   * @param   {string}                  text  Search text.
+   * @return  {Promise.<SearchResults>}        A promise for the search results.
    */
-  search (text) {
-    return new Promise((resolve, reject) => {
-      axios({
-        url: URLS.SEARCH,
-        method: 'GET',
-        headers: {
-          'x-requested-with': 'XMLHttpRequest'
-        },
-        params: {
-          q: text
-        }
-      })
-        .then((res) => {
-          resolve({
-            query: res.data.Query,
-            nicks: res.data.Nicks,
-            titles: res.data.Titles
-          })
-        })
-        .catch((error) => {
-          reject(new Error(error.message))
-        })
-    })
+  async search (text) {
+    const results = new SearchResults(this._request, text)
+    await results.retrieve()
+
+    return results
   }
 
   /**
