@@ -137,6 +137,11 @@ class TitleCollection {
         $('ul.topic-list.partial li').each((i, elm) => {
           let title
 
+          // exit the loop if divider exist
+          if ($(elm).find('div.seperator').length > 0) {
+            return false
+          }
+
           switch (this._type) {
             case TITLE_TYPES.TITLE:
               title = new Title(this._request)
