@@ -1,8 +1,9 @@
 const axios = require('axios')
-const { tags, debeEntries, questions } = require('./lib')
+const { tags, debeEntries } = require('./lib')
 const { request } = require('./utils')
 const { Entry, User, TitleCollection, EntryCollection } = require('./models')
 const { URLS } = require('./constants')
+const { TITLE_TYPES } = require('./enums')
 
 /**
  * @classdesc Eksi Sozluk guest class.
@@ -163,11 +164,29 @@ class EksiGuest {
   }
 
   /**
-   * Fetch questions.
-   * @return {Promise.Array<Question>} A promise for the question.
+   * Fetch questions in agenda.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.<TitleCollection>}                   A promise for the agenda titles in agenda.
    */
-  async questions () {
-    return await questions(this._request)
+  async questionsInAgenda (options) {
+    const collection = new TitleCollection(this._request, '/basliklar/sorunsal', { ...options, type: TITLE_TYPES.QUESTION })
+    await collection.retrieve()
+
+    return collection
+  }
+
+  /**
+   * Fetch questions in today.
+   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {number}                    [options.page=1]  Page number.
+   * @return  {Promise.<TitleCollection>}                   A promise for the agenda titles in today.
+   */
+  async questionsInToday (options) {
+    const collection = new TitleCollection(this._request, '/basliklar/sorunsal-bugun', { ...options, type: TITLE_TYPES.QUESTION })
+    await collection.retrieve()
+
+    return collection
   }
 }
 

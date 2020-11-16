@@ -1,3 +1,5 @@
+const { URLS } = require('../constants')
+
 /**
  * Question.
  */
@@ -21,10 +23,28 @@ class Question {
   questionLink
 
   /**
-   * Answer count.
-   * @type {number}
+   * Answer count, null means 0 or 1.
+   * @type {(number|null)}
    */
   answerCount
+
+  /**
+   * Parse properties with given document.
+   * @param {Object}  $   Cheerio document.
+   * @param {Object}  elm Cheerio element.
+   * @ignore
+   */
+  serialize ($, elm) {
+    const title = $(elm).find('div').text()
+    const answerCountStr = $(elm).find('small').text()
+    const answerCount = parseInt(answerCountStr)
+    const questionTitle = $(elm).text().split(title)[0]
+
+    this.title = title.substring(1, title.length - 1)
+    this.questionTitle = questionTitle.substring(0, questionTitle.length).trim()
+    this.questionLink = URLS.BASE + $(elm).find('a').attr('href')
+    this.answerCount = answerCountStr.includes('b') ? (1000 * answerCount) : answerCount || null
+  }
 }
 
 module.exports = Question

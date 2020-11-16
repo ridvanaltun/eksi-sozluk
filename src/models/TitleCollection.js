@@ -3,6 +3,7 @@ const Title = require('./Title')
 const FollowedUserTitle = require('./FollowedUserTitle')
 const FollowedUserFavoriteEntry = require('./FollowedUserFavoriteEntry')
 const DraftTitle = require('./DraftTitle')
+const Question = require('./Question')
 const { AuthError } = require('../exceptions')
 const { DEFAULTS } = require('../constants')
 const { TITLE_TYPES } = require('../enums')
@@ -151,6 +152,10 @@ class TitleCollection {
 
             case TITLE_TYPES.FOLLOWED_USER_FAVORITE_ENTRY:
               title = new FollowedUserFavoriteEntry(this._request, this._cookies)
+              break
+
+            case TITLE_TYPES.QUESTION:
+              title = new Question()
               break
           }
 
