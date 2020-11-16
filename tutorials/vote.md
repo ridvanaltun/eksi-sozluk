@@ -6,7 +6,7 @@ const main = async () => {
   const session = new EksiSozluk();
 
   // login with cookies
-  await session.loginWithCookies('<YOUR-SECRET-COOKIES>');
+  await session.loginWithToken('<YOUR-SECRET-TOKEN>');
 
   // get entry
   session

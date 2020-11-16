@@ -66,18 +66,19 @@ class EksiSozluk extends EksiGuest {
 
   /**
    * Login with Eksi Sozluk cookies
-   * @param  {string}    cookies Eksi Sozluk member's session cookies.
-   * @throws {AuthError}         User not authorized.
+   * @param  {string}    token  Member session token.
+   * @throws {AuthError}        User not authorized.
    */
-  async loginWithCookies (cookies) {
-    const isAuthenticated = await this.isAuthenticated(cookies)
+  async loginWithToken (token) {
+    const cookie = `a=${token}`
+    const isAuthenticated = await this.isAuthenticated(cookie)
 
     if (!isAuthenticated) {
       throw new AuthError()
     }
 
     // success
-    return new EksiMember(this.httpClient, cookies)
+    return new EksiMember(this.httpClient, cookie)
   }
 }
 
