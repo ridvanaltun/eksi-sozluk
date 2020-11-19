@@ -1,7 +1,7 @@
 const axios = require('axios')
+const qs = require('querystring')
 const Entry = require('./Entry')
 const { URLS } = require('../constants')
-const { toEncodeFormUrl } = require('../utils')
 const { VoteError } = require('../exceptions')
 
 /**
@@ -46,7 +46,7 @@ class EntryForMember extends Entry {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
         },
-        data: toEncodeFormUrl({
+        data: qs.stringify({
           id: this.id,
           rate: 1,
           owner: this.authorId
@@ -79,7 +79,7 @@ class EntryForMember extends Entry {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
         },
-        data: toEncodeFormUrl({
+        data: qs.stringify({
           id: this.id,
           rate: -1,
           owner: this.authorId
@@ -112,7 +112,7 @@ class EntryForMember extends Entry {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
         },
-        data: toEncodeFormUrl({
+        data: qs.stringify({
           id: this.id,
           owner: this.authorId
         })

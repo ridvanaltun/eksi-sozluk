@@ -1,4 +1,6 @@
 const axios = require('axios')
+const setCookie = require('set-cookie-parser')
+const qs = require('querystring')
 const objectAssignDeep = require('object-assign-deep')
 const EksiGuest = require('./EksiGuest')
 const EksiMember = require('./EksiMember')
@@ -65,19 +67,131 @@ class EksiSozluk extends EksiGuest {
   }
 
   /**
-   * Login with Eksi Sozluk cookies
-   * @param  {string}    token  Member session token.
-   * @throws {AuthError}        User not authorized.
+   * Chech is recaptcha required to login.
+   * @return  {Promise.<boolean>} If recaptcha required returns true, otherwise false.
+   */
+  isRecaptchaRequired () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${URLS.BASE}/giris`,
+        method: 'GET'
+      }).then((res) => {
+        // check recaptcha
+        const isRecaptchaRequired = res.data.includes('g-recaptcha')
+
+        resolve(isRecaptchaRequired)
+      }).catch((err) => {
+        // handle errors
+        reject(err.message)
+      })
+    })
+  }
+
+  /**
+   * Create Eksi Sozluk session token with your credentials.
+   * @param   {string}      email     Your email address.
+   * @param   {string}      password  Your password.
+   * @return  {string}                Eksi Sozluk session token.
+   * @throws  {AuthError}             User not authorized, password or email is wrong.
+   */
+  createToken (email, password) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${URLS.BASE}/giris`,
+        method: 'GET'
+      }).then((res) => {
+        // check recaptcha
+        const isRecaptchaRequired = res.data.includes('g-recaptcha')
+
+        if (isRecaptchaRequired) {
+          return reject(new Error('Recaptcha Required'))
+        }
+
+        return res
+      }).then((res) => {
+        // parse csrf token and cookies
+        const csrfRegex = new RegExp('(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)', 'u')
+        const csrfToken = csrfRegex.exec(res.data)[0]
+
+        const cookies = setCookie.parse(res.headers['set-cookie'], { map: true })
+        const csrfTokenInCookies = cookies.__RequestVerificationToken.value
+
+        return { csrfToken, csrfTokenInCookies }
+      }).then(async ({ csrfToken, csrfTokenInCookies }) => {
+        const requestBody = {
+          UserName: email,
+          Password: password,
+          __RequestVerificationToken: csrfToken
+        }
+
+        const config = {
+          maxRedirects: 0,
+          validateStatus: (status) => {
+            return status === 302 // accept just redirects
+          },
+          headers: {
+            Host: 'eksisozluk.com',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Cookie: `__RequestVerificationToken=${csrfTokenInCookies};`
+          }
+        }
+
+        return await axios.post(`${URLS.BASE}/giris`, qs.stringify(requestBody), config)
+      }).then((res) => {
+        const isUnknownError = res.data.includes('<title>büyük başarısızlıklar sözkonusu - ekşi sözlük</title>')
+
+        if (isUnknownError) {
+          return reject(new Error('Unknown Error'))
+        }
+
+        const cookies = setCookie.parse(res.headers['set-cookie'], { map: true })
+        const token = cookies.a.value
+
+        resolve(token)
+      }).catch((err) => {
+        // password or username is wrong
+        if (err.response && err.response.status === 404) {
+          return reject(new AuthError())
+        }
+
+        // handle other errors
+        reject(new Error(err.message))
+      })
+    })
+  }
+
+  /**
+   * Login Eksi Sozluk with your credentials.
+   * @param   {string}      email     Your email address.
+   * @param   {string}      password  Your password.
+   * @return  {EksiMember}            Eksi Sozluk session.
+   * @throws  {AuthError}             User not authorized, password or email is wrong.
+   */
+  async login (email, password) {
+    const token = await this.createToken(email, password)
+    const cookie = `a=${token}`
+
+    // no need for check session token
+
+    return new EksiMember(this.httpClient, cookie)
+  }
+
+  /**
+   * Login Eksi Sozluk with session cookie.
+   * @param   {string}     token   Session token of member.
+   * @return  {EksiMember}         Eksi Sozluk session.
+   * @throws  {AuthError}          User not authorized.
    */
   async loginWithToken (token) {
     const cookie = `a=${token}`
+
+    // check given session token
     const isAuthenticated = await this.isAuthenticated(cookie)
 
     if (!isAuthenticated) {
       throw new AuthError()
     }
 
-    // success
     return new EksiMember(this.httpClient, cookie)
   }
 }

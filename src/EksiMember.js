@@ -1,9 +1,9 @@
 const axios = require('axios')
+const qs = require('querystring')
 const EksiGuest = require('./EksiGuest')
 const { URLS } = require('./constants')
 const { TITLE_TYPES } = require('./enums')
 const { EntryForMember, UserForMember, TitleCollection, EntryCollection, SearchResults } = require('./models')
-const { toEncodeFormUrl } = require('./utils')
 const { tags, trashEntries, debeEntries } = require('./lib')
 
 /**
@@ -245,7 +245,7 @@ class EksiMember extends EksiGuest {
           headers: {
             cookie: this.cookies
           },
-          data: toEncodeFormUrl({
+          data: qs.stringify({
             __RequestVerificationToken: csrfToken
           })
         })

@@ -1,7 +1,7 @@
 const axios = require('axios')
+const qs = require('querystring')
 const User = require('./User')
 const { URLS } = require('../constants')
-const { toEncodeFormUrl } = require('../utils')
 
 /**
  * User for members.
@@ -225,7 +225,7 @@ class UserForMember extends User {
           headers: {
             cookie: this._cookies
           },
-          data: toEncodeFormUrl({
+          data: qs.stringify({
             __RequestVerificationToken: csrfToken,
             To: this.username,
             Message: message

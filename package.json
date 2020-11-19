@@ -33,7 +33,9 @@
     "axios": "^0.20.0",
     "cheerio": "^1.0.0-rc.3",
     "moment": "^2.29.0",
-    "object-assign-deep": "^0.4.0"
+    "object-assign-deep": "^0.4.0",
+    "querystring": "^0.2.0",
+    "set-cookie-parser": "^2.4.6"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
@@ -55,7 +57,7 @@
     "jsdoc": "^3.6.6",
     "lint-staged": "^10.4.0",
     "minami": "^1.2.3",
-    "semantic-release": "^17.1.2"
+    "semantic-release": "^17.2.3"
   },
   "husky": {
     "hooks": {
