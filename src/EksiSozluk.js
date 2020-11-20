@@ -67,7 +67,7 @@ class EksiSozluk extends EksiGuest {
   }
 
   /**
-   * Chech is recaptcha required to login.
+   * Is verify recaptcha required to login?
    * @return  {Promise.<boolean>} If recaptcha required returns true, otherwise false.
    */
   isRecaptchaRequired () {
@@ -88,14 +88,27 @@ class EksiSozluk extends EksiGuest {
   }
 
   /**
-   * Create Eksi Sozluk session token with your credentials.
-   * @param   {string}      email     Your email address.
-   * @param   {string}      password  Your password.
-   * @return  {string}                Eksi Sozluk session token.
-   * @throws  {AuthError}             User not authorized, password or email is wrong.
+   * @typedef SessionToken
+   * @property {string}       value     Token string.
+   * @property {(Date|null)}  expiresAt When will token expires?
    */
-  createToken (email, password) {
+
+  /**
+   * Create Eksi Sozluk session token with your credentials.
+   * @param   {string}        email                       Your email address.
+   * @param   {string}        password                    Your password.
+   * @param   {Object}        options                     Parameters that user can specify.
+   * @param   {boolean}       [options.extendTime=false]  If true, token will expire at 2 weeks later.
+   * @return  {SessionToken}                              Eksi Sozluk session token.
+   * @throws  {AuthError}                                 User not authorized, password or email is wrong.
+   */
+  createToken (email, password, options) {
     return new Promise((resolve, reject) => {
+      // handle default options
+      const _options = objectAssignDeep({
+        extendTime: false
+      }, options)
+
       axios({
         url: `${URLS.BASE}/giris`,
         method: 'GET'
@@ -121,6 +134,7 @@ class EksiSozluk extends EksiGuest {
         const requestBody = {
           UserName: email,
           Password: password,
+          RememberMe: _options.extendTime,
           __RequestVerificationToken: csrfToken
         }
 
@@ -145,9 +159,11 @@ class EksiSozluk extends EksiGuest {
         }
 
         const cookies = setCookie.parse(res.headers['set-cookie'], { map: true })
-        const token = cookies.a.value
 
-        resolve(token)
+        resolve({
+          value: cookies.a.value, // token
+          expiresAt: cookies.a.expires || null
+        })
       }).catch((err) => {
         // password or username is wrong
         if (err.response && err.response.status === 404) {
@@ -168,8 +184,8 @@ class EksiSozluk extends EksiGuest {
    * @throws  {AuthError}             User not authorized, password or email is wrong.
    */
   async login (email, password) {
-    const token = await this.createToken(email, password)
-    const cookie = `a=${token}`
+    const token = await this.createToken(email, password, { extendTime: true })
+    const cookie = `a=${token.value}`
 
     // no need for check session token
 
