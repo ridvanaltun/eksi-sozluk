@@ -80,6 +80,51 @@ class EksiMember extends EksiGuest {
   }
 
   /**
+   * Pin an entry to the profile.
+   * @param   {number}  entryId  Entry ID which user owns.
+   * @return  {Promise}          Promise.
+   */
+  pinEntry (entryId) {
+    return new Promise((resolve, reject) => {
+      axios.post(URLS.PIN, qs.stringify({ entryId }), {
+        headers: {
+          cookie: this.cookies,
+          'x-requested-with': 'XMLHttpRequest'
+        }
+      })
+        .then((res) => {
+          if (res.data.Success) {
+            resolve()
+          } else {
+            reject(new Error('It is not your entry or entry is not yours.'))
+          }
+        })
+    })
+  }
+
+  /**
+   * Remove pin from profile.
+   * @return  {Promise}  Promise.
+   */
+  removePin () {
+    return new Promise((resolve, reject) => {
+      axios.post(URLS.PIN_REMOVE, null, {
+        headers: {
+          cookie: this.cookies,
+          'x-requested-with': 'XMLHttpRequest'
+        }
+      })
+        .then((res) => {
+          if (res.data !== true) {
+            return reject(new Error('No pinned entry found.'))
+          }
+
+          resolve()
+        })
+    })
+  }
+
+  /**
    * Create entry.
    * @param   {string}                                title                       Title.
    * @param   {string}                                content                     Entry content.

@@ -13,6 +13,8 @@ module.exports = {
     SEYLER: 'https://seyler.eksisozluk.com/',
     VOTE: 'https://eksisozluk.com/entry/vote',
     REMOVE_VOTE: 'https://eksisozluk.com/entry/removevote',
+    PIN: 'https://eksisozluk.com/kullanici/add-pin',
+    PIN_REMOVE: 'https://eksisozluk.com/kullanici/remove-pin',
     TAGS: 'https://eksisozluk.com/kanallar',
     TRASH: 'https://eksisozluk.com/cop',
     TRASH_EMPTY: 'https://eksisozluk.com/cop/bosalt',
