@@ -137,7 +137,6 @@ class DraftEntry {
           url: URLS.CREATE_ENTRY,
           method: 'POST',
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
             Cookie: `__RequestVerificationToken=${csrfTokenInCookies}; ${this._cookies}`
           },
           data: qs.stringify({

@@ -138,7 +138,7 @@ class EntryForMember extends Entry {
   deleteFromTrash () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${URLS.TRASH}/sil`,
+        url: URLS.TRASH_DELETE,
         method: 'POST',
         params: {
           id: this.id
@@ -164,7 +164,7 @@ class EntryForMember extends Entry {
   recoverFromTrash () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${URLS.TRASH}/canlandir`,
+        url: URLS.TRASH_RECOVER,
         method: 'POST',
         params: {
           id: this.id

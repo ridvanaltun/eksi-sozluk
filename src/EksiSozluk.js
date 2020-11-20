@@ -73,7 +73,7 @@ class EksiSozluk extends EksiGuest {
   isRecaptchaRequired () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${URLS.BASE}/giris`,
+        url: URLS.LOGIN,
         method: 'GET'
       }).then((res) => {
         // check recaptcha
@@ -110,7 +110,7 @@ class EksiSozluk extends EksiGuest {
       }, options)
 
       axios({
-        url: `${URLS.BASE}/giris`,
+        url: URLS.LOGIN,
         method: 'GET'
       }).then((res) => {
         // check recaptcha
@@ -144,13 +144,11 @@ class EksiSozluk extends EksiGuest {
             return status === 302 // accept just redirects
           },
           headers: {
-            Host: 'eksisozluk.com',
-            'Content-Type': 'application/x-www-form-urlencoded',
             Cookie: `__RequestVerificationToken=${csrfTokenInCookies};`
           }
         }
 
-        return await axios.post(`${URLS.BASE}/giris`, qs.stringify(requestBody), config)
+        return await axios.post(URLS.LOGIN, qs.stringify(requestBody), config)
       }).then((res) => {
         const isUnknownError = res.data.includes('<title>büyük başarısızlıklar sözkonusu - ekşi sözlük</title>')
 

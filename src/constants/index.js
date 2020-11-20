@@ -6,6 +6,7 @@ module.exports = {
   },
   URLS: {
     BASE: 'https://eksisozluk.com',
+    LOGIN: 'https://eksisozluk.com/giris',
     ENTRY: 'https://eksisozluk.com/entry/',
     CREATE_ENTRY: 'https://eksisozluk.com/entry/ekle',
     USER: 'https://eksisozluk.com/biri/',
@@ -14,6 +15,9 @@ module.exports = {
     REMOVE_VOTE: 'https://eksisozluk.com/entry/removevote',
     TAGS: 'https://eksisozluk.com/kanallar',
     TRASH: 'https://eksisozluk.com/cop',
+    TRASH_EMPTY: 'https://eksisozluk.com/cop/bosalt',
+    TRASH_DELETE: 'https://eksisozluk.com/cop/sil',
+    TRASH_RECOVER: 'https://eksisozluk.com/cop/canlandir',
     SEARCH: 'https://eksisozluk.com/autocomplete/query',
     MESSAGE: 'https://eksisozluk.com/mesaj',
     SEND_MESSAGE: 'https://eksisozluk.com/mesaj/yolla',

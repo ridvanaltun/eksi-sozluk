@@ -226,7 +226,7 @@ class EksiMember extends EksiGuest {
   emptyTrash () {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${URLS.TRASH}`,
+        url: URLS.TRASH,
         method: 'GET',
         headers: {
           cookie: this.cookies
@@ -240,7 +240,7 @@ class EksiMember extends EksiGuest {
       }).then(async (csrfToken) => {
         // empty trash
         const _res = await axios({
-          url: `${URLS.TRASH}/bosalt`,
+          url: URLS.TRASH_EMPTY,
           method: 'POST',
           headers: {
             cookie: this.cookies
