@@ -148,7 +148,7 @@ class TitleCollection {
               break
 
             case TITLE_TYPES.DRAFT:
-              title = new DraftTitle()
+              title = new DraftTitle(this._request, this._cookies)
               break
 
             case TITLE_TYPES.FOLLOWED_USER:

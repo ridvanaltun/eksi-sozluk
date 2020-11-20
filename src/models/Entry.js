@@ -19,7 +19,7 @@ class Entry {
   author
 
   /**
-   * Entry ID.
+   * Author ID.
    * @type {number}
    */
   authorId

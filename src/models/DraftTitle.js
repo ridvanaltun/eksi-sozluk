@@ -1,3 +1,4 @@
+const DraftEntry = require('./DraftEntry')
 const { parseDate } = require('../utils')
 const { URLS } = require('../constants')
 
@@ -36,6 +37,22 @@ class DraftTitle {
   dateModified
 
   /**
+   * Draft entry.
+   * @type {DraftEntry}
+   */
+  entry
+
+  /**
+   * Create draft title.
+   * @param {Object}  request Axios client.
+   * @param {string}  cookies Cookie string.
+   */
+  constructor (request, cookies) {
+    this._request = request
+    this._cookies = cookies
+  }
+
+  /**
    * Parse properties with given document.
    * @param {Object}  $    Cheerio document.
    * @param {Object}  elm  Cheerio element.
@@ -51,6 +68,8 @@ class DraftTitle {
     this.slug = $(elm).find('a').attr('href').replace(/(\/|\?q=)/g, '').split('&')[0]
     this.dateCreated = calculatedDate.created
     this.dateModified = calculatedDate.modified
+
+    this.entry = new DraftEntry(this._request, this.name, this._cookies)
   }
 }
 

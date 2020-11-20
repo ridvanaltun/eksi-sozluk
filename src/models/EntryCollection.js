@@ -1,9 +1,10 @@
-const axios = require('axios')
 const objectAssignDeep = require('object-assign-deep')
 const Entry = require('./Entry')
 const EntryForMember = require('./EntryForMember')
+const DraftEntry = require('./DraftEntry')
 const { URLS } = require('../constants')
 const { NotFoundError } = require('../exceptions')
+const { getActualPath } = require('../utils')
 
 /**
  * Entry collection.
@@ -22,6 +23,18 @@ class EntryCollection {
   titleId
 
   /**
+   * Title slug.
+   * @type {string}
+   */
+  titleSlug
+
+  /**
+   * Title URL.
+   * @type {string}
+   */
+  titleUrl
+
+  /**
    * Current page.
    * @type {number}
    */
@@ -38,6 +51,12 @@ class EntryCollection {
    * @type {Array<(Entry|EntryForMember)>}
    */
   entries
+
+  /**
+   * Draft entry.
+   * @type {(DraftEntry|null)}
+   */
+  draftEntry
 
   /**
    * Create a entry collection.
@@ -64,28 +83,6 @@ class EntryCollection {
     this._request = request
     this._path = isPathPlainTitle ? null : path
     this._cookies = _options.cookies
-  }
-
-  /**
-   * Converts title to actual path.
-   * @return  {Promise.<string>} Actual path.
-   * @ignore
-   */
-  _getActualPath () {
-    return new Promise((resolve, reject) => {
-      const target = encodeURI(URLS.BASE + '/' + this.title)
-      axios.get(target)
-        .then(res => {
-          resolve(res.request.path)
-        })
-        .catch(err => {
-          if (err.response && err.response.status === 404) {
-            return reject(new NotFoundError('Entries not found.'))
-          }
-
-          reject(new Error(err.message))
-        })
-    })
   }
 
   /**
@@ -128,7 +125,7 @@ class EntryCollection {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
       const isPathProvided = this._path
-      const endpoint = isPathProvided ? this._path : await this._getActualPath()
+      const endpoint = isPathProvided ? this._path : await getActualPath(this.title)
       const isEndpointCompatibleWithPageParam = !endpoint.includes('?')
 
       const requestOptions = {
@@ -165,9 +162,20 @@ class EntryCollection {
         }
 
         this.titleId = $('#title').data('id')
+        this.titleSlug = $('#title').data('slug')
+        this.titleUrl = URLS.BASE + $('h1#title a').attr('href')
         this.currPage = $('div.pager').data('currentpage')
         this.pageCount = $('div.pager').data('pagecount')
         this.entries = entries
+
+        const isDraftEntryExist = $('#draft-content').text().length > 0
+        const draftEntry = isDraftEntryExist ? new DraftEntry(this._request, this.title, this._cookies) : null
+
+        if (draftEntry) {
+          draftEntry.serialize($)
+        }
+
+        this.draftEntry = draftEntry
 
         resolve()
       })

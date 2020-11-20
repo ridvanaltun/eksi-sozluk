@@ -7,6 +7,7 @@ module.exports = {
   URLS: {
     BASE: 'https://eksisozluk.com',
     ENTRY: 'https://eksisozluk.com/entry/',
+    CREATE_ENTRY: 'https://eksisozluk.com/entry/ekle',
     USER: 'https://eksisozluk.com/biri/',
     SEYLER: 'https://seyler.eksisozluk.com/',
     VOTE: 'https://eksisozluk.com/entry/vote',

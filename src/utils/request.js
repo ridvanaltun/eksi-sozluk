@@ -10,13 +10,14 @@ const cheerio = require('cheerio')
 
 /**
  * You can make HTTP requests to Eksi Sozluk via this function
- * @param   {Object}          httpClient            HTTP client.
- * @param   {Object}          options               HTTP request options.
- * @param   {string}          options.endpoint      Endpoint of the request.
- * @param   {string}          [options.cookie]      Auth cookie.
- * @param   {boolean}         [options.ajax=false]  Use ajax HTTP calls.
- * @param   {string}          [options.method=GET]  HTTP request method.
- * @param   {requestCallback} cb                    The callback that handles the response.
+ * @param   {Object}          httpClient                HTTP client.
+ * @param   {Object}          options                   HTTP request options.
+ * @param   {string}          options.endpoint          Endpoint of the request.
+ * @param   {string}          [options.cookie]          Auth cookie.
+ * @param   {boolean}         [options.ajax=false]      Use ajax HTTP calls.
+ * @param   {boolean}         [options.encodeURI=true]  Encode URL.
+ * @param   {string}          [options.method=GET]      HTTP request method.
+ * @param   {requestCallback} cb                        The callback that handles the response.
  * @ignore
  */
 const request = (httpClient) => {
@@ -24,7 +25,8 @@ const request = (httpClient) => {
     // handle default options
     const _options = objectAssignDeep({
       method: 'GET',
-      ajax: false
+      ajax: false,
+      encodeURI: true
     }, options)
 
     let headers = {}
@@ -41,7 +43,7 @@ const request = (httpClient) => {
 
     httpClient({
       method: _options.method,
-      url: encodeURI(_options.endpoint),
+      url: _options.encodeURI ? encodeURI(_options.endpoint) : _options.endpoint,
       headers,
       params: _options.params ? _options.params : {},
       transformResponse: (body) => {
