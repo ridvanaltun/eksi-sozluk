@@ -125,7 +125,7 @@ class EntryCollection {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
       const isPathProvided = this._path
-      const endpoint = isPathProvided ? this._path : await getActualPath(this.title)
+      const endpoint = isPathProvided ? this._path : `/${await getActualPath(this.title)}`
       const isEndpointCompatibleWithPageParam = !endpoint.includes('?')
 
       const requestOptions = {

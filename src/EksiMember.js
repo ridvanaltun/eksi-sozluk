@@ -4,7 +4,7 @@ const EksiGuest = require('./EksiGuest')
 const { URLS } = require('./constants')
 const { TITLE_TYPES } = require('./enums')
 const { EntryForMember, UserForMember, TitleCollection, EntryCollection, SearchResults } = require('./models')
-const { tags, trashEntries, debeEntries } = require('./lib')
+const { tags, trashEntries, debeEntries, createEntry } = require('./lib')
 
 /**
  * @classdesc Eksi Sozluk member class.
@@ -77,6 +77,18 @@ class EksiMember extends EksiGuest {
           reject(new Error(error.message))
         })
     })
+  }
+
+  /**
+   * Create entry.
+   * @param   {string}                                title                       Title.
+   * @param   {string}                                content                     Entry content.
+   * @param   {Object}                                options                     Parameters that user can specify.
+   * @param   {boolean}                               [options.saveAsDraft=false] Save as draft.
+   * @return  {Promise.<(EntryForMember|DraftEntry)>}                             Created entry.
+   */
+  async createEntry (title, content, options) {
+    return await createEntry(this._request, title, content, options, this.cookies)
   }
 
   /**
