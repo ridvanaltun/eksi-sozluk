@@ -1,6 +1,7 @@
 const { URLS } = require('../constants')
 const { NotFoundError } = require('../exceptions')
 const UserEntryCollection = require('./UserEntryCollection')
+const ImageCollection = require('./ImageCollection')
 
 /**
  * User.
@@ -260,6 +261,17 @@ class User {
     await entries.retrieve()
 
     return entries
+  }
+
+  /**
+   * User images.
+   * @return  {ImageCollection} User images.
+   */
+  async images () {
+    const images = new ImageCollection(this._request, this.username)
+    await images.retrieve()
+
+    return images
   }
 }
 

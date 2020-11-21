@@ -28,6 +28,7 @@ module.exports = {
     USER_LAST_VOTED_ENTRIES: 'https://eksisozluk.com/son-oylananlari',
     USER_SELF_FAVORITED_ENTRIES: 'https://eksisozluk.com/el-emegi-goz-nuru',
     USER_MOST_LIKED_ENTRIES: 'https://eksisozluk.com/en-begenilenleri',
+    USER_IMAGES: 'https://eksisozluk.com/gorselleri',
     MESSAGE: 'https://eksisozluk.com/mesaj',
     SEND_MESSAGE: 'https://eksisozluk.com/mesaj/yolla',
     FOLLOW_USER: 'https://eksisozluk.com/userrelation/addrelation',
