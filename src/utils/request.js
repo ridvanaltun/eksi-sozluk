@@ -17,6 +17,7 @@ const cheerio = require('cheerio')
  * @param   {boolean}         [options.ajax=false]      Use ajax HTTP calls.
  * @param   {boolean}         [options.encodeURI=true]  Encode URL.
  * @param   {string}          [options.method=GET]      HTTP request method.
+ * @param   {Object}          [options.params={}]       HTTP request parameters.
  * @param   {requestCallback} cb                        The callback that handles the response.
  * @ignore
  */

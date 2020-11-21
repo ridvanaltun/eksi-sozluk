@@ -2,7 +2,8 @@
 
 module.exports = {
   DEFAULTS: {
-    TITLE_COUNT_PER_PAGE: 50
+    TITLE_COUNT_PER_PAGE: 50,
+    ENTRY_COUNT_PER_PAGE_OF_PROFILE: 10
   },
   URLS: {
     BASE: 'https://eksisozluk.com',
@@ -21,6 +22,12 @@ module.exports = {
     TRASH_DELETE: 'https://eksisozluk.com/cop/sil',
     TRASH_RECOVER: 'https://eksisozluk.com/cop/canlandir',
     SEARCH: 'https://eksisozluk.com/autocomplete/query',
+    USER_LATEST_ENTRIES: 'https://eksisozluk.com/son-entryleri',
+    USER_FAVORITED_ENTRIES: 'https://eksisozluk.com/favori-entryleri',
+    USER_MOST_FAVORITED_ENTRIES: 'https://eksisozluk.com/en-cok-favorilenen-entryleri',
+    USER_LAST_VOTED_ENTRIES: 'https://eksisozluk.com/son-oylananlari',
+    USER_SELF_FAVORITED_ENTRIES: 'https://eksisozluk.com/el-emegi-goz-nuru',
+    USER_MOST_LIKED_ENTRIES: 'https://eksisozluk.com/en-begenilenleri',
     MESSAGE: 'https://eksisozluk.com/mesaj',
     SEND_MESSAGE: 'https://eksisozluk.com/mesaj/yolla',
     FOLLOW_USER: 'https://eksisozluk.com/userrelation/addrelation',

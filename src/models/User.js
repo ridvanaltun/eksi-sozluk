@@ -1,5 +1,6 @@
 const { URLS } = require('../constants')
 const { NotFoundError } = require('../exceptions')
+const UserEntryCollection = require('./UserEntryCollection')
 
 /**
  * User.
@@ -187,6 +188,78 @@ class User {
         resolve()
       })
     })
+  }
+
+  /**
+   * Fetch user entries by latest.
+   * @param   {number}                        [page=1]  Page number.
+   * @return  {Promise.<UserEntryCollection>}           User entries by last posted.
+   */
+  async entries (options) {
+    const entries = new UserEntryCollection(this._request, URLS.USER_LATEST_ENTRIES, this.username, this._cookies, options)
+    await entries.retrieve()
+
+    return entries
+  }
+
+  /**
+   * Fetch user favorite entries by latest.
+   * @param   {number}                        [page=1]  Page number.
+   * @return  {Promise.<UserEntryCollection>}           User entries by last favorited.
+   */
+  async favorites (options) {
+    const entries = new UserEntryCollection(this._request, URLS.USER_FAVORITED_ENTRIES, this.username, this._cookies, options)
+    await entries.retrieve()
+
+    return entries
+  }
+
+  /**
+   * Fetch user favorited entries by most favorited.
+   * @param   {number}                        [page=1]  Page number.
+   * @return  {Promise.<UserEntryCollection>}           User entries by most favorited.
+   */
+  async favoritedEntries (options) {
+    const entries = new UserEntryCollection(this._request, URLS.USER_MOST_FAVORITED_ENTRIES, this.username, this._cookies, options)
+    await entries.retrieve()
+
+    return entries
+  }
+
+  /**
+   * Fetch user last voted entries.
+   * @param   {number}                        [page=1]  Page number.
+   * @return  {Promise.<UserEntryCollection>}           User entries by last voted.
+   */
+  async lastVotedEntries (options) {
+    const entries = new UserEntryCollection(this._request, URLS.USER_LAST_VOTED_ENTRIES, this.username, this._cookies, options)
+    await entries.retrieve()
+
+    return entries
+  }
+
+  /**
+   * Fetch user self favorited entries.
+   * @param   {number}                        [page=1]  Page number.
+   * @return  {Promise.<UserEntryCollection>}           User entries by self favorited.
+   */
+  async selfFavoritedEntries (options) {
+    const entries = new UserEntryCollection(this._request, URLS.USER_SELF_FAVORITED_ENTRIES, this.username, this._cookies, options)
+    await entries.retrieve()
+
+    return entries
+  }
+
+  /**
+   * Fetch user most liked entries.
+   * @param   {number}                        [page=1]  Page number.
+   * @return  {Promise.<UserEntryCollection>}           User entries by most liked.
+   */
+  async mostLikedEntries (options) {
+    const entries = new UserEntryCollection(this._request, URLS.USER_MOST_LIKED_ENTRIES, this.username, this._cookies, options)
+    await entries.retrieve()
+
+    return entries
   }
 }
 

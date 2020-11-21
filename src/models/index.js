@@ -14,6 +14,7 @@ const TitleCollection = require('./TitleCollection')
 const EntryCollection = require('./EntryCollection')
 const SearchResults = require('./SearchResults')
 const DraftEntry = require('./DraftEntry')
+const UserEntryCollection = require('./UserEntryCollection')
 
 module.exports = {
   Entry,
@@ -31,5 +32,6 @@ module.exports = {
   TitleCollection,
   EntryCollection,
   SearchResults,
-  DraftEntry
+  DraftEntry,
+  UserEntryCollection
 }

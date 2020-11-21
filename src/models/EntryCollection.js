@@ -50,7 +50,7 @@ class EntryCollection {
    * Entry collection.
    * @type {Array<(Entry|EntryForMember)>}
    */
-  entries
+  entries = []
 
   /**
    * Draft entry.
@@ -59,7 +59,7 @@ class EntryCollection {
   draftEntry
 
   /**
-   * Create a entry collection.
+   * Create an entry collection.
    * @param {Object}  request                 Axios client.
    * @param {string}  path                    Path or plain title.
    * @param {Object}  options                 Parameters that user can specify.
@@ -118,7 +118,7 @@ class EntryCollection {
   }
 
   /**
-   * Retrieve entry collection.
+   * Retrieve the entry collection.
    * @return  {Promise} Promise.
    */
   retrieve () {

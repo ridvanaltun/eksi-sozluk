@@ -1,3 +1,5 @@
+const cheerio = require('cheerio')
+const objectAssignDeep = require('object-assign-deep')
 const { parseDate } = require('../utils')
 const { NotFoundError } = require('../exceptions')
 const { URLS } = require('../constants')
@@ -134,11 +136,30 @@ class Entry {
 
   /**
    * Parse properties with given document.
-   * @param   {Object}  $    Cheerio document.
-   * @param   {Object}  elm  Cheerio element.
+   * @param {Object}  $                           Cheerio document.
+   * @param {Object}  elm                         Cheerio element.
+   * @param {Object}  options                     Parameters that user can specify.
+   * @param {Object}  [options.profilePage=false] Profile page, if false is title page.
    * @ignore
    */
-  serialize ($, elm) {
+  serialize ($, elm, options) {
+    // handle default options
+    const _options = objectAssignDeep(
+      {
+        profilePage: false
+      },
+      options
+    )
+
+    const isProfilePage = _options.profilePage
+
+    // make document ready for profile page instead of title page
+    if (isProfilePage) {
+      const subElement = $(elm)
+      elm = $(elm).find('ul#entry-item-list li')
+      $ = cheerio.load($(subElement).html())
+    }
+
     const date = parseDate($(elm).find('footer div.info a.permalink').text())
     const isEksiseylerExist = $(elm).data('seyler-slug') !== ''
     const authorId = $(elm).data('author-id')
