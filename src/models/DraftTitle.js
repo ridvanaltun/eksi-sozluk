@@ -8,43 +8,50 @@ const { URLS } = require('../constants')
 class DraftTitle {
   /**
    * Title name.
+   *
    * @type {string}
    */
   name
 
   /**
    * Title URL.
+   *
    * @type {string}
    */
   url
 
   /**
    * Title slug.
+   *
    * @type {string}
    */
   slug
 
   /**
    * Title created date.
+   *
    * @type {string}
    */
   dateCreated
 
   /**
    * Title modified date.
+   *
    * @type {(string|null)}
    */
   dateModified
 
   /**
    * Draft entry.
+   *
    * @type {DraftEntry}
    */
   entry
 
   /**
    * Create draft title.
-   * @param {Object}  request Axios client.
+   *
+   * @param {object}  request Axios client.
    * @param {string}  cookies Cookie string.
    */
   constructor (request, cookies) {
@@ -54,8 +61,9 @@ class DraftTitle {
 
   /**
    * Parse properties with given document.
-   * @param {Object}  $    Cheerio document.
-   * @param {Object}  elm  Cheerio element.
+   *
+   * @param {object}  $    Cheerio document.
+   * @param {object}  elm  Cheerio element.
    * @ignore
    */
   serialize ($, elm) {

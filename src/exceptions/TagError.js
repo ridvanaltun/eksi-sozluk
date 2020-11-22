@@ -1,11 +1,13 @@
 /**
  * Tag error.
+ *
  * @property {string} [name=TagError]  Error name.
  * @property {string} message          Error message.
  */
 class TagError extends Error {
   /**
    * Create tag error.
+   *
    * @param {string} message Error message.
    */
   constructor (message) {

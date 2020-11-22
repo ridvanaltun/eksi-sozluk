@@ -9,41 +9,47 @@ const { DEFAULTS } = require('../constants')
 class UserEntryCollection {
   /**
    * Username.
+   *
    * @type {string}
    */
   username
 
   /**
    * Current page.
+   *
    * @type {number}
    */
   currPage
 
   /**
    * Total page count.
+   *
    * @type {number}
    */
   pageCount
 
   /**
    * Total entry count.
+   *
    * @type {number}
    */
   entryCount
 
   /**
    * Entry collection.
+   *
    * @type {Array<(Entry|EntryForMember)>}
    */
   entries = []
 
   /**
    * Create an user entry collection.
-   * @param {Object}  request                 Axios client.
+   *
+   * @param {object}  request                 Axios client.
    * @param {string}  path                    Path or plain title.
    * @param {string}  username                Username.
    * @param {string}  cookies                 Cookie string.
-   * @param {Object}  options                 Parameters that user can specify.
+   * @param {object}  options                 Parameters that user can specify.
    * @param {number}  [options.page=1]        Page number.
    */
   constructor (request, path, username, cookies, options) {
@@ -96,7 +102,8 @@ class UserEntryCollection {
 
   /**
    * Retrieve the user entry collection.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   retrieve () {
     return new Promise((resolve, reject) => {

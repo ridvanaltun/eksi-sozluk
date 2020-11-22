@@ -3,22 +3,29 @@ const cheerio = require('cheerio')
 
 /**
  * This callback is displayed as part of the EksiSozluk class.
- * @callback Requester~requestCallback
- * @param {Object} data            Calculated body from cheerio.
- * @param {Object} data.statusCode Status code of the request.
+ *
+ * @callback requestCallback
+ * @param {object} data            Calculated body from cheerio.
+ * @param {object} data.statusCode Status code of the request.
+ */
+
+/**
+ * @typedef Requester
+ * @param {object}          options                   HTTP request options.
+ * @param {string}          options.endpoint          Endpoint of the request.
+ * @param {string}          [options.cookie]          Auth cookie.
+ * @param {boolean}         [options.ajax=false]      Use ajax HTTP calls.
+ * @param {boolean}         [options.encodeURI=true]  Encode URL.
+ * @param {string}          [options.method=GET]      HTTP request method.
+ * @param {object}          [options.params={}]       HTTP request parameters.
+ * @param {requestCallback} cb                        The callback that handles the response.
  */
 
 /**
  * You can make HTTP requests to Eksi Sozluk via this function
- * @param   {Object}          httpClient                HTTP client.
- * @param   {Object}          options                   HTTP request options.
- * @param   {string}          options.endpoint          Endpoint of the request.
- * @param   {string}          [options.cookie]          Auth cookie.
- * @param   {boolean}         [options.ajax=false]      Use ajax HTTP calls.
- * @param   {boolean}         [options.encodeURI=true]  Encode URL.
- * @param   {string}          [options.method=GET]      HTTP request method.
- * @param   {Object}          [options.params={}]       HTTP request parameters.
- * @param   {requestCallback} cb                        The callback that handles the response.
+ *
+ * @param   {object}    httpClient  HTTP client.
+ * @returns {Requester}             Handle HTTP requests.
  * @ignore
  */
 const request = httpClient => {

@@ -6,36 +6,42 @@ const { VoteError } = require('../exceptions')
 
 /**
  * Entry for members.
+ *
  * @augments Entry
  */
 class EntryForMember extends Entry {
   /**
    * Is entry favorited?
+   *
    * @type {boolean}
    */
   isFavorited
 
   /**
    * Is entry deleted?
+   *
    * @type {boolean}
    */
   isDeleted
 
   /**
    * Is rookie entry?
+   *
    * @type {boolean}
    */
   isRookieEntry
 
   /**
    * Is entry author me?
+   *
    * @type {boolean}
    */
   isEntryAuthorMe
 
   /**
    * Upvote.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   upvote () {
     return new Promise((resolve, reject) => {
@@ -68,7 +74,8 @@ class EntryForMember extends Entry {
 
   /**
    * Downvote.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   downvote () {
     return new Promise((resolve, reject) => {
@@ -101,7 +108,8 @@ class EntryForMember extends Entry {
 
   /**
    * Remove vote.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   removevote () {
     return new Promise((resolve, reject) => {
@@ -133,7 +141,8 @@ class EntryForMember extends Entry {
 
   /**
    * Delete the entry from trash.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   deleteFromTrash () {
     return new Promise((resolve, reject) => {
@@ -159,7 +168,8 @@ class EntryForMember extends Entry {
 
   /**
    * Recover the entry from trash.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   recoverFromTrash () {
     return new Promise((resolve, reject) => {

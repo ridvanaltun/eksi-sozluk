@@ -5,24 +5,28 @@ const { TagError } = require('../exceptions')
 
 /**
  * Tag for members.
+ *
  * @augments Tag
  */
 class TagForMember extends Tag {
   /**
    * Tag ID.
+   *
    * @type {number}
    */
   id
 
   /**
    * Is tag followed?
+   *
    * @type {boolean}
    */
   followed
 
   /**
    * Follow tag.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   follow () {
     return new Promise((resolve, reject) => {
@@ -45,7 +49,8 @@ class TagForMember extends Tag {
 
   /**
    * Unfollow tag.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   unfollow () {
     return new Promise((resolve, reject) => {

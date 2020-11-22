@@ -9,55 +9,64 @@ const { URLS } = require('../constants')
 class DraftEntry {
   /**
    * Entry author.
+   *
    * @type {string}
    */
   author
 
   /**
    * Author URL.
+   *
    * @type {string}
    */
   authorUrl
 
   /**
    * Entry content.
+   *
    * @type {string}
    */
   content
 
   /**
    * Entry title.
+   *
    * @type {string}
    */
   title
 
   /**
    * Title ID.
+   *
    * @type {number}
    */
   titleId
 
   /**
    * Title slug.
+   *
    * @type {number}
    */
   titleSlug
 
   /**
    * Entry title endpoint.
+   *
    * @type {string}
    */
   titleEndpoint
 
   /**
    * Entry title URL.
+   *
    * @type {string}
    */
   titleUrl
 
   /**
    * Create draft entry.
-   * @param {Object}  request     Axios client.
+   *
+   * @param {object}  request     Axios client.
    * @param {string}  title       Title.
    * @param {string}  cookies     Cookie string.
    */
@@ -70,7 +79,8 @@ class DraftEntry {
 
   /**
    * Parse properties with given document.
-   * @param   {Object}  $    Cheerio document.
+   *
+   * @param   {object}  $    Cheerio document.
    * @ignore
    */
   serialize ($) {
@@ -90,7 +100,8 @@ class DraftEntry {
 
   /**
    * Retrieve the draft entry.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   retrieve () {
     return new Promise((resolve, reject) => {
@@ -113,7 +124,8 @@ class DraftEntry {
 
   /**
    * Publish the draft entry.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   publish () {
     return new Promise((resolve, reject) => {
@@ -171,8 +183,9 @@ class DraftEntry {
 
   /**
    * Change the draft entry content.
+   *
    * @param   {string}  content Draft entry content.
-   * @return  {Promise}         Promise.
+   * @returns {Promise}         Promise.
    */
   change (content) {
     return new Promise((resolve, reject) => {
@@ -214,7 +227,8 @@ class DraftEntry {
 
   /**
    * Dismiss the draft entry.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   dismiss () {
     return new Promise((resolve, reject) => {

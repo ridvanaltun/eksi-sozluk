@@ -4,7 +4,7 @@
 
 /**
  * Title types.
- * @readonly
+ *
  * @enum {TitleType}
  */
 const TITLE_TYPES = {
@@ -21,7 +21,7 @@ const TITLE_TYPES = {
 
 /**
  * Tag names.
- * @readonly
+ *
  * @enum {TagName}
  */
 const TAGS = {

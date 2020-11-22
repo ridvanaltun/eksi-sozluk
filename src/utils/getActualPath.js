@@ -3,8 +3,9 @@ const { URLS } = require('../constants')
 
 /**
  * Converts title to actual path.
+ *
  * @param   {string}            title Title.
- * @return  {Promise.<string>}        Actual path.
+ * @returns {Promise.<string>}        Actual path.
  * @ignore
  */
 const getActualPath = title => {

@@ -7,43 +7,50 @@ const EntryCollection = require('./EntryCollection')
 class Title {
   /**
    * Title id, if the title is an user (like a corporate account event) will be null.
+   *
    * @type {(number|null)}
    */
   id
 
   /**
    * Title name.
+   *
    * @type {string}
    */
   name
 
   /**
    * Title URL.
+   *
    * @type {string}
    */
   url
 
   /**
    * Title slug.
+   *
    * @type {string}
    */
   slug
 
   /**
    * Title entry count.
+   *
    * @type {number}
    */
   entryCount
 
   /**
    * Entry collection.
+   *
    * @type {EntryCollection}
    */
   entries
 
   /**
    * Create title.
-   * @param {Object}  request Axios client.
+   *
+   * @param {object}  request Axios client.
    */
   constructor (request) {
     this._request = request
@@ -51,8 +58,9 @@ class Title {
 
   /**
    * Parse properties with given document.
-   * @param {Object}  $   Cheerio document.
-   * @param {Object}  elm Cheerio element.
+   *
+   * @param {object}  $   Cheerio document.
+   * @param {object}  elm Cheerio element.
    * @ignore
    */
   serialize ($, elm) {

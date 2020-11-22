@@ -5,42 +5,49 @@ const { URLS } = require('../constants')
 
 /**
  * User for members.
+ *
  * @augments User
  */
 class UserForMember extends User {
   /**
    * User ID.
+   *
    * @type {number}
    */
   id
 
   /**
    * Is user followed?
+   *
    * @type {boolean}
    */
   isFollowed
 
   /**
    * Is user blocked?
+   *
    * @type {boolean}
    */
   isBlocked
 
   /**
    * Is user titles blocked?
+   *
    * @type {boolean}
    */
   isTitlesBlocked
 
   /**
    * User note.
+   *
    * @type {string}
    */
   note
 
   /**
    * Follow the user.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   follow () {
     return new Promise((resolve, reject) => {
@@ -66,7 +73,8 @@ class UserForMember extends User {
 
   /**
    * Unfollow the user.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   unfollow () {
     return new Promise((resolve, reject) => {
@@ -92,7 +100,8 @@ class UserForMember extends User {
 
   /**
    * Block the user.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   block () {
     return new Promise((resolve, reject) => {
@@ -118,7 +127,8 @@ class UserForMember extends User {
 
   /**
    * Unblock the user.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   unblock () {
     return new Promise((resolve, reject) => {
@@ -144,7 +154,8 @@ class UserForMember extends User {
 
   /**
    * Block user titles.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   blockTitles () {
     return new Promise((resolve, reject) => {
@@ -170,7 +181,8 @@ class UserForMember extends User {
 
   /**
    * Unblock user titles.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   unblockTitles () {
     return new Promise((resolve, reject) => {
@@ -196,8 +208,9 @@ class UserForMember extends User {
 
   /**
    * Send message to an user.
+   *
    * @param   {string}  message Message.
-   * @return  {Promise}         Promise.
+   * @returns {Promise}         Promise.
    */
   sendMessage (message) {
     return new Promise((resolve, reject) => {

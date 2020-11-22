@@ -8,43 +8,50 @@ const EntryForMember = require('./EntryForMember')
 class FollowedUserFavoriteEntry {
   /**
    * Entry ID.
+   *
    * @type {number}
    */
   entryId
 
   /**
    * Title name.
+   *
    * @type {string}
    */
   titleName
 
   /**
    * Entry URL.
+   *
    * @type {string}
    */
   entryUrl
 
   /**
    * Title slug.
+   *
    * @type {string}
    */
   titleSlug
 
   /**
    * Entry owner.
+   *
    * @type {UserForMember}
    */
   owner
 
   /**
    * Entry itself.
+   *
    * @type {EntryForMember}
    */
   entry
 
   /**
    * Create title.
-   * @param {Object}  request Axios client.
+   *
+   * @param {object}  request Axios client.
    * @param {string}  cookies Cookie string.
    */
   constructor (request, cookies) {
@@ -54,8 +61,9 @@ class FollowedUserFavoriteEntry {
 
   /**
    * Parse properties with given document.
-   * @param {Object}  $    Cheerio document.
-   * @param {Object}  elm  Cheerio element.
+   *
+   * @param {object}  $    Cheerio document.
+   * @param {object}  elm  Cheerio element.
    * @ignore
    */
   serialize ($, elm) {

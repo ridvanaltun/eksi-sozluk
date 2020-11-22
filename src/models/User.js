@@ -9,18 +9,21 @@ const ImageCollection = require('./ImageCollection')
 class User {
   /**
    * User ID.
+   *
    * @type {(number|null)}
    */
   id = null
 
   /**
    * Tag URL.
+   *
    * @type {string}
    */
   username
 
   /**
    * User URL.
+   *
    * @type {string}
    */
   url
@@ -33,73 +36,85 @@ class User {
 
   /**
    * Badge list.
+   *
    * @type {Array<UserBadge>}
    */
   badges
 
   /**
    * Badge points.
+   *
    * @type {number}
    */
   badgePoints
 
   /**
    * Total entry count.
+   *
    * @type {number}
    */
   entryCountTotal
 
   /**
    * Last month entry count.
+   *
    * @type {number}
    */
   entryCountLastmonth
 
   /**
    * Last week entry count.
+   *
    * @type {number}
    */
   entryCountLastweek
 
   /**
    * Today entry count.
+   *
    * @type {number}
    */
   entryCountToday
 
   /**
    * Last entry time.
+   *
    * @type {(string|null)}
    */
   lastEntryTime
 
   /**
    * Is user followed?
+   *
    * @type {(boolean|null)}
    */
   isFollowed = null
 
   /**
    * Is user blocked?
+   *
    * @type {(boolean|null)}
    */
   isBlocked = null
 
   /**
    * Is user titles blocked?
+   *
    * @type {(boolean|null)}
    */
   isTitlesBlocked = null
 
   /**
    * User note.
+   *
    * @type {(string|null)}
    */
   note = null
 
   /**
    * Create user.
-   * @param   {Object}  request         Axios client.
+   *
+   * @param   {object}  request         Axios client.
    * @param   {string}  username        Username.
    * @param   {string}  [cookies=null]  Cookie string.
    */
@@ -111,8 +126,9 @@ class User {
 
   /**
    * Parse properties with given document.
-   * @param   {Object}  $           Cheerio document.
-   * @param   {Object}  [elm=null]  Cheerio element.
+   *
+   * @param   {object}  $           Cheerio document.
+   * @param   {object}  [elm=null]  Cheerio element.
    * @ignore
    */
   serialize ($, elm = null) {
@@ -171,7 +187,8 @@ class User {
 
   /**
    * Retrieve user.
-   * @return  {Promise}  Promise.
+   *
+   * @returns {Promise}  Promise.
    */
   retrieve () {
     return new Promise((resolve, reject) => {
@@ -201,8 +218,10 @@ class User {
 
   /**
    * Fetch user entries by latest.
-   * @param   {number}                        [page=1]  Page number.
-   * @return  {Promise.<UserEntryCollection>}           User entries by last posted.
+   *
+   * @param   {object}                        options           Parameters that user can specify.
+   * @param   {number}                        [options.page=1]  Page number.
+   * @returns {Promise.<UserEntryCollection>}                   User entries by last posted.
    */
   async entries (options) {
     const entries = new UserEntryCollection(
@@ -219,8 +238,10 @@ class User {
 
   /**
    * Fetch user favorite entries by latest.
-   * @param   {number}                        [page=1]  Page number.
-   * @return  {Promise.<UserEntryCollection>}           User entries by last favorited.
+   *
+   * @param   {object}                        options           Parameters that user can specify.
+   * @param   {number}                        [options.page=1]  Page number.
+   * @returns {Promise.<UserEntryCollection>}                   User entries by last favorited.
    */
   async favorites (options) {
     const entries = new UserEntryCollection(
@@ -237,8 +258,10 @@ class User {
 
   /**
    * Fetch user favorited entries by most favorited.
-   * @param   {number}                        [page=1]  Page number.
-   * @return  {Promise.<UserEntryCollection>}           User entries by most favorited.
+   *
+   * @param   {object}                        options           Parameters that user can specify.
+   * @param   {number}                        [options.page=1]  Page number.
+   * @returns {Promise.<UserEntryCollection>}                   User entries by most favorited.
    */
   async favoritedEntries (options) {
     const entries = new UserEntryCollection(
@@ -255,8 +278,10 @@ class User {
 
   /**
    * Fetch user last voted entries.
-   * @param   {number}                        [page=1]  Page number.
-   * @return  {Promise.<UserEntryCollection>}           User entries by last voted.
+   *
+   * @param   {object}                        options           Parameters that user can specify.
+   * @param   {number}                        [options.page=1]  Page number.
+   * @returns {Promise.<UserEntryCollection>}                   User entries by last voted.
    */
   async lastVotedEntries (options) {
     const entries = new UserEntryCollection(
@@ -273,8 +298,10 @@ class User {
 
   /**
    * Fetch user self favorited entries.
-   * @param   {number}                        [page=1]  Page number.
-   * @return  {Promise.<UserEntryCollection>}           User entries by self favorited.
+   *
+   * @param   {object}                        options           Parameters that user can specify.
+   * @param   {number}                        [options.page=1]  Page number.
+   * @returns {Promise.<UserEntryCollection>}                   User entries by self favorited.
    */
   async selfFavoritedEntries (options) {
     const entries = new UserEntryCollection(
@@ -291,8 +318,10 @@ class User {
 
   /**
    * Fetch user most liked entries.
-   * @param   {number}                        [page=1]  Page number.
-   * @return  {Promise.<UserEntryCollection>}           User entries by most liked.
+   *
+   * @param   {object}                        options           Parameters that user can specify.
+   * @param   {number}                        [options.page=1]  Page number.
+   * @returns {Promise.<UserEntryCollection>}                   User entries by most liked.
    */
   async mostLikedEntries (options) {
     const entries = new UserEntryCollection(
@@ -309,7 +338,8 @@ class User {
 
   /**
    * User images.
-   * @return  {ImageCollection} User images.
+   *
+   * @returns {ImageCollection} User images.
    */
   async images () {
     const images = new ImageCollection(this._request, this.username)

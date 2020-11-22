@@ -10,121 +10,141 @@ const { URLS } = require('../constants')
 class Entry {
   /**
    * Entry ID.
+   *
    * @type {number}
    */
   id
 
   /**
    * Entry author.
+   *
    * @type {string}
    */
   author
 
   /**
    * Author ID.
+   *
    * @type {number}
    */
   authorId
 
   /**
    * Author URL.
+   *
    * @type {string}
    */
   authorUrl
 
   /**
    * Entry content.
+   *
    * @type {string}
    */
   content
 
   /**
    * Entry content encoded.
+   *
    * @type {string}
    */
   contentEncoded
 
   /**
    * Entry created date.
+   *
    * @type {string}
    */
   dateCreated
 
   /**
    * Entry modified date.
+   *
    * @type {(string|null)}
    */
   dateModified
 
   /**
    * Entry Eksi Seyler URL.
+   *
    * @type {(string|null)}
    */
   eksiseylerLink
 
   /**
    * Entry Eksi Seyler slug.
+   *
    * @type {(string|null)}
    */
   eksiseylerSlug
 
   /**
    * Entry favorite count.
+   *
    * @type {number}
    */
   favoriteCount
 
   /**
    * Entry permalink.
+   *
    * @type {string}
    */
   permalink
 
   /**
    * Entry title.
+   *
    * @type {string}
    */
   title
 
   /**
    * Entry title ID.
+   *
    * @type {number}
    */
   titleId
 
   /**
    * Entry title slug.
+   *
    * @type {string}
    */
   titleSlug
 
   /**
    * Entry title URL.
+   *
    * @type {string}
    */
   titleUrl
 
   /**
    * Is entry favorited?
+   *
    * @type {(boolean|null)}
    */
   isFavorited = null
 
   /**
    * Is entry deleted?
+   *
    * @type {(boolean|null)}
    */
   isDeleted = null
 
   /**
    * Is rookie entry?
+   *
    * @type {(boolean|null)}
    */
   isRookieEntry = null
 
   /**
    * Create entry.
-   * @param   {Object}  request         Axios client.
+   *
+   * @param   {object}  request         Axios client.
    * @param   {number}  entryId         Entry ID.
    * @param   {string}  [cookies=null]  Cookie string.
    */
@@ -136,10 +156,11 @@ class Entry {
 
   /**
    * Parse properties with given document.
-   * @param {Object}  $                           Cheerio document.
-   * @param {Object}  elm                         Cheerio element.
-   * @param {Object}  options                     Parameters that user can specify.
-   * @param {Object}  [options.profilePage=false] Profile page, if false is title page.
+   *
+   * @param {object}  $                           Cheerio document.
+   * @param {object}  elm                         Cheerio element.
+   * @param {object}  options                     Parameters that user can specify.
+   * @param {object}  [options.profilePage=false] Profile page, if false is title page.
    * @ignore
    */
   serialize ($, elm, options) {
@@ -204,7 +225,8 @@ class Entry {
 
   /**
    * Retrieve entry.
-   * @return  {Promise}  Promise.
+   *
+   * @returns {Promise}  Promise.
    */
   retrieve () {
     return new Promise((resolve, reject) => {

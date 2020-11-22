@@ -9,14 +9,16 @@ const { URLS } = require('./constants')
 const { AuthError } = require('./exceptions')
 
 /**
- * @classdesc Manage all Eksi Sozluk abilities.
+ * Manage all Eksi Sozluk abilities.
+ *
  * @augments EksiGuest
  */
 class EksiSozluk extends EksiGuest {
   /**
-   * Create an Eksi Sozluk instance
-   * @param   {Object}  options                                             Eksi Sozluk instance settings
-   * @param   {Object}  options.httpClient                                  Axios settings as HTTP client, all Axios settings are useable
+   * Create an Eksi Sozluk instance.
+   *
+   * @param   {object}  options                                             Eksi Sozluk instance settings
+   * @param   {object}  options.httpClient                                  Axios settings as HTTP client, all Axios settings are useable
    * @param   {number}  [options.httpClient.timeout=3000]                   Timeout of requests in miliseconds
    * @param   {string}  [options.httpClient.baseURL=https://eksisozluk.com] Base URL of Eksi Sozluk, you can use proxy here
    */
@@ -42,8 +44,9 @@ class EksiSozluk extends EksiGuest {
 
   /**
    * Chech is user authenticated or not.
+   *
    * @param   {string}            [cookies=this.cookies]  Cookies string.
-   * @return  {Promise.<boolean>}                         If user authenticated returns true, otherwise false.
+   * @returns {Promise.<boolean>}                         If user authenticated returns true, otherwise false.
    */
   isAuthenticated (cookies = this.cookies) {
     return new Promise((resolve, reject) => {
@@ -71,7 +74,8 @@ class EksiSozluk extends EksiGuest {
 
   /**
    * Is verify recaptcha required to login?
-   * @return  {Promise.<boolean>} If recaptcha required returns true, otherwise false.
+   *
+   * @returns {Promise.<boolean>} If recaptcha required returns true, otherwise false.
    */
   isRecaptchaRequired () {
     return new Promise((resolve, reject) => {
@@ -100,11 +104,12 @@ class EksiSozluk extends EksiGuest {
 
   /**
    * Create Eksi Sozluk session token with your credentials.
+   *
    * @param   {string}        email                       Your email address.
    * @param   {string}        password                    Your password.
-   * @param   {Object}        options                     Parameters that user can specify.
+   * @param   {object}        options                     Parameters that user can specify.
    * @param   {boolean}       [options.extendTime=false]  If true, token will expire at 2 weeks later.
-   * @return  {SessionToken}                              Eksi Sozluk session token.
+   * @returns {SessionToken}                              Eksi Sozluk session token.
    * @throws  {AuthError}                                 User not authorized, password or email is wrong.
    */
   createToken (email, password, options = {}) {
@@ -198,9 +203,10 @@ class EksiSozluk extends EksiGuest {
 
   /**
    * Login Eksi Sozluk with your credentials.
+   *
    * @param   {string}      email     Your email address.
    * @param   {string}      password  Your password.
-   * @return  {EksiMember}            Eksi Sozluk session.
+   * @returns {EksiMember}            Eksi Sozluk session.
    * @throws  {AuthError}             User not authorized, password or email is wrong.
    */
   async login (email, password) {
@@ -214,8 +220,9 @@ class EksiSozluk extends EksiGuest {
 
   /**
    * Login Eksi Sozluk with session cookie.
+   *
    * @param   {string}     token   Session token of member.
-   * @return  {EksiMember}         Eksi Sozluk session.
+   * @returns {EksiMember}         Eksi Sozluk session.
    * @throws  {AuthError}          User not authorized.
    */
   async loginWithToken (token) {

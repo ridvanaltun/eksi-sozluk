@@ -12,57 +12,66 @@ const { getActualPath } = require('../utils')
 class EntryCollection {
   /**
    * Title.
+   *
    * @type {string}
    */
   title
 
   /**
    * Title ID.
+   *
    * @type {number}
    */
   titleId
 
   /**
    * Title slug.
+   *
    * @type {string}
    */
   titleSlug
 
   /**
    * Title URL.
+   *
    * @type {string}
    */
   titleUrl
 
   /**
    * Current page.
+   *
    * @type {number}
    */
   currPage
 
   /**
    * Total page count.
+   *
    * @type {number}
    */
   pageCount
 
   /**
    * Entry collection.
+   *
    * @type {Array<(Entry|EntryForMember)>}
    */
   entries = []
 
   /**
    * Draft entry.
+   *
    * @type {(DraftEntry|null)}
    */
   draftEntry
 
   /**
    * Create an entry collection.
-   * @param {Object}  request                 Axios client.
+   *
+   * @param {object}  request                 Axios client.
    * @param {string}  path                    Path or plain title.
-   * @param {Object}  options                 Parameters that user can specify.
+   * @param {object}  options                 Parameters that user can specify.
    * @param {number}  [options.page=1]        Page number.
    * @param {string}  [options.cookies=null]  Cookie string.
    */
@@ -119,7 +128,8 @@ class EntryCollection {
 
   /**
    * Retrieve the entry collection.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   retrieve () {
     // eslint-disable-next-line no-async-promise-executor

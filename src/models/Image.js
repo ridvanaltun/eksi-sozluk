@@ -6,20 +6,23 @@ const { URLS } = require('../constants')
 class Image {
   /**
    * Image URL.
+   *
    * @type {string}
    */
   url
 
   /**
    * Image CDN URL.
+   *
    * @type {string}
    */
   cdnUrl
 
   /**
    * Parse properties with given document.
-   * @param {Object}  $   Cheerio document.
-   * @param {Object}  elm Cheerio element.
+   *
+   * @param {object}  $   Cheerio document.
+   * @param {object}  elm Cheerio element.
    * @ignore
    */
   serialize ($, elm) {

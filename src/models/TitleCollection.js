@@ -14,33 +14,38 @@ const { TITLE_TYPES } = require('../enums')
 class TitleCollection {
   /**
    * Current page.
+   *
    * @type {number}
    */
   currPage
 
   /**
    * Total title count, if type is followed user title = null.
+   *
    * @type {(number|null)}
    */
   totalTitleCount
 
   /**
    * Total page count, if type is followed user title = null.
+   *
    * @type {(number|null)}
    */
   pageCount
 
   /**
    * Title collection.
+   *
    * @type {Array<(Title|FollowedUserTitle|DraftTitle)>}
    */
   titles
 
   /**
    * Create a title collection.
-   * @param {Object}    request                       Axios client.
+   *
+   * @param {object}    request                       Axios client.
    * @param {string}    path                          Title path.
-   * @param {Object}    options                       Parameters that user can specify.
+   * @param {object}    options                       Parameters that user can specify.
    * @param {number}    [options.page=1]              Page number.
    * @param {number}    [options.defaultEntryCount=1] Default entry count, using if entry count not provided.
    * @param {string}    [options.cookies=null]        Cookie string.
@@ -103,7 +108,8 @@ class TitleCollection {
 
   /**
    * Retrieve title collection.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   retrieve () {
     return new Promise((resolve, reject) => {

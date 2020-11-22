@@ -9,17 +9,22 @@ const {
   UserForMember,
   TitleCollection,
   EntryCollection,
-  SearchResults
+  SearchResults,
+  TrashEntry,
+  TagForMember,
+  DraftEntry
 } = require('./models')
 
 /**
- * @classdesc Eksi Sozluk member class.
+ * Eksi Sozluk member class.
+ *
  * @augments EksiGuest
  */
 class EksiMember extends EksiGuest {
   /**
    * Create an Eksi Sozluk member session.
-   * @param   {Object}  httpClient  Axios HTPP client.
+   *
+   * @param   {object}  httpClient  Axios HTPP client.
    * @param   {string}  cookies     Cookies in string.
    */
   constructor (httpClient, cookies) {
@@ -29,8 +34,9 @@ class EksiMember extends EksiGuest {
 
   /**
    * Search things.
+   *
    * @param   {string}                  text  Search text.
-   * @return  {Promise.<SearchResults>}        A promise for the search results.
+   * @returns {Promise.<SearchResults>}        A promise for the search results.
    */
   async search (text) {
     const results = new SearchResults(this._request, text, this.cookies)
@@ -41,7 +47,8 @@ class EksiMember extends EksiGuest {
 
   /**
    * Check if unreaded message available.
-   * @return  {Promise.<boolean>} New message available or not.
+   *
+   * @returns {Promise.<boolean>} New message available or not.
    */
   isNewMessageAvailable () {
     return new Promise((resolve, reject) => {
@@ -64,7 +71,8 @@ class EksiMember extends EksiGuest {
 
   /**
    * Check if unreaded event available.
-   * @return  {Promise.<boolean>} New event available or not.
+   *
+   * @returns {Promise.<boolean>} New event available or not.
    */
   isNewEventAvailable () {
     return new Promise((resolve, reject) => {
@@ -87,8 +95,9 @@ class EksiMember extends EksiGuest {
 
   /**
    * Pin an entry to the profile.
+   *
    * @param   {number}  entryId  Entry ID which user owns.
-   * @return  {Promise}          Promise.
+   * @returns {Promise}          Promise.
    */
   pinEntry (entryId) {
     return new Promise((resolve, reject) => {
@@ -111,7 +120,8 @@ class EksiMember extends EksiGuest {
 
   /**
    * Remove pin from profile.
-   * @return  {Promise}  Promise.
+   *
+   * @returns {Promise}  Promise.
    */
   removePin () {
     return new Promise((resolve, reject) => {
@@ -134,11 +144,12 @@ class EksiMember extends EksiGuest {
 
   /**
    * Create entry.
+   *
    * @param   {string}                                title                       Title.
    * @param   {string}                                content                     Entry content.
-   * @param   {Object}                                options                     Parameters that user can specify.
+   * @param   {object}                                options                     Parameters that user can specify.
    * @param   {boolean}                               [options.saveAsDraft=false] Save as draft.
-   * @return  {Promise.<(EntryForMember|DraftEntry)>}                             Created entry.
+   * @returns {Promise.<(EntryForMember|DraftEntry)>}                             Created entry.
    */
   async createEntry (title, content, options = {}) {
     return await createEntry(
@@ -152,8 +163,9 @@ class EksiMember extends EksiGuest {
 
   /**
    * Fetch entry by id.
+   *
    * @param   {number}                    entryId Entry Id.
-   * @return  {Promise.<EntryForMember>}          A promise for the entry.
+   * @returns {Promise.<EntryForMember>}          A promise for the entry.
    */
   async entryById (entryId) {
     const entry = new EntryForMember(this._request, entryId, this.cookies)
@@ -164,10 +176,11 @@ class EksiMember extends EksiGuest {
 
   /**
    * Fetch entries.
+   *
    * @param   {string}                    title             Title itself.
-   * @param   {Object}                    options           Parameters that user can specify.
+   * @param   {object}                    options           Parameters that user can specify.
    * @param   {number}                    [options.page=1]  Page number.
-   * @return  {Promise.<EntryCollection>}                   A promise for the entries.
+   * @returns {Promise.<EntryCollection>}                   A promise for the entries.
    */
   async entries (title, options = {}) {
     const _options = {
@@ -182,8 +195,9 @@ class EksiMember extends EksiGuest {
 
   /**
    * Fetch user.
+   *
    * @param   {string}                    username  Entry Id.
-   * @return  {Promise.<UserForMember>}             A promise for the entry.
+   * @returns {Promise.<UserForMember>}             A promise for the entry.
    */
   async user (username) {
     const user = new UserForMember(this._request, username, this.cookies)
@@ -194,9 +208,10 @@ class EksiMember extends EksiGuest {
 
   /**
    * Fetch today entries.
-   * @param   {Object}                    options           Parameters that user can specify.
+   *
+   * @param   {object}                    options           Parameters that user can specify.
    * @param   {number}                    [options.page=1]  Page number.
-   * @return  {Promise.<TitleCollection>}                   A promise for the titles of today.
+   * @returns {Promise.<TitleCollection>}                   A promise for the titles of today.
    */
   async today (options = {}) {
     const target = '/basliklar/bugun'
@@ -212,9 +227,10 @@ class EksiMember extends EksiGuest {
 
   /**
    * Fetch rookie entries.
-   * @param   {Object}                    options           Parameters that user can specify.
+   *
+   * @param   {object}                    options           Parameters that user can specify.
    * @param   {number}                    [options.page=1]  Page number.
-   * @return  {Promise.<TitleCollection>}                   A promise for the rookie titles.
+   * @returns {Promise.<TitleCollection>}                   A promise for the rookie titles.
    */
   async rookieTitles (options = {}) {
     const target = '/basliklar/caylaklar'
@@ -227,7 +243,8 @@ class EksiMember extends EksiGuest {
 
   /**
    * Fetch events.
-   * @return {Promise.<TitleCollection>} A promise for the titles of events.
+   *
+   * @returns {Promise.<TitleCollection>} A promise for the titles of events.
    */
   async events () {
     const target = '/basliklar/olay'
@@ -240,9 +257,10 @@ class EksiMember extends EksiGuest {
 
   /**
    * Fetch draft entries.
-   * @param   {Object}                    options           Parameters that user can specify.
+   *
+   * @param   {object}                    options           Parameters that user can specify.
    * @param   {number}                    [options.page=1]  Page number.
-   * @return  {Promise.<TitleCollection>}                   A promise for the titles of drafts.
+   * @returns {Promise.<TitleCollection>}                   A promise for the titles of drafts.
    */
   async drafts (options = {}) {
     const target = '/basliklar/kenar'
@@ -259,9 +277,10 @@ class EksiMember extends EksiGuest {
 
   /**
    * Fetch followed user titles.
-   * @param   {Object}                    options           Parameters that user can specify.
+   *
+   * @param   {object}                    options           Parameters that user can specify.
    * @param   {number}                    [options.page=1]  Page number.
-   * @return  {Promise.<TitleCollection>}                   A promise for the followed user titles.
+   * @returns {Promise.<TitleCollection>}                   A promise for the followed user titles.
    */
   async followedUserTitles (options = {}) {
     const target = '/basliklar/takipentry'
@@ -278,9 +297,10 @@ class EksiMember extends EksiGuest {
 
   /**
    * Fetch followed user favorite entries.
-   * @param   {Object}                    options           Parameters that user can specify.
+   *
+   * @param   {object}                    options           Parameters that user can specify.
    * @param   {number}                    [options.page=1]  Page number.
-   * @return  {Promise.<TitleCollection>}                   A promise for the followed user titles.
+   * @returns {Promise.<TitleCollection>}                   A promise for the followed user titles.
    */
   async followedUserFavoriteEntries (options = {}) {
     const target = '/basliklar/takipfav'
@@ -297,7 +317,8 @@ class EksiMember extends EksiGuest {
 
   /**
    * Fetch tags.
-   * @return  {Promise.Array<TagForMember>} A promise for the tags.
+   *
+   * @returns {Promise.Array<TagForMember>} A promise for the tags.
    */
   async tags () {
     return await tags(this._request, this.cookies)
@@ -305,7 +326,8 @@ class EksiMember extends EksiGuest {
 
   /**
    * Fetch yesterday's top entries.
-   * @return  {Promise.Array<EntryForMember>} A promise for the yesterday's top entries.
+   *
+   * @returns {Promise.Array<EntryForMember>} A promise for the yesterday's top entries.
    */
   async debeEntries () {
     return await debeEntries(this._request, this.cookies)
@@ -313,9 +335,10 @@ class EksiMember extends EksiGuest {
 
   /**
    * Fetch trash entries.
-   * @param   {Object}                    options           Parameters that user can specify.
+   *
+   * @param   {object}                    options           Parameters that user can specify.
    * @param   {number}                    [options.page=1]  Page number.
-   * @return  {Promise.Array<TrashEntry>}                   A promise for the trash entries.
+   * @returns {Promise.Array<TrashEntry>}                   A promise for the trash entries.
    */
   async trashEntries (options = {}) {
     return await trashEntries(this._request, this.cookies, options)
@@ -323,7 +346,8 @@ class EksiMember extends EksiGuest {
 
   /**
    * Empty trash.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   emptyTrash () {
     return new Promise((resolve, reject) => {

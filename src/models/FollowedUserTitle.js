@@ -7,37 +7,43 @@ const UserForMember = require('./UserForMember')
 class FollowedUserTitle {
   /**
    * Title ID.
+   *
    * @type {number}
    */
   id
 
   /**
    * Title name.
+   *
    * @type {string}
    */
   name
 
   /**
    * Title URL.
+   *
    * @type {string}
    */
   url
 
   /**
    * Title slug.
+   *
    * @type {string}
    */
   slug
 
   /**
    * Title owner.
+   *
    * @type {UserForMember}
    */
   owner
 
   /**
    * Create title.
-   * @param {Object}  request Axios client.
+   *
+   * @param {object}  request Axios client.
    * @param {string}  cookies Cookie string.
    */
   constructor (request, cookies) {
@@ -47,8 +53,9 @@ class FollowedUserTitle {
 
   /**
    * Parse properties with given document.
-   * @param {Object}  $    Cheerio document.
-   * @param {Object}  elm  Cheerio element.
+   *
+   * @param {object}  $    Cheerio document.
+   * @param {object}  elm  Cheerio element.
    * @ignore
    */
   serialize ($, elm) {

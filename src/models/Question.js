@@ -6,32 +6,37 @@ const { URLS } = require('../constants')
 class Question {
   /**
    * Title name.
+   *
    * @type {string}
    */
   title
 
   /**
    * Question title.
+   *
    * @type {string}
    */
   questionTitle
 
   /**
    * Question URL.
+   *
    * @type {string}
    */
   questionLink
 
   /**
    * Answer count, null means 0 or 1.
+   *
    * @type {(number|null)}
    */
   answerCount
 
   /**
    * Parse properties with given document.
-   * @param {Object}  $   Cheerio document.
-   * @param {Object}  elm Cheerio element.
+   *
+   * @param {object}  $   Cheerio document.
+   * @param {object}  elm Cheerio element.
    * @ignore
    */
   serialize ($, elm) {

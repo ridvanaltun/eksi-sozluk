@@ -10,25 +10,29 @@ const { URLS } = require('../constants')
 class SearchResults {
   /**
    * Search text.
+   *
    * @type {string}
    */
   searchText
 
   /**
    * Users.
+   *
    * @type {Array<(User|UserForMember)>}
    */
   users = []
 
   /**
    * Titles.
+   *
    * @type {Array<EntryCollection>}
    */
   titles = []
 
   /**
    * Create search results.
-   * @param {Object}  request         Axios client.
+   *
+   * @param {object}  request         Axios client.
    * @param {string}  text            Search text.
    * @param {string}  [cookies=null]  Cookie string.
    */
@@ -40,7 +44,8 @@ class SearchResults {
 
   /**
    * Retrieve search results.
-   * @return  {Promise} Promise.
+   *
+   * @returns {Promise} Promise.
    */
   retrieve () {
     return new Promise((resolve, reject) => {

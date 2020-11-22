@@ -8,9 +8,10 @@ const regexes = [
 ]
 
 /**
- * Parse given date string
+ * Parse given date string.
+ *
  * @param   {string}                                    date  Ex. 08.06.2016 13:59 ~ 31.08.2016 08:50
- * @return  {{created: string, modified: string|null}}        Parsed date.
+ * @returns {{created: string, modified: string|null}}        Parsed date.
  */
 const parseDate = date => {
   // localize moment

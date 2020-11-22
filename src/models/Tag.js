@@ -6,36 +6,42 @@ const { URLS } = require('../constants')
 class Tag {
   /**
    * Tag ID.
+   *
    * @type {(number|null)}
    */
   id = null
 
   /**
    * Tag name.
+   *
    * @type {TagName}
    */
   name
 
   /**
    * Tag description.
+   *
    * @type {string}
    */
   description
 
   /**
    * Tag URL.
+   *
    * @type {string}
    */
   link
 
   /**
    * Is tag followed?
+   *
    * @type {(boolean|null)}
    */
   followed = null
 
   /**
    * Create tag.
+   *
    * @param {string}  [cookies=null]  Cookie string.
    */
   constructor (cookies = null) {
@@ -44,8 +50,9 @@ class Tag {
 
   /**
    * Parse properties with given document.
-   * @param {Object}  $   Cheerio document.
-   * @param {Object}  elm Cheerio element.
+   *
+   * @param {object}  $   Cheerio document.
+   * @param {object}  elm Cheerio element.
    * @ignore
    */
   serialize ($, elm) {

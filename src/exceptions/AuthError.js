@@ -1,5 +1,6 @@
 /**
- * @classdesc Auth error.
+ * Auth error.
+ *
  * @property {string} [name=AuthError]         Error name.
  * @property {string} [message=Not Authorized] Error message.
  */

@@ -7,25 +7,29 @@ const { URLS } = require('../constants')
 class ImageCollection {
   /**
    * Image count.
+   *
    * @type {number}
    */
   imageCount
 
   /**
    * Images.
+   *
    * @type {Array<Image>}
    */
   images = []
 
   /**
    * Image owner.
+   *
    * @type {string}
    */
   username
 
   /**
    * Create image collection.
-   * @param {Object}  request   Axios client.
+   *
+   * @param {object}  request   Axios client.
    * @param {string}  username  Username.
    */
   constructor (request, username) {
@@ -35,7 +39,8 @@ class ImageCollection {
 
   /**
    * Retrieve image collection.
-   * @return  {Promise}  Promise.
+   *
+   * @returns {Promise}  Promise.
    */
   retrieve () {
     return new Promise((resolve, reject) => {
