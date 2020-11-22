@@ -10,8 +10,7 @@
     "test": "jest --config ./jest.config.js",
     "test:coverage": "npm test -- --coverage && cat ./coverage/lcov.info | coveralls",
     "semantic-release": "semantic-release",
-    "travis-deploy-once": "travis-deploy-once",
-    "doc": "jsdoc --configure jsdoc.json"
+    "docs": "rm -rf docs && jsdoc --configure jsdoc.json"
   },
   "repository": {
     "type": "git",
