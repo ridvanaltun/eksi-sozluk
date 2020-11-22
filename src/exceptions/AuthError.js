@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * @classdesc Auth error.
  * @property {string} [name=AuthError]         Error name.

@@ -30,9 +30,17 @@ class TrashEntry extends EntryForMember {
    * @ignore
    */
   extendTrashProps ($, elm) {
-    this.isModifyRequired = $(elm).find('.delete-info').text().includes('düzeltmeniz şart')
-    this.isDeletedFromEksisozluk = $(elm).find('h2 span a').text() === '@ekşisözlük'
-    this.dateTrashed = $(elm).find('time').attr('datetime')
+    this.isModifyRequired = $(elm)
+      .find('.delete-info')
+      .text()
+      .includes('düzeltmeniz şart')
+    this.isDeletedFromEksisozluk =
+      $(elm)
+        .find('h2 span a')
+        .text() === '@ekşisözlük'
+    this.dateTrashed = $(elm)
+      .find('time')
+      .attr('datetime')
   }
 }
 

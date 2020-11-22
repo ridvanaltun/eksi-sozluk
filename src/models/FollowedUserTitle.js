@@ -52,13 +52,26 @@ class FollowedUserTitle {
    * @ignore
    */
   serialize ($, elm) {
-    const name = $(elm).text().trim()
-    const owner = $(elm).find('a div').text().trim()
-    const slug = $(elm).find('a').attr('href').split('?')[0].replace('/', '')
+    const name = $(elm)
+      .text()
+      .trim()
+    const owner = $(elm)
+      .find('a div')
+      .text()
+      .trim()
+    const slug = $(elm)
+      .find('a')
+      .attr('href')
+      .split('?')[0]
+      .replace('/', '')
 
     this.id = parseInt(slug.split('--')[1])
     this.name = name.substring(0, name.length - owner.length).trim()
-    this.url = URLS.BASE + $(elm).find('a').attr('href')
+    this.url =
+      URLS.BASE +
+      $(elm)
+        .find('a')
+        .attr('href')
     this.slug = slug
 
     this.owner = new UserForMember(this._request, owner, this._cookies)

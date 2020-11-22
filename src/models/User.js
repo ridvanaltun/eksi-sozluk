@@ -135,13 +135,17 @@ class User {
       } else {
         badges.push({
           name: $(elm).text(),
-          description: $(elm).find('a').attr('title')
+          description: $(elm)
+            .find('a')
+            .attr('title')
         })
       }
     })
     // end - split badges
 
-    const lastEntryTime = $('ul li#last-entry-time').text().trim()
+    const lastEntryTime = $('ul li#last-entry-time')
+      .text()
+      .trim()
 
     this.username = $('h1#user-profile-title a').text()
     this.url = URLS.USER + this.username
@@ -159,7 +163,8 @@ class User {
       this.id = parseInt($('#who').attr('value'))
       this.isFollowed = $('#buddy-link').data('added') || false
       this.isBlocked = $('#blocked-link').data('added') || false
-      this.isTitlesBlocked = $('#blocked-index-title-link').data('added') || false
+      this.isTitlesBlocked =
+        $('#blocked-index-title-link').data('added') || false
       this.note = note === '' ? null : note
     }
   }
@@ -173,21 +178,24 @@ class User {
       // make username url ready
       const username = this.username.replace(' ', '-')
 
-      this._request({ endpoint: `/biri/${username}`, cookie: this._cookies }, ($) => {
-        const status = $.statusCode
+      this._request(
+        { endpoint: `/biri/${username}`, cookie: this._cookies },
+        $ => {
+          const status = $.statusCode
 
-        if (status === 404) {
-          return reject(new NotFoundError('User not found.'))
+          if (status === 404) {
+            return reject(new NotFoundError('User not found.'))
+          }
+
+          if (status !== 200) {
+            return reject(new Error('An unknown error occurred.'))
+          }
+
+          this.serialize($)
+
+          resolve()
         }
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
-        this.serialize($)
-
-        resolve()
-      })
+      )
     })
   }
 
@@ -197,7 +205,13 @@ class User {
    * @return  {Promise.<UserEntryCollection>}           User entries by last posted.
    */
   async entries (options) {
-    const entries = new UserEntryCollection(this._request, URLS.USER_LATEST_ENTRIES, this.username, this._cookies, options)
+    const entries = new UserEntryCollection(
+      this._request,
+      URLS.USER_LATEST_ENTRIES,
+      this.username,
+      this._cookies,
+      options
+    )
     await entries.retrieve()
 
     return entries
@@ -209,7 +223,13 @@ class User {
    * @return  {Promise.<UserEntryCollection>}           User entries by last favorited.
    */
   async favorites (options) {
-    const entries = new UserEntryCollection(this._request, URLS.USER_FAVORITED_ENTRIES, this.username, this._cookies, options)
+    const entries = new UserEntryCollection(
+      this._request,
+      URLS.USER_FAVORITED_ENTRIES,
+      this.username,
+      this._cookies,
+      options
+    )
     await entries.retrieve()
 
     return entries
@@ -221,7 +241,13 @@ class User {
    * @return  {Promise.<UserEntryCollection>}           User entries by most favorited.
    */
   async favoritedEntries (options) {
-    const entries = new UserEntryCollection(this._request, URLS.USER_MOST_FAVORITED_ENTRIES, this.username, this._cookies, options)
+    const entries = new UserEntryCollection(
+      this._request,
+      URLS.USER_MOST_FAVORITED_ENTRIES,
+      this.username,
+      this._cookies,
+      options
+    )
     await entries.retrieve()
 
     return entries
@@ -233,7 +259,13 @@ class User {
    * @return  {Promise.<UserEntryCollection>}           User entries by last voted.
    */
   async lastVotedEntries (options) {
-    const entries = new UserEntryCollection(this._request, URLS.USER_LAST_VOTED_ENTRIES, this.username, this._cookies, options)
+    const entries = new UserEntryCollection(
+      this._request,
+      URLS.USER_LAST_VOTED_ENTRIES,
+      this.username,
+      this._cookies,
+      options
+    )
     await entries.retrieve()
 
     return entries
@@ -245,7 +277,13 @@ class User {
    * @return  {Promise.<UserEntryCollection>}           User entries by self favorited.
    */
   async selfFavoritedEntries (options) {
-    const entries = new UserEntryCollection(this._request, URLS.USER_SELF_FAVORITED_ENTRIES, this.username, this._cookies, options)
+    const entries = new UserEntryCollection(
+      this._request,
+      URLS.USER_SELF_FAVORITED_ENTRIES,
+      this.username,
+      this._cookies,
+      options
+    )
     await entries.retrieve()
 
     return entries
@@ -257,7 +295,13 @@ class User {
    * @return  {Promise.<UserEntryCollection>}           User entries by most liked.
    */
   async mostLikedEntries (options) {
-    const entries = new UserEntryCollection(this._request, URLS.USER_MOST_LIKED_ENTRIES, this.username, this._cookies, options)
+    const entries = new UserEntryCollection(
+      this._request,
+      URLS.USER_MOST_LIKED_ENTRIES,
+      this.username,
+      this._cookies,
+      options
+    )
     await entries.retrieve()
 
     return entries

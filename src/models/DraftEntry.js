@@ -94,17 +94,20 @@ class DraftEntry {
    */
   retrieve () {
     return new Promise((resolve, reject) => {
-      this._request({ endpoint: `/?q=${this.title}`, cookie: this._cookies }, ($) => {
-        const status = $.statusCode
+      this._request(
+        { endpoint: `/?q=${this.title}`, cookie: this._cookies },
+        $ => {
+          const status = $.statusCode
 
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
+          if (status !== 200) {
+            return reject(new Error('An unknown error occurred.'))
+          }
+
+          this.serialize($)
+
+          resolve()
         }
-
-        this.serialize($)
-
-        resolve()
-      })
+      )
     })
   }
 
@@ -118,41 +121,51 @@ class DraftEntry {
         return reject(new Error('Retrieve first.'))
       }
 
-      axios.get(`${URLS.BASE}/${this.titleEndpoint}`, {
-        headers: {
-          Cookie: this._cookies
-        }
-      }).then((res) => {
-        // parse csrf token and cookies
-        const csrfRegex = new RegExp('(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)', 'u')
-        const csrfToken = csrfRegex.exec(res.data)[0]
-
-        const cookies = setCookie.parse(res.headers['set-cookie'], { map: true })
-        const csrfTokenInCookies = cookies.__RequestVerificationToken.value
-
-        return { csrfToken, csrfTokenInCookies }
-      }).then(async ({ csrfToken, csrfTokenInCookies }) => {
-        // create entry
-        const _res = await axios({
-          url: URLS.CREATE_ENTRY,
-          method: 'POST',
+      axios
+        .get(`${URLS.BASE}/${this.titleEndpoint}`, {
           headers: {
-            Cookie: `__RequestVerificationToken=${csrfTokenInCookies}; ${this._cookies}`
-          },
-          data: qs.stringify({
-            __RequestVerificationToken: csrfToken,
-            Title: this.title,
-            Content: this.content
-          })
+            Cookie: this._cookies
+          }
         })
+        .then(res => {
+          // parse csrf token and cookies
+          const csrfRegex = new RegExp(
+            '(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)',
+            'u'
+          )
+          const csrfToken = csrfRegex.exec(res.data)[0]
 
-        return _res
-      }).then((res) => {
-        resolve()
-      }).catch((err) => {
-        // handle errors
-        reject(new Error(err.message))
-      })
+          const cookies = setCookie.parse(res.headers['set-cookie'], {
+            map: true
+          })
+          const csrfTokenInCookies = cookies.__RequestVerificationToken.value
+
+          return { csrfToken, csrfTokenInCookies }
+        })
+        .then(async ({ csrfToken, csrfTokenInCookies }) => {
+          // create entry
+          const _res = await axios({
+            url: URLS.CREATE_ENTRY,
+            method: 'POST',
+            headers: {
+              Cookie: `__RequestVerificationToken=${csrfTokenInCookies}; ${this._cookies}`
+            },
+            data: qs.stringify({
+              __RequestVerificationToken: csrfToken,
+              Title: this.title,
+              Content: this.content
+            })
+          })
+
+          return _res
+        })
+        .then(res => {
+          resolve()
+        })
+        .catch(err => {
+          // handle errors
+          reject(new Error(err.message))
+        })
     })
   }
 
@@ -179,15 +192,21 @@ class DraftEntry {
         }
       }
 
-      axios.post(`${URLS.BASE}/${this.titleEndpoint}/savedraft`, qs.stringify(requestBody), config)
-        .then((res) => {
+      axios
+        .post(
+          `${URLS.BASE}/${this.titleEndpoint}/savedraft`,
+          qs.stringify(requestBody),
+          config
+        )
+        .then(res => {
           if (res.data.Success) {
             this.content = res.data.SavedDraftContent
             resolve()
           } else {
             reject(new Error('An unknow error occurred.'))
           }
-        }).catch((err) => {
+        })
+        .catch(err => {
           reject(new Error(err.message))
         })
     })
@@ -214,10 +233,16 @@ class DraftEntry {
         }
       }
 
-      axios.post(`${URLS.BASE}/${this.titleEndpoint}/deletedraft`, qs.stringify(requestBody), config)
-        .then((res) => {
+      axios
+        .post(
+          `${URLS.BASE}/${this.titleEndpoint}/deletedraft`,
+          qs.stringify(requestBody),
+          config
+        )
+        .then(res => {
           resolve()
-        }).catch((err) => {
+        })
+        .catch(err => {
           reject(new Error(err.message))
         })
     })

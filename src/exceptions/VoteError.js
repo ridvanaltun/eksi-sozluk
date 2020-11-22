@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Vote error.
  * @property {string} [name=VoteError]  Error name.

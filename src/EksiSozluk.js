@@ -20,14 +20,17 @@ class EksiSozluk extends EksiGuest {
    * @param   {number}  [options.httpClient.timeout=3000]                   Timeout of requests in miliseconds
    * @param   {string}  [options.httpClient.baseURL=https://eksisozluk.com] Base URL of Eksi Sozluk, you can use proxy here
    */
-  constructor (options) {
+  constructor (options = {}) {
     // handle default options
-    const _options = objectAssignDeep({
-      httpClient: {
-        timeout: 3000,
-        baseURL: URLS.BASE
-      }
-    }, options)
+    const _options = objectAssignDeep(
+      {
+        httpClient: {
+          timeout: 3000,
+          baseURL: URLS.BASE
+        }
+      },
+      options
+    )
 
     // make http client ready
     const httpClient = axios.create(_options.httpClient)
@@ -52,11 +55,11 @@ class EksiSozluk extends EksiGuest {
             cookie: cookies
           }
         })
-          .then((res) => {
+          .then(res => {
             const isLoggedIn = res.data.includes('data-logged-in="true"')
             resolve(isLoggedIn)
           })
-          .catch((error) => {
+          .catch(error => {
             reject(new Error(error.message))
           })
       } else {
@@ -75,15 +78,17 @@ class EksiSozluk extends EksiGuest {
       axios({
         url: URLS.LOGIN,
         method: 'GET'
-      }).then((res) => {
-        // check recaptcha
-        const isRecaptchaRequired = res.data.includes('g-recaptcha')
-
-        resolve(isRecaptchaRequired)
-      }).catch((err) => {
-        // handle errors
-        reject(err.message)
       })
+        .then(res => {
+          // check recaptcha
+          const isRecaptchaRequired = res.data.includes('g-recaptcha')
+
+          resolve(isRecaptchaRequired)
+        })
+        .catch(err => {
+          // handle errors
+          reject(err.message)
+        })
     })
   }
 
@@ -102,75 +107,92 @@ class EksiSozluk extends EksiGuest {
    * @return  {SessionToken}                              Eksi Sozluk session token.
    * @throws  {AuthError}                                 User not authorized, password or email is wrong.
    */
-  createToken (email, password, options) {
+  createToken (email, password, options = {}) {
     return new Promise((resolve, reject) => {
       // handle default options
-      const _options = objectAssignDeep({
-        extendTime: false
-      }, options)
+      const _options = objectAssignDeep(
+        {
+          extendTime: false
+        },
+        options
+      )
 
       axios({
         url: URLS.LOGIN,
         method: 'GET'
-      }).then((res) => {
-        // check recaptcha
-        const isRecaptchaRequired = res.data.includes('g-recaptcha')
-
-        if (isRecaptchaRequired) {
-          return reject(new Error('Recaptcha Required'))
-        }
-
-        return res
-      }).then((res) => {
-        // parse csrf token and cookies
-        const csrfRegex = new RegExp('(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)', 'u')
-        const csrfToken = csrfRegex.exec(res.data)[0]
-
-        const cookies = setCookie.parse(res.headers['set-cookie'], { map: true })
-        const csrfTokenInCookies = cookies.__RequestVerificationToken.value
-
-        return { csrfToken, csrfTokenInCookies }
-      }).then(async ({ csrfToken, csrfTokenInCookies }) => {
-        const requestBody = {
-          UserName: email,
-          Password: password,
-          RememberMe: _options.extendTime,
-          __RequestVerificationToken: csrfToken
-        }
-
-        const config = {
-          maxRedirects: 0,
-          validateStatus: (status) => {
-            return status === 302 // accept just redirects
-          },
-          headers: {
-            Cookie: `__RequestVerificationToken=${csrfTokenInCookies};`
-          }
-        }
-
-        return await axios.post(URLS.LOGIN, qs.stringify(requestBody), config)
-      }).then((res) => {
-        const isUnknownError = res.data.includes('<title>büyük başarısızlıklar sözkonusu - ekşi sözlük</title>')
-
-        if (isUnknownError) {
-          return reject(new Error('Unknown Error'))
-        }
-
-        const cookies = setCookie.parse(res.headers['set-cookie'], { map: true })
-
-        resolve({
-          value: cookies.a.value, // token
-          expiresAt: cookies.a.expires || null
-        })
-      }).catch((err) => {
-        // password or username is wrong
-        if (err.response && err.response.status === 404) {
-          return reject(new AuthError())
-        }
-
-        // handle other errors
-        reject(new Error(err.message))
       })
+        .then(res => {
+          // check recaptcha
+          const isRecaptchaRequired = res.data.includes('g-recaptcha')
+
+          if (isRecaptchaRequired) {
+            return reject(new Error('Recaptcha Required'))
+          }
+
+          return res
+        })
+        .then(res => {
+          // parse csrf token and cookies
+          const csrfRegex = new RegExp(
+            '(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)',
+            'u'
+          )
+          const csrfToken = csrfRegex.exec(res.data)[0]
+
+          const cookies = setCookie.parse(res.headers['set-cookie'], {
+            map: true
+          })
+          const csrfTokenInCookies = cookies.__RequestVerificationToken.value
+
+          return { csrfToken, csrfTokenInCookies }
+        })
+        .then(async ({ csrfToken, csrfTokenInCookies }) => {
+          const requestBody = {
+            UserName: email,
+            Password: password,
+            RememberMe: _options.extendTime,
+            __RequestVerificationToken: csrfToken
+          }
+
+          const config = {
+            maxRedirects: 0,
+            validateStatus: status => {
+              return status === 302 // accept just redirects
+            },
+            headers: {
+              Cookie: `__RequestVerificationToken=${csrfTokenInCookies};`
+            }
+          }
+
+          return await axios.post(URLS.LOGIN, qs.stringify(requestBody), config)
+        })
+        .then(res => {
+          const isUnknownError = res.data.includes(
+            '<title>büyük başarısızlıklar sözkonusu - ekşi sözlük</title>'
+          )
+
+          if (isUnknownError) {
+            return reject(new Error('Unknown Error'))
+          }
+
+          const cookies = setCookie.parse(res.headers['set-cookie'], {
+            map: true
+          })
+
+          resolve({
+            value: cookies.a.value, // token
+            expiresAt: cookies.a.expires || null
+          })
+        })
+        .catch(err => {
+          // password or username is wrong
+          if (err.response && err.response.status === 404) {
+            return reject(new AuthError())
+          }
+
+          // handle other errors
+          reject(new Error(err.message))
+        })
     })
   }
 

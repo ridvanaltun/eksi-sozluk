@@ -21,14 +21,17 @@ const cheerio = require('cheerio')
  * @param   {requestCallback} cb                        The callback that handles the response.
  * @ignore
  */
-const request = (httpClient) => {
+const request = httpClient => {
   return (options, cb) => {
     // handle default options
-    const _options = objectAssignDeep({
-      method: 'GET',
-      ajax: false,
-      encodeURI: true
-    }, options)
+    const _options = objectAssignDeep(
+      {
+        method: 'GET',
+        ajax: false,
+        encodeURI: true
+      },
+      options
+    )
 
     let headers = {}
 
@@ -44,22 +47,24 @@ const request = (httpClient) => {
 
     httpClient({
       method: _options.method,
-      url: _options.encodeURI ? encodeURI(_options.endpoint) : _options.endpoint,
+      url: _options.encodeURI
+        ? encodeURI(_options.endpoint)
+        : _options.endpoint,
       headers,
       params: _options.params ? _options.params : {},
-      transformResponse: (body) => {
+      transformResponse: body => {
         return cheerio.load(body, {
           normalizeWhitespace: true,
           xmlMode: true
         })
       }
     })
-      .then((res) => {
+      .then(res => {
         const { data } = res
         data.statusCode = res.status
         cb(data)
       })
-      .catch((err) => {
+      .catch(err => {
         // todo: handle edge cases
         const { data } = err.response
         data.statusCode = err.response.status

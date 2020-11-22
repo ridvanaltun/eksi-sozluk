@@ -1,7 +1,13 @@
 const { tags, debeEntries } = require('./lib')
 const { request } = require('./utils')
-const { Entry, User, TitleCollection, EntryCollection, SearchResults } = require('./models')
 const { TITLE_TYPES } = require('./enums')
+const {
+  Entry,
+  User,
+  TitleCollection,
+  EntryCollection,
+  SearchResults
+} = require('./models')
 
 /**
  * @classdesc Eksi Sozluk guest class.
@@ -48,7 +54,7 @@ class EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @return  {Promise.<EntryCollection>}                   A promise for the entries.
    */
-  async entries (title, options) {
+  async entries (title, options = {}) {
     const collection = new EntryCollection(this._request, title, options)
     await collection.retrieve()
 
@@ -62,8 +68,9 @@ class EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @return  {Promise.<TitleCollection>}                   A promise for the titles of today in history.
    */
-  async todayInHistory (year, options) {
-    const collection = new TitleCollection(this._request, `/basliklar/tarihte-bugun?year=${year}`, { ...options })
+  async todayInHistory (year, options = {}) {
+    const target = `/basliklar/tarihte-bugun?year=${year}`
+    const collection = new TitleCollection(this._request, target, options)
     await collection.retrieve()
 
     return collection
@@ -75,8 +82,9 @@ class EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @return  {Promise.<TitleCollection>}                   A promise for untagged titles.
    */
-  async untaggedTitles (options) {
-    const collection = new TitleCollection(this._request, '/basliklar/basiboslar', { ...options })
+  async untaggedTitles (options = {}) {
+    const target = '/basliklar/basiboslar'
+    const collection = new TitleCollection(this._request, target, options)
     await collection.retrieve()
 
     return collection
@@ -108,8 +116,9 @@ class EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @return  {Promise.<TitleCollection>}                   A promise for the titles of given tag.
    */
-  async titlesByTag (tagName, options) {
-    const collection = new TitleCollection(this._request, `/basliklar/kanal/${tagName}`, { ...options })
+  async titlesByTag (tagName, options = {}) {
+    const target = `/basliklar/kanal/${tagName}`
+    const collection = new TitleCollection(this._request, target, options)
     await collection.retrieve()
 
     return collection
@@ -121,8 +130,9 @@ class EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @return  {Promise.<TitleCollection>}                   A promise for the agenda titles.
    */
-  async agenda (options) {
-    const collection = new TitleCollection(this._request, '/basliklar/gundem', { ...options })
+  async agenda (options = {}) {
+    const target = '/basliklar/gundem'
+    const collection = new TitleCollection(this._request, target, options)
     await collection.retrieve()
 
     return collection
@@ -142,8 +152,10 @@ class EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @return  {Promise.<TitleCollection>}                   A promise for the agenda titles in agenda.
    */
-  async questionsInAgenda (options) {
-    const collection = new TitleCollection(this._request, '/basliklar/sorunsal', { ...options, type: TITLE_TYPES.QUESTION })
+  async questionsInAgenda (options = {}) {
+    const target = '/basliklar/sorunsal'
+    const _options = { ...options, type: TITLE_TYPES.QUESTION }
+    const collection = new TitleCollection(this._request, target, _options)
     await collection.retrieve()
 
     return collection
@@ -155,8 +167,10 @@ class EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @return  {Promise.<TitleCollection>}                   A promise for the agenda titles in today.
    */
-  async questionsInToday (options) {
-    const collection = new TitleCollection(this._request, '/basliklar/sorunsal-bugun', { ...options, type: TITLE_TYPES.QUESTION })
+  async questionsInToday (options = {}) {
+    const target = '/basliklar/sorunsal-bugun'
+    const _options = { ...options, type: TITLE_TYPES.QUESTION }
+    const collection = new TitleCollection(this._request, target, _options)
     await collection.retrieve()
 
     return collection

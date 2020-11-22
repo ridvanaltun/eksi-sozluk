@@ -2,7 +2,7 @@ const { Tag, TagForMember } = require('../models')
 
 const tags = (_request, cookie = null) => {
   return new Promise((resolve, reject) => {
-    _request({ endpoint: '/kanallar', cookie }, ($) => {
+    _request({ endpoint: '/kanallar', cookie }, $ => {
       const status = $.statusCode
 
       if (status !== 200) {

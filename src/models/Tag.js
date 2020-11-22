@@ -49,14 +49,35 @@ class Tag {
    * @ignore
    */
   serialize ($, elm) {
-    this.name = $(elm).find('h3 a').text().substring(1, $(elm).find('h3 a').text().length)
-    this.description = $(elm).find('p').text()
-    this.link = URLS.BASE + $(elm).find('h3 a').attr('href')
+    this.name = $(elm)
+      .find('h3 a')
+      .text()
+      .substring(
+        1,
+        $(elm)
+          .find('h3 a')
+          .text().length
+      )
+    this.description = $(elm)
+      .find('p')
+      .text()
+    this.link =
+      URLS.BASE +
+      $(elm)
+        .find('h3 a')
+        .attr('href')
 
     // bind auth properties
     if (this._cookies) {
-      this.id = parseInt($(elm).find('button').data('follow-url').split('/')[2])
-      this.followed = $(elm).find('button').data('followed')
+      this.id = parseInt(
+        $(elm)
+          .find('button')
+          .data('follow-url')
+          .split('/')[2]
+      )
+      this.followed = $(elm)
+        .find('button')
+        .data('followed')
     }
   }
 }

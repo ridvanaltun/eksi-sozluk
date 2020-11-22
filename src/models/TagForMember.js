@@ -34,10 +34,10 @@ class TagForMember extends Tag {
           cookie: this._cookies
         }
       })
-        .then((res) => {
+        .then(res => {
           resolve()
         })
-        .catch((error) => {
+        .catch(error => {
           reject(new TagError(error.message))
         })
     })
@@ -57,10 +57,10 @@ class TagForMember extends Tag {
           cookie: this._cookies
         }
       })
-        .then((res) => {
+        .then(res => {
           resolve()
         })
-        .catch((error) => {
+        .catch(error => {
           reject(new TagError(error.message))
         })
     })

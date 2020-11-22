@@ -52,7 +52,7 @@ class EntryForMember extends Entry {
           owner: this.authorId
         })
       })
-        .then((res) => {
+        .then(res => {
           // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
           if (res.data.Success) {
             resolve()
@@ -60,7 +60,7 @@ class EntryForMember extends Entry {
             reject(new VoteError('Something goes wrong.'))
           }
         })
-        .catch((error) => {
+        .catch(error => {
           reject(new VoteError(error.message))
         })
     })
@@ -85,7 +85,7 @@ class EntryForMember extends Entry {
           owner: this.authorId
         })
       })
-        .then((res) => {
+        .then(res => {
           // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
           if (res.data.Success) {
             resolve()
@@ -93,7 +93,7 @@ class EntryForMember extends Entry {
             reject(new VoteError('Something goes wrong.'))
           }
         })
-        .catch((error) => {
+        .catch(error => {
           reject(new VoteError(error.message))
         })
     })
@@ -117,7 +117,7 @@ class EntryForMember extends Entry {
           owner: this.authorId
         })
       })
-        .then((res) => {
+        .then(res => {
           // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
           if (res.data.Success) {
             resolve()
@@ -125,7 +125,7 @@ class EntryForMember extends Entry {
             reject(new VoteError('Entry not voted before.'))
           }
         })
-        .catch((error) => {
+        .catch(error => {
           reject(new VoteError(error.message))
         })
     })
@@ -148,10 +148,10 @@ class EntryForMember extends Entry {
           cookie: this._cookies
         }
       })
-        .then((res) => {
+        .then(res => {
           resolve()
         })
-        .catch((error) => {
+        .catch(error => {
           reject(new Error(error.message))
         })
     })
@@ -174,10 +174,10 @@ class EntryForMember extends Entry {
           cookie: this._cookies
         }
       })
-        .then((res) => {
+        .then(res => {
           resolve()
         })
-        .catch((error) => {
+        .catch(error => {
           if (error.response && error.response.status === 403) {
             reject(new Error('Not Permitted'))
           } else {

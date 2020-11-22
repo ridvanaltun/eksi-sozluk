@@ -56,18 +56,35 @@ class Title {
    * @ignore
    */
   serialize ($, elm) {
-    const name = $(elm).text().trim()
-    const entryCountStr = $(elm).find('small').text()
+    const name = $(elm)
+      .text()
+      .trim()
+    const entryCountStr = $(elm)
+      .find('small')
+      .text()
     const entryCount = parseInt(entryCountStr)
-    const slug = $(elm).find('a').attr('href').split('?')[0].replace('/', '')
+    const slug = $(elm)
+      .find('a')
+      .attr('href')
+      .split('?')[0]
+      .replace('/', '')
 
     this.id = parseInt(slug.split('--')[1]) || null
-    this.name = name.substring(0, name.length - (entryCountStr.length)).trim()
-    this.url = URLS.BASE + $(elm).find('a').attr('href')
+    this.name = name.substring(0, name.length - entryCountStr.length).trim()
+    this.url =
+      URLS.BASE +
+      $(elm)
+        .find('a')
+        .attr('href')
     this.slug = slug
-    this.entryCount = entryCountStr.includes('b') ? (1000 * entryCount) : entryCount || 1
+    this.entryCount = entryCountStr.includes('b')
+      ? 1000 * entryCount
+      : entryCount || 1
 
-    const endpoint = $(elm).find('a').attr('href').replace('/', '')
+    const endpoint = $(elm)
+      .find('a')
+      .attr('href')
+      .replace('/', '')
     this.entries = new EntryCollection(this._request, endpoint)
   }
 }

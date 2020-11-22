@@ -3,8 +3,14 @@ const qs = require('querystring')
 const EksiGuest = require('./EksiGuest')
 const { URLS } = require('./constants')
 const { TITLE_TYPES } = require('./enums')
-const { EntryForMember, UserForMember, TitleCollection, EntryCollection, SearchResults } = require('./models')
 const { tags, trashEntries, debeEntries, createEntry } = require('./lib')
+const {
+  EntryForMember,
+  UserForMember,
+  TitleCollection,
+  EntryCollection,
+  SearchResults
+} = require('./models')
 
 /**
  * @classdesc Eksi Sozluk member class.
@@ -46,11 +52,11 @@ class EksiMember extends EksiGuest {
           cookie: this.cookies
         }
       })
-        .then((res) => {
+        .then(res => {
           const regex = /href="\/mesaj"\n*\s*class="new-update"/g
           resolve(regex.test(res.data))
         })
-        .catch((error) => {
+        .catch(error => {
           reject(new Error(error.message))
         })
     })
@@ -69,11 +75,11 @@ class EksiMember extends EksiGuest {
           cookie: this.cookies
         }
       })
-        .then((res) => {
+        .then(res => {
           const regex = /title="olaylar olaylar"\n*\s*class="new-update"/g
           resolve(regex.test(res.data))
         })
-        .catch((error) => {
+        .catch(error => {
           reject(new Error(error.message))
         })
     })
@@ -86,13 +92,14 @@ class EksiMember extends EksiGuest {
    */
   pinEntry (entryId) {
     return new Promise((resolve, reject) => {
-      axios.post(URLS.PIN, qs.stringify({ entryId }), {
-        headers: {
-          cookie: this.cookies,
-          'x-requested-with': 'XMLHttpRequest'
-        }
-      })
-        .then((res) => {
+      axios
+        .post(URLS.PIN, qs.stringify({ entryId }), {
+          headers: {
+            cookie: this.cookies,
+            'x-requested-with': 'XMLHttpRequest'
+          }
+        })
+        .then(res => {
           if (res.data.Success) {
             resolve()
           } else {
@@ -108,13 +115,14 @@ class EksiMember extends EksiGuest {
    */
   removePin () {
     return new Promise((resolve, reject) => {
-      axios.post(URLS.PIN_REMOVE, null, {
-        headers: {
-          cookie: this.cookies,
-          'x-requested-with': 'XMLHttpRequest'
-        }
-      })
-        .then((res) => {
+      axios
+        .post(URLS.PIN_REMOVE, null, {
+          headers: {
+            cookie: this.cookies,
+            'x-requested-with': 'XMLHttpRequest'
+          }
+        })
+        .then(res => {
           if (res.data !== true) {
             return reject(new Error('No pinned entry found.'))
           }
@@ -132,8 +140,14 @@ class EksiMember extends EksiGuest {
    * @param   {boolean}                               [options.saveAsDraft=false] Save as draft.
    * @return  {Promise.<(EntryForMember|DraftEntry)>}                             Created entry.
    */
-  async createEntry (title, content, options) {
-    return await createEntry(this._request, title, content, options, this.cookies)
+  async createEntry (title, content, options = {}) {
+    return await createEntry(
+      this._request,
+      title,
+      content,
+      options,
+      this.cookies
+    )
   }
 
   /**
@@ -155,8 +169,12 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @return  {Promise.<EntryCollection>}                   A promise for the entries.
    */
-  async entries (title, options) {
-    const collection = new EntryCollection(this._request, title, { ...options, cookies: this.cookies })
+  async entries (title, options = {}) {
+    const _options = {
+      ...options,
+      cookies: this.cookies
+    }
+    const collection = new EntryCollection(this._request, title, _options)
     await collection.retrieve()
 
     return collection
@@ -180,8 +198,13 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @return  {Promise.<TitleCollection>}                   A promise for the titles of today.
    */
-  async today (options) {
-    const collection = new TitleCollection(this._request, '/basliklar/bugun', { ...options, cookies: this.cookies })
+  async today (options = {}) {
+    const target = '/basliklar/bugun'
+    const _options = {
+      ...options,
+      cookies: this.cookies
+    }
+    const collection = new TitleCollection(this._request, target, _options)
     await collection.retrieve()
 
     return collection
@@ -193,8 +216,10 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @return  {Promise.<TitleCollection>}                   A promise for the rookie titles.
    */
-  async rookieTitles (options) {
-    const collection = new TitleCollection(this._request, '/basliklar/caylaklar', { ...options, cookies: this.cookies })
+  async rookieTitles (options = {}) {
+    const target = '/basliklar/caylaklar'
+    const _options = { ...options, cookies: this.cookies }
+    const collection = new TitleCollection(this._request, target, _options)
     await collection.retrieve()
 
     return collection
@@ -205,7 +230,9 @@ class EksiMember extends EksiGuest {
    * @return {Promise.<TitleCollection>} A promise for the titles of events.
    */
   async events () {
-    const collection = new TitleCollection(this._request, '/basliklar/olay', { defaultEntryCount: 0, cookies: this.cookies })
+    const target = '/basliklar/olay'
+    const _options = { defaultEntryCount: 0, cookies: this.cookies }
+    const collection = new TitleCollection(this._request, target, _options)
     await collection.retrieve()
 
     return collection
@@ -217,8 +244,14 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @return  {Promise.<TitleCollection>}                   A promise for the titles of drafts.
    */
-  async drafts (options) {
-    const collection = new TitleCollection(this._request, '/basliklar/kenar', { ...options, type: TITLE_TYPES.DRAFT, cookies: this.cookies })
+  async drafts (options = {}) {
+    const target = '/basliklar/kenar'
+    const _options = {
+      ...options,
+      type: TITLE_TYPES.DRAFT,
+      cookies: this.cookies
+    }
+    const collection = new TitleCollection(this._request, target, _options)
     await collection.retrieve()
 
     return collection
@@ -230,8 +263,14 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @return  {Promise.<TitleCollection>}                   A promise for the followed user titles.
    */
-  async followedUserTitles (options) {
-    const collection = new TitleCollection(this._request, '/basliklar/takipentry', { ...options, type: TITLE_TYPES.FOLLOWED_USER, cookies: this.cookies })
+  async followedUserTitles (options = {}) {
+    const target = '/basliklar/takipentry'
+    const _options = {
+      ...options,
+      type: TITLE_TYPES.FOLLOWED_USER,
+      cookies: this.cookies
+    }
+    const collection = new TitleCollection(this._request, target, _options)
     await collection.retrieve()
 
     return collection
@@ -243,8 +282,14 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @return  {Promise.<TitleCollection>}                   A promise for the followed user titles.
    */
-  async followedUserFavoriteEntries (options) {
-    const collection = new TitleCollection(this._request, '/basliklar/takipfav', { ...options, type: TITLE_TYPES.FOLLOWED_USER_FAVORITE_ENTRY, cookies: this.cookies })
+  async followedUserFavoriteEntries (options = {}) {
+    const target = '/basliklar/takipfav'
+    const _options = {
+      ...options,
+      type: TITLE_TYPES.FOLLOWED_USER_FAVORITE_ENTRY,
+      cookies: this.cookies
+    }
+    const collection = new TitleCollection(this._request, target, _options)
     await collection.retrieve()
 
     return collection
@@ -272,7 +317,7 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @return  {Promise.Array<TrashEntry>}                   A promise for the trash entries.
    */
-  async trashEntries (options) {
+  async trashEntries (options = {}) {
     return await trashEntries(this._request, this.cookies, options)
   }
 
@@ -288,35 +333,46 @@ class EksiMember extends EksiGuest {
         headers: {
           cookie: this.cookies
         }
-      }).then((res) => {
-        // parse csrf token
-        const csrfRegex = new RegExp('(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)', 'u')
-        const csrfToken = csrfRegex.exec(res.data)[0]
-
-        return csrfToken
-      }).then(async (csrfToken) => {
-        // empty trash
-        const _res = await axios({
-          url: URLS.TRASH_EMPTY,
-          method: 'POST',
-          headers: {
-            cookie: this.cookies
-          },
-          data: qs.stringify({
-            __RequestVerificationToken: csrfToken
-          })
-        })
-
-        return _res
-      }).then((res) => {
-        if (res.data.includes('<title>büyük başarısızlıklar sözkonusu - ekşi sözlük</title>')) {
-          reject(new Error('Unknown Error'))
-        } else {
-          resolve()
-        }
-      }).catch((error) => {
-        reject(new Error(error.message))
       })
+        .then(res => {
+          // parse csrf token
+          const csrfRegex = new RegExp(
+            '(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)',
+            'u'
+          )
+          const csrfToken = csrfRegex.exec(res.data)[0]
+
+          return csrfToken
+        })
+        .then(async csrfToken => {
+          // empty trash
+          const _res = await axios({
+            url: URLS.TRASH_EMPTY,
+            method: 'POST',
+            headers: {
+              cookie: this.cookies
+            },
+            data: qs.stringify({
+              __RequestVerificationToken: csrfToken
+            })
+          })
+
+          return _res
+        })
+        .then(res => {
+          if (
+            res.data.includes(
+              '<title>büyük başarısızlıklar sözkonusu - ekşi sözlük</title>'
+            )
+          ) {
+            reject(new Error('Unknown Error'))
+          } else {
+            resolve()
+          }
+        })
+        .catch(error => {
+          reject(new Error(error.message))
+        })
     })
   }
 }

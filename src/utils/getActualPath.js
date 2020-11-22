@@ -7,10 +7,11 @@ const { URLS } = require('../constants')
  * @return  {Promise.<string>}        Actual path.
  * @ignore
  */
-const getActualPath = (title) => {
+const getActualPath = title => {
   return new Promise((resolve, reject) => {
     const target = encodeURI(URLS.BASE + '/' + title)
-    axios.get(target)
+    axios
+      .get(target)
       .then(res => {
         resolve(res.request.path.replace('/', ''))
       })

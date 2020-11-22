@@ -125,7 +125,9 @@ class EntryCollection {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
       const isPathProvided = this._path
-      const endpoint = isPathProvided ? this._path : `/${await getActualPath(this.title)}`
+      const endpoint = isPathProvided
+        ? this._path
+        : `/${await getActualPath(this.title)}`
       const isEndpointCompatibleWithPageParam = !endpoint.includes('?')
 
       const requestOptions = {
@@ -134,7 +136,7 @@ class EntryCollection {
         params: isEndpointCompatibleWithPageParam ? { p: this.currPage } : {}
       }
 
-      this._request(requestOptions, ($) => {
+      this._request(requestOptions, $ => {
         const status = $.statusCode
 
         // title has not any entry
@@ -150,7 +152,9 @@ class EntryCollection {
 
         $('ul#entry-item-list li').each((i, elm) => {
           const entryId = $(elm).data('id')
-          const entry = this._cookies ? new EntryForMember(this._request, entryId, this._cookies) : new Entry(this._request, entryId)
+          const entry = this._cookies
+            ? new EntryForMember(this._request, entryId, this._cookies)
+            : new Entry(this._request, entryId)
           entry.serialize($, elm)
           entries.push(entry)
         })
@@ -169,7 +173,9 @@ class EntryCollection {
         this.entries = entries
 
         const isDraftEntryExist = $('#draft-content').text().length > 0
-        const draftEntry = isDraftEntryExist ? new DraftEntry(this._request, this.title, this._cookies) : null
+        const draftEntry = isDraftEntryExist
+          ? new DraftEntry(this._request, this.title, this._cookies)
+          : null
 
         if (draftEntry) {
           draftEntry.serialize($)

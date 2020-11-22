@@ -160,18 +160,29 @@ class Entry {
       $ = cheerio.load($(subElement).html())
     }
 
-    const date = parseDate($(elm).find('footer div.info a.permalink').text())
+    const date = parseDate(
+      $(elm)
+        .find('footer div.info a.permalink')
+        .text()
+    )
     const isEksiseylerExist = $(elm).data('seyler-slug') !== ''
     const authorId = $(elm).data('author-id')
 
     this.author = $(elm).data('author')
     this.authorId = authorId
     this.authorUrl = URLS.USER + $(elm).data('author')
-    this.content = $(elm).find('div.content').html()
-    this.contentEncoded = $(elm).find('div.content').text().trim()
+    this.content = $(elm)
+      .find('div.content')
+      .html()
+    this.contentEncoded = $(elm)
+      .find('div.content')
+      .text()
+      .trim()
     this.dateCreated = date.created
     this.dateModified = date.modified
-    this.eksiseylerLink = isEksiseylerExist ? URLS.SEYLER + $(elm).data('seyler-slug') : null
+    this.eksiseylerLink = isEksiseylerExist
+      ? URLS.SEYLER + $(elm).data('seyler-slug')
+      : null
     this.eksiseylerSlug = isEksiseylerExist ? $(elm).data('seyler-slug') : null
     this.favoriteCount = $(elm).data('favorite-count')
     this.permalink = URLS.ENTRY + this.id
@@ -185,7 +196,9 @@ class Entry {
       this.isFavorited = $(elm).data('isfavorite')
       this.isDeleted = $(elm).attr('class') === 'deleted'
       this.isRookieEntry = $(elm).attr('class') === 'hidden'
-      this.isEntryAuthorMe = $(elm).data('flags').includes('edit')
+      this.isEntryAuthorMe = $(elm)
+        .data('flags')
+        .includes('edit')
     }
   }
 
@@ -195,22 +208,25 @@ class Entry {
    */
   retrieve () {
     return new Promise((resolve, reject) => {
-      this._request({ endpoint: `/entry/${this.id}`, cookie: this._cookies }, ($) => {
-        const status = $.statusCode
+      this._request(
+        { endpoint: `/entry/${this.id}`, cookie: this._cookies },
+        $ => {
+          const status = $.statusCode
 
-        if (status === 404) {
-          return reject(new NotFoundError('Entry not found.'))
+          if (status === 404) {
+            return reject(new NotFoundError('Entry not found.'))
+          }
+
+          if (status !== 200) {
+            return reject(new Error('An unknown error occurred.'))
+          }
+
+          const elm = $('ul#entry-item-list li')
+          this.serialize($, elm)
+
+          resolve()
         }
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
-        const elm = $('ul#entry-item-list li')
-        this.serialize($, elm)
-
-        resolve()
-      })
+      )
     })
   }
 }

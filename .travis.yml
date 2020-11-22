@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "stable"
+  - 'stable'
 before_script:
   - npm prune
 jobs:
@@ -8,7 +8,7 @@ jobs:
     - stage: test
       script:
         - echo "Testing Started ..."
-        - echo "Linting ..." && npm run lint
+        - echo "Linting ..." && npm run lint:check
         - echo "Code Coverage and Test ..." && npm run test:coverage
         - echo "Create Documentation ..." && npm run docs
 after-success:
@@ -16,7 +16,6 @@ after-success:
   - npm run semantic-release
 branches:
   only:
-  - master
+    - master
 notifications:
   email: false
-

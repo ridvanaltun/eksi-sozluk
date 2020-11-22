@@ -47,7 +47,7 @@ class ImageCollection {
         }
       }
 
-      this._request(requestOptions, ($) => {
+      this._request(requestOptions, $ => {
         const status = $.statusCode
 
         if (status !== 200) {

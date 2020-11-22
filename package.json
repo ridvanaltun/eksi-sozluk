@@ -5,8 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "commit": "git-cz",
-    "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix",
+    "lint": "prettier-standard --lint",
+    "lint:check": "prettier-standard --lint --check",
+    "format": "prettier-standard --format",
+    "format:check": "prettier-standard --check",
     "test": "jest --config ./jest.config.js",
     "test:coverage": "npm test -- --coverage && cat ./coverage/lcov.info | coveralls",
     "semantic-release": "semantic-release",
@@ -22,7 +24,11 @@
     "ekşisözlük",
     "eksisozluk"
   ],
-  "author": "Rıdvan Altun",
+  "author": {
+    "name": "Rıdvan Altun",
+    "email": "ridvanaltun@outlook.com",
+    "url": "https://ridvanaltun.github.io/"
+  },
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/ridvanaltun/eksi-sozluk/issues"
@@ -41,21 +47,15 @@
     "@commitlint/config-conventional": "^11.0.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
-    "babel-eslint": "^10.1.0",
     "commitizen": "^4.2.1",
     "coveralls": "^3.1.0",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^7.13.0",
-    "eslint-config-standard": "^15.0.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.2",
     "husky": "^4.3.0",
     "jest": "^26.4.2",
     "jsdoc": "^3.6.6",
     "lint-staged": "^10.4.0",
     "minami": "^1.2.3",
+    "prettier-standard": "^16.4.1",
     "semantic-release": "^17.2.3"
   },
   "husky": {
@@ -66,7 +66,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "./node_modules/.bin/eslint — fix --no-error-on-unmatched-pattern",
+      "prettier-standard --lint --staged",
       "git add"
     ]
   },

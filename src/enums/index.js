@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * @typedef {number} TitleType
  **/

@@ -109,7 +109,7 @@ class UserEntryCollection {
         }
       }
 
-      this._request(requestOptions, ($) => {
+      this._request(requestOptions, $ => {
         const status = $.statusCode
 
         if (status !== 200) {
@@ -119,16 +119,28 @@ class UserEntryCollection {
         const entries = []
 
         $('div.topic-item').each((i, elm) => {
-          const entryId = $(elm).find('h1').data('id')
-          const entry = this._cookies ? new EntryForMember(this._request, entryId, this._cookies) : new Entry(this._request, entryId)
+          const entryId = $(elm)
+            .find('h1')
+            .data('id')
+          const entry = this._cookies
+            ? new EntryForMember(this._request, entryId, this._cookies)
+            : new Entry(this._request, entryId)
           entry.serialize($, elm, { profilePage: true })
           entries.push(entry)
         })
 
         const isEntryExist = $('h1 small').length > 0
-        const entryCount = isEntryExist ? parseInt($('h1 small').text().match(/\d+/g)[0]) : 0
+        const entryCount = isEntryExist
+          ? parseInt(
+              $('h1 small')
+                .text()
+                .match(/\d+/g)[0]
+            )
+          : 0
 
-        this.pageCount = isEntryExist ? Math.ceil(entryCount / DEFAULTS.ENTRY_COUNT_PER_PAGE_OF_PROFILE) : 0
+        this.pageCount = isEntryExist
+          ? Math.ceil(entryCount / DEFAULTS.ENTRY_COUNT_PER_PAGE_OF_PROFILE)
+          : 0
         this.entryCount = entryCount
         this.entries = entries
 

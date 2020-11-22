@@ -59,14 +59,33 @@ class FollowedUserFavoriteEntry {
    * @ignore
    */
   serialize ($, elm) {
-    const titleName = $(elm).text().trim()
-    const owner = $(elm).find('a div').text().trim()
-    const entryId = parseInt($(elm).find('a').attr('href').split('/')[2])
+    const titleName = $(elm)
+      .text()
+      .trim()
+    const owner = $(elm)
+      .find('a div')
+      .text()
+      .trim()
+    const entryId = parseInt(
+      $(elm)
+        .find('a')
+        .attr('href')
+        .split('/')[2]
+    )
 
     this.entryId = entryId
-    this.titleName = titleName.substring(0, titleName.length - owner.length).trim()
-    this.entryUrl = URLS.BASE + $(elm).find('a').attr('href')
-    this.titleSlug = $(elm).find('a').attr('href').replace('/', '')
+    this.titleName = titleName
+      .substring(0, titleName.length - owner.length)
+      .trim()
+    this.entryUrl =
+      URLS.BASE +
+      $(elm)
+        .find('a')
+        .attr('href')
+    this.titleSlug = $(elm)
+      .find('a')
+      .attr('href')
+      .replace('/', '')
 
     this.owner = new UserForMember(this._request, owner, this._cookies)
     this.entry = new EntryForMember(this._request, entryId, this._cookies)

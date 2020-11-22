@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Tag error.
  * @property {string} [name=TagError]  Error name.

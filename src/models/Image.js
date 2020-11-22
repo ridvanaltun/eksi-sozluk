@@ -24,7 +24,11 @@ class Image {
    */
   serialize ($, elm) {
     this.url = URLS.BASE + $(elm).attr('href')
-    this.cdnUrl = $(elm).find('div').attr('style').replace("background-image:url('", '').replace("')", '')
+    this.cdnUrl = $(elm)
+      .find('div')
+      .attr('style')
+      .replace("background-image:url('", '')
+      .replace("')", '')
   }
 }
 

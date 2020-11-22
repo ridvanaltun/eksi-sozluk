@@ -55,10 +55,10 @@ class UserForMember extends User {
           cookie: this._cookies
         }
       })
-        .then((res) => {
+        .then(res => {
           resolve()
         })
-        .catch((error) => {
+        .catch(error => {
           reject(new Error(error.message))
         })
     })
@@ -81,10 +81,10 @@ class UserForMember extends User {
           cookie: this._cookies
         }
       })
-        .then((res) => {
+        .then(res => {
           resolve()
         })
-        .catch((error) => {
+        .catch(error => {
           reject(new Error(error.message))
         })
     })
@@ -107,10 +107,10 @@ class UserForMember extends User {
           cookie: this._cookies
         }
       })
-        .then((res) => {
+        .then(res => {
           resolve()
         })
-        .catch((error) => {
+        .catch(error => {
           reject(new Error(error.message))
         })
     })
@@ -133,10 +133,10 @@ class UserForMember extends User {
           cookie: this._cookies
         }
       })
-        .then((res) => {
+        .then(res => {
           resolve()
         })
-        .catch((error) => {
+        .catch(error => {
           reject(new Error(error.message))
         })
     })
@@ -159,10 +159,10 @@ class UserForMember extends User {
           cookie: this._cookies
         }
       })
-        .then((res) => {
+        .then(res => {
           resolve()
         })
-        .catch((error) => {
+        .catch(error => {
           reject(new Error(error.message))
         })
     })
@@ -185,10 +185,10 @@ class UserForMember extends User {
           cookie: this._cookies
         }
       })
-        .then((res) => {
+        .then(res => {
           resolve()
         })
-        .catch((error) => {
+        .catch(error => {
           reject(new Error(error.message))
         })
     })
@@ -207,37 +207,45 @@ class UserForMember extends User {
         headers: {
           cookie: this._cookies
         }
-      }).then((res) => {
-        // parse csrf token
-        const csrfRegex = new RegExp('(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)', 'g')
-
-        // 0 -> message list form, 1 -> message send
-        // if 1 not exist 0 -> message send
-        const csrfTokens = csrfRegex.exec(res.data)
-        const csrfToken = csrfTokens.length === 2 ? csrfTokens[1] : csrfTokens[0]
-
-        return csrfToken
-      }).then(async (csrfToken) => {
-        // send message
-        const _res = await axios({
-          url: URLS.SEND_MESSAGE,
-          method: 'POST',
-          headers: {
-            cookie: this._cookies
-          },
-          data: qs.stringify({
-            __RequestVerificationToken: csrfToken,
-            To: this.username,
-            Message: message
-          })
-        })
-
-        return _res
-      }).then((res) => {
-        resolve()
-      }).catch((error) => {
-        reject(new Error(error.message))
       })
+        .then(res => {
+          // parse csrf token
+          const csrfRegex = new RegExp(
+            '(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)',
+            'g'
+          )
+
+          // 0 -> message list form, 1 -> message send
+          // if 1 not exist 0 -> message send
+          const csrfTokens = csrfRegex.exec(res.data)
+          const csrfToken =
+            csrfTokens.length === 2 ? csrfTokens[1] : csrfTokens[0]
+
+          return csrfToken
+        })
+        .then(async csrfToken => {
+          // send message
+          const _res = await axios({
+            url: URLS.SEND_MESSAGE,
+            method: 'POST',
+            headers: {
+              cookie: this._cookies
+            },
+            data: qs.stringify({
+              __RequestVerificationToken: csrfToken,
+              To: this.username,
+              Message: message
+            })
+          })
+
+          return _res
+        })
+        .then(res => {
+          resolve()
+        })
+        .catch(error => {
+          reject(new Error(error.message))
+        })
     })
   }
 }

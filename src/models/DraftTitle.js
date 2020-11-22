@@ -59,13 +59,26 @@ class DraftTitle {
    * @ignore
    */
   serialize ($, elm) {
-    const name = $(elm).text().trim()
-    const date = $(elm).find('a div').text().trim()
+    const name = $(elm)
+      .text()
+      .trim()
+    const date = $(elm)
+      .find('a div')
+      .text()
+      .trim()
     const calculatedDate = parseDate(date)
 
     this.name = name.substring(0, name.length - date.length).trim()
-    this.url = URLS.BASE + $(elm).find('a').attr('href')
-    this.slug = $(elm).find('a').attr('href').replace(/(\/|\?q=)/g, '').split('&')[0]
+    this.url =
+      URLS.BASE +
+      $(elm)
+        .find('a')
+        .attr('href')
+    this.slug = $(elm)
+      .find('a')
+      .attr('href')
+      .replace(/(\/|\?q=)/g, '')
+      .split('&')[0]
     this.dateCreated = calculatedDate.created
     this.dateModified = calculatedDate.modified
 

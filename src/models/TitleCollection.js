@@ -116,7 +116,7 @@ class TitleCollection {
         }
       }
 
-      this._request(requestOptions, ($) => {
+      this._request(requestOptions, $ => {
         const status = $.statusCode
 
         // not authorized
@@ -156,7 +156,10 @@ class TitleCollection {
               break
 
             case TITLE_TYPES.FOLLOWED_USER_FAVORITE_ENTRY:
-              title = new FollowedUserFavoriteEntry(this._request, this._cookies)
+              title = new FollowedUserFavoriteEntry(
+                this._request,
+                this._cookies
+              )
               break
 
             case TITLE_TYPES.QUESTION:
@@ -170,7 +173,10 @@ class TitleCollection {
 
           // correct entry count
           if (isPlainTitle) {
-            const entryCountStr = $(elm).find('a small').text().trim()
+            const entryCountStr = $(elm)
+              .find('a small')
+              .text()
+              .trim()
             const entryCount = parseInt(entryCountStr)
             title.entryCount = entryCountStr.includes('b')
               ? 1000 * entryCount
