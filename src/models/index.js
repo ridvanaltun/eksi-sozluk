@@ -17,6 +17,7 @@ const DraftEntry = require('./DraftEntry')
 const UserEntryCollection = require('./UserEntryCollection')
 const Image = require('./Image')
 const ImageCollection = require('./ImageCollection')
+const UserFavoriteAuthorCollection = require('./UserFavoriteAuthorCollection')
 
 module.exports = {
   Entry,
@@ -37,5 +38,6 @@ module.exports = {
   DraftEntry,
   UserEntryCollection,
   Image,
-  ImageCollection
+  ImageCollection,
+  UserFavoriteAuthorCollection
 }

@@ -2,6 +2,7 @@ const { URLS } = require('../constants')
 const { NotFoundError } = require('../exceptions')
 const UserEntryCollection = require('./UserEntryCollection')
 const ImageCollection = require('./ImageCollection')
+const UserFavoriteAuthorCollection = require('./UserFavoriteAuthorCollection')
 
 /**
  * User.
@@ -346,6 +347,21 @@ class User {
     await images.retrieve()
 
     return images
+  }
+
+  /**
+   * Fetch user favorite authors until last one month.
+   * @return  {UserFavoriteAuthorCollection} User favorite authors.
+   */
+  async favoriteAuthors () {
+    const collection = new UserFavoriteAuthorCollection(
+      this._request,
+      this.username,
+      this._cookies
+    )
+    await collection.retrieve()
+
+    return collection
   }
 }
 
