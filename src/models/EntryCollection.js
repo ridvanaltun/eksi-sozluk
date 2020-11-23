@@ -2,14 +2,17 @@ const objectAssignDeep = require('object-assign-deep')
 const Entry = require('./Entry')
 const EntryForMember = require('./EntryForMember')
 const DraftEntry = require('./DraftEntry')
+const CollectionBase = require('./CollectionBase')
 const { URLS } = require('../constants')
 const { NotFoundError } = require('../exceptions')
 const { getActualPath } = require('../utils')
 
 /**
  * Entry collection.
+ *
+ * @augments CollectionBase
  */
-class EntryCollection {
+class EntryCollection extends CollectionBase {
   /**
    * Title.
    *
@@ -39,18 +42,11 @@ class EntryCollection {
   titleUrl
 
   /**
-   * Current page.
+   * Draft entry.
    *
-   * @type {number}
+   * @type {(DraftEntry|null)}
    */
-  currPage
-
-  /**
-   * Total page count.
-   *
-   * @type {number}
-   */
-  pageCount
+  draftEntry
 
   /**
    * Entry collection.
@@ -58,13 +54,6 @@ class EntryCollection {
    * @type {Array<(Entry|EntryForMember)>}
    */
   entries = []
-
-  /**
-   * Draft entry.
-   *
-   * @type {(DraftEntry|null)}
-   */
-  draftEntry
 
   /**
    * Create an entry collection.
@@ -76,6 +65,7 @@ class EntryCollection {
    * @param {string}  [options.cookies=null]  Cookie string.
    */
   constructor (request, path, options) {
+    super()
     // handle default options
     const _options = objectAssignDeep(
       {
@@ -92,38 +82,6 @@ class EntryCollection {
     this._request = request
     this._path = isPathPlainTitle ? null : path
     this._cookies = _options.cookies
-  }
-
-  /**
-   * Retrieve first page.
-   */
-  async first () {
-    this.currPage = 1
-    await this.retrieve()
-  }
-
-  /**
-   * Retrieve last page.
-   */
-  async last () {
-    this.currPage = this.pageCount
-    await this.retrieve()
-  }
-
-  /**
-   * Retrieve next page.
-   */
-  async next () {
-    this.currPage += 1
-    await this.retrieve()
-  }
-
-  /**
-   * Retrieve previous page.
-   */
-  async prev () {
-    this.currPage -= 1
-    await this.retrieve()
   }
 
   /**

@@ -1,32 +1,21 @@
 const objectAssignDeep = require('object-assign-deep')
 const Entry = require('./Entry')
 const EntryForMember = require('./EntryForMember')
+const CollectionBase = require('./CollectionBase')
 const { DEFAULTS } = require('../constants')
 
 /**
  * User entry collection.
+ *
+ * @augments CollectionBase
  */
-class UserEntryCollection {
+class UserEntryCollection extends CollectionBase {
   /**
    * Username.
    *
    * @type {string}
    */
   username
-
-  /**
-   * Current page.
-   *
-   * @type {number}
-   */
-  currPage
-
-  /**
-   * Total page count.
-   *
-   * @type {number}
-   */
-  pageCount
 
   /**
    * Total entry count.
@@ -53,6 +42,7 @@ class UserEntryCollection {
    * @param {number}  [options.page=1]        Page number.
    */
   constructor (request, path, username, cookies, options) {
+    super()
     // handle default options
     const _options = objectAssignDeep(
       {
@@ -66,38 +56,6 @@ class UserEntryCollection {
     this._request = request
     this._path = path
     this._cookies = cookies
-  }
-
-  /**
-   * Retrieve first page.
-   */
-  async first () {
-    this.currPage = 1
-    await this.retrieve()
-  }
-
-  /**
-   * Retrieve last page.
-   */
-  async last () {
-    this.currPage = this.pageCount
-    await this.retrieve()
-  }
-
-  /**
-   * Retrieve next page.
-   */
-  async next () {
-    this.currPage += 1
-    await this.retrieve()
-  }
-
-  /**
-   * Retrieve previous page.
-   */
-  async prev () {
-    this.currPage -= 1
-    await this.retrieve()
   }
 
   /**

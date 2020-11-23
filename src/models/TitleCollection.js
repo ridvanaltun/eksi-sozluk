@@ -4,21 +4,17 @@ const FollowedUserTitle = require('./FollowedUserTitle')
 const FollowedUserFavoriteEntry = require('./FollowedUserFavoriteEntry')
 const DraftTitle = require('./DraftTitle')
 const Question = require('./Question')
+const CollectionBase = require('./CollectionBase')
 const { AuthError } = require('../exceptions')
 const { DEFAULTS } = require('../constants')
 const { TITLE_TYPES } = require('../enums')
 
 /**
  * Title collection.
+ *
+ * @augments CollectionBase
  */
-class TitleCollection {
-  /**
-   * Current page.
-   *
-   * @type {number}
-   */
-  currPage
-
+class TitleCollection extends CollectionBase {
   /**
    * Total title count, if type is followed user title = null.
    *
@@ -52,6 +48,7 @@ class TitleCollection {
    * @param {TitleType} [options.type=1]              Type of title.
    */
   constructor (request, path, options) {
+    super()
     // handle default options
     const _options = objectAssignDeep(
       {
@@ -72,38 +69,6 @@ class TitleCollection {
     this._defaultEntryCount = _options.defaultEntryCount
     this._cookies = _options.cookies
     this._type = _options.type
-  }
-
-  /**
-   * Retrieve first page.
-   */
-  async first () {
-    this.currPage = 1
-    await this.retrieve()
-  }
-
-  /**
-   * Retrieve last page.
-   */
-  async last () {
-    this.currPage = this.pageCount
-    await this.retrieve()
-  }
-
-  /**
-   * Retrieve next page.
-   */
-  async next () {
-    this.currPage += 1
-    await this.retrieve()
-  }
-
-  /**
-   * Retrieve previous page.
-   */
-  async prev () {
-    this.currPage -= 1
-    await this.retrieve()
   }
 
   /**
