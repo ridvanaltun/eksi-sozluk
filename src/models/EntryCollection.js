@@ -4,7 +4,7 @@ const EntryForMember = require('./EntryForMember')
 const DraftEntry = require('./DraftEntry')
 const CollectionBase = require('./CollectionBase')
 const { URLS } = require('../constants')
-const { NotFoundError } = require('../exceptions')
+const { NotFoundError, AuthError } = require('../exceptions')
 const { getActualPath } = require('../utils')
 
 /**
@@ -154,6 +154,35 @@ class EntryCollection extends CollectionBase {
         resolve()
       })
     })
+  }
+
+  /**
+   * Create entry.
+   *
+   * @param   {string}                                content                     Entry content.
+   * @param   {object}                                options                     Parameters that user can specify.
+   * @param   {boolean}                               [options.saveAsDraft=false] Save as draft.
+   * @returns {Promise.<(EntryForMember|DraftEntry)>}                             Created entry.
+   * @throws  {AuthError}                                                         User not authorized.
+   */
+  async createEntry (content, options) {
+    const isAuth = this._cookies
+
+    if (!isAuth) {
+      throw new AuthError()
+    }
+
+    // dynamically import
+    // @see circular dependency issue
+    const { createEntry } = require('../lib')
+
+    return await createEntry(
+      this._request,
+      this.title,
+      content,
+      options,
+      this._cookies
+    )
   }
 }
 
