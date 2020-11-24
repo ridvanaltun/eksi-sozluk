@@ -29,6 +29,7 @@ const URLS = {
   USER_MOST_LIKED_ENTRIES: 'https://eksisozluk.com/en-begenilenleri',
   USER_IMAGES: 'https://eksisozluk.com/gorselleri',
   USER_FAVORITE_AUTHORS: 'https://eksisozluk.com/favori-yazarlari',
+  USER_UKTE: 'https://eksisozluk.com/ukteleri',
   MESSAGE: 'https://eksisozluk.com/mesaj',
   SEND_MESSAGE: 'https://eksisozluk.com/mesaj/yolla',
   FOLLOW_USER: 'https://eksisozluk.com/userrelation/addrelation',

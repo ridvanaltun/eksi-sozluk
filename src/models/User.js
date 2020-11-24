@@ -3,6 +3,7 @@ const { NotFoundError } = require('../exceptions')
 const UserEntryCollection = require('./UserEntryCollection')
 const ImageCollection = require('./ImageCollection')
 const UserFavoriteAuthorCollection = require('./UserFavoriteAuthorCollection')
+const UkteCollection = require('./UkteCollection')
 
 /**
  * User.
@@ -351,10 +352,27 @@ class User {
 
   /**
    * Fetch user favorite authors until last one month.
-   * @return  {UserFavoriteAuthorCollection} User favorite authors.
+   *
+   * @returns {UserFavoriteAuthorCollection}  User favorite authors.
    */
   async favoriteAuthors () {
     const collection = new UserFavoriteAuthorCollection(
+      this._request,
+      this.username,
+      this._cookies
+    )
+    await collection.retrieve()
+
+    return collection
+  }
+
+  /**
+   * Fetch ukteler.
+   *
+   * @returns {UkteCollection}  User ukteler.
+   */
+  async ukteler () {
+    const collection = new UkteCollection(
       this._request,
       this.username,
       this._cookies
