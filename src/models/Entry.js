@@ -226,7 +226,7 @@ class Entry {
   /**
    * Retrieve entry.
    *
-   * @returns {Promise}  Promise.
+   * @returns {Promise} Promise.
    */
   retrieve () {
     return new Promise((resolve, reject) => {

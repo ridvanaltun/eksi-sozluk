@@ -140,6 +140,66 @@ class EntryForMember extends Entry {
   }
 
   /**
+   * Favorite the entry.
+   *
+   * @returns {Promise} Promise.
+   */
+  favorite () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: URLS.ENTRY_FAVORITE,
+        method: 'POST',
+        headers: {
+          'x-requested-with': 'XMLHttpRequest',
+          cookie: this._cookies
+        },
+        data: qs.stringify({
+          entryId: this.id
+        })
+      }).then(res => {
+        // res.data -> { "Success": true, "ErrorMessage": null, "Count": 2 }
+        if (!res.data.Success) {
+          return reject(new Error(res.data.ErrorMessage))
+        }
+
+        this.favoriteCount = res.data.Count
+        this.isFavorited = true
+        resolve()
+      })
+    })
+  }
+
+  /**
+   * Unfavorite the entry.
+   *
+   * @returns {Promise} Promise.
+   */
+  unfavorite () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: URLS.ENTRY_UNFAVORITE,
+        method: 'POST',
+        headers: {
+          'x-requested-with': 'XMLHttpRequest',
+          cookie: this._cookies
+        },
+        data: qs.stringify({
+          entryId: this.id
+        })
+      }).then(res => {
+        // res.data -> { "Success": true, "ErrorMessage": null, "Count": 2 }
+        if (!res.data.Success) {
+          return reject(new Error(res.data.ErrorMessage))
+        }
+
+        this.favoriteCount = res.data.Count
+        this.isFavorited = false
+        resolve()
+      })
+    })
+  }
+
+  /**
    * Delete the entry from trash.
    *
    * @returns {Promise} Promise.

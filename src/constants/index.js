@@ -12,6 +12,8 @@ const URLS = {
   SEYLER: 'https://seyler.eksisozluk.com/',
   VOTE: 'https://eksisozluk.com/entry/vote',
   REMOVE_VOTE: 'https://eksisozluk.com/entry/removevote',
+  ENTRY_FAVORITE: 'https://eksisozluk.com/entry/favla',
+  ENTRY_UNFAVORITE: 'https://eksisozluk.com/entry/favlama',
   PIN: 'https://eksisozluk.com/kullanici/add-pin',
   PIN_REMOVE: 'https://eksisozluk.com/kullanici/remove-pin',
   TAGS: 'https://eksisozluk.com/kanallar',
