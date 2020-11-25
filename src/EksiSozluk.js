@@ -213,9 +213,12 @@ class EksiSozluk extends EksiGuest {
     const token = await this.createToken(email, password, { extendTime: true })
     const cookie = `a=${token.value}`
 
-    // no need for check session token
+    // no need for validate the session token
 
-    return new EksiMember(this.httpClient, cookie)
+    const member = new EksiMember(this.httpClient, cookie)
+    await member.retrieve()
+
+    return member
   }
 
   /**
@@ -235,7 +238,10 @@ class EksiSozluk extends EksiGuest {
       throw new AuthError()
     }
 
-    return new EksiMember(this.httpClient, cookie)
+    const member = new EksiMember(this.httpClient, cookie)
+    await member.retrieve()
+
+    return member
   }
 }
 

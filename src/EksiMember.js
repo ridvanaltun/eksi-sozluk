@@ -1,5 +1,7 @@
 const axios = require('axios')
 const qs = require('querystring')
+const fs = require('fs')
+const FormData = require('form-data')
 const EksiGuest = require('./EksiGuest')
 const { URLS } = require('./constants')
 const { TITLE_TYPES } = require('./enums')
@@ -22,6 +24,27 @@ const {
  */
 class EksiMember extends EksiGuest {
   /**
+   * Username.
+   *
+   * @type {string}
+   */
+  username
+
+  /**
+   * Is new message available?
+   *
+   * @type {boolean}
+   */
+  isNewMessageAvailable
+
+  /**
+   * Is new event available?
+   *
+   * @type {boolean}
+   */
+  isNewEventAvailable
+
+  /**
    * Create an Eksi Sozluk member session.
    *
    * @param   {object}  httpClient  Axios HTPP client.
@@ -30,6 +53,40 @@ class EksiMember extends EksiGuest {
   constructor (httpClient, cookies) {
     super(httpClient)
     this.cookies = cookies
+  }
+
+  /**
+   * Retrieve the user.
+   *
+   * @returns {Promise} Promise.
+   */
+  retrieve () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: URLS.BASE,
+        method: 'GET',
+        headers: {
+          cookie: this.cookies
+        }
+      }).then(res => {
+        const newMessageRegex = /href="\/mesaj"\n*\s*class="new-update"/g
+        const isNewMessageAvailable = newMessageRegex.test(res.data)
+        this.isNewMessageAvailable = isNewMessageAvailable
+
+        const newEventRegex = /title="olaylar olaylar"\n*\s*class="new-update"/g
+        const isNewEventAvailable = newEventRegex.test(res.data)
+        this.isNewEventAvailable = isNewEventAvailable
+
+        const usernameRegex = new RegExp(
+          '(?<=a href="/biri/)(.*)(?=" title=")',
+          'u'
+        )
+        const username = usernameRegex.exec(res.data)[0]
+        this.username = username
+
+        resolve()
+      })
+    })
   }
 
   /**
@@ -50,7 +107,7 @@ class EksiMember extends EksiGuest {
    *
    * @returns {Promise.<boolean>} New message available or not.
    */
-  isNewMessageAvailable () {
+  checkIsNewMessageAvailable () {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.BASE,
@@ -58,14 +115,12 @@ class EksiMember extends EksiGuest {
         headers: {
           cookie: this.cookies
         }
+      }).then(res => {
+        const regex = /href="\/mesaj"\n*\s*class="new-update"/g
+        const isNewMessageAvailable = regex.test(res.data)
+        this.isNewMessageAvailable = isNewMessageAvailable
+        resolve(isNewMessageAvailable)
       })
-        .then(res => {
-          const regex = /href="\/mesaj"\n*\s*class="new-update"/g
-          resolve(regex.test(res.data))
-        })
-        .catch(error => {
-          reject(new Error(error.message))
-        })
     })
   }
 
@@ -74,7 +129,7 @@ class EksiMember extends EksiGuest {
    *
    * @returns {Promise.<boolean>} New event available or not.
    */
-  isNewEventAvailable () {
+  checkIsNewEventAvailable () {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.BASE,
@@ -82,14 +137,12 @@ class EksiMember extends EksiGuest {
         headers: {
           cookie: this.cookies
         }
+      }).then(res => {
+        const regex = /title="olaylar olaylar"\n*\s*class="new-update"/g
+        const isNewEventAvailable = regex.test(res.data)
+        this.isNewEventAvailable = isNewEventAvailable
+        resolve(isNewEventAvailable)
       })
-        .then(res => {
-          const regex = /title="olaylar olaylar"\n*\s*class="new-update"/g
-          resolve(regex.test(res.data))
-        })
-        .catch(error => {
-          reject(new Error(error.message))
-        })
     })
   }
 
@@ -396,6 +449,71 @@ class EksiMember extends EksiGuest {
         })
         .catch(error => {
           reject(new Error(error.message))
+        })
+    })
+  }
+
+  /**
+   * Upload image.
+   *
+   * @param   {string}  imagePath Image file path.
+   * @returns {Promise}           Promise.
+   */
+  uploadImage (imagePath) {
+    return new Promise((resolve, reject) => {
+      const data = new FormData()
+      data.append('file', fs.createReadStream(imagePath))
+
+      axios
+        .post(`${URLS.BASE}/img/func/${this.username}`, data, {
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            Cookie: this.cookies,
+            ...data.getHeaders()
+          }
+        })
+        .then(response => {
+          // handle errors
+          if (!response.data.Success) {
+            return reject(new Error(response.data.Result))
+          }
+
+          resolve({
+            url: response.data.Result,
+            key: response.data.ImageKey
+          })
+        })
+    })
+  }
+
+  /**
+   * Remove image with given image key.
+   *
+   * @param   {string}  imageKey  Image key.
+   * @returns {Promise}           Promise.
+   */
+  deleteImage (imageKey) {
+    const data = qs.stringify({
+      imageKey: imageKey,
+      reasonCode: 'osel' // don't know why.
+    })
+
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`${URLS.BASE}/img/func/sil`, data, {
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Cookie: this.cookies
+          }
+        })
+        .then(response => {
+          // handle errors
+          if (!response.data.Success) {
+            return reject(new Error('An unknow error occurred.'))
+          }
+
+          resolve()
         })
     })
   }
