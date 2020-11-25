@@ -260,6 +260,18 @@ class EksiMember extends EksiGuest {
   }
 
   /**
+   * Fetch the user profile.
+   *
+   * @returns {Promise.<UserForMember>} A promise for the entry.
+   */
+  async me () {
+    const user = new UserForMember(this._request, this.username, this.cookies)
+    await user.retrieve()
+
+    return user
+  }
+
+  /**
    * Fetch today entries.
    *
    * @param   {object}                    options           Parameters that user can specify.
