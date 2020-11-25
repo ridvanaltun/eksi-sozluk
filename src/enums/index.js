@@ -55,7 +55,29 @@ const TAGS = {
   SINEMA: 'sinema'
 }
 
+/**
+ * @typedef {string} CollectionType
+ **/
+
+/**
+ * Entry sorting or filtering types.
+ *
+ * @enum {CollectionType}
+ */
+const COLLECTION_TYPES = {
+  NICE: 'nice',
+  DAILY_NICE: 'dailynice',
+  ROOKIES: 'caylaklar',
+  EKSI_SEYLER: 'eksiseyler',
+  IMAGES: 'gorseller',
+  LINKS: 'links',
+  AUTHOR: 'author', // search author
+  BUDDY: 'buddy',
+  FIND: 'find'
+}
+
 module.exports = {
   TITLE_TYPES,
-  TAGS
+  TAGS,
+  COLLECTION_TYPES
 }

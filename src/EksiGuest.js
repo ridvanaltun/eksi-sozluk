@@ -58,6 +58,9 @@ class EksiGuest {
    * @param   {string}                    title             Title itself.
    * @param   {object}                    options           Parameters that user can specify.
    * @param   {number}                    [options.page=1]  Page number.
+   * @param   {CollectionType}            [options.type]    Sorting or filtering type.
+   * @param   {string}                    [options.author]  Username, if type is 'author' set this parameter.
+   * @param   {string}                    [options.search]  Search text, if type is 'find' set this parameter.
    * @returns {Promise.<EntryCollection>}                   A promise for the entries.
    */
   async entries (title, options = {}) {

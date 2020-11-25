@@ -1,5 +1,5 @@
 const EksiSozluk = require('./EksiSozluk')
-const { TAGS } = require('./enums')
+const { TAGS, COLLECTION_TYPES } = require('./enums')
 const { AuthError, VoteError, NotFoundError } = require('./exceptions')
 
 module.exports = {
@@ -7,5 +7,6 @@ module.exports = {
   AuthError,
   VoteError,
   NotFoundError,
-  TAGS
+  TAGS,
+  COLLECTION_TYPES
 }

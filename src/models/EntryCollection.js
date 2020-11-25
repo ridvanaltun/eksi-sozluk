@@ -2,6 +2,7 @@ const objectAssignDeep = require('object-assign-deep')
 const DraftEntry = require('./DraftEntry')
 const CollectionBase = require('./CollectionBase')
 const { URLS } = require('../constants')
+const { COLLECTION_TYPES } = require('../enums')
 const { AuthError } = require('../exceptions')
 const { getActualPath } = require('../utils')
 
@@ -54,13 +55,37 @@ class EntryCollection extends CollectionBase {
   entries = []
 
   /**
+   * Entry sorting or filtering type.
+   *
+   * @type {CollectionType}
+   */
+  collectionType
+
+  /**
+   * Searched user's username.
+   *
+   * @type {string}
+   */
+  searchAuthor
+
+  /**
+   * Searched text.
+   *
+   * @type {string}
+   */
+  searchText
+
+  /**
    * Create an entry collection.
    *
-   * @param {object}  request                 Axios client.
-   * @param {string}  path                    Path or plain title.
-   * @param {object}  options                 Parameters that user can specify.
-   * @param {number}  [options.page=1]        Page number.
-   * @param {string}  [options.cookies=null]  Cookie string.
+   * @param {object}          request                 Axios client.
+   * @param {string}          path                    Path or plain title.
+   * @param {object}          options                 Parameters that user can specify.
+   * @param {CollectionType}  [options.type=null]     Sorting or filtering type.
+   * @param {string}          [options.author=null]   Username, if type is 'author' set this parameter.
+   * @param {string}          [options.search=null]   Search text,  if type is 'find' set this parameter.
+   * @param {number}          [options.page=1]        Page number.
+   * @param {string}          [options.cookies=null]  Cookie string.
    */
   constructor (request, path, options) {
     super()
@@ -68,7 +93,10 @@ class EntryCollection extends CollectionBase {
     const _options = objectAssignDeep(
       {
         page: 1,
-        cookies: null
+        cookies: null,
+        type: null,
+        author: null,
+        search: null
       },
       options
     )
@@ -80,6 +108,9 @@ class EntryCollection extends CollectionBase {
     this._request = request
     this._path = isPathPlainTitle ? null : path
     this._cookies = _options.cookies
+    this.collectionType = _options.type
+    this.searchAuthor = _options.author
+    this.searchText = _options.search
   }
 
   /**
@@ -96,10 +127,23 @@ class EntryCollection extends CollectionBase {
         : `/${await getActualPath(this.title)}`
       const isEndpointCompatibleWithPageParam = !endpoint.includes('?')
 
+      const isTypeLinks = this.collectionType === COLLECTION_TYPES.LINKS
+      const isTypeAuthor = this.collectionType === COLLECTION_TYPES.AUTHOR
+      const isTypeFind = this.collectionType === COLLECTION_TYPES.FIND
+      const params = isTypeLinks
+        ? { a: 'find', keywords: 'http://' }
+        : isTypeAuthor
+        ? { a: 'search', author: this.searchAuthor }
+        : isTypeFind
+        ? { a: 'find', keywords: this.searchText }
+        : { a: this.collectionType }
+
       const requestOptions = {
         endpoint,
         cookie: this._cookies,
-        params: isEndpointCompatibleWithPageParam ? { p: this.currPage } : {},
+        params: isEndpointCompatibleWithPageParam
+          ? { ...params, p: this.currPage }
+          : { ...params },
         resourceName: 'Entries'
       }
 
@@ -109,15 +153,13 @@ class EntryCollection extends CollectionBase {
         const Entry = require('./Entry')
         const EntryForMember = require('./EntryForMember')
 
-        const entries = []
-
         $('ul#entry-item-list li').each((i, elm) => {
           const entryId = $(elm).data('id')
           const entry = this._cookies
             ? new EntryForMember(this._request, entryId, this._cookies)
             : new Entry(this._request, entryId)
           entry.serialize($, elm)
-          entries.push(entry)
+          this.entries.push(entry)
         })
 
         const isTitleProvided = this.title
@@ -129,9 +171,8 @@ class EntryCollection extends CollectionBase {
         this.titleId = $('#title').data('id')
         this.titleSlug = $('#title').data('slug')
         this.titleUrl = URLS.BASE + $('h1#title a').attr('href')
-        this.currPage = $('div.pager').data('currentpage')
-        this.pageCount = $('div.pager').data('pagecount')
-        this.entries = entries
+        this.currPage = $('div.pager').data('currentpage') || 1
+        this.pageCount = $('div.pager').data('pagecount') || 1
 
         const isDraftEntryExist = $('#draft-content').text().length > 0
         const draftEntry = isDraftEntryExist
