@@ -1,20 +1,14 @@
 const { Entry, EntryForMember } = require('../models')
 const { URLS } = require('../constants')
-const { NotFoundError } = require('../exceptions')
 
 const debeEntries = (_request, cookie = null) => {
   return new Promise((resolve, reject) => {
-    _request({ endpoint: '/debe', ajax: true }, $ => {
-      const status = $.statusCode
-
-      if (status === 404) {
-        return reject(new NotFoundError('Debe not found.'))
-      }
-
-      if (status !== 200) {
-        return reject(new Error('An unknown error occurred.'))
-      }
-
+    const requestOptions = {
+      endpoint: '/debe',
+      ajax: true,
+      resourceName: 'Debe'
+    }
+    _request(requestOptions, $ => {
       const entries = []
 
       $('ul.topic-list.partial li').each((i, elm) => {

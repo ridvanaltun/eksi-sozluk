@@ -1,9 +1,8 @@
-const { URLS } = require('../constants')
-const { NotFoundError } = require('../exceptions')
 const UserEntryCollection = require('./UserEntryCollection')
 const ImageCollection = require('./ImageCollection')
 const UserFavoriteAuthorCollection = require('./UserFavoriteAuthorCollection')
 const UkteCollection = require('./UkteCollection')
+const { URLS } = require('../constants')
 
 /**
  * User.
@@ -196,25 +195,15 @@ class User {
     return new Promise((resolve, reject) => {
       // make username url ready
       const username = this.username.replace(' ', '-')
-
-      this._request(
-        { endpoint: `/biri/${username}`, cookie: this._cookies },
-        $ => {
-          const status = $.statusCode
-
-          if (status === 404) {
-            return reject(new NotFoundError('User not found.'))
-          }
-
-          if (status !== 200) {
-            return reject(new Error('An unknown error occurred.'))
-          }
-
-          this.serialize($)
-
-          resolve()
-        }
-      )
+      const requestOptions = {
+        endpoint: `/biri/${username}`,
+        cookie: this._cookies,
+        resourceName: 'User'
+      }
+      this._request(requestOptions, $ => {
+        this.serialize($)
+        resolve()
+      })
     })
   }
 

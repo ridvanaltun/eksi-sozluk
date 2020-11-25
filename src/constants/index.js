@@ -6,10 +6,10 @@ const DEFAULTS = {
 const URLS = {
   BASE: 'https://eksisozluk.com',
   LOGIN: 'https://eksisozluk.com/giris',
-  ENTRY: 'https://eksisozluk.com/entry/',
-  CREATE_ENTRY: 'https://eksisozluk.com/entry/ekle',
   USER: 'https://eksisozluk.com/biri/',
   SEYLER: 'https://seyler.eksisozluk.com/',
+  ENTRY: 'https://eksisozluk.com/entry/',
+  ENTRY_CREATE: 'https://eksisozluk.com/entry/ekle',
   ENTRY_VOTE: 'https://eksisozluk.com/entry/vote',
   ENTRY_VOTE_REMOVE: 'https://eksisozluk.com/entry/removevote',
   ENTRY_FAVORITE: 'https://eksisozluk.com/entry/favla',

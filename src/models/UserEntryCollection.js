@@ -75,14 +75,6 @@ class UserEntryCollection extends CollectionBase {
       }
 
       this._request(requestOptions, $ => {
-        const status = $.statusCode
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
-        const entries = []
-
         $('div.topic-item').each((i, elm) => {
           const entryId = $(elm)
             .find('h1')
@@ -91,7 +83,7 @@ class UserEntryCollection extends CollectionBase {
             ? new EntryForMember(this._request, entryId, this._cookies)
             : new Entry(this._request, entryId)
           entry.serialize($, elm, { profilePage: true })
-          entries.push(entry)
+          this.entries.push(entry)
         })
 
         const isEntryExist = $('h1 small').length > 0
@@ -107,7 +99,6 @@ class UserEntryCollection extends CollectionBase {
           ? Math.ceil(entryCount / DEFAULTS.ENTRY_COUNT_PER_PAGE_OF_PROFILE)
           : 0
         this.entryCount = entryCount
-        this.entries = entries
 
         resolve()
       })

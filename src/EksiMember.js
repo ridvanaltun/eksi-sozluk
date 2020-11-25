@@ -459,9 +459,6 @@ class EksiMember extends EksiGuest {
             resolve()
           }
         })
-        .catch(error => {
-          reject(new Error(error.message))
-        })
     })
   }
 

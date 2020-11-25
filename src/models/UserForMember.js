@@ -61,14 +61,10 @@ class UserForMember extends User {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
         }
+      }).then(res => {
+        this.isFollowed = true
+        resolve()
       })
-        .then(res => {
-          this.isFollowed = true
-          resolve()
-        })
-        .catch(error => {
-          reject(new Error(error.message))
-        })
     })
   }
 
@@ -89,14 +85,10 @@ class UserForMember extends User {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
         }
+      }).then(res => {
+        this.isFollowed = false
+        resolve()
       })
-        .then(res => {
-          this.isFollowed = false
-          resolve()
-        })
-        .catch(error => {
-          reject(new Error(error.message))
-        })
     })
   }
 
@@ -117,14 +109,10 @@ class UserForMember extends User {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
         }
+      }).then(res => {
+        this.isBlocked = true
+        resolve()
       })
-        .then(res => {
-          this.isBlocked = true
-          resolve()
-        })
-        .catch(error => {
-          reject(new Error(error.message))
-        })
     })
   }
 
@@ -145,14 +133,10 @@ class UserForMember extends User {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
         }
+      }).then(res => {
+        this.isBlocked = false
+        resolve()
       })
-        .then(res => {
-          this.isBlocked = false
-          resolve()
-        })
-        .catch(error => {
-          reject(new Error(error.message))
-        })
     })
   }
 
@@ -173,14 +157,10 @@ class UserForMember extends User {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
         }
+      }).then(res => {
+        this.isTitlesBlocked = true
+        resolve()
       })
-        .then(res => {
-          this.isTitlesBlocked = true
-          resolve()
-        })
-        .catch(error => {
-          reject(new Error(error.message))
-        })
     })
   }
 
@@ -201,14 +181,10 @@ class UserForMember extends User {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
         }
+      }).then(res => {
+        this.isTitlesBlocked = false
+        resolve()
       })
-        .then(res => {
-          this.isTitlesBlocked = false
-          resolve()
-        })
-        .catch(error => {
-          reject(new Error(error.message))
-        })
     })
   }
 
@@ -261,9 +237,6 @@ class UserForMember extends User {
         })
         .then(res => {
           resolve()
-        })
-        .catch(error => {
-          reject(new Error(error.message))
         })
     })
   }

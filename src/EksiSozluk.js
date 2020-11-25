@@ -57,14 +57,10 @@ class EksiSozluk extends EksiGuest {
           headers: {
             cookie: cookies
           }
+        }).then(res => {
+          const isLoggedIn = res.data.includes('data-logged-in="true"')
+          resolve(isLoggedIn)
         })
-          .then(res => {
-            const isLoggedIn = res.data.includes('data-logged-in="true"')
-            resolve(isLoggedIn)
-          })
-          .catch(error => {
-            reject(new Error(error.message))
-          })
       } else {
         // cookies not exist, return false
         resolve(false)
@@ -82,17 +78,12 @@ class EksiSozluk extends EksiGuest {
       axios({
         url: URLS.LOGIN,
         method: 'GET'
-      })
-        .then(res => {
-          // check recaptcha
-          const isRecaptchaRequired = res.data.includes('g-recaptcha')
+      }).then(res => {
+        // check recaptcha
+        const isRecaptchaRequired = res.data.includes('g-recaptcha')
 
-          resolve(isRecaptchaRequired)
-        })
-        .catch(err => {
-          // handle errors
-          reject(err.message)
-        })
+        resolve(isRecaptchaRequired)
+      })
     })
   }
 
@@ -196,7 +187,7 @@ class EksiSozluk extends EksiGuest {
           }
 
           // handle other errors
-          reject(new Error(err.message))
+          reject(err)
         })
     })
   }

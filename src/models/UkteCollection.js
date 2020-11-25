@@ -55,12 +55,6 @@ class UkteCollection {
       }
 
       this._request(requestOptions, $ => {
-        const status = $.statusCode
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
         $('div ul li').each((i, elm) => {
           const title = $(elm)
             .find('a')

@@ -17,12 +17,6 @@ const trashEntries = (_request, cookie, options) => {
     }
 
     _request({ endpoint: '/cop', params, cookie }, $ => {
-      const status = $.statusCode
-
-      if (status !== 200) {
-        return reject(new Error('An unknown error occurred.'))
-      }
-
       const entries = []
 
       $('ul#trash-items li article').each((i, elm) => {

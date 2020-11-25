@@ -5,7 +5,6 @@ const FollowedUserFavoriteEntry = require('./FollowedUserFavoriteEntry')
 const DraftTitle = require('./DraftTitle')
 const Question = require('./Question')
 const CollectionBase = require('./CollectionBase')
-const { AuthError } = require('../exceptions')
 const { DEFAULTS } = require('../constants')
 const { TITLE_TYPES } = require('../enums')
 
@@ -88,17 +87,6 @@ class TitleCollection extends CollectionBase {
       }
 
       this._request(requestOptions, $ => {
-        const status = $.statusCode
-
-        // not authorized
-        if (status === 403) {
-          return reject(new AuthError())
-        }
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
         const totalTitleCount = parseInt(
           $('div.clearfix.dropdown h2').attr('title')
         )

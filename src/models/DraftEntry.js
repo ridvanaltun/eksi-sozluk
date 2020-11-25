@@ -105,20 +105,14 @@ class DraftEntry {
    */
   retrieve () {
     return new Promise((resolve, reject) => {
-      this._request(
-        { endpoint: `/?q=${this.title}`, cookie: this._cookies },
-        $ => {
-          const status = $.statusCode
-
-          if (status !== 200) {
-            return reject(new Error('An unknown error occurred.'))
-          }
-
-          this.serialize($)
-
-          resolve()
-        }
-      )
+      const requestOptions = {
+        endpoint: `/?q=${this.title}`,
+        cookie: this._cookies
+      }
+      this._request(requestOptions, $ => {
+        this.serialize($)
+        resolve()
+      })
     })
   }
 
@@ -157,7 +151,7 @@ class DraftEntry {
         .then(async ({ csrfToken, csrfTokenInCookies }) => {
           // create entry
           const _res = await axios({
-            url: URLS.CREATE_ENTRY,
+            url: URLS.ENTRY_CREATE,
             method: 'POST',
             headers: {
               Cookie: `__RequestVerificationToken=${csrfTokenInCookies}; ${this._cookies}`
@@ -173,10 +167,6 @@ class DraftEntry {
         })
         .then(res => {
           resolve()
-        })
-        .catch(err => {
-          // handle errors
-          reject(new Error(err.message))
         })
     })
   }
@@ -219,9 +209,6 @@ class DraftEntry {
             reject(new Error('An unknow error occurred.'))
           }
         })
-        .catch(err => {
-          reject(new Error(err.message))
-        })
     })
   }
 
@@ -255,9 +242,6 @@ class DraftEntry {
         )
         .then(res => {
           resolve()
-        })
-        .catch(err => {
-          reject(new Error(err.message))
         })
     })
   }

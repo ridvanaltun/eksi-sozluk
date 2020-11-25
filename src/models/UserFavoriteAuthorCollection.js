@@ -54,12 +54,6 @@ class UserFavoriteAuthorCollection {
       }
 
       this._request(requestOptions, $ => {
-        const status = $.statusCode
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
         $('div table tbody tr').each((i, elm) => {
           const username = $(elm)
             .find('td a')

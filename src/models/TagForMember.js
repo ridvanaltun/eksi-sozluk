@@ -1,7 +1,6 @@
 const axios = require('axios')
 const Tag = require('./Tag')
 const { URLS } = require('../constants')
-const { TagError } = require('../exceptions')
 
 /**
  * Tag for members.
@@ -37,13 +36,9 @@ class TagForMember extends Tag {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
         }
+      }).then(res => {
+        resolve()
       })
-        .then(res => {
-          resolve()
-        })
-        .catch(error => {
-          reject(new TagError(error.message))
-        })
     })
   }
 
@@ -61,13 +56,9 @@ class TagForMember extends Tag {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
         }
+      }).then(res => {
+        resolve()
       })
-        .then(res => {
-          resolve()
-        })
-        .catch(error => {
-          reject(new TagError(error.message))
-        })
     })
   }
 }

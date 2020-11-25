@@ -1,5 +1,6 @@
 const objectAssignDeep = require('object-assign-deep')
 const cheerio = require('cheerio')
+const { NotFoundError, AuthError } = require('../exceptions')
 
 /**
  * This callback is displayed as part of the EksiSozluk class.
@@ -11,14 +12,15 @@ const cheerio = require('cheerio')
 
 /**
  * @typedef Requester
- * @param {object}          options                   HTTP request options.
- * @param {string}          [options.endpoint]        Endpoint of the request.
- * @param {string}          [options.cookie]          Auth cookie.
- * @param {boolean}         [options.ajax=false]      Use ajax HTTP calls.
- * @param {boolean}         [options.encodeURI=true]  Encode URL.
- * @param {string}          [options.method=GET]      HTTP request method.
- * @param {object}          [options.params={}]       HTTP request parameters.
- * @param {requestCallback} cb                        The callback that handles the response.
+ * @param {object}          options                         HTTP request options.
+ * @param {string}          [options.endpoint]              Endpoint of the request.
+ * @param {string}          [options.cookie]                Auth cookie.
+ * @param {boolean}         [options.ajax=false]            Use ajax HTTP calls.
+ * @param {boolean}         [options.encodeURI=true]        Encode URL.
+ * @param {string}          [options.method=GET]            HTTP request method.
+ * @param {object}          [options.params={}]             HTTP request parameters.
+ * @param {string}          [options.resourceName=Resource] Resource name.
+ * @param {requestCallback} cb                              The callback that handles the response.
  */
 
 /**
@@ -36,7 +38,8 @@ const request = httpClient => {
         method: 'GET',
         ajax: false,
         encodeURI: true,
-        params: {}
+        params: {},
+        resourceName: 'Resource'
       },
       options
     )
@@ -68,15 +71,26 @@ const request = httpClient => {
       }
     })
       .then(res => {
-        const { data } = res
-        data.statusCode = res.status
-        cb(data)
+        cb(res.data)
       })
       .catch(err => {
+        if (err.response) {
+          switch (err.response.status) {
+            case 403:
+              throw new AuthError()
+
+            case 404:
+              throw new NotFoundError(_options.resourceName)
+
+            case 429:
+              throw new Error('Too Many Requests')
+
+            default:
+              throw err
+          }
+        }
+
         // todo: handle edge cases
-        const { data } = err.response
-        data.statusCode = err.response.status
-        cb(data)
       })
   }
 }

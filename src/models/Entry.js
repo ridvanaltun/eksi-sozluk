@@ -1,7 +1,6 @@
 const cheerio = require('cheerio')
 const objectAssignDeep = require('object-assign-deep')
 const { parseDate } = require('../utils')
-const { NotFoundError } = require('../exceptions')
 const { URLS } = require('../constants')
 
 /**
@@ -230,25 +229,17 @@ class Entry {
    */
   retrieve () {
     return new Promise((resolve, reject) => {
-      this._request(
-        { endpoint: `/entry/${this.id}`, cookie: this._cookies },
-        $ => {
-          const status = $.statusCode
+      const requestOptions = {
+        endpoint: `/entry/${this.id}`,
+        cookie: this._cookies,
+        resourceName: 'Entry'
+      }
+      this._request(requestOptions, $ => {
+        const elm = $('ul#entry-item-list li')
+        this.serialize($, elm)
 
-          if (status === 404) {
-            return reject(new NotFoundError('Entry not found.'))
-          }
-
-          if (status !== 200) {
-            return reject(new Error('An unknown error occurred.'))
-          }
-
-          const elm = $('ul#entry-item-list li')
-          this.serialize($, elm)
-
-          resolve()
-        }
-      )
+        resolve()
+      })
     })
   }
 }

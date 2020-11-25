@@ -53,12 +53,6 @@ class ImageCollection {
       }
 
       this._request(requestOptions, $ => {
-        const status = $.statusCode
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
         $('ul li a').each((i, elm) => {
           const image = new Image()
           image.serialize($, elm)

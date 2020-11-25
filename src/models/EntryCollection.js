@@ -2,7 +2,7 @@ const objectAssignDeep = require('object-assign-deep')
 const DraftEntry = require('./DraftEntry')
 const CollectionBase = require('./CollectionBase')
 const { URLS } = require('../constants')
-const { NotFoundError, AuthError } = require('../exceptions')
+const { AuthError } = require('../exceptions')
 const { getActualPath } = require('../utils')
 
 /**
@@ -99,21 +99,11 @@ class EntryCollection extends CollectionBase {
       const requestOptions = {
         endpoint,
         cookie: this._cookies,
-        params: isEndpointCompatibleWithPageParam ? { p: this.currPage } : {}
+        params: isEndpointCompatibleWithPageParam ? { p: this.currPage } : {},
+        resourceName: 'Entries'
       }
 
       this._request(requestOptions, $ => {
-        const status = $.statusCode
-
-        // title has not any entry
-        if (status === 404) {
-          return reject(new NotFoundError('Entries not found.'))
-        }
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
         // dynamically import
         // @see circular dependency issue
         const Entry = require('./Entry')

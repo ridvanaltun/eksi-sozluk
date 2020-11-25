@@ -46,9 +46,6 @@ const createEntry = (request, title, content, options, cookie) => {
             reject(new Error('An unknow error occurred.'))
           }
         })
-        .catch(err => {
-          reject(new Error(err.message))
-        })
     } else {
       // create entry
       axios
@@ -75,7 +72,7 @@ const createEntry = (request, title, content, options, cookie) => {
         .then(async ({ csrfToken, csrfTokenInCookies }) => {
           // create entry
           const _res = await axios({
-            url: URLS.CREATE_ENTRY,
+            url: URLS.ENTRY_CREATE,
             method: 'POST',
             headers: {
               Cookie: `__RequestVerificationToken=${csrfTokenInCookies}; ${cookie}`
@@ -107,8 +104,8 @@ const createEntry = (request, title, content, options, cookie) => {
             return reject(new Error('Entry already exist.'))
           }
 
-          // handle errors
-          reject(new Error(err.message))
+          // handle other errors
+          reject(err)
         })
     }
   })

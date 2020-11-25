@@ -22,7 +22,8 @@ const getActualPath = title => {
           return resolve(err.response.request.path.replace('/', ''))
         }
 
-        reject(new Error(err.message))
+        // handle other errors
+        reject(err)
       })
   })
 }

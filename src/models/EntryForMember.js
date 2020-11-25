@@ -202,12 +202,6 @@ class EntryForMember extends Entry {
         cookie: this._cookies
       }
       this._request(requestOptions, $ => {
-        const status = $.statusCode
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
         const authors = []
 
         $('ul li a').each((i, elm) => {
@@ -243,12 +237,6 @@ class EntryForMember extends Entry {
         cookie: this._cookies
       }
       this._request(requestOptions, $ => {
-        const status = $.statusCode
-
-        if (status !== 200) {
-          return reject(new Error('An unknown error occurred.'))
-        }
-
         const rookies = []
 
         $('ul li a').each((i, elm) => {
@@ -287,13 +275,9 @@ class EntryForMember extends Entry {
           'x-requested-with': 'XMLHttpRequest',
           cookie: this._cookies
         }
+      }).then(res => {
+        resolve()
       })
-        .then(res => {
-          resolve()
-        })
-        .catch(error => {
-          reject(new Error(error.message))
-        })
     })
   }
 
@@ -318,12 +302,14 @@ class EntryForMember extends Entry {
         .then(res => {
           resolve()
         })
-        .catch(error => {
-          if (error.response && error.response.status === 403) {
-            reject(new Error('Not Permitted'))
-          } else {
-            reject(new Error(error.message))
+        .catch(err => {
+          // user don't permited recover to the entry
+          if (err.response && err.response.status === 403) {
+            return reject(new Error('Not Permitted'))
           }
+
+          // handle other errors
+          reject(err)
         })
     })
   }

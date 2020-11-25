@@ -58,29 +58,25 @@ class SearchResults {
         params: {
           q: this.searchText
         }
+      }).then(res => {
+        // handle users
+        res.data.Nicks.forEach(username => {
+          const user = this._cookies
+            ? new UserForMember(this._request, username, this._cookies)
+            : new User(this._request, username)
+          this.users.push(user)
+        })
+
+        // handle titles
+        res.data.Titles.forEach(titleName => {
+          const title = new EntryCollection(this._request, titleName, {
+            cookies: this._cookies
+          })
+          this.titles.push(title)
+        })
+
+        resolve()
       })
-        .then(res => {
-          // handle users
-          res.data.Nicks.forEach(username => {
-            const user = this._cookies
-              ? new UserForMember(this._request, username, this._cookies)
-              : new User(this._request, username)
-            this.users.push(user)
-          })
-
-          // handle titles
-          res.data.Titles.forEach(titleName => {
-            const title = new EntryCollection(this._request, titleName, {
-              cookies: this._cookies
-            })
-            this.titles.push(title)
-          })
-
-          resolve()
-        })
-        .catch(error => {
-          reject(new Error(error.message))
-        })
     })
   }
 }
