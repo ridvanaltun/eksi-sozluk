@@ -63,6 +63,7 @@ class UserForMember extends User {
         }
       })
         .then(res => {
+          this.isFollowed = true
           resolve()
         })
         .catch(error => {
@@ -90,6 +91,7 @@ class UserForMember extends User {
         }
       })
         .then(res => {
+          this.isFollowed = false
           resolve()
         })
         .catch(error => {
@@ -117,6 +119,7 @@ class UserForMember extends User {
         }
       })
         .then(res => {
+          this.isBlocked = true
           resolve()
         })
         .catch(error => {
@@ -144,6 +147,7 @@ class UserForMember extends User {
         }
       })
         .then(res => {
+          this.isBlocked = false
           resolve()
         })
         .catch(error => {
@@ -171,6 +175,7 @@ class UserForMember extends User {
         }
       })
         .then(res => {
+          this.isTitlesBlocked = true
           resolve()
         })
         .catch(error => {
@@ -198,6 +203,7 @@ class UserForMember extends User {
         }
       })
         .then(res => {
+          this.isTitlesBlocked = false
           resolve()
         })
         .catch(error => {
