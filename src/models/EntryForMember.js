@@ -57,18 +57,14 @@ class EntryForMember extends Entry {
           rate: 1,
           owner: this.authorId
         })
+      }).then(res => {
+        // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
+        if (!res.data.Success) {
+          return reject(new VoteError(res.data.Message))
+        }
+
+        resolve()
       })
-        .then(res => {
-          // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
-          if (res.data.Success) {
-            resolve()
-          } else {
-            reject(new VoteError('Something goes wrong.'))
-          }
-        })
-        .catch(error => {
-          reject(new VoteError(error.message))
-        })
     })
   }
 
@@ -91,18 +87,14 @@ class EntryForMember extends Entry {
           rate: -1,
           owner: this.authorId
         })
+      }).then(res => {
+        // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
+        if (!res.data.Success) {
+          return reject(new VoteError(res.data.Message))
+        }
+
+        resolve()
       })
-        .then(res => {
-          // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
-          if (res.data.Success) {
-            resolve()
-          } else {
-            reject(new VoteError('Something goes wrong.'))
-          }
-        })
-        .catch(error => {
-          reject(new VoteError(error.message))
-        })
     })
   }
 
@@ -124,18 +116,14 @@ class EntryForMember extends Entry {
           id: this.id,
           owner: this.authorId
         })
+      }).then(res => {
+        // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
+        if (!res.data.Success) {
+          return reject(new VoteError(res.data.Message))
+        }
+
+        resolve()
       })
-        .then(res => {
-          // res.data -> { Success: true, AlreadyVotedAnonymously: false, Message: 'oldu' }
-          if (res.data.Success) {
-            resolve()
-          } else {
-            reject(new VoteError('Entry not voted before.'))
-          }
-        })
-        .catch(error => {
-          reject(new VoteError(error.message))
-        })
     })
   }
 
