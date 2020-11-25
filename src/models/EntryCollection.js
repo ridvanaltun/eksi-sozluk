@@ -1,6 +1,4 @@
 const objectAssignDeep = require('object-assign-deep')
-const Entry = require('./Entry')
-const EntryForMember = require('./EntryForMember')
 const DraftEntry = require('./DraftEntry')
 const CollectionBase = require('./CollectionBase')
 const { URLS } = require('../constants')
@@ -115,6 +113,11 @@ class EntryCollection extends CollectionBase {
         if (status !== 200) {
           return reject(new Error('An unknown error occurred.'))
         }
+
+        // dynamically import
+        // @see circular dependency issue
+        const Entry = require('./Entry')
+        const EntryForMember = require('./EntryForMember')
 
         const entries = []
 
