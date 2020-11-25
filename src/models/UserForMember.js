@@ -267,6 +267,41 @@ class UserForMember extends User {
         })
     })
   }
+
+  /**
+   * Set the user note.
+   *
+   * @param   {string}  note  New note.
+   * @returns {Promise}       Promise.
+   */
+  setNote (note) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${URLS.BASE}/biri/${this.username}/note`,
+        method: 'POST',
+        data: qs.stringify({
+          who: this.id,
+          usernote: note
+        }),
+        headers: {
+          'x-requested-with': 'XMLHttpRequest',
+          cookie: this._cookies
+        }
+      }).then(res => {
+        this.note = note
+        resolve()
+      })
+    })
+  }
+
+  /**
+   * Clear the user note.
+   *
+   * @returns {Promise}  Promise.
+   */
+  async clearNote () {
+    await this.setNote('')
+  }
 }
 
 module.exports = UserForMember
