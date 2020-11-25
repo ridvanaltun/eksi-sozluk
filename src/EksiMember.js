@@ -466,10 +466,16 @@ class EksiMember extends EksiGuest {
   }
 
   /**
+   * @typedef UploadedImage
+   * @property {string} url Image url.
+   * @property {string} key Image key.
+   */
+
+  /**
    * Upload image.
    *
-   * @param   {string}  imagePath Image file path.
-   * @returns {Promise}           Promise.
+   * @param   {string}                  imagePath Image file path.
+   * @returns {Promise.<UploadedImage>}           Promise.
    */
   uploadImage (imagePath) {
     return new Promise((resolve, reject) => {
