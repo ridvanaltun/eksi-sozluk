@@ -28,9 +28,9 @@ class UserFavoriteAuthorCollection {
   /**
    * Create favorite author collection.
    *
-   * @param   {Object}  request         Axios client.
-   * @param   {string}  username        Username.
-   * @param   {string}  [cookies=null]  Cookie string.
+   * @param {object}  request         Axios client.
+   * @param {string}  username        Username.
+   * @param {string}  [cookies=null]  Cookie string.
    */
   constructor (request, username, cookies = null) {
     this._request = request
@@ -41,7 +41,7 @@ class UserFavoriteAuthorCollection {
   /**
    * Retrieve favorite users collection.
    *
-   * @return  {Promise} Promise.
+   * @returns {Promise} Promise.
    */
   retrieve () {
     return new Promise((resolve, reject) => {

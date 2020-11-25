@@ -12,7 +12,7 @@ const cheerio = require('cheerio')
 /**
  * @typedef Requester
  * @param {object}          options                   HTTP request options.
- * @param {string}          options.endpoint          Endpoint of the request.
+ * @param {string}          [options.endpoint]        Endpoint of the request.
  * @param {string}          [options.cookie]          Auth cookie.
  * @param {boolean}         [options.ajax=false]      Use ajax HTTP calls.
  * @param {boolean}         [options.encodeURI=true]  Encode URL.
@@ -35,7 +35,8 @@ const request = httpClient => {
       {
         method: 'GET',
         ajax: false,
-        encodeURI: true
+        encodeURI: true,
+        params: {}
       },
       options
     )
@@ -58,7 +59,7 @@ const request = httpClient => {
         ? encodeURI(_options.endpoint)
         : _options.endpoint,
       headers,
-      params: _options.params ? _options.params : {},
+      params: _options.params,
       transformResponse: body => {
         return cheerio.load(body, {
           normalizeWhitespace: true,

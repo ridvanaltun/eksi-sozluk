@@ -1,6 +1,7 @@
 const axios = require('axios')
 const qs = require('querystring')
 const Entry = require('./Entry')
+const UserForMember = require('./UserForMember')
 const { URLS } = require('../constants')
 const { VoteError } = require('../exceptions')
 
@@ -46,7 +47,7 @@ class EntryForMember extends Entry {
   upvote () {
     return new Promise((resolve, reject) => {
       axios({
-        url: URLS.VOTE,
+        url: URLS.ENTRY_VOTE,
         method: 'POST',
         headers: {
           'x-requested-with': 'XMLHttpRequest',
@@ -76,7 +77,7 @@ class EntryForMember extends Entry {
   downvote () {
     return new Promise((resolve, reject) => {
       axios({
-        url: URLS.VOTE,
+        url: URLS.ENTRY_VOTE,
         method: 'POST',
         headers: {
           'x-requested-with': 'XMLHttpRequest',
@@ -106,7 +107,7 @@ class EntryForMember extends Entry {
   removevote () {
     return new Promise((resolve, reject) => {
       axios({
-        url: URLS.REMOVE_VOTE,
+        url: URLS.ENTRY_VOTE_REMOVE,
         method: 'POST',
         headers: {
           'x-requested-with': 'XMLHttpRequest',
@@ -183,6 +184,88 @@ class EntryForMember extends Entry {
         this.favoriteCount = res.data.Count
         this.isFavorited = false
         resolve()
+      })
+    })
+  }
+
+  /**
+   * List authors of favorited the entry.
+   *
+   * @returns {Promise.Array<UserForMember>}  Promise.
+   */
+  listFavoritedAuthors () {
+    return new Promise((resolve, reject) => {
+      const requestOptions = {
+        endpoint: URLS.ENTRY_FAVORITED_AUTHORS,
+        ajax: true,
+        params: { entryId: this.id },
+        cookie: this._cookies
+      }
+      this._request(requestOptions, $ => {
+        const status = $.statusCode
+
+        if (status !== 200) {
+          return reject(new Error('An unknown error occurred.'))
+        }
+
+        const authors = []
+
+        $('ul li a').each((i, elm) => {
+          const username = $(elm)
+            .text()
+            .replace('@', '')
+          const path = $(elm).attr('href')
+          const member = new UserForMember(
+            this._request,
+            username,
+            this._cookies
+          )
+          member.url = URLS.BASE + path
+          authors.push(member)
+        })
+
+        resolve(authors)
+      })
+    })
+  }
+
+  /**
+   * List rookies of favorited the entry.
+   *
+   * @returns {Promise.Array<UserForMember>}  Promise.
+   */
+  listFavoritedRookies () {
+    return new Promise((resolve, reject) => {
+      const requestOptions = {
+        endpoint: URLS.ENTRY_FAVORITED_ROOKIES,
+        ajax: true,
+        params: { entryId: this.id },
+        cookie: this._cookies
+      }
+      this._request(requestOptions, $ => {
+        const status = $.statusCode
+
+        if (status !== 200) {
+          return reject(new Error('An unknown error occurred.'))
+        }
+
+        const rookies = []
+
+        $('ul li a').each((i, elm) => {
+          const username = $(elm)
+            .text()
+            .replace('@', '')
+          const path = $(elm).attr('href')
+          const member = new UserForMember(
+            this._request,
+            username,
+            this._cookies
+          )
+          member.url = URLS.BASE + path
+          rookies.push(member)
+        })
+
+        resolve(rookies)
       })
     })
   }
