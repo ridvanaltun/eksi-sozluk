@@ -103,11 +103,11 @@ class EksiMember extends EksiGuest {
   }
 
   /**
-   * Check if unreaded message available.
+   * Check if unreaded message exist.
    *
    * @returns {Promise.<boolean>} New message available or not.
    */
-  checkIsNewMessageAvailable () {
+  isNewMessageExist () {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.BASE,
@@ -125,11 +125,11 @@ class EksiMember extends EksiGuest {
   }
 
   /**
-   * Check if unreaded event available.
+   * Check if unreaded event exist.
    *
    * @returns {Promise.<boolean>} New event available or not.
    */
-  checkIsNewEventAvailable () {
+  isNewEventExist () {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.BASE,
