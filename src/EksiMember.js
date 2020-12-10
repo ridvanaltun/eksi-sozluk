@@ -419,6 +419,83 @@ class EksiMember extends EksiGuest {
   }
 
   /**
+   * Change your email address.
+   *
+   * @param   {string}  currEmailAddress  Your current email address.
+   * @param   {string}  newEmailAddress   A new email address.
+   * @param   {string}  password          Your current password.
+   * @returns {Promise}                   A promise for change email address.
+   */
+  changeEmailAddress (currEmailAddress, newEmailAddress, password) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: URLS.SETTINGS_EMAIL,
+        method: 'GET',
+        headers: {
+          cookie: this.cookies
+        }
+      })
+        .then(res => {
+          // validate page is in email change status
+
+          const isWaitingForCancelEmail = res.data.includes(
+            'değişikliği iptal et'
+          )
+
+          if (isWaitingForCancelEmail) {
+            return reject(new Error('Email address already changed.'))
+          }
+
+          return res
+        })
+        .then(res => {
+          // parse csrf token
+          const csrfRegex = new RegExp(
+            '(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)',
+            'u'
+          )
+          const csrfToken = csrfRegex.exec(res.data)[0]
+
+          const cookies = setCookie.parse(res.headers['set-cookie'], {
+            map: true
+          })
+          const csrfTokenInCookies = cookies.__RequestVerificationToken.value
+
+          return { csrfToken, csrfTokenInCookies }
+        })
+        .then(async ({ csrfToken, csrfTokenInCookies }) => {
+          // change password
+          const _res = await axios({
+            url: URLS.SETTINGS_EMAIL,
+            method: 'POST',
+            headers: {
+              Cookie: `__RequestVerificationToken=${csrfTokenInCookies}; ${this.cookies}`
+            },
+            data: qs.stringify({
+              __RequestVerificationToken: csrfToken,
+              CurrentEmail: currEmailAddress,
+              Password: password,
+              NewEmail: newEmailAddress,
+              ConfirmNewEmail: newEmailAddress
+            })
+          })
+
+          return _res
+        })
+        .then(res => {
+          const isSucc =
+            res.data.includes('değişikliği iptal et') && res.status === 200
+
+          if (!isSucc) {
+            return reject(new Error('An unknown error occured.'))
+          }
+
+          resolve()
+        })
+    })
+  }
+
+  /**
    * Pin an entry to the profile.
    *
    * @param   {number}  entryId  Entry ID which user owns.
