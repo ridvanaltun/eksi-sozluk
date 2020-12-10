@@ -25,7 +25,7 @@ console.log(isNewEventAvailable);
 
 ### Retrieve Profile
 
-Go to the [Users](../docs/tutorial-07-users.html) section to see what can you do with an user object.
+Go to the [Users](https://ridvanaltun.github.io/eksi-sozluk/tutorial-07-users.html) section to see what can you do with an user object.
 
 More information not necessary.
 
