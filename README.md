@@ -48,7 +48,7 @@ cd eksi-sozluk & npm i
 
 After these steps you can change the code. If you want test your changes; go to `__tests__` folder, find a proper test file or create one if necessary. if the test pass, ensure your code quality and write documantation. All after you are ready to send a PR.
 
-Check [scripts](#scripts) section to learn how to run tests and linter (for [code quality](#code-quality)).
+Check [scripts](#npm-scripts) section to learn how to run tests and linter (for [code quality](#code-quality)).
 
 ### Commit Messages
 
@@ -60,7 +60,7 @@ If you don't have a time just use `npm run commit` command instead of use Git.
 
 ### Code Quality
 
-Keeping code quality as good is a hard job in normally. Therefore, we are using EsLint (linter) and Prettier to keep and track the code quality. Not linted pull requests automatically deny from via Travis (CI/CD). You can lint your code using [scripts](#scripts) section.
+Keeping code quality as good is a hard job in normally. Therefore, we are using EsLint (linter) and Prettier to keep and track the code quality. Not linted pull requests automatically deny from via Travis (CI/CD). You can lint your code using [scripts](#npm-scripts) section.
 
 In short, run `npm run lint` command.
 
