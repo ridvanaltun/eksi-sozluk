@@ -1,15 +1,9 @@
 module.exports = {
-  env: {
-    commonjs: true,
-    es2021: true,
-    node: true
-  },
+  plugins: ['eslint-plugin-jsdoc'],
   extends: [
-    'standard'
-  ],
-  parserOptions: {
-    ecmaVersion: 12
-  },
-  rules: {
-  }
+    // from eslint-plugin-jsdoc
+    // @see https://github.com/gajus/eslint-plugin-jsdoc#configuration
+    // warnings not work with prettier-standard therefore this ruleset not effective
+    'plugin:jsdoc/recommended'
+  ]
 }

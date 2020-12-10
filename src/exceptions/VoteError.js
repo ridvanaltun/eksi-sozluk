@@ -1,10 +1,8 @@
-'use strict'
-
 /**
  * Vote error.
  *
- * @property {string} name Error name.
- * @property {string} message Error message.
+ * @property {string} [name=VoteError]  Error name.
+ * @property {string} message           Error message.
  */
 class VoteError extends Error {
   /**

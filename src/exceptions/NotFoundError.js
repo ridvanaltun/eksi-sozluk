@@ -1,22 +1,22 @@
-'use strict'
-
 /**
  * Not found error.
  *
- * @property {string} name Error name.
- * @property {string} message Error message.
+ * @property {string} [name=NotFoundError]          Error name.
+ * @property {string} [resourceName=Resource]       Resource name.
+ * @property {string} [message=Resource not found.] Error message.
  */
 class NotFoundError extends Error {
   /**
    * Create not found error.
    *
-   * @param {string} message Error message.
+   * @param {string} [resourceName=Resource]  Resource name.
    */
-  constructor (message) {
+  constructor (resourceName = 'Resource') {
     super()
     Error.captureStackTrace(this, this.constructor)
     this.name = 'NotFoundError'
-    this.message = message
+    this.resourceName = resourceName
+    this.message = `${resourceName} not found.`
   }
 }
 

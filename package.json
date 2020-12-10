@@ -5,13 +5,14 @@
   "main": "src/index.js",
   "scripts": {
     "commit": "git-cz",
-    "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix",
+    "lint": "prettier-standard --lint",
+    "lint:check": "prettier-standard --lint --check",
+    "format": "prettier-standard --format",
+    "format:check": "prettier-standard --check",
     "test": "jest --config ./jest.config.js",
     "test:coverage": "npm test -- --coverage && cat ./coverage/lcov.info | coveralls",
     "semantic-release": "semantic-release",
-    "travis-deploy-once": "travis-deploy-once",
-    "doc": "jsdoc --configure jsdoc.json"
+    "docs": "rm -rf docs && jsdoc --configure jsdoc.json"
   },
   "repository": {
     "type": "git",
@@ -23,37 +24,41 @@
     "ekşisözlük",
     "eksisozluk"
   ],
-  "author": "Rıdvan Altun",
+  "author": {
+    "name": "Rıdvan Altun",
+    "email": "ridvanaltun@outlook.com",
+    "url": "https://ridvanaltun.github.io/"
+  },
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/ridvanaltun/eksi-sozluk/issues"
   },
   "homepage": "https://github.com/ridvanaltun/eksi-sozluk#readme",
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.0",
     "cheerio": "^1.0.0-rc.3",
-    "moment": "^2.29.0"
+    "form-data": "^3.0.0",
+    "moment": "^2.29.1",
+    "object-assign-deep": "^0.4.0",
+    "querystring": "^0.2.0",
+    "set-cookie-parser": "^2.4.6"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
-    "commitizen": "^4.2.1",
+    "commitizen": "^4.2.2",
     "coveralls": "^3.1.0",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^7.9.0",
-    "eslint-config-standard": "^15.0.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.2",
-    "husky": "^4.3.0",
-    "jest": "^26.4.2",
+    "eslint-plugin-jsdoc": "^30.7.8",
+    "husky": "^4.3.5",
+    "jest": "^26.6.3",
     "jsdoc": "^3.6.6",
-    "lint-staged": "^10.4.0",
+    "lint-staged": "^10.5.3",
     "minami": "^1.2.3",
-    "semantic-release": "^17.1.2"
+    "prettier-standard": "^16.4.1",
+    "semantic-release": "^17.3.0"
   },
   "husky": {
     "hooks": {
@@ -63,7 +68,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "./node_modules/.bin/eslint — fix --no-error-on-unmatched-pattern",
+      "prettier-standard --lint --staged",
       "git add"
     ]
   },

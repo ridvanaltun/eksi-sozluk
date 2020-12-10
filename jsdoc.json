@@ -1,27 +1,34 @@
 {
   "tags": {
-      "allowUnknownTags": true,
-      "dictionaries": ["jsdoc"]
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc"]
   },
   "source": {
-      "include": ["src/lib", "README.md", "src/exceptions"],
-      "includePattern": ".js$",
-      "excludePattern": "(node_modules/|docs)"
+    "include": [
+      "README.md",
+      "src/index.js",
+      "src/EksiGuest.js",
+      "src/EksiMember.js",
+      "src/EksiSozluk.js",
+      "src/models",
+      "src/enums",
+      "src/exceptions"
+    ],
+    "includePattern": ".js$",
+    "excludePattern": "(node_modules/|docs)"
   },
-  "plugins": [
-      "plugins/markdown"
-  ],
+  "plugins": ["plugins/markdown"],
   "templates": {
-      "cleverLinks": false,
-      "monospaceLinks": true,
-      "useLongnameInNav": false
+    "cleverLinks": false,
+    "monospaceLinks": true,
+    "useLongnameInNav": false
   },
   "opts": {
-      "destination": "./docs/",
-      "encoding": "utf8",
-      "private": true,
-      "recurse": true,
-      "template": "./node_modules/minami",
-      "tutorials": "./tutorials"
+    "destination": "./docs/",
+    "encoding": "utf8",
+    "private": true,
+    "recurse": true,
+    "template": "./node_modules/minami",
+    "tutorials": "./tutorials"
   }
 }
