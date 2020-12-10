@@ -1,0 +1,35 @@
+{
+  "01-getting-started":{
+     "title":"Getting Started"
+  },
+  "02-profile":{
+     "title":"Profile"
+  },
+  "03-trash":{
+     "title":"Trash"
+  },
+  "04-account":{
+     "title":"Account"
+  },
+  "05-titles":{
+     "title":"Titles"
+  },
+  "06-entries-and-drafts":{
+     "title":"Entries & Drafts"
+  },
+  "07-users":{
+     "title":"Users"
+  },
+  "08-tags":{
+     "title":"Tags"
+  },
+  "09-upload-and-delete-image":{
+     "title":"Upload & Delete Image"
+  },
+  "10-questions":{
+     "title":"Questions"
+  },
+  "11-miscellaneous":{
+     "title":"Miscellaneous"
+  }
+}
