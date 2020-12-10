@@ -74,8 +74,10 @@ class Tag {
         .find('h3 a')
         .attr('href')
 
+    const isAuth = this._cookies
+
     // bind auth properties
-    if (this._cookies) {
+    if (isAuth) {
       this.id = parseInt(
         $(elm)
           .find('button')

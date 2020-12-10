@@ -174,8 +174,10 @@ class User {
     this.entryCountToday = parseInt($('ul li#entry-count-today').text())
     this.lastEntryTime = lastEntryTime === '' ? null : lastEntryTime
 
+    const isAuth = this._cookies
+
     // bind auth properties
-    if (this._cookies) {
+    if (isAuth) {
       const note = $('#user-note').text()
       this.id = parseInt($('#who').attr('value'))
       this.isFollowed = $('#buddy-link').data('added') || false

@@ -211,8 +211,10 @@ class Entry {
     this.titleSlug = $('h1#title').data('slug')
     this.titleUrl = URLS.BASE + $('h1#title a').attr('href')
 
+    const isAuth = this._cookies
+
     // bind auth properties
-    if (this._cookies) {
+    if (isAuth) {
       this.isFavorited = $(elm).data('isfavorite')
       this.isDeleted = $(elm).attr('class') === 'deleted'
       this.isRookieEntry = $(elm).attr('class') === 'hidden'
