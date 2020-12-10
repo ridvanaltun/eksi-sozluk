@@ -47,7 +47,8 @@ const URLS = {
     'https://eksisozluk.com/ayarlar/cancelopenemailchangerequest',
   SETTINGS_PASSWORD: 'https://eksisozluk.com/ayarlar/sifre',
   SETTINGS_DELETE_ACCOUNT: 'https://eksisozluk.com/ayarlar/kaydi-kapat',
-  SETTINGS_CHANGE_USERNAME: 'https://eksisozluk.com/ayarlar/kullanici-adi'
+  SETTINGS_CHANGE_USERNAME: 'https://eksisozluk.com/ayarlar/kullanici-adi',
+  SETTINGS_CREATE_BACKUP: 'https://eksisozluk.com/ayarlar/yedek'
 }
 
 module.exports = {

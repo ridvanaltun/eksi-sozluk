@@ -496,6 +496,43 @@ class EksiMember extends EksiGuest {
   }
 
   /**
+   * Create backup.
+   *
+   * @returns {Promise} A promise for create backup.
+   */
+  createBackup () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: URLS.SETTINGS_CREATE_BACKUP,
+        method: 'POST',
+        responseType: 'arraybuffer',
+        headers: {
+          Cookie: this.cookies
+        },
+        validateStatus: status => {
+          // for catch five minute error
+          return status >= 200 && status < 500
+        }
+      }).then(res => {
+        const isSucc = res.status === 200
+        const isFiveMinuteError =
+          res.data.includes('yedekleri 5 dakika ara ile verebiliyoruz.') &&
+          res.status === 404
+
+        if (isFiveMinuteError) {
+          return reject(new Error('You can create backup every 5 minutes.'))
+        }
+
+        if (!isSucc) {
+          return reject(new Error('An unknow error occured.'))
+        }
+
+        resolve(res.data)
+      })
+    })
+  }
+
+  /**
    * Pin an entry to the profile.
    *
    * @param   {number}  entryId  Entry ID which user owns.
