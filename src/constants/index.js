@@ -41,7 +41,13 @@ const URLS = {
   BLOCK_USER: 'https://eksisozluk.com/userrelation/addrelation',
   UNBLOCK_USER: 'https://eksisozluk.com/userrelation/removerelation',
   BLOCK_USER_TITLES: 'https://eksisozluk.com/userrelation/addrelation',
-  UNBLOCK_USER_TITLES: 'https://eksisozluk.com/userrelation/removerelation'
+  UNBLOCK_USER_TITLES: 'https://eksisozluk.com/userrelation/removerelation',
+  SETTINGS_EMAIL: 'https://eksisozluk.com/ayarlar/email',
+  SETTINGS_CANCEL_UPDATE_EMAIL:
+    'https://eksisozluk.com/ayarlar/cancelopenemailchangerequest',
+  SETTINGS_PASSWORD: 'https://eksisozluk.com/ayarlar/sifre',
+  SETTINGS_DELETE_ACCOUNT: 'https://eksisozluk.com/ayarlar/kaydi-kapat',
+  SETTINGS_CHANGE_USERNAME: 'https://eksisozluk.com/ayarlar/kullanici-adi'
 }
 
 module.exports = {

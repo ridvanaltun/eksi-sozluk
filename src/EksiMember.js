@@ -1,5 +1,6 @@
 const axios = require('axios')
 const qs = require('querystring')
+const setCookie = require('set-cookie-parser')
 const fs = require('fs')
 const FormData = require('form-data')
 const EksiGuest = require('./EksiGuest')
@@ -143,6 +144,277 @@ class EksiMember extends EksiGuest {
         this.isNewEventAvailable = isNewEventAvailable
         resolve(isNewEventAvailable)
       })
+    })
+  }
+
+  /**
+   * Checking if your email address is in change status.
+   *
+   * @returns {Promise.<boolean>} Email address waiting for changing or not.
+   */
+  isEmailAddressInChangeStatus () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: URLS.SETTINGS_EMAIL,
+        method: 'GET',
+        headers: {
+          cookie: this.cookies
+        }
+      }).then(res => {
+        const isEmailAddresInChangingStatus = res.data.includes(
+          'değişikliği iptal et'
+        )
+        resolve(isEmailAddresInChangingStatus)
+      })
+    })
+  }
+
+  /**
+   * Cancel the email address change.
+   *
+   * @returns {Promise.<boolean>} A promise for cancel the email address change.
+   */
+  cancelEmailAddressChange () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: URLS.SETTINGS_EMAIL,
+        method: 'GET',
+        headers: {
+          cookie: this.cookies
+        }
+      })
+        .then(res => {
+          // validate page is in email change status
+
+          const isWaitingForCancelEmail = res.data.includes(
+            'değişikliği iptal et'
+          )
+
+          if (!isWaitingForCancelEmail) {
+            return reject(new Error('Not waiting for change email.'))
+          }
+
+          return res
+        })
+        .then(res => {
+          // parse csrf token
+          const csrfRegex = new RegExp(
+            '(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)',
+            'u'
+          )
+          const csrfToken = csrfRegex.exec(res.data)[0]
+
+          const cookies = setCookie.parse(res.headers['set-cookie'], {
+            map: true
+          })
+          const csrfTokenInCookies = cookies.__RequestVerificationToken.value
+
+          return { csrfToken, csrfTokenInCookies }
+        })
+        .then(async ({ csrfToken, csrfTokenInCookies }) => {
+          // cancel email address change
+          const _res = await axios({
+            url: URLS.SETTINGS_CANCEL_UPDATE_EMAIL,
+            method: 'POST',
+            headers: {
+              Cookie: `__RequestVerificationToken=${csrfTokenInCookies}; ${this.cookies}`
+            },
+            data: qs.stringify({
+              __RequestVerificationToken: csrfToken
+            })
+          })
+
+          return _res
+        })
+        .then(res => {
+          const isSucc = res.status === 200
+
+          if (!isSucc) {
+            return reject(new Error('An unknown error occured.'))
+          }
+
+          resolve()
+        })
+    })
+  }
+
+  /**
+   * Change your password.
+   *
+   * @param   {string}            currPassword  Your current password.
+   * @param   {string}            newPassword   A new password.
+   * @returns {Promise.<boolean>}               A promise for change password.
+   */
+  changePassword (currPassword, newPassword) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: URLS.SETTINGS_PASSWORD,
+        method: 'GET',
+        headers: {
+          cookie: this.cookies
+        }
+      })
+        .then(res => {
+          // parse csrf token
+          const csrfRegex = new RegExp(
+            '(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)',
+            'u'
+          )
+          const csrfToken = csrfRegex.exec(res.data)[0]
+
+          const cookies = setCookie.parse(res.headers['set-cookie'], {
+            map: true
+          })
+          const csrfTokenInCookies = cookies.__RequestVerificationToken.value
+
+          return { csrfToken, csrfTokenInCookies }
+        })
+        .then(async ({ csrfToken, csrfTokenInCookies }) => {
+          // change password
+          const _res = await axios({
+            url: URLS.SETTINGS_PASSWORD,
+            method: 'POST',
+            headers: {
+              Cookie: `__RequestVerificationToken=${csrfTokenInCookies}; ${this.cookies}`
+            },
+            data: qs.stringify({
+              __RequestVerificationToken: csrfToken,
+              OldPassword: currPassword,
+              Password: newPassword,
+              PasswordConfirm: newPassword
+            }),
+            validateStatus: status => {
+              // successful response returns 404 status so accept 4xx responses
+              return status >= 200 && status < 500
+            }
+          })
+
+          return _res
+        })
+        .then(res => {
+          const isSucc =
+            res.data.includes('şifreniz güncellendi') && res.status === 404
+          const isCurrPasswordWrong = res.data.includes(
+            'şu anki şifrenizi yanlış girdiniz'
+          )
+          const isUnknownErr = res.data.includes(
+            '<title>büyük başarısızlıklar sözkonusu - ekşi sözlük</title>'
+          )
+          const isTooManyRequest = res.status === 429
+
+          if (isTooManyRequest) {
+            return reject(new Error('Too many request for changing password.'))
+          }
+
+          if (isCurrPasswordWrong) {
+            return reject(new Error('Current password is wrong.'))
+          }
+
+          if (!isSucc || isUnknownErr) {
+            return reject(new Error('An unknown error occured.'))
+          }
+
+          // update cookies with the new token
+          const cookies = setCookie.parse(res.headers['set-cookie'], {
+            map: true
+          })
+          const newToken = cookies.a.value
+          this.cookies = `a=${newToken}`
+
+          resolve()
+        })
+    })
+  }
+
+  /**
+   * Delete your account.
+   *
+   * @param   {string}  password            Your current password.
+   * @param   {boolean} [hideEntries=false] Hide your entries.
+   * @returns {Promise}                     Promise.
+   */
+  deleteAccount (password, hideEntries = false) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: URLS.SETTINGS_DELETE_ACCOUNT,
+        method: 'POST',
+        headers: {
+          Cookie: this.cookies
+        },
+        data: qs.stringify({
+          Password: password,
+          HideEntries: hideEntries
+        })
+      }).then(res => {
+        resolve()
+      })
+    })
+  }
+
+  /**
+   * Change login username.
+   *
+   * @param   {string}  newUsername Your new login username.
+   * @param   {string}  password    Your current password.
+   * @returns {Promise}             Promise.
+   */
+  changeLoginUsername (newUsername, password) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: URLS.SETTINGS_CHANGE_USERNAME,
+        method: 'GET',
+        headers: {
+          cookie: this.cookies
+        }
+      })
+        .then(res => {
+          // parse csrf token
+          const csrfRegex = new RegExp(
+            '(?<=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)',
+            'u'
+          )
+          const csrfToken = csrfRegex.exec(res.data)[0]
+
+          const cookies = setCookie.parse(res.headers['set-cookie'], {
+            map: true
+          })
+          const csrfTokenInCookies = cookies.__RequestVerificationToken.value
+
+          return { csrfToken, csrfTokenInCookies }
+        })
+        .then(async ({ csrfToken, csrfTokenInCookies }) => {
+          // change password
+          const _res = await axios({
+            url: URLS.SETTINGS_CHANGE_USERNAME,
+            method: 'POST',
+            headers: {
+              Cookie: `__RequestVerificationToken=${csrfTokenInCookies}; ${this.cookies}`
+            },
+            data: qs.stringify({
+              __RequestVerificationToken: csrfToken,
+              Password: password,
+              NewLoginName: newUsername
+            }),
+            validateStatus: status => {
+              // successful response returns 404 status so accept 4xx responses
+              return status >= 200 && status < 500
+            }
+          })
+
+          return _res
+        })
+        .then(res => {
+          const isSucc =
+            res.data.includes(
+              'giriş için kullandığınız kullanıcı adını güncelledik'
+            ) && res.status === 404
+
+          if (!isSucc) {
+            return reject(new Error('An unknown error occured.'))
+          }
+
+          resolve()
+        })
     })
   }
 
