@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Home - Documentation</title>
+    <title>models/UserForMember.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,103 +29,299 @@
 
 <div id="main">
     
+    <h1 class="page-title">models/UserForMember.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const axios = require('axios')
+const qs = require('querystring')
+const User = require('./User')
+const { URLS } = require('../constants')
 
+/**
+ * User for members.
+ *
+ * @augments User
+ */
+class UserForMember extends User {
+  /**
+   * User ID.
+   *
+   * @type {number}
+   */
+  id
 
+  /**
+   * Is user followed?
+   *
+   * @type {boolean}
+   */
+  isFollowed
 
+  /**
+   * Is user blocked?
+   *
+   * @type {boolean}
+   */
+  isBlocked
 
+  /**
+   * Is user titles blocked?
+   *
+   * @type {boolean}
+   */
+  isTitlesBlocked
 
+  /**
+   * User note.
+   *
+   * @type {string}
+   */
+  note
 
+  /**
+   * Follow the user.
+   *
+   * @returns {Promise} Promise.
+   */
+  follow () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${URLS.FOLLOW_USER}/${this.id}`,
+        method: 'POST',
+        params: {
+          r: 'b'
+        },
+        headers: {
+          'x-requested-with': 'XMLHttpRequest',
+          cookie: this._cookies
+        }
+      }).then(res => {
+        this.isFollowed = true
+        resolve()
+      })
+    })
+  }
 
+  /**
+   * Unfollow the user.
+   *
+   * @returns {Promise} Promise.
+   */
+  unfollow () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${URLS.UNFOLLOW_USER}/${this.id}`,
+        method: 'POST',
+        params: {
+          r: 'b'
+        },
+        headers: {
+          'x-requested-with': 'XMLHttpRequest',
+          cookie: this._cookies
+        }
+      }).then(res => {
+        this.isFollowed = false
+        resolve()
+      })
+    })
+  }
 
+  /**
+   * Block the user.
+   *
+   * @returns {Promise} Promise.
+   */
+  block () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${URLS.BLOCK_USER}/${this.id}`,
+        method: 'POST',
+        params: {
+          r: 'm'
+        },
+        headers: {
+          'x-requested-with': 'XMLHttpRequest',
+          cookie: this._cookies
+        }
+      }).then(res => {
+        this.isBlocked = true
+        resolve()
+      })
+    })
+  }
 
-    
+  /**
+   * Unblock the user.
+   *
+   * @returns {Promise} Promise.
+   */
+  unblock () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${URLS.UNBLOCK_USER}/${this.id}`,
+        method: 'POST',
+        params: {
+          r: 'm'
+        },
+        headers: {
+          'x-requested-with': 'XMLHttpRequest',
+          cookie: this._cookies
+        }
+      }).then(res => {
+        this.isBlocked = false
+        resolve()
+      })
+    })
+  }
 
+  /**
+   * Block user titles.
+   *
+   * @returns {Promise} Promise.
+   */
+  blockTitles () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${URLS.BLOCK_USER_TITLES}/${this.id}`,
+        method: 'POST',
+        params: {
+          r: 'i'
+        },
+        headers: {
+          'x-requested-with': 'XMLHttpRequest',
+          cookie: this._cookies
+        }
+      }).then(res => {
+        this.isTitlesBlocked = true
+        resolve()
+      })
+    })
+  }
 
-    <section class="readme">
-        <article><h1>🍋 Eksi Sozluk NodeJS Client</h1>
-<p><a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly"></a>
-<a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
-<a href="https://travis-ci.com/ridvanaltun/eksi-sozluk"><img src="https://travis-ci.com/ridvanaltun/eksi-sozluk.svg?branch=master" alt="Build Status"></a>
-<a href="https://coveralls.io/github/ridvanaltun/eksi-sozluk?branch=master"><img src="https://coveralls.io/repos/github/ridvanaltun/eksi-sozluk/badge.svg?branch=master" alt="Coverage Status"></a>
-<a href="http://standardjs.com"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg" alt="js-standard-style"></a></p>
-<blockquote>
-<p>Consume Eksi Sozluk with NodeJS.</p>
-</blockquote>
-<h2>Installation</h2>
-<pre class="prettyprint source lang-bash"><code>npm install eksi-sozluk --save
+  /**
+   * Unblock user titles.
+   *
+   * @returns {Promise} Promise.
+   */
+  unblockTitles () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${URLS.UNBLOCK_USER_TITLES}/${this.id}`,
+        method: 'POST',
+        params: {
+          r: 'i'
+        },
+        headers: {
+          'x-requested-with': 'XMLHttpRequest',
+          cookie: this._cookies
+        }
+      }).then(res => {
+        this.isTitlesBlocked = false
+        resolve()
+      })
+    })
+  }
+
+  /**
+   * Send message to an user.
+   *
+   * @param   {string}  message Message.
+   * @returns {Promise}         Promise.
+   */
+  sendMessage (message) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: URLS.MESSAGE,
+        method: 'GET',
+        headers: {
+          cookie: this._cookies
+        }
+      })
+        .then(res => {
+          // parse csrf token
+          const csrfRegex = new RegExp(
+            '(?&lt;=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)',
+            'g'
+          )
+
+          // 0 -> message list form, 1 -> message send
+          // if 1 not exist 0 -> message send
+          const csrfTokens = csrfRegex.exec(res.data)
+          const csrfToken =
+            csrfTokens.length === 2 ? csrfTokens[1] : csrfTokens[0]
+
+          return csrfToken
+        })
+        .then(async csrfToken => {
+          // send message
+          const _res = await axios({
+            url: URLS.SEND_MESSAGE,
+            method: 'POST',
+            headers: {
+              cookie: this._cookies
+            },
+            data: qs.stringify({
+              __RequestVerificationToken: csrfToken,
+              To: this.username,
+              Message: message
+            })
+          })
+
+          return _res
+        })
+        .then(res => {
+          resolve()
+        })
+    })
+  }
+
+  /**
+   * Set the user note.
+   *
+   * @param   {string}  note  New note.
+   * @returns {Promise}       Promise.
+   */
+  setNote (note) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${URLS.BASE}/biri/${this.username}/note`,
+        method: 'POST',
+        data: qs.stringify({
+          who: this.id,
+          usernote: note
+        }),
+        headers: {
+          'x-requested-with': 'XMLHttpRequest',
+          cookie: this._cookies
+        }
+      }).then(res => {
+        this.note = note
+        resolve()
+      })
+    })
+  }
+
+  /**
+   * Clear the user note.
+   *
+   * @returns {Promise}  Promise.
+   */
+  async clearNote () {
+    await this.setNote('')
+  }
+}
+
+module.exports = UserForMember
 </code></pre>
-<h2>Documentation</h2>
-<p>Technical documentation is automatically created with <a href="https://github.com/jsdoc/jsdoc">JSDoc</a> after each new release.</p>
-<p><a href="https://ridvanaltun.github.io/eksi-sozluk/">You can find the technical documentation here!</a></p>
-<h3>Tutorials</h3>
-<p><strong>IMPORTANT:</strong> The tutorials are not fully covered for all use cases and its not mention all capabilities of the library, don't forget to check technical documentation if you didn't found anything you looking for.</p>
-<ul>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-01-getting-started.html">Getting Started</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-02-profile.html">Profile</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-03-trash.html">Trash</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-04-account.html">Account</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-05-titles.html">Titles</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-06-entries-and-drafts.html">Entries &amp; Drafts</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-07-users.html">Users</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-08-tags.html">Tags</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-09-upload-and-delete-image.html">Upload &amp; Delete Image</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-10-questions.html">Questions</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-11-miscellaneous.html">Miscellaneous</a></li>
-</ul>
-<h2>Development</h2>
-<pre class="prettyprint source lang-bash"><code># clone the repository
-git clone https://github.com/ridvanaltun/eksi-sozluk.git
-
-# go to the project and install depedencies
-cd eksi-sozluk & npm i
-</code></pre>
-<p>After these steps you can change the code. If you want test your changes; go to <code>__tests__</code> folder, find a proper test file or create one if necessary. if the test pass, ensure your code quality and write documantation. All after you are ready to send a PR.</p>
-<p>Check <a href="#scripts">scripts</a> section to learn how to run tests and linter (for <a href="#code-quality">code quality</a>).</p>
-<h3>Commit Messages</h3>
-<p>Every commit message must be <code>conventional commits</code> format.</p>
-<p><a href="https://www.conventionalcommits.org/en/v1.0.0/#summary">What is Conventional Commits?</a></p>
-<p>If you don't have a time just use <code>npm run commit</code> command instead of use Git.</p>
-<h3>Code Quality</h3>
-<p>Keeping code quality as good is a hard job in normally. Therefore, we are using EsLint (linter) and Prettier to keep and track the code quality. Not linted pull requests automatically deny from via Travis (CI/CD). You can lint your code using <a href="#scripts">scripts</a> section.</p>
-<p>In short, run <code>npm run lint</code> command.</p>
-<h3>NPM Scripts</h3>
-<pre class="prettyprint source lang-bash"><code># commit your changes with commitizen
-npm run commit
-
-# check linter and prettier errors, fix prettier errors in default
-npm run lint
-
-# check the linter and prettier errors
-npm run lint:check
-
-# run prettier
-npm run format
-
-# check prettier errors
-npm run format:check
-
-# run all tests
-npm run test
-
-# travis uses this script, it handles creating new releases
-npm run semantic-release
-
-# travis uses this script, it creates documentation with jsdoc
-npm run docs
-</code></pre>
-<h2>Special Thanks</h2>
-<p>I would like to thank <a href="https://github.com/kucukkanat">@kucukkanat</a> the owner original <code>eksi-sozluk</code> package for transferring the package's rights to me. The old package was in security holding status, nobody was using it.</p>
-<h2>License</h2>
-<p><a href="https://github.com/ridvanaltun/eksi-sozluk/blob/master/LICENSE">GNU General Public License v3.0</a></p></article>
+        </article>
     </section>
-
-
 
 
 

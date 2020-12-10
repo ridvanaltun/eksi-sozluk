@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Global - Documentation</title>
+    <title>EksiSozluk - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">EksiSozluk</h1>
     
 
     
@@ -42,8 +42,10 @@
 <header>
     
         <h2>
-        
+        EksiSozluk
         </h2>
+        
+            <div class="class-description"><p>Manage all Eksi Sozluk abilities.</p></div>
         
     
 </header>
@@ -52,8 +54,24 @@
     <div class="container-overview">
     
         
+<div class="section-method">
 
-        
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="EksiSozluk"><span class="type-signature"></span>new EksiSozluk<span class="signature">(options)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Create an Eksi Sozluk instance.</p>
+</div>
+
+
+
 
 
 <dl class="details">
@@ -83,6 +101,11 @@
     
 
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="EksiSozluk.js.html">EksiSozluk.js</a>, <a href="EksiSozluk.js.html#line16">line 16</a>
+    </li></ul></dd>
+    
 
     
 
@@ -92,9 +115,257 @@
 </dl>
 
 
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
         
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Eksi Sozluk instance settings</p>
+                
+                    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>httpClient</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Axios settings as HTTP client, all Axios settings are useable</p>
+                
+                    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>timeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    3000
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Timeout of requests in miliseconds</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>baseURL</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    https://eksisozluk.com
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Base URL of Eksi Sozluk, you can use proxy here</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
     
     </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="EksiGuest.html">EksiGuest</a></li>
+    </ul>
+
 
     
 
@@ -107,29 +378,87 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
+
+    
+        <h3 class="subsection-title">Methods</h3>
 
         
             
-<div class="section-members">
-<h4 class="name" id="COLLECTION_TYPES"><span class="type-signature">(constant) </span>COLLECTION_TYPES<span class="type-signature"> :<a href="global.html#CollectionType">CollectionType</a></span></h4>
+<div class="section-method">
 
+    
+
+    <h4 class="name" id="agenda"><span class="type-signature">(async) </span>agenda<span class="signature">(options)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="TitleCollection.html">TitleCollection</a>>}</span></h4>
+
+    
 
 
 
 <div class="description">
-    <p>Entry sorting or filtering types.</p>
+    <p>Fetch agenda.</p>
 </div>
 
 
 
 
 
-    <h5 class="subsection-title">Properties:</h5>
+<dl class="details">
 
     
 
-<table class="props">
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="EksiGuest.html#agenda">EksiGuest#agenda</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="EksiGuest.js.html">EksiGuest.js</a>, <a href="EksiGuest.js.html#line149">line 149</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -151,13 +480,13 @@
 
         <tr>
             
-                <td class="name"><code>NICE</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code><a href="global.html#CollectionType">CollectionType</a></code></span>
+<span class="param-type"><code>object</code></span>
 
 
             
@@ -167,297 +496,12 @@
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>DAILY_NICE</code></td>
-            
-
-            <td class="type">
-            
+            <td class="description last">
+                <p>Parameters that user can specify.</p>
                 
-<span class="param-type"><code><a href="global.html#CollectionType">CollectionType</a></code></span>
+                    
 
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ROOKIES</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#CollectionType">CollectionType</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>EKSI_SEYLER</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#CollectionType">CollectionType</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>IMAGES</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#CollectionType">CollectionType</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>LINKS</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#CollectionType">CollectionType</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>AUTHOR</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#CollectionType">CollectionType</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>BUDDY</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#CollectionType">CollectionType</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>FIND</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#CollectionType">CollectionType</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="enums_index.js.html">enums/index.js</a>, <a href="enums_index.js.html#line67">line 67</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code><a href="global.html#CollectionType">CollectionType</a></code></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</div>
-
-        
-            
-<div class="section-members">
-<h4 class="name" id="TAGS"><span class="type-signature">(constant) </span>TAGS<span class="type-signature"> :<a href="global.html#TagName">TagName</a></span></h4>
-
-
-
-
-<div class="description">
-    <p>Tag names.</p>
-</div>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -467,7 +511,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -479,1442 +527,113 @@
 
         <tr>
             
-                <td class="name"><code>SPOR</code></td>
+                <td class="name"><code>page</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ILISKILER</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>SIYASET</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>SEYAHAT</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>MUZIK</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>TV</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>HABER</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>BILIM</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>EDEBIYAT</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>EGITIM</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>EKONOMI</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>TROLL</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>HAVACILIK</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>PROGRAMLAMA</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ANKET</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>OYUN</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>SAGLIK</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>MOTOSIKLET</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>EKSI_SOZLUK</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>MAGAZIN</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>OTOMOTIV</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>MODA</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>SANAT</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>TEKNOLOJI</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>TARIH</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>YEME_ICME</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>SPOILER</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>SINEMA</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="enums_index.js.html">enums/index.js</a>, <a href="enums_index.js.html#line27">line 27</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</div>
-
-        
-            
-<div class="section-members">
-<h4 class="name" id="TITLE_TYPES"><span class="type-signature">(constant) </span>TITLE_TYPES<span class="type-signature"> :<a href="global.html#TitleType">TitleType</a></span></h4>
-
-
-
-
-<div class="description">
-    <p>Title types.</p>
-</div>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>TITLE</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TitleType">TitleType</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>DRAFT</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TitleType">TitleType</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>FOLLOWED_USER</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TitleType">TitleType</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>FOLLOWED_USER_FAVORITE_ENTRY</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TitleType">TitleType</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>QUESTION</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="global.html#TitleType">TitleType</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="enums_index.js.html">enums/index.js</a>, <a href="enums_index.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code><a href="global.html#TitleType">TitleType</a></code></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</div>
-
-        
-    
-
-    
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        
-                
-<div class="section-members">
-<h4 class="name" id="CollectionType">CollectionType</h4>
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="enums_index.js.html">enums/index.js</a>, <a href="enums_index.js.html#line58">line 58</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code>string</code></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</div>
-
-            
-                
-<div class="section-members">
-<h4 class="name" id="SessionToken">SessionToken</h4>
-
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Token string.</p></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>expiresAt</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Date</code></span>
-|
-
-<span class="param-type"><code>null</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>When will token expires?</p></td>
-        </tr>
-
-        
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="EksiSozluk.js.html">EksiSozluk.js</a>, <a href="EksiSozluk.js.html#line90">line 90</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-</div>
-
-            
-                
-<div class="section-members">
-<h4 class="name" id="TagName">TagName</h4>
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="enums_index.js.html">enums/index.js</a>, <a href="enums_index.js.html#line18">line 18</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code>string</code></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</div>
-
-            
-                
-<div class="section-members">
-<h4 class="name" id="TitleType">TitleType</h4>
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="enums_index.js.html">enums/index.js</a>, <a href="enums_index.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
 <span class="param-type"><code>number</code></span>
 
 
-        </li>
-    </ul>
-
-
-
-
-
-</div>
-
-            
-                
-<div class="section-members">
-<h4 class="name" id="UploadedImage">UploadedImage</h4>
-
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>url</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
             
             </td>
 
             
-
-            
-
-            <td class="description last"><p>Image url.</p></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type"><code>string</code></span>
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
+            
 
             
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Page number.</p>
+                
             </td>
-
-            
-
-            
-
-            <td class="description last"><p>Image key.</p></td>
         </tr>
-
-        
 
     
     </tbody>
 </table>
+
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;<a href="TitleCollection.html">TitleCollection</a>></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the agenda titles.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="createToken"><span class="type-signature"></span>createToken<span class="signature">(email, password, options)</span><span class="type-signature"> &rarr; {<a href="global.html#SessionToken">SessionToken</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Create Eksi Sozluk session token with your credentials.</p>
+</div>
+
 
 
 
@@ -1948,7 +667,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="EksiMember.js.html">EksiMember.js</a>, <a href="EksiMember.js.html#line851">line 851</a>
+        <a href="EksiSozluk.js.html">EksiSozluk.js</a>, <a href="EksiSozluk.js.html#line106">line 106</a>
     </li></ul></dd>
     
 
@@ -1965,25 +684,12 @@
 
 
 
-</div>
-
-            
-                
-<div class="section-members">
-<h4 class="name" id="UserBadge">UserBadge</h4>
 
 
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
+    <h5>Parameters:</h5>
     
 
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -2005,7 +711,7 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>email</code></td>
             
 
             <td class="type">
@@ -2021,25 +727,23 @@
 
             
 
-            <td class="description last"><p>Badge name.</p></td>
+            <td class="description last">
+                <p>Your email address.</p>
+                
+            </td>
         </tr>
-
-        
 
     
 
         <tr>
             
-                <td class="name"><code>description</code></td>
+                <td class="name"><code>password</code></td>
             
 
             <td class="type">
             
                 
 <span class="param-type"><code>string</code></span>
-|
-
-<span class="param-type"><code>null</code></span>
 
 
             
@@ -2049,14 +753,862 @@
 
             
 
-            <td class="description last"><p>Badge description.</p></td>
+            <td class="description last">
+                <p>Your password.</p>
+                
+            </td>
         </tr>
 
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Parameters that user can specify.</p>
+                
+                    
+
+<table class="params">
+    <thead>
+    <tr>
         
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>extendTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>boolean</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>If true, token will expire at 2 weeks later.</p>
+                
+            </td>
+        </tr>
 
     
     </tbody>
 </table>
+
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-throws">
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>User not authorized, password or email is wrong.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type"><code><a href="AuthError.html">AuthError</a></code></span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+</div>
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code><a href="global.html#SessionToken">SessionToken</a></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>Eksi Sozluk session token.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="debeEntries"><span class="type-signature">(async) </span>debeEntries<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.Array.&lt;<a href="Entry.html">Entry</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Fetch yesterday's top entries.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="EksiGuest.html#debeEntries">EksiGuest#debeEntries</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="EksiGuest.js.html">EksiGuest.js</a>, <a href="EksiGuest.js.html#line162">line 162</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.Array.&lt;<a href="Entry.html">Entry</a>></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the yesterday's top entries.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="entries"><span class="type-signature">(async) </span>entries<span class="signature">(title, options)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="EntryCollection.html">EntryCollection</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Fetch entries.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="EksiGuest.html#entries">EksiGuest#entries</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="EksiGuest.js.html">EksiGuest.js</a>, <a href="EksiGuest.js.html#line66">line 66</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Title itself.</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Parameters that user can specify.</p>
+                
+                    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Page number.</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="global.html#CollectionType">CollectionType</a></code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Sorting or filtering type.</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>author</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Username, if type is 'author' set this parameter.</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>search</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Search text, if type is 'find' set this parameter.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;<a href="EntryCollection.html">EntryCollection</a>></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the entries.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="entryById"><span class="type-signature">(async) </span>entryById<span class="signature">(entryId)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Entry.html">Entry</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Fetch entry by id.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="EksiGuest.html#entryById">EksiGuest#entryById</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="EksiGuest.js.html">EksiGuest.js</a>, <a href="EksiGuest.js.html#line48">line 48</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>entryId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Entry Id.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;<a href="Entry.html">Entry</a>></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the entry.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="isAuthenticated"><span class="type-signature"></span>isAuthenticated<span class="signature">(cookies<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Chech is user authenticated or not.</p>
+</div>
+
 
 
 
@@ -2090,7 +1642,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_User.js.html">models/User.js</a>, <a href="models_User.js.html#line32">line 32</a>
+        <a href="EksiSozluk.js.html">EksiSozluk.js</a>, <a href="EksiSozluk.js.html#line51">line 51</a>
     </li></ul></dd>
     
 
@@ -2107,25 +1659,12 @@
 
 
 
-</div>
-
-            
-                
-<div class="section-members">
-<h4 class="name" id="UserBadge">UserBadge</h4>
 
 
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
+    <h5>Parameters:</h5>
     
 
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -2135,7 +1674,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -2147,7 +1690,7 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>cookies</code></td>
             
 
             <td class="type">
@@ -2160,45 +1703,92 @@
             </td>
 
             
-
-            
-
-            <td class="description last"><p>Badge name.</p></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>description</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type"><code>string</code></span>
-|
+                    &lt;optional><br>
+                
 
-<span class="param-type"><code>null</code></span>
+                
 
+                
+                </td>
+            
 
             
+                <td class="default">
+                
+                    this.cookies
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Cookies string.</p>
+                
             </td>
-
-            
-
-            
-
-            <td class="description last"><p>Badge description.</p></td>
         </tr>
-
-        
 
     
     </tbody>
 </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;boolean></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>If user authenticated returns true, otherwise false.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="isRecaptchaRequired"><span class="type-signature"></span>isRecaptchaRequired<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Is verify recaptcha required to login?</p>
+</div>
+
 
 
 
@@ -2232,7 +1822,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_User.js.html">models/User.js</a>, <a href="models_User.js.html#line32">line 32</a>
+        <a href="EksiSozluk.js.html">EksiSozluk.js</a>, <a href="EksiSozluk.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -2249,98 +1839,64 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;boolean></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>If recaptcha required returns true, otherwise false.</p>
 </div>
 
+    
+</div>
+
+
+
+</div>
+        
             
-                
-<div class="section-members">
-<h4 class="name" id="UserBadge">UserBadge</h4>
-
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
+<div class="section-method">
 
     
 
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Badge name.</p></td>
-        </tr>
-
-        
+    <h4 class="name" id="login"><span class="type-signature">(async) </span>login<span class="signature">(email, password)</span><span class="type-signature"> &rarr; {<a href="EksiMember.html">EksiMember</a>}</span></h4>
 
     
 
-        <tr>
-            
-                <td class="name"><code>description</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-|
-
-<span class="param-type"><code>null</code></span>
 
 
-            
-            </td>
+<div class="description">
+    <p>Login Eksi Sozluk with your credentials.</p>
+</div>
 
-            
-
-            
-
-            <td class="description last"><p>Badge description.</p></td>
-        </tr>
-
-        
-
-    
-    </tbody>
-</table>
 
 
 
@@ -2374,7 +1930,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_User.js.html">models/User.js</a>, <a href="models_User.js.html#line32">line 32</a>
+        <a href="EksiSozluk.js.html">EksiSozluk.js</a>, <a href="EksiSozluk.js.html#line203">line 203</a>
     </li></ul></dd>
     
 
@@ -2391,25 +1947,12 @@
 
 
 
-</div>
-
-            
-                
-<div class="section-members">
-<h4 class="name" id="UserBadge">UserBadge</h4>
 
 
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
+    <h5>Parameters:</h5>
     
 
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -2431,7 +1974,7 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>email</code></td>
             
 
             <td class="type">
@@ -2447,25 +1990,23 @@
 
             
 
-            <td class="description last"><p>Badge name.</p></td>
+            <td class="description last">
+                <p>Your email address.</p>
+                
+            </td>
         </tr>
-
-        
 
     
 
         <tr>
             
-                <td class="name"><code>description</code></td>
+                <td class="name"><code>password</code></td>
             
 
             <td class="type">
             
                 
 <span class="param-type"><code>string</code></span>
-|
-
-<span class="param-type"><code>null</code></span>
 
 
             
@@ -2475,14 +2016,105 @@
 
             
 
-            <td class="description last"><p>Badge description.</p></td>
+            <td class="description last">
+                <p>Your password.</p>
+                
+            </td>
         </tr>
-
-        
 
     
     </tbody>
 </table>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-throws">
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>User not authorized, password or email is wrong.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type"><code><a href="AuthError.html">AuthError</a></code></span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+</div>
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code><a href="EksiMember.html">EksiMember</a></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>Eksi Sozluk session.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="loginWithToken"><span class="type-signature">(async) </span>loginWithToken<span class="signature">(token)</span><span class="type-signature"> &rarr; {<a href="EksiMember.html">EksiMember</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Login Eksi Sozluk with session cookie.</p>
+</div>
+
 
 
 
@@ -2516,7 +2148,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_User.js.html">models/User.js</a>, <a href="models_User.js.html#line32">line 32</a>
+        <a href="EksiSozluk.js.html">EksiSozluk.js</a>, <a href="EksiSozluk.js.html#line222">line 222</a>
     </li></ul></dd>
     
 
@@ -2533,25 +2165,12 @@
 
 
 
-</div>
-
-            
-                
-<div class="section-members">
-<h4 class="name" id="UserBadge">UserBadge</h4>
 
 
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
+    <h5>Parameters:</h5>
     
 
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -2573,7 +2192,7 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>token</code></td>
             
 
             <td class="type">
@@ -2589,42 +2208,105 @@
 
             
 
-            <td class="description last"><p>Badge name.</p></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>description</code></td>
-            
-
-            <td class="type">
-            
+            <td class="description last">
+                <p>Session token of member.</p>
                 
-<span class="param-type"><code>string</code></span>
-|
-
-<span class="param-type"><code>null</code></span>
-
-
-            
             </td>
-
-            
-
-            
-
-            <td class="description last"><p>Badge description.</p></td>
         </tr>
-
-        
 
     
     </tbody>
 </table>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-throws">
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>User not authorized.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type"><code><a href="AuthError.html">AuthError</a></code></span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+</div>
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code><a href="EksiMember.html">EksiMember</a></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>Eksi Sozluk session.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="questionsInAgenda"><span class="type-signature">(async) </span>questionsInAgenda<span class="signature">(options)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="TitleCollection.html">TitleCollection</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Fetch questions in agenda.</p>
+</div>
+
 
 
 
@@ -2637,6 +2319,11 @@
 
     
 
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="EksiGuest.html#questionsInAgenda">EksiGuest#questionsInAgenda</a>
+    </li></ul></dd>
     
 
     
@@ -2658,7 +2345,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_User.js.html">models/User.js</a>, <a href="models_User.js.html#line32">line 32</a>
+        <a href="EksiGuest.js.html">EksiGuest.js</a>, <a href="EksiGuest.js.html#line173">line 173</a>
     </li></ul></dd>
     
 
@@ -2675,25 +2362,12 @@
 
 
 
-</div>
-
-            
-                
-<div class="section-members">
-<h4 class="name" id="UserBadge">UserBadge</h4>
 
 
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
+    <h5>Parameters:</h5>
     
 
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -2715,13 +2389,13 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>string</code></span>
+<span class="param-type"><code>object</code></span>
 
 
             
@@ -2731,42 +2405,144 @@
 
             
 
-            <td class="description last"><p>Badge name.</p></td>
-        </tr>
+            <td class="description last">
+                <p>Parameters that user can specify.</p>
+                
+                    
 
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
         
 
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>description</code></td>
+                <td class="name"><code>page</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>string</code></span>
-|
-
-<span class="param-type"><code>null</code></span>
+<span class="param-type"><code>number</code></span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>Badge description.</p></td>
-        </tr>
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
 
-        
+            <td class="description last">
+                <p>Page number.</p>
+                
+            </td>
+        </tr>
 
     
     </tbody>
 </table>
+
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;<a href="TitleCollection.html">TitleCollection</a>></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the agenda titles in agenda.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="questionsInToday"><span class="type-signature">(async) </span>questionsInToday<span class="signature">(options)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="TitleCollection.html">TitleCollection</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Fetch questions in today.</p>
+</div>
+
 
 
 
@@ -2779,6 +2555,11 @@
 
     
 
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="EksiGuest.html#questionsInToday">EksiGuest#questionsInToday</a>
+    </li></ul></dd>
     
 
     
@@ -2800,7 +2581,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_User.js.html">models/User.js</a>, <a href="models_User.js.html#line32">line 32</a>
+        <a href="EksiGuest.js.html">EksiGuest.js</a>, <a href="EksiGuest.js.html#line189">line 189</a>
     </li></ul></dd>
     
 
@@ -2817,25 +2598,12 @@
 
 
 
-</div>
-
-            
-                
-<div class="section-members">
-<h4 class="name" id="UserBadge">UserBadge</h4>
 
 
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
+    <h5>Parameters:</h5>
     
 
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -2857,13 +2625,13 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>string</code></span>
+<span class="param-type"><code>object</code></span>
 
 
             
@@ -2873,42 +2641,144 @@
 
             
 
-            <td class="description last"><p>Badge name.</p></td>
-        </tr>
+            <td class="description last">
+                <p>Parameters that user can specify.</p>
+                
+                    
 
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
         
 
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>description</code></td>
+                <td class="name"><code>page</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>string</code></span>
-|
-
-<span class="param-type"><code>null</code></span>
+<span class="param-type"><code>number</code></span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>Badge description.</p></td>
-        </tr>
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
 
-        
+            <td class="description last">
+                <p>Page number.</p>
+                
+            </td>
+        </tr>
 
     
     </tbody>
 </table>
+
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;<a href="TitleCollection.html">TitleCollection</a>></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the agenda titles in today.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="search"><span class="type-signature">(async) </span>search<span class="signature">(text)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="SearchResults.html">SearchResults</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Search things.</p>
+</div>
+
 
 
 
@@ -2921,6 +2791,11 @@
 
     
 
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="EksiGuest.html#search">EksiGuest#search</a>
+    </li></ul></dd>
     
 
     
@@ -2942,7 +2817,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_User.js.html">models/User.js</a>, <a href="models_User.js.html#line32">line 32</a>
+        <a href="EksiGuest.js.html">EksiGuest.js</a>, <a href="EksiGuest.js.html#line35">line 35</a>
     </li></ul></dd>
     
 
@@ -2959,9 +2834,1141 @@
 
 
 
-</div>
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
 
             
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Search text.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;<a href="SearchResults.html">SearchResults</a>></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the search results.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="tags"><span class="type-signature">(async) </span>tags<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.Array.&lt;<a href="Tag.html">Tag</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Fetch tags.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="EksiGuest.html#tags">EksiGuest#tags</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="EksiGuest.js.html">EksiGuest.js</a>, <a href="EksiGuest.js.html#line122">line 122</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.Array.&lt;<a href="Tag.html">Tag</a>></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the tags.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="titlesByTag"><span class="type-signature">(async) </span>titlesByTag<span class="signature">(tagName, options)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="TitleCollection.html">TitleCollection</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Fetch titles by tag.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="EksiGuest.html#titlesByTag">EksiGuest#titlesByTag</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="EksiGuest.js.html">EksiGuest.js</a>, <a href="EksiGuest.js.html#line134">line 134</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>tagName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="global.html#TagName">TagName</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Tag name.</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Parameters that user can specify.</p>
+                
+                    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Page number.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;<a href="TitleCollection.html">TitleCollection</a>></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the titles of given tag.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="todayInHistory"><span class="type-signature">(async) </span>todayInHistory<span class="signature">(year, options)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="TitleCollection.html">TitleCollection</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Fetch today in history.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="EksiGuest.html#todayInHistory">EksiGuest#todayInHistory</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="EksiGuest.js.html">EksiGuest.js</a>, <a href="EksiGuest.js.html#line81">line 81</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>year</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Which year.</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Parameters that user can specify.</p>
+                
+                    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Page number.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;<a href="TitleCollection.html">TitleCollection</a>></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the titles of today in history.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="untaggedTitles"><span class="type-signature">(async) </span>untaggedTitles<span class="signature">(options)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="TitleCollection.html">TitleCollection</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Fetch untagged titles.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="EksiGuest.html#untaggedTitles">EksiGuest#untaggedTitles</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="EksiGuest.js.html">EksiGuest.js</a>, <a href="EksiGuest.js.html#line96">line 96</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Parameters that user can specify.</p>
+                
+                    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Page number.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;<a href="TitleCollection.html">TitleCollection</a>></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for untagged titles.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="user"><span class="type-signature">(async) </span>user<span class="signature">(username)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="User.html">User</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Fetch user.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="EksiGuest.html#user">EksiGuest#user</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="EksiGuest.js.html">EksiGuest.js</a>, <a href="EksiGuest.js.html#line110">line 110</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Username.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;<a href="User.html">User</a>></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A promise for the user.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+    
+
     
 
     

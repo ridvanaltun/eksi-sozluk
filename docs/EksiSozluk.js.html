@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Home - Documentation</title>
+    <title>EksiSozluk.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,103 +29,258 @@
 
 <div id="main">
     
+    <h1 class="page-title">EksiSozluk.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const axios = require('axios')
+const setCookie = require('set-cookie-parser')
+const qs = require('querystring')
+const objectAssignDeep = require('object-assign-deep')
+const EksiGuest = require('./EksiGuest')
+const EksiMember = require('./EksiMember')
+const { request } = require('./utils')
+const { URLS } = require('./constants')
+const { AuthError } = require('./exceptions')
 
+/**
+ * Manage all Eksi Sozluk abilities.
+ *
+ * @augments EksiGuest
+ */
+class EksiSozluk extends EksiGuest {
+  /**
+   * Create an Eksi Sozluk instance.
+   *
+   * @param   {object}  options                                             Eksi Sozluk instance settings
+   * @param   {object}  options.httpClient                                  Axios settings as HTTP client, all Axios settings are useable
+   * @param   {number}  [options.httpClient.timeout=3000]                   Timeout of requests in miliseconds
+   * @param   {string}  [options.httpClient.baseURL=https://eksisozluk.com] Base URL of Eksi Sozluk, you can use proxy here
+   */
+  constructor (options = {}) {
+    // handle default options
+    const _options = objectAssignDeep(
+      {
+        httpClient: {
+          timeout: 3000,
+          baseURL: URLS.BASE
+        }
+      },
+      options
+    )
 
+    // make http client ready
+    const httpClient = axios.create(_options.httpClient)
 
+    super(httpClient)
 
+    this._request = request(httpClient)
+  }
 
+  /**
+   * Chech is user authenticated or not.
+   *
+   * @param   {string}            [cookies=this.cookies]  Cookies string.
+   * @returns {Promise.&lt;boolean>}                         If user authenticated returns true, otherwise false.
+   */
+  isAuthenticated (cookies = this.cookies) {
+    return new Promise((resolve, reject) => {
+      if (cookies) {
+        axios({
+          url: URLS.BASE,
+          method: 'GET',
+          headers: {
+            cookie: cookies
+          }
+        }).then(res => {
+          const isLoggedIn = res.data.includes('data-logged-in="true"')
+          resolve(isLoggedIn)
+        })
+      } else {
+        // cookies not exist, return false
+        resolve(false)
+      }
+    })
+  }
 
+  /**
+   * Is verify recaptcha required to login?
+   *
+   * @returns {Promise.&lt;boolean>} If recaptcha required returns true, otherwise false.
+   */
+  isRecaptchaRequired () {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: URLS.LOGIN,
+        method: 'GET'
+      }).then(res => {
+        // check recaptcha
+        const isRecaptchaRequired = res.data.includes('g-recaptcha')
 
+        resolve(isRecaptchaRequired)
+      })
+    })
+  }
 
+  /**
+   * @typedef SessionToken
+   * @property {string}       value     Token string.
+   * @property {(Date|null)}  expiresAt When will token expires?
+   */
 
-    
+  /**
+   * Create Eksi Sozluk session token with your credentials.
+   *
+   * @param   {string}        email                       Your email address.
+   * @param   {string}        password                    Your password.
+   * @param   {object}        options                     Parameters that user can specify.
+   * @param   {boolean}       [options.extendTime=false]  If true, token will expire at 2 weeks later.
+   * @returns {SessionToken}                              Eksi Sozluk session token.
+   * @throws  {AuthError}                                 User not authorized, password or email is wrong.
+   */
+  createToken (email, password, options = {}) {
+    return new Promise((resolve, reject) => {
+      // handle default options
+      const _options = objectAssignDeep(
+        {
+          extendTime: false
+        },
+        options
+      )
 
+      axios({
+        url: URLS.LOGIN,
+        method: 'GET'
+      })
+        .then(res => {
+          // check recaptcha
+          const isRecaptchaRequired = res.data.includes('g-recaptcha')
 
-    <section class="readme">
-        <article><h1>🍋 Eksi Sozluk NodeJS Client</h1>
-<p><a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly"></a>
-<a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
-<a href="https://travis-ci.com/ridvanaltun/eksi-sozluk"><img src="https://travis-ci.com/ridvanaltun/eksi-sozluk.svg?branch=master" alt="Build Status"></a>
-<a href="https://coveralls.io/github/ridvanaltun/eksi-sozluk?branch=master"><img src="https://coveralls.io/repos/github/ridvanaltun/eksi-sozluk/badge.svg?branch=master" alt="Coverage Status"></a>
-<a href="http://standardjs.com"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg" alt="js-standard-style"></a></p>
-<blockquote>
-<p>Consume Eksi Sozluk with NodeJS.</p>
-</blockquote>
-<h2>Installation</h2>
-<pre class="prettyprint source lang-bash"><code>npm install eksi-sozluk --save
+          if (isRecaptchaRequired) {
+            return reject(new Error('Recaptcha Required'))
+          }
+
+          return res
+        })
+        .then(res => {
+          // parse csrf token and cookies
+          const csrfRegex = new RegExp(
+            '(?&lt;=input name="__RequestVerificationToken" type="hidden" value=")(.*)(?=" />)',
+            'u'
+          )
+          const csrfToken = csrfRegex.exec(res.data)[0]
+
+          const cookies = setCookie.parse(res.headers['set-cookie'], {
+            map: true
+          })
+          const csrfTokenInCookies = cookies.__RequestVerificationToken.value
+
+          return { csrfToken, csrfTokenInCookies }
+        })
+        .then(async ({ csrfToken, csrfTokenInCookies }) => {
+          const requestBody = {
+            UserName: email,
+            Password: password,
+            RememberMe: _options.extendTime,
+            __RequestVerificationToken: csrfToken
+          }
+
+          const config = {
+            maxRedirects: 0,
+            validateStatus: status => {
+              return status === 302 // accept just redirects
+            },
+            headers: {
+              Cookie: `__RequestVerificationToken=${csrfTokenInCookies};`
+            }
+          }
+
+          return await axios.post(URLS.LOGIN, qs.stringify(requestBody), config)
+        })
+        .then(res => {
+          const isUnknownError = res.data.includes(
+            '&lt;title>büyük başarısızlıklar sözkonusu - ekşi sözlük&lt;/title>'
+          )
+
+          if (isUnknownError) {
+            return reject(new Error('Unknown Error'))
+          }
+
+          const cookies = setCookie.parse(res.headers['set-cookie'], {
+            map: true
+          })
+
+          resolve({
+            value: cookies.a.value, // token
+            expiresAt: cookies.a.expires || null
+          })
+        })
+        .catch(err => {
+          // password or username is wrong
+          if (err.response &amp;&amp; err.response.status === 404) {
+            return reject(new AuthError())
+          }
+
+          // handle other errors
+          reject(err)
+        })
+    })
+  }
+
+  /**
+   * Login Eksi Sozluk with your credentials.
+   *
+   * @param   {string}      email     Your email address.
+   * @param   {string}      password  Your password.
+   * @returns {EksiMember}            Eksi Sozluk session.
+   * @throws  {AuthError}             User not authorized, password or email is wrong.
+   */
+  async login (email, password) {
+    const token = await this.createToken(email, password, { extendTime: true })
+    const cookie = `a=${token.value}`
+
+    // no need for validate the session token
+
+    const member = new EksiMember(this.httpClient, cookie)
+    await member.retrieve()
+
+    return member
+  }
+
+  /**
+   * Login Eksi Sozluk with session cookie.
+   *
+   * @param   {string}     token   Session token of member.
+   * @returns {EksiMember}         Eksi Sozluk session.
+   * @throws  {AuthError}          User not authorized.
+   */
+  async loginWithToken (token) {
+    const cookie = `a=${token}`
+
+    // check given session token
+    const isAuthenticated = await this.isAuthenticated(cookie)
+
+    if (!isAuthenticated) {
+      throw new AuthError()
+    }
+
+    const member = new EksiMember(this.httpClient, cookie)
+    await member.retrieve()
+
+    return member
+  }
+}
+
+module.exports = EksiSozluk
 </code></pre>
-<h2>Documentation</h2>
-<p>Technical documentation is automatically created with <a href="https://github.com/jsdoc/jsdoc">JSDoc</a> after each new release.</p>
-<p><a href="https://ridvanaltun.github.io/eksi-sozluk/">You can find the technical documentation here!</a></p>
-<h3>Tutorials</h3>
-<p><strong>IMPORTANT:</strong> The tutorials are not fully covered for all use cases and its not mention all capabilities of the library, don't forget to check technical documentation if you didn't found anything you looking for.</p>
-<ul>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-01-getting-started.html">Getting Started</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-02-profile.html">Profile</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-03-trash.html">Trash</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-04-account.html">Account</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-05-titles.html">Titles</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-06-entries-and-drafts.html">Entries &amp; Drafts</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-07-users.html">Users</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-08-tags.html">Tags</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-09-upload-and-delete-image.html">Upload &amp; Delete Image</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-10-questions.html">Questions</a></li>
-<li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-11-miscellaneous.html">Miscellaneous</a></li>
-</ul>
-<h2>Development</h2>
-<pre class="prettyprint source lang-bash"><code># clone the repository
-git clone https://github.com/ridvanaltun/eksi-sozluk.git
-
-# go to the project and install depedencies
-cd eksi-sozluk & npm i
-</code></pre>
-<p>After these steps you can change the code. If you want test your changes; go to <code>__tests__</code> folder, find a proper test file or create one if necessary. if the test pass, ensure your code quality and write documantation. All after you are ready to send a PR.</p>
-<p>Check <a href="#scripts">scripts</a> section to learn how to run tests and linter (for <a href="#code-quality">code quality</a>).</p>
-<h3>Commit Messages</h3>
-<p>Every commit message must be <code>conventional commits</code> format.</p>
-<p><a href="https://www.conventionalcommits.org/en/v1.0.0/#summary">What is Conventional Commits?</a></p>
-<p>If you don't have a time just use <code>npm run commit</code> command instead of use Git.</p>
-<h3>Code Quality</h3>
-<p>Keeping code quality as good is a hard job in normally. Therefore, we are using EsLint (linter) and Prettier to keep and track the code quality. Not linted pull requests automatically deny from via Travis (CI/CD). You can lint your code using <a href="#scripts">scripts</a> section.</p>
-<p>In short, run <code>npm run lint</code> command.</p>
-<h3>NPM Scripts</h3>
-<pre class="prettyprint source lang-bash"><code># commit your changes with commitizen
-npm run commit
-
-# check linter and prettier errors, fix prettier errors in default
-npm run lint
-
-# check the linter and prettier errors
-npm run lint:check
-
-# run prettier
-npm run format
-
-# check prettier errors
-npm run format:check
-
-# run all tests
-npm run test
-
-# travis uses this script, it handles creating new releases
-npm run semantic-release
-
-# travis uses this script, it creates documentation with jsdoc
-npm run docs
-</code></pre>
-<h2>Special Thanks</h2>
-<p>I would like to thank <a href="https://github.com/kucukkanat">@kucukkanat</a> the owner original <code>eksi-sozluk</code> package for transferring the package's rights to me. The old package was in security holding status, nobody was using it.</p>
-<h2>License</h2>
-<p><a href="https://github.com/ridvanaltun/eksi-sozluk/blob/master/LICENSE">GNU General Public License v3.0</a></p></article>
+        </article>
     </section>
-
-
 
 
 
