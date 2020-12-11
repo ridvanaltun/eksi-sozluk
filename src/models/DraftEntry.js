@@ -206,7 +206,7 @@ class DraftEntry {
             this.content = res.data.SavedDraftContent
             resolve()
           } else {
-            reject(new Error('An unknow error occurred.'))
+            reject(new Error('An unknown error occurred.'))
           }
         })
     })

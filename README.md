@@ -42,11 +42,11 @@ Technical documentation is automatically created with [JSDoc](https://github.com
 # clone the repository
 git clone https://github.com/ridvanaltun/eksi-sozluk.git
 
-# go to the project and install depedencies
+# go to the project and install dependencies
 cd eksi-sozluk & npm i
 ```
 
-After these steps you can change the code. If you want test your changes; go to `__tests__` folder, find a proper test file or create one if necessary. if the test pass, ensure your code quality and write documantation. All after you are ready to send a PR.
+After these steps you can change the code. If you want test your changes; go to `__tests__` folder, find a proper test file or create one if necessary. if the test pass, ensure your code quality and write documentation. All after you are ready to send a PR.
 
 Check [scripts](#npm-scripts) section to learn how to run tests and linter (for [code quality](#code-quality)).
 

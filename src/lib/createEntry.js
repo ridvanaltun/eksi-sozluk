@@ -43,7 +43,7 @@ const createEntry = (request, title, content, options, cookie) => {
           if (res.data.Success) {
             resolve(new DraftEntry(request, title, cookie))
           } else {
-            reject(new Error('An unknow error occurred.'))
+            reject(new Error('An unknown error occurred.'))
           }
         })
     } else {

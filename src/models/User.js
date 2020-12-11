@@ -239,7 +239,7 @@ class User {
   async favorites (options) {
     const entries = new UserEntryCollection(
       this._request,
-      URLS.USER_FAVORITED_ENTRIES,
+      URLS.USER_FAVORITE_ENTRIES,
       this.username,
       this._cookies,
       options
@@ -259,7 +259,7 @@ class User {
   async favoritedEntries (options) {
     const entries = new UserEntryCollection(
       this._request,
-      URLS.USER_MOST_FAVORITED_ENTRIES,
+      URLS.USER_MOST_FAVORITE_ENTRIES,
       this.username,
       this._cookies,
       options
@@ -299,7 +299,7 @@ class User {
   async selfFavoritedEntries (options) {
     const entries = new UserEntryCollection(
       this._request,
-      URLS.USER_SELF_FAVORITED_ENTRIES,
+      URLS.USER_SELF_FAVORITE_ENTRIES,
       this.username,
       this._cookies,
       options

@@ -12,7 +12,7 @@ const { VoteError } = require('../exceptions')
  */
 class EntryForMember extends Entry {
   /**
-   * Is entry favorited?
+   * Is entry favorite?
    *
    * @type {boolean}
    */
@@ -189,14 +189,14 @@ class EntryForMember extends Entry {
   }
 
   /**
-   * List authors of favorited the entry.
+   * List authors of which favorite the entry.
    *
    * @returns {Promise.Array<UserForMember>}  Promise.
    */
   listFavoritedAuthors () {
     return new Promise((resolve, reject) => {
       const requestOptions = {
-        endpoint: URLS.ENTRY_FAVORITED_AUTHORS,
+        endpoint: URLS.ENTRY_FAVORITE_AUTHORS,
         ajax: true,
         params: { entryId: this.id },
         cookie: this._cookies
@@ -224,14 +224,14 @@ class EntryForMember extends Entry {
   }
 
   /**
-   * List rookies of favorited the entry.
+   * List rookies of which favorite the entry.
    *
    * @returns {Promise.Array<UserForMember>}  Promise.
    */
   listFavoritedRookies () {
     return new Promise((resolve, reject) => {
       const requestOptions = {
-        endpoint: URLS.ENTRY_FAVORITED_ROOKIES,
+        endpoint: URLS.ENTRY_FAVORITE_ROOKIES,
         ajax: true,
         params: { entryId: this.id },
         cookie: this._cookies
@@ -303,7 +303,7 @@ class EntryForMember extends Entry {
           resolve()
         })
         .catch(err => {
-          // user don't permited recover to the entry
+          // user don't permitted recover to the entry
           if (err.response && err.response.status === 403) {
             return reject(new Error('Not Permitted'))
           }

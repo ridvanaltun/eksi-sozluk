@@ -48,7 +48,7 @@ class EksiMember extends EksiGuest {
   /**
    * Create an Eksi Sozluk member session.
    *
-   * @param   {object}  httpClient  Axios HTPP client.
+   * @param   {object}  httpClient  Axios HTTP client.
    * @param   {string}  cookies     Cookies in string.
    */
   constructor (httpClient, cookies) {
@@ -104,7 +104,7 @@ class EksiMember extends EksiGuest {
   }
 
   /**
-   * Check if unreaded message exist.
+   * Check if unread message exist.
    *
    * @returns {Promise.<boolean>} New message available or not.
    */
@@ -126,7 +126,7 @@ class EksiMember extends EksiGuest {
   }
 
   /**
-   * Check if unreaded event exist.
+   * Check if unread event exist.
    *
    * @returns {Promise.<boolean>} New event available or not.
    */
@@ -161,10 +161,10 @@ class EksiMember extends EksiGuest {
           cookie: this.cookies
         }
       }).then(res => {
-        const isEmailAddresInChangingStatus = res.data.includes(
+        const isEmailAddressInChangingStatus = res.data.includes(
           'değişikliği iptal et'
         )
-        resolve(isEmailAddresInChangingStatus)
+        resolve(isEmailAddressInChangingStatus)
       })
     })
   }
@@ -230,7 +230,7 @@ class EksiMember extends EksiGuest {
           const isSucc = res.status === 200
 
           if (!isSucc) {
-            return reject(new Error('An unknown error occured.'))
+            return reject(new Error('An unknown error occurred.'))
           }
 
           resolve()
@@ -311,7 +311,7 @@ class EksiMember extends EksiGuest {
           }
 
           if (!isSucc || isUnknownErr) {
-            return reject(new Error('An unknown error occured.'))
+            return reject(new Error('An unknown error occurred.'))
           }
 
           // update cookies with the new token
@@ -410,7 +410,7 @@ class EksiMember extends EksiGuest {
             ) && res.status === 404
 
           if (!isSucc) {
-            return reject(new Error('An unknown error occured.'))
+            return reject(new Error('An unknown error occurred.'))
           }
 
           resolve()
@@ -487,7 +487,7 @@ class EksiMember extends EksiGuest {
             res.data.includes('değişikliği iptal et') && res.status === 200
 
           if (!isSucc) {
-            return reject(new Error('An unknown error occured.'))
+            return reject(new Error('An unknown error occurred.'))
           }
 
           resolve()
@@ -524,7 +524,7 @@ class EksiMember extends EksiGuest {
         }
 
         if (!isSucc) {
-          return reject(new Error('An unknow error occured.'))
+          return reject(new Error('An unknown error occurred.'))
         }
 
         resolve(res.data)
@@ -911,7 +911,7 @@ class EksiMember extends EksiGuest {
         .then(response => {
           // handle errors
           if (!response.data.Success) {
-            return reject(new Error('An unknow error occurred.'))
+            return reject(new Error('An unknown error occurred.'))
           }
 
           resolve()

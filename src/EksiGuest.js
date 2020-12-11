@@ -19,7 +19,7 @@ class EksiGuest {
   /**
    * Create an Eksi Sozluk guest session.
    *
-   * @param   {object}  httpClient  Axios HTPP client.
+   * @param   {object}  httpClient  Axios HTTP client.
    */
   constructor (httpClient) {
     this.httpClient = httpClient

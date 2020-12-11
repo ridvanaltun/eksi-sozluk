@@ -1,6 +1,6 @@
 const moment = require('moment')
 
-const regexes = [
+const regexList = [
   /((\d{2}\.){2}\d{4})/,
   /((\d{2}\.){2}\d{4}\s\d{2}:\d{2})/,
   /((\d{2}\.){2}\d{4}\s\d{2}:\d{2}\s~\s\d{2}:\d{2})/,
@@ -20,9 +20,9 @@ const parseDate = date => {
   const modified = date.indexOf(' ~ ') > 0
 
   let level = 0
-  regexes.forEach(regex => {
+  regexList.forEach(regex => {
     if (regex.test(date)) {
-      level = regexes.indexOf(regex)
+      level = regexList.indexOf(regex)
     }
   })
 

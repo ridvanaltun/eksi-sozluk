@@ -43,7 +43,7 @@ class EksiSozluk extends EksiGuest {
   }
 
   /**
-   * Chech is user authenticated or not.
+   * Check is user authenticated or not.
    *
    * @param   {string}            [cookies=this.cookies]  Cookies string.
    * @returns {Promise.<boolean>}                         If user authenticated returns true, otherwise false.
@@ -69,9 +69,9 @@ class EksiSozluk extends EksiGuest {
   }
 
   /**
-   * Is verify recaptcha required to login?
+   * Is verify ReCaptcha required to login?
    *
-   * @returns {Promise.<boolean>} If recaptcha required returns true, otherwise false.
+   * @returns {Promise.<boolean>} If ReCaptcha required returns true, otherwise false.
    */
   isRecaptchaRequired () {
     return new Promise((resolve, reject) => {
@@ -80,9 +80,9 @@ class EksiSozluk extends EksiGuest {
         method: 'GET'
       }).then(res => {
         // check recaptcha
-        const isRecaptchaRequired = res.data.includes('g-recaptcha')
+        const isReCaptchaRequired = res.data.includes('g-recaptcha')
 
-        resolve(isRecaptchaRequired)
+        resolve(isReCaptchaRequired)
       })
     })
   }
@@ -119,10 +119,10 @@ class EksiSozluk extends EksiGuest {
       })
         .then(res => {
           // check recaptcha
-          const isRecaptchaRequired = res.data.includes('g-recaptcha')
+          const isReCaptchaRequired = res.data.includes('g-recaptcha')
 
-          if (isRecaptchaRequired) {
-            return reject(new Error('Recaptcha Required'))
+          if (isReCaptchaRequired) {
+            return reject(new Error('ReCaptcha Required'))
           }
 
           return res
