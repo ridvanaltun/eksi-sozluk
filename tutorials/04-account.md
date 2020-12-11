@@ -2,7 +2,7 @@
 
 ```javascript
 // change password
-// the old token will be invalid and the token automatily will change
+// the old token will be invalid and the token automatically will change
 await session.changePassword('<current-password>', '<new-password>');
 
 // change email address

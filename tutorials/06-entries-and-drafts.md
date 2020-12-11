@@ -28,7 +28,7 @@ const collection = await session.entries('pena', { page: 1, type: COLLECTION_TYP
 console.log(collection);
 ```
 
-Search for entries which contain writed from a buddy, **login required**:
+Search for entries which created from buddies, **login required**:
 
 ```javascript
 const collection = await session.entries('pena', { page: 1, type: COLLECTION_TYPES.BUDDY });
@@ -119,7 +119,7 @@ Some other actions, **login required**:
 // recover from trash if entry trashed
 await entry.recoverFromTrash();
 
-// permantly delet entry if trashed
+// permanently delete entry if trashed
 await entry.deleteFromTrash();
 
 // favorite entry
@@ -128,11 +128,11 @@ await entry.favorite();
 // unfavorite entry
 await entry.unfavorite();
 
-// author list which favorited the entry
+// author list which favorite the entry
 const favoritedAuthors = await entry.listFavoritedAuthors();
 console.log(favoritedAuthors);
 
-// rookie list which favorited the entry
+// rookie list which favorite the entry
 const favoritedRookies = await entry.listFavoritedRookies();
 console.log(favoritedRookies);
 ```
