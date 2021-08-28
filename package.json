@@ -12,7 +12,9 @@
     "test": "jest --config ./jest.config.js",
     "test:coverage": "npm test -- --coverage && cat ./coverage/lcov.info | coveralls",
     "semantic-release": "semantic-release",
-    "docs": "rm -rf docs && jsdoc --configure jsdoc.json"
+    "docs": "rm -rf docs && jsdoc --configure jsdoc.json",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -52,19 +54,13 @@
     "coveralls": "^3.1.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint-plugin-jsdoc": "^35.3.2",
-    "husky": "^6.0.0",
+    "husky": "^7.0.2",
     "jest": "^27.0.4",
     "jsdoc": "^3.6.7",
     "lint-staged": "^11.0.0",
     "minami": "^1.2.3",
     "prettier-standard": "^16.4.1",
     "semantic-release": "^17.4.4"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.js": [
