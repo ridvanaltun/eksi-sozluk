@@ -12,7 +12,9 @@
     "test": "jest --config ./jest.config.js",
     "test:coverage": "npm test -- --coverage && cat ./coverage/lcov.info | coveralls",
     "semantic-release": "semantic-release",
-    "docs": "rm -rf docs && jsdoc --configure jsdoc.json"
+    "docs": "rm -rf docs && jsdoc --configure jsdoc.json",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -44,27 +46,21 @@
     "set-cookie-parser": "^2.4.8"
   },
   "devDependencies": {
-    "@commitlint/cli": "^12.1.4",
-    "@commitlint/config-conventional": "^12.1.4",
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
     "commitizen": "^4.2.4",
-    "coveralls": "^3.1.0",
+    "coveralls": "^3.1.1",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint-plugin-jsdoc": "^35.3.2",
-    "husky": "^6.0.0",
-    "jest": "^27.0.4",
+    "eslint-plugin-jsdoc": "^36.0.8",
+    "husky": "^7.0.2",
+    "jest": "^27.1.0",
     "jsdoc": "^3.6.7",
-    "lint-staged": "^11.0.0",
+    "lint-staged": "^11.1.2",
     "minami": "^1.2.3",
     "prettier-standard": "^16.4.1",
-    "semantic-release": "^17.4.4"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
+    "semantic-release": "^17.4.7"
   },
   "lint-staged": {
     "*.js": [
