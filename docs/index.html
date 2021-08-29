@@ -48,22 +48,44 @@
 
 
     <section class="readme">
-        <article><h1>🍋 Eksi Sozluk NodeJS Client</h1>
-<p><a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly"></a>
+        <article><!-- omit in toc -->
+<h1>🍋 Unofficial Ek$i Sozluk Client for Node.js</h1>
+<p><a href="https://npmjs.com/package/eksi-sozluk"><img src="https://img.shields.io/npm/v/eksi-sozluk.svg" alt="npm version"></a>
+<a href="https://npmjs.com/package/eksi-sozluk"><img src="https://img.shields.io/npm/dt/eksi-sozluk.svg" alt="npm downloads"></a>
+<a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly"></a>
 <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
 <a href="https://travis-ci.com/ridvanaltun/eksi-sozluk"><img src="https://travis-ci.com/ridvanaltun/eksi-sozluk.svg?branch=master" alt="Build Status"></a>
 <a href="https://coveralls.io/github/ridvanaltun/eksi-sozluk?branch=master"><img src="https://coveralls.io/repos/github/ridvanaltun/eksi-sozluk/badge.svg?branch=master" alt="Coverage Status"></a>
-<a href="http://standardjs.com"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg" alt="js-standard-style"></a></p>
+<a href="https://github.com/ridvanaltun/eksi-sozluk/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/eksi-sozluk.svg" alt="license"></a></p>
 <blockquote>
-<p>Consume Eksi Sozluk with NodeJS.</p>
+<p><strong>This library help you to conquer the Eksi Sozluk in Node.js.</strong></p>
 </blockquote>
-<h2>Installation</h2>
+<!-- omit in toc -->
+<h1>Table of Contents</h1>
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#documentation">Documentation</a>
+<ul>
+<li><a href="#tutorials">Tutorials</a></li>
+</ul>
+</li>
+<li><a href="#development">Development</a>
+<ul>
+<li><a href="#commit-messages">Commit Messages</a></li>
+<li><a href="#code-quality">Code Quality</a></li>
+<li><a href="#available-scripts">Available Scripts</a></li>
+</ul>
+</li>
+<li><a href="#special-thanks">Special Thanks</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+<h1>Installation</h1>
 <pre class="prettyprint source lang-bash"><code>npm install eksi-sozluk --save
 </code></pre>
-<h2>Documentation</h2>
+<h1>Documentation</h1>
 <p>Technical documentation is automatically created with <a href="https://github.com/jsdoc/jsdoc">JSDoc</a> after each new release.</p>
 <p><a href="https://ridvanaltun.github.io/eksi-sozluk/">You can find the technical documentation here!</a></p>
-<h3>Tutorials</h3>
+<h2>Tutorials</h2>
 <p><strong>IMPORTANT:</strong> The tutorials are not fully covered for all use cases and its not mention all capabilities of the library, don't forget to check technical documentation if you didn't found anything you looking for.</p>
 <ul>
 <li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-01-getting-started.html">Getting Started</a></li>
@@ -78,23 +100,23 @@
 <li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-10-questions.html">Questions</a></li>
 <li><a href="https://ridvanaltun.github.io/eksi-sozluk/tutorial-11-miscellaneous.html">Miscellaneous</a></li>
 </ul>
-<h2>Development</h2>
+<h1>Development</h1>
 <pre class="prettyprint source lang-bash"><code># clone the repository
 git clone https://github.com/ridvanaltun/eksi-sozluk.git
 
-# go to the project and install depedencies
+# go to the project and install dependencies
 cd eksi-sozluk & npm i
 </code></pre>
-<p>After these steps you can change the code. If you want test your changes; go to <code>__tests__</code> folder, find a proper test file or create one if necessary. if the test pass, ensure your code quality and write documantation. All after you are ready to send a PR.</p>
-<p>Check <a href="#scripts">scripts</a> section to learn how to run tests and linter (for <a href="#code-quality">code quality</a>).</p>
-<h3>Commit Messages</h3>
+<p>After these steps you can change the code. If you want test your changes; go to <code>__tests__</code> folder, find a proper test file or create one if necessary. if the test pass, ensure your code quality and write documentation. All after you are ready to send a PR.</p>
+<p>Check <a href="#available-scripts">scripts</a> section to learn how to run tests and linter (for <a href="#code-quality">code quality</a>).</p>
+<h2>Commit Messages</h2>
 <p>Every commit message must be <code>conventional commits</code> format.</p>
 <p><a href="https://www.conventionalcommits.org/en/v1.0.0/#summary">What is Conventional Commits?</a></p>
 <p>If you don't have a time just use <code>npm run commit</code> command instead of use Git.</p>
-<h3>Code Quality</h3>
-<p>Keeping code quality as good is a hard job in normally. Therefore, we are using EsLint (linter) and Prettier to keep and track the code quality. Not linted pull requests automatically deny from via Travis (CI/CD). You can lint your code using <a href="#scripts">scripts</a> section.</p>
+<h2>Code Quality</h2>
+<p>Keeping code quality as good is a hard job in normally. Therefore, we are using EsLint (linter) and Prettier to keep and track the code quality. Not linted pull requests automatically deny from via Travis (CI/CD). You can lint your code using <a href="#available-scripts">scripts</a> section.</p>
 <p>In short, run <code>npm run lint</code> command.</p>
-<h3>NPM Scripts</h3>
+<h2>Available Scripts</h2>
 <pre class="prettyprint source lang-bash"><code># commit your changes with commitizen
 npm run commit
 
@@ -119,9 +141,9 @@ npm run semantic-release
 # travis uses this script, it creates documentation with jsdoc
 npm run docs
 </code></pre>
-<h2>Special Thanks</h2>
+<h1>Special Thanks</h1>
 <p>I would like to thank <a href="https://github.com/kucukkanat">@kucukkanat</a> the owner original <code>eksi-sozluk</code> package for transferring the package's rights to me. The old package was in security holding status, nobody was using it.</p>
-<h2>License</h2>
+<h1>License</h1>
 <p><a href="https://github.com/ridvanaltun/eksi-sozluk/blob/master/LICENSE">GNU General Public License v3.0</a></p></article>
     </section>
 
@@ -135,7 +157,7 @@ npm run docs
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Thu Dec 10 2020 20:42:08 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sun Aug 29 2021 03:27:00 GMT+0300 (GMT+03:00) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

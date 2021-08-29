@@ -1,3 +1,10 @@
+## [5.0.1](https://github.com/ridvanaltun/eksi-sozluk/compare/v5.0.0...v5.0.1) (2021-08-29)
+
+
+### Bug Fixes
+
+* enforce to a new release ([804b77e](https://github.com/ridvanaltun/eksi-sozluk/commit/804b77ebafc2119a27f66453bc4cd439c2870142))
+
 # [5.0.0](https://github.com/ridvanaltun/eksi-sozluk/compare/v4.1.0...v5.0.0) (2020-12-10)
 
 
