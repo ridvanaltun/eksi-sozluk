@@ -35,7 +35,7 @@ class EksiSozluk extends EksiGuest {
     )
 
     // make http client ready
-    const httpClient = axios.create(_options.httpClient)
+    const httpClient = axios.create({..._options.httpClient, ...options.httpClient})
 
     super(httpClient)
 
