@@ -6,7 +6,7 @@ let httpClient = {};
 // use proxy over Travis
 if (process.env.TRAVIS) {
   httpClient = {
-    httpsAgent: new HttpsProxyAgent(process.env.HTTP_PROXY)
+    httpsAgent: new HttpsProxyAgent(process.env.PROXY)
   }
 }
 
