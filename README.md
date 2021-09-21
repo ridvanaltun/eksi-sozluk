@@ -93,17 +93,14 @@ I accept PRs by myself anyway so running tests over Travis is not a problem for 
 # commit your changes with commitizen
 npm run commit
 
-# check linter and prettier errors, fix prettier errors in default
+# check eslint issues
 npm run lint
 
-# check the linter and prettier errors
-npm run lint:check
+# fix eslint issues
+npm run lint:fix
 
-# run prettier
-npm run format
-
-# check prettier errors
-npm run format:check
+# run eslint-nibble
+npm run lint:active
 
 # run all tests
 npm run test

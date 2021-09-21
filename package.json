@@ -5,10 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "commit": "git-cz",
-    "lint": "prettier-standard --lint",
-    "lint:check": "prettier-standard --lint --check",
-    "format": "prettier-standard --format",
-    "format:check": "prettier-standard --check",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "lint:active": "eslint-nibble .",
     "test": "jest --config ./jest.config.js",
     "test:coverage": "npm test -- --coverage && cat ./coverage/lcov.info | coveralls",
     "semantic-release": "semantic-release",
@@ -49,29 +48,38 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
+    "@commitlint/cz-commitlint": "^13.1.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
+    "babel-eslint": "^10.1.0",
     "commitizen": "^4.2.4",
     "coveralls": "^3.1.1",
-    "cz-conventional-changelog": "^3.3.0",
-    "eslint-plugin-jsdoc": "^36.0.8",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-nibble": "^7.0.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsdoc": "^36.1.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.1.0",
     "husky": "^7.0.2",
     "jest": "^27.1.0",
     "jsdoc": "^3.6.7",
     "lint-staged": "^11.1.2",
     "minami": "^1.2.3",
-    "prettier-standard": "^16.4.1",
+    "prettier": "^2.4.1",
     "semantic-release": "^17.4.7"
   },
   "lint-staged": {
     "*.js": [
-      "prettier-standard --lint --staged",
+      "eslint --cache --fix",
       "git add"
     ]
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "@commitlint/cz-commitlint"
     }
   }
 }
