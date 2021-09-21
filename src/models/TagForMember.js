@@ -27,7 +27,7 @@ class TagForMember extends Tag {
    *
    * @returns {Promise} Promise.
    */
-  follow () {
+  follow() {
     return new Promise((resolve, reject) => {
       axios({
         url: `${URLS.TAGS}/${this.id}/follow`,
@@ -47,7 +47,7 @@ class TagForMember extends Tag {
    *
    * @returns {Promise} Promise.
    */
-  unfollow () {
+  unfollow() {
     return new Promise((resolve, reject) => {
       axios({
         url: `${URLS.TAGS}/${this.id}/unfollow`,

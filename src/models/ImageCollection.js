@@ -32,7 +32,7 @@ class ImageCollection {
    * @param {object}  request   Axios client.
    * @param {string}  username  Username.
    */
-  constructor (request, username) {
+  constructor(request, username) {
     this._request = request
     this.username = username
   }
@@ -42,7 +42,7 @@ class ImageCollection {
    *
    * @returns {Promise}  Promise.
    */
-  retrieve () {
+  retrieve() {
     return new Promise((resolve, reject) => {
       const requestOptions = {
         endpoint: URLS.USER_IMAGES,

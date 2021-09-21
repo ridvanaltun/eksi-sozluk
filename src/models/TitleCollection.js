@@ -46,7 +46,7 @@ class TitleCollection extends CollectionBase {
    * @param {string}    [options.cookies=null]        Cookie string.
    * @param {TitleType} [options.type=1]              Type of title.
    */
-  constructor (request, path, options) {
+  constructor(request, path, options) {
     super()
     // handle default options
     const _options = objectAssignDeep(
@@ -75,7 +75,7 @@ class TitleCollection extends CollectionBase {
    *
    * @returns {Promise} Promise.
    */
-  retrieve () {
+  retrieve() {
     return new Promise((resolve, reject) => {
       const requestOptions = {
         endpoint: this._path,
@@ -132,10 +132,7 @@ class TitleCollection extends CollectionBase {
 
           // correct entry count
           if (isPlainTitle) {
-            const entryCountStr = $(elm)
-              .find('a small')
-              .text()
-              .trim()
+            const entryCountStr = $(elm).find('a small').text().trim()
             const entryCount = parseInt(entryCountStr)
             title.entryCount = entryCountStr.includes('b')
               ? 1000 * entryCount

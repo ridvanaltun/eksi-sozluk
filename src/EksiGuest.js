@@ -6,8 +6,7 @@ const {
   User,
   TitleCollection,
   EntryCollection,
-  SearchResults,
-  Tag
+  SearchResults
 } = require('./models')
 
 /**
@@ -21,7 +20,7 @@ class EksiGuest {
    *
    * @param   {object}  httpClient  Axios HTTP client.
    */
-  constructor (httpClient) {
+  constructor(httpClient) {
     this.httpClient = httpClient
     this._request = request(httpClient)
   }
@@ -32,7 +31,7 @@ class EksiGuest {
    * @param   {string}                  text  Search text.
    * @returns {Promise.<SearchResults>}        A promise for the search results.
    */
-  async search (text) {
+  async search(text) {
     const results = new SearchResults(this._request, text)
     await results.retrieve()
 
@@ -45,7 +44,7 @@ class EksiGuest {
    * @param   {number}          entryId Entry Id.
    * @returns {Promise.<Entry>}         A promise for the entry.
    */
-  async entryById (entryId) {
+  async entryById(entryId) {
     const entry = new Entry(this._request, entryId)
     await entry.retrieve()
 
@@ -63,7 +62,7 @@ class EksiGuest {
    * @param   {string}                    [options.search]  Search text, if type is 'find' set this parameter.
    * @returns {Promise.<EntryCollection>}                   A promise for the entries.
    */
-  async entries (title, options = {}) {
+  async entries(title, options = {}) {
     const collection = new EntryCollection(this._request, title, options)
     await collection.retrieve()
 
@@ -78,7 +77,7 @@ class EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @returns {Promise.<TitleCollection>}                   A promise for the titles of today in history.
    */
-  async todayInHistory (year, options = {}) {
+  async todayInHistory(year, options = {}) {
     const target = `/basliklar/tarihte-bugun?year=${year}`
     const collection = new TitleCollection(this._request, target, options)
     await collection.retrieve()
@@ -93,7 +92,7 @@ class EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @returns {Promise.<TitleCollection>}                   A promise for untagged titles.
    */
-  async untaggedTitles (options = {}) {
+  async untaggedTitles(options = {}) {
     const target = '/basliklar/basiboslar'
     const collection = new TitleCollection(this._request, target, options)
     await collection.retrieve()
@@ -107,7 +106,7 @@ class EksiGuest {
    * @param   {string}          username  Username.
    * @returns {Promise.<User>}            A promise for the user.
    */
-  async user (username) {
+  async user(username) {
     const user = new User(this._request, username)
     await user.retrieve()
 
@@ -119,7 +118,7 @@ class EksiGuest {
    *
    * @returns {Promise.Array<Tag>} A promise for the tags.
    */
-  async tags () {
+  async tags() {
     return await tags(this._request)
   }
 
@@ -131,7 +130,7 @@ class EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @returns {Promise.<TitleCollection>}                   A promise for the titles of given tag.
    */
-  async titlesByTag (tagName, options = {}) {
+  async titlesByTag(tagName, options = {}) {
     const target = `/basliklar/kanal/${tagName}`
     const collection = new TitleCollection(this._request, target, options)
     await collection.retrieve()
@@ -146,7 +145,7 @@ class EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @returns {Promise.<TitleCollection>}                   A promise for the agenda titles.
    */
-  async agenda (options = {}) {
+  async agenda(options = {}) {
     const target = '/basliklar/gundem'
     const collection = new TitleCollection(this._request, target, options)
     await collection.retrieve()
@@ -159,7 +158,7 @@ class EksiGuest {
    *
    * @returns {Promise.Array<Entry>}  A promise for the yesterday's top entries.
    */
-  async debeEntries () {
+  async debeEntries() {
     return await debeEntries(this._request)
   }
 
@@ -170,7 +169,7 @@ class EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @returns {Promise.<TitleCollection>}                   A promise for the agenda titles in agenda.
    */
-  async questionsInAgenda (options = {}) {
+  async questionsInAgenda(options = {}) {
     const target = '/basliklar/sorunsal'
     const _options = { ...options, type: TITLE_TYPES.QUESTION }
     const collection = new TitleCollection(this._request, target, _options)
@@ -186,7 +185,7 @@ class EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @returns {Promise.<TitleCollection>}                   A promise for the agenda titles in today.
    */
-  async questionsInToday (options = {}) {
+  async questionsInToday(options = {}) {
     const target = '/basliklar/sorunsal-bugun'
     const _options = { ...options, type: TITLE_TYPES.QUESTION }
     const collection = new TitleCollection(this._request, target, _options)

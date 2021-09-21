@@ -12,10 +12,7 @@ const {
   UserForMember,
   TitleCollection,
   EntryCollection,
-  SearchResults,
-  TrashEntry,
-  TagForMember,
-  DraftEntry
+  SearchResults
 } = require('./models')
 
 /**
@@ -51,7 +48,7 @@ class EksiMember extends EksiGuest {
    * @param   {object}  httpClient  Axios HTTP client.
    * @param   {string}  cookies     Cookies in string.
    */
-  constructor (httpClient, cookies) {
+  constructor(httpClient, cookies) {
     super(httpClient)
     this.cookies = cookies
   }
@@ -61,7 +58,7 @@ class EksiMember extends EksiGuest {
    *
    * @returns {Promise} Promise.
    */
-  retrieve () {
+  retrieve() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.BASE,
@@ -96,7 +93,7 @@ class EksiMember extends EksiGuest {
    * @param   {string}                  text  Search text.
    * @returns {Promise.<SearchResults>}        A promise for the search results.
    */
-  async search (text) {
+  async search(text) {
     const results = new SearchResults(this._request, text, this.cookies)
     await results.retrieve()
 
@@ -108,7 +105,7 @@ class EksiMember extends EksiGuest {
    *
    * @returns {Promise.<boolean>} New message available or not.
    */
-  isNewMessageExist () {
+  isNewMessageExist() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.BASE,
@@ -130,7 +127,7 @@ class EksiMember extends EksiGuest {
    *
    * @returns {Promise.<boolean>} New event available or not.
    */
-  isNewEventExist () {
+  isNewEventExist() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.BASE,
@@ -152,7 +149,7 @@ class EksiMember extends EksiGuest {
    *
    * @returns {Promise.<boolean>} Email address waiting for changing or not.
    */
-  isEmailAddressInChangeStatus () {
+  isEmailAddressInChangeStatus() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.SETTINGS_EMAIL,
@@ -174,7 +171,7 @@ class EksiMember extends EksiGuest {
    *
    * @returns {Promise.<boolean>} A promise for cancel the email address change.
    */
-  cancelEmailAddressChange () {
+  cancelEmailAddressChange() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.SETTINGS_EMAIL,
@@ -245,7 +242,7 @@ class EksiMember extends EksiGuest {
    * @param   {string}            newPassword   A new password.
    * @returns {Promise.<boolean>}               A promise for change password.
    */
-  changePassword (currPassword, newPassword) {
+  changePassword(currPassword, newPassword) {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.SETTINGS_PASSWORD,
@@ -333,7 +330,7 @@ class EksiMember extends EksiGuest {
    * @param   {boolean} [hideEntries=false] Hide your entries.
    * @returns {Promise}                     Promise.
    */
-  deleteAccount (password, hideEntries = false) {
+  deleteAccount(password, hideEntries = false) {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.SETTINGS_DELETE_ACCOUNT,
@@ -358,7 +355,7 @@ class EksiMember extends EksiGuest {
    * @param   {string}  password    Your current password.
    * @returns {Promise}             Promise.
    */
-  changeLoginUsername (newUsername, password) {
+  changeLoginUsername(newUsername, password) {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.SETTINGS_CHANGE_USERNAME,
@@ -426,7 +423,7 @@ class EksiMember extends EksiGuest {
    * @param   {string}  password          Your current password.
    * @returns {Promise}                   A promise for change email address.
    */
-  changeEmailAddress (currEmailAddress, newEmailAddress, password) {
+  changeEmailAddress(currEmailAddress, newEmailAddress, password) {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.SETTINGS_EMAIL,
@@ -500,7 +497,7 @@ class EksiMember extends EksiGuest {
    *
    * @returns {Promise} A promise for create backup.
    */
-  createBackup () {
+  createBackup() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.SETTINGS_CREATE_BACKUP,
@@ -538,7 +535,7 @@ class EksiMember extends EksiGuest {
    * @param   {number}  entryId  Entry ID which user owns.
    * @returns {Promise}          Promise.
    */
-  pinEntry (entryId) {
+  pinEntry(entryId) {
     return new Promise((resolve, reject) => {
       axios
         .post(URLS.PIN, qs.stringify({ entryId }), {
@@ -562,7 +559,7 @@ class EksiMember extends EksiGuest {
    *
    * @returns {Promise}  Promise.
    */
-  removePin () {
+  removePin() {
     return new Promise((resolve, reject) => {
       axios
         .post(URLS.PIN_REMOVE, null, {
@@ -590,7 +587,7 @@ class EksiMember extends EksiGuest {
    * @param   {boolean}                               [options.saveAsDraft=false] Save as draft.
    * @returns {Promise.<(EntryForMember|DraftEntry)>}                             Created entry.
    */
-  async createEntry (title, content, options = {}) {
+  async createEntry(title, content, options = {}) {
     return await createEntry(
       this._request,
       title,
@@ -606,7 +603,7 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    entryId Entry Id.
    * @returns {Promise.<EntryForMember>}          A promise for the entry.
    */
-  async entryById (entryId) {
+  async entryById(entryId) {
     const entry = new EntryForMember(this._request, entryId, this.cookies)
     await entry.retrieve()
 
@@ -621,7 +618,7 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @returns {Promise.<EntryCollection>}                   A promise for the entries.
    */
-  async entries (title, options = {}) {
+  async entries(title, options = {}) {
     const _options = {
       ...options,
       cookies: this.cookies
@@ -638,7 +635,7 @@ class EksiMember extends EksiGuest {
    * @param   {string}                    username  Entry Id.
    * @returns {Promise.<UserForMember>}             A promise for the entry.
    */
-  async user (username) {
+  async user(username) {
     const user = new UserForMember(this._request, username, this.cookies)
     await user.retrieve()
 
@@ -650,7 +647,7 @@ class EksiMember extends EksiGuest {
    *
    * @returns {Promise.<UserForMember>} A promise for the entry.
    */
-  async me () {
+  async me() {
     const user = new UserForMember(this._request, this.username, this.cookies)
     await user.retrieve()
 
@@ -664,7 +661,7 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @returns {Promise.<TitleCollection>}                   A promise for the titles of today.
    */
-  async today (options = {}) {
+  async today(options = {}) {
     const target = '/basliklar/bugun'
     const _options = {
       ...options,
@@ -683,7 +680,7 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @returns {Promise.<TitleCollection>}                   A promise for the rookie titles.
    */
-  async rookieTitles (options = {}) {
+  async rookieTitles(options = {}) {
     const target = '/basliklar/caylaklar'
     const _options = { ...options, cookies: this.cookies }
     const collection = new TitleCollection(this._request, target, _options)
@@ -697,7 +694,7 @@ class EksiMember extends EksiGuest {
    *
    * @returns {Promise.<TitleCollection>} A promise for the titles of events.
    */
-  async events () {
+  async events() {
     const target = '/basliklar/olay'
     const _options = { defaultEntryCount: 0, cookies: this.cookies }
     const collection = new TitleCollection(this._request, target, _options)
@@ -713,7 +710,7 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @returns {Promise.<TitleCollection>}                   A promise for the titles of drafts.
    */
-  async drafts (options = {}) {
+  async drafts(options = {}) {
     const target = '/basliklar/kenar'
     const _options = {
       ...options,
@@ -733,7 +730,7 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @returns {Promise.<TitleCollection>}                   A promise for the followed user titles.
    */
-  async followedUserTitles (options = {}) {
+  async followedUserTitles(options = {}) {
     const target = '/basliklar/takipentry'
     const _options = {
       ...options,
@@ -753,7 +750,7 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @returns {Promise.<TitleCollection>}                   A promise for the followed user titles.
    */
-  async followedUserFavoriteEntries (options = {}) {
+  async followedUserFavoriteEntries(options = {}) {
     const target = '/basliklar/takipfav'
     const _options = {
       ...options,
@@ -771,7 +768,7 @@ class EksiMember extends EksiGuest {
    *
    * @returns {Promise.Array<TagForMember>} A promise for the tags.
    */
-  async tags () {
+  async tags() {
     return await tags(this._request, this.cookies)
   }
 
@@ -780,7 +777,7 @@ class EksiMember extends EksiGuest {
    *
    * @returns {Promise.Array<EntryForMember>} A promise for the yesterday's top entries.
    */
-  async debeEntries () {
+  async debeEntries() {
     return await debeEntries(this._request, this.cookies)
   }
 
@@ -791,7 +788,7 @@ class EksiMember extends EksiGuest {
    * @param   {number}                    [options.page=1]  Page number.
    * @returns {Promise.Array<TrashEntry>}                   A promise for the trash entries.
    */
-  async trashEntries (options = {}) {
+  async trashEntries(options = {}) {
     return await trashEntries(this._request, this.cookies, options)
   }
 
@@ -800,7 +797,7 @@ class EksiMember extends EksiGuest {
    *
    * @returns {Promise} Promise.
    */
-  emptyTrash () {
+  emptyTrash() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.TRASH,
@@ -860,7 +857,7 @@ class EksiMember extends EksiGuest {
    * @param   {string}                  imagePath Image file path.
    * @returns {Promise.<UploadedImage>}           Promise.
    */
-  uploadImage (imagePath) {
+  uploadImage(imagePath) {
     return new Promise((resolve, reject) => {
       const data = new FormData()
       data.append('file', fs.createReadStream(imagePath))
@@ -893,7 +890,7 @@ class EksiMember extends EksiGuest {
    * @param   {string}  imageKey  Image key.
    * @returns {Promise}           Promise.
    */
-  deleteImage (imageKey) {
+  deleteImage(imageKey) {
     const data = qs.stringify({
       imageKey: imageKey,
       reasonCode: 'osel' // don't know why.

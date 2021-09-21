@@ -41,7 +41,7 @@ class UserEntryCollection extends CollectionBase {
    * @param {object}  options                 Parameters that user can specify.
    * @param {number}  [options.page=1]        Page number.
    */
-  constructor (request, path, username, cookies, options) {
+  constructor(request, path, username, cookies, options) {
     super()
     // handle default options
     const _options = objectAssignDeep(
@@ -63,7 +63,7 @@ class UserEntryCollection extends CollectionBase {
    *
    * @returns {Promise} Promise.
    */
-  retrieve () {
+  retrieve() {
     return new Promise((resolve, reject) => {
       const requestOptions = {
         endpoint: this._path,
@@ -76,9 +76,7 @@ class UserEntryCollection extends CollectionBase {
 
       this._request(requestOptions, $ => {
         $('div.topic-item').each((i, elm) => {
-          const entryId = $(elm)
-            .find('h1')
-            .data('id')
+          const entryId = $(elm).find('h1').data('id')
           const entry = this._cookies
             ? new EntryForMember(this._request, entryId, this._cookies)
             : new Entry(this._request, entryId)
@@ -88,11 +86,7 @@ class UserEntryCollection extends CollectionBase {
 
         const isEntryExist = $('h1 small').length > 0
         const entryCount = isEntryExist
-          ? parseInt(
-              $('h1 small')
-                .text()
-                .match(/\d+/g)[0]
-            )
+          ? parseInt($('h1 small').text().match(/\d+/g)[0])
           : 0
 
         this.pageCount = isEntryExist

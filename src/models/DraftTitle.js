@@ -54,7 +54,7 @@ class DraftTitle {
    * @param {object}  request Axios client.
    * @param {string}  cookies Cookie string.
    */
-  constructor (request, cookies) {
+  constructor(request, cookies) {
     this._request = request
     this._cookies = cookies
   }
@@ -66,22 +66,13 @@ class DraftTitle {
    * @param {object}  elm  Cheerio element.
    * @ignore
    */
-  serialize ($, elm) {
-    const name = $(elm)
-      .text()
-      .trim()
-    const date = $(elm)
-      .find('a div')
-      .text()
-      .trim()
+  serialize($, elm) {
+    const name = $(elm).text().trim()
+    const date = $(elm).find('a div').text().trim()
     const calculatedDate = parseDate(date)
 
     this.name = name.substring(0, name.length - date.length).trim()
-    this.url =
-      URLS.BASE +
-      $(elm)
-        .find('a')
-        .attr('href')
+    this.url = URLS.BASE + $(elm).find('a').attr('href')
     this.slug = $(elm)
       .find('a')
       .attr('href')

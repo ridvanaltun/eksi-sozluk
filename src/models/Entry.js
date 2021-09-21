@@ -147,7 +147,7 @@ class Entry {
    * @param   {number}  entryId         Entry ID.
    * @param   {string}  [cookies=null]  Cookie string.
    */
-  constructor (request, entryId, cookies) {
+  constructor(request, entryId, cookies) {
     this._request = request
     this._cookies = cookies
     this.id = entryId
@@ -162,7 +162,7 @@ class Entry {
    * @param {object}  [options.profilePage=false] Profile page, if false is title page.
    * @ignore
    */
-  serialize ($, elm, options) {
+  serialize($, elm, options) {
     // handle default options
     const _options = objectAssignDeep(
       {
@@ -180,24 +180,15 @@ class Entry {
       $ = cheerio.load($(subElement).html())
     }
 
-    const date = parseDate(
-      $(elm)
-        .find('footer div.info a.permalink')
-        .text()
-    )
+    const date = parseDate($(elm).find('footer div.info a.permalink').text())
     const isEksiseylerExist = $(elm).data('seyler-slug') !== ''
     const authorId = $(elm).data('author-id')
 
     this.author = $(elm).data('author')
     this.authorId = authorId
     this.authorUrl = URLS.USER + $(elm).data('author')
-    this.content = $(elm)
-      .find('div.content')
-      .html()
-    this.contentEncoded = $(elm)
-      .find('div.content')
-      .text()
-      .trim()
+    this.content = $(elm).find('div.content').html()
+    this.contentEncoded = $(elm).find('div.content').text().trim()
     this.dateCreated = date.created
     this.dateModified = date.modified
     this.eksiseylerLink = isEksiseylerExist
@@ -218,9 +209,7 @@ class Entry {
       this.isFavorited = $(elm).data('isfavorite')
       this.isDeleted = $(elm).attr('class') === 'deleted'
       this.isRookieEntry = $(elm).attr('class') === 'hidden'
-      this.isEntryAuthorMe = $(elm)
-        .data('flags')
-        .includes('edit')
+      this.isEntryAuthorMe = $(elm).data('flags').includes('edit')
     }
   }
 
@@ -229,7 +218,7 @@ class Entry {
    *
    * @returns {Promise} Promise.
    */
-  retrieve () {
+  retrieve() {
     return new Promise((resolve, reject) => {
       const requestOptions = {
         endpoint: `/entry/${this.id}`,

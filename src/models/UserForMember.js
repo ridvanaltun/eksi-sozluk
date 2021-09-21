@@ -49,7 +49,7 @@ class UserForMember extends User {
    *
    * @returns {Promise} Promise.
    */
-  follow () {
+  follow() {
     return new Promise((resolve, reject) => {
       axios({
         url: `${URLS.FOLLOW_USER}/${this.id}`,
@@ -73,7 +73,7 @@ class UserForMember extends User {
    *
    * @returns {Promise} Promise.
    */
-  unfollow () {
+  unfollow() {
     return new Promise((resolve, reject) => {
       axios({
         url: `${URLS.UNFOLLOW_USER}/${this.id}`,
@@ -97,7 +97,7 @@ class UserForMember extends User {
    *
    * @returns {Promise} Promise.
    */
-  block () {
+  block() {
     return new Promise((resolve, reject) => {
       axios({
         url: `${URLS.BLOCK_USER}/${this.id}`,
@@ -121,7 +121,7 @@ class UserForMember extends User {
    *
    * @returns {Promise} Promise.
    */
-  unblock () {
+  unblock() {
     return new Promise((resolve, reject) => {
       axios({
         url: `${URLS.UNBLOCK_USER}/${this.id}`,
@@ -145,7 +145,7 @@ class UserForMember extends User {
    *
    * @returns {Promise} Promise.
    */
-  blockTitles () {
+  blockTitles() {
     return new Promise((resolve, reject) => {
       axios({
         url: `${URLS.BLOCK_USER_TITLES}/${this.id}`,
@@ -169,7 +169,7 @@ class UserForMember extends User {
    *
    * @returns {Promise} Promise.
    */
-  unblockTitles () {
+  unblockTitles() {
     return new Promise((resolve, reject) => {
       axios({
         url: `${URLS.UNBLOCK_USER_TITLES}/${this.id}`,
@@ -194,7 +194,7 @@ class UserForMember extends User {
    * @param   {string}  message Message.
    * @returns {Promise}         Promise.
    */
-  sendMessage (message) {
+  sendMessage(message) {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.MESSAGE,
@@ -247,7 +247,7 @@ class UserForMember extends User {
    * @param   {string}  note  New note.
    * @returns {Promise}       Promise.
    */
-  setNote (note) {
+  setNote(note) {
     return new Promise((resolve, reject) => {
       axios({
         url: `${URLS.BASE}/biri/${this.username}/note`,
@@ -272,7 +272,7 @@ class UserForMember extends User {
    *
    * @returns {Promise}  Promise.
    */
-  async clearNote () {
+  async clearNote() {
     await this.setNote('')
   }
 }

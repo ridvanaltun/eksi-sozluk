@@ -44,7 +44,7 @@ class EntryForMember extends Entry {
    *
    * @returns {Promise} Promise.
    */
-  upvote () {
+  upvote() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.ENTRY_VOTE,
@@ -74,7 +74,7 @@ class EntryForMember extends Entry {
    *
    * @returns {Promise} Promise.
    */
-  downvote () {
+  downvote() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.ENTRY_VOTE,
@@ -104,7 +104,7 @@ class EntryForMember extends Entry {
    *
    * @returns {Promise} Promise.
    */
-  removevote () {
+  removevote() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.ENTRY_VOTE_REMOVE,
@@ -133,7 +133,7 @@ class EntryForMember extends Entry {
    *
    * @returns {Promise} Promise.
    */
-  favorite () {
+  favorite() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.ENTRY_FAVORITE,
@@ -163,7 +163,7 @@ class EntryForMember extends Entry {
    *
    * @returns {Promise} Promise.
    */
-  unfavorite () {
+  unfavorite() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.ENTRY_UNFAVORITE,
@@ -193,7 +193,7 @@ class EntryForMember extends Entry {
    *
    * @returns {Promise.Array<UserForMember>}  Promise.
    */
-  listFavoritedAuthors () {
+  listFavoritedAuthors() {
     return new Promise((resolve, reject) => {
       const requestOptions = {
         endpoint: URLS.ENTRY_FAVORITE_AUTHORS,
@@ -205,9 +205,7 @@ class EntryForMember extends Entry {
         const authors = []
 
         $('ul li a').each((i, elm) => {
-          const username = $(elm)
-            .text()
-            .replace('@', '')
+          const username = $(elm).text().replace('@', '')
           const path = $(elm).attr('href')
           const member = new UserForMember(
             this._request,
@@ -228,7 +226,7 @@ class EntryForMember extends Entry {
    *
    * @returns {Promise.Array<UserForMember>}  Promise.
    */
-  listFavoritedRookies () {
+  listFavoritedRookies() {
     return new Promise((resolve, reject) => {
       const requestOptions = {
         endpoint: URLS.ENTRY_FAVORITE_ROOKIES,
@@ -240,9 +238,7 @@ class EntryForMember extends Entry {
         const rookies = []
 
         $('ul li a').each((i, elm) => {
-          const username = $(elm)
-            .text()
-            .replace('@', '')
+          const username = $(elm).text().replace('@', '')
           const path = $(elm).attr('href')
           const member = new UserForMember(
             this._request,
@@ -263,7 +259,7 @@ class EntryForMember extends Entry {
    *
    * @returns {Promise} Promise.
    */
-  deleteFromTrash () {
+  deleteFromTrash() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.TRASH_DELETE,
@@ -286,7 +282,7 @@ class EntryForMember extends Entry {
    *
    * @returns {Promise} Promise.
    */
-  recoverFromTrash () {
+  recoverFromTrash() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.TRASH_RECOVER,

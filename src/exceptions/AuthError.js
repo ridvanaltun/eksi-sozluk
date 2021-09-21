@@ -8,7 +8,7 @@ class AuthError extends Error {
   /**
    * Create auth error.
    */
-  constructor () {
+  constructor() {
     super()
     Error.captureStackTrace(this, this.constructor)
     this.name = 'AuthError'

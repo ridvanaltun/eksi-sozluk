@@ -33,7 +33,7 @@ class UkteCollection {
    * @param {string}  username  Username.
    * @param {string}  cookies   Cookies in string.
    */
-  constructor (request, username, cookies) {
+  constructor(request, username, cookies) {
     this._request = request
     this._cookies = cookies
     this.username = username
@@ -44,7 +44,7 @@ class UkteCollection {
    *
    * @returns {Promise}  Promise.
    */
-  retrieve () {
+  retrieve() {
     return new Promise((resolve, reject) => {
       const requestOptions = {
         endpoint: URLS.USER_UKTE,
@@ -56,11 +56,7 @@ class UkteCollection {
 
       this._request(requestOptions, $ => {
         $('div ul li').each((i, elm) => {
-          const title = $(elm)
-            .find('a')
-            .text()
-            .split(this.username)[0]
-            .trim()
+          const title = $(elm).find('a').text().split(this.username)[0].trim()
           const collection = new EntryCollection(this._request, title, {
             cookies: this._cookies
           })

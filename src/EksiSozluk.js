@@ -22,7 +22,7 @@ class EksiSozluk extends EksiGuest {
    * @param   {number}  [options.httpClient.timeout=3000]                   Timeout of requests in miliseconds
    * @param   {string}  [options.httpClient.baseURL=https://eksisozluk.com] Base URL of Eksi Sozluk, you can use proxy here
    */
-  constructor (options = {}) {
+  constructor(options = {}) {
     // handle default options
     const _options = objectAssignDeep(
       {
@@ -35,7 +35,10 @@ class EksiSozluk extends EksiGuest {
     )
 
     // make http client ready
-    const httpClient = axios.create(_options.httpClient)
+    const httpClient = axios.create({
+      ..._options.httpClient,
+      ...options.httpClient
+    })
 
     super(httpClient)
 
@@ -48,7 +51,7 @@ class EksiSozluk extends EksiGuest {
    * @param   {string}            [cookies=this.cookies]  Cookies string.
    * @returns {Promise.<boolean>}                         If user authenticated returns true, otherwise false.
    */
-  isAuthenticated (cookies = this.cookies) {
+  isAuthenticated(cookies = this.cookies) {
     return new Promise((resolve, reject) => {
       if (cookies) {
         axios({
@@ -73,7 +76,7 @@ class EksiSozluk extends EksiGuest {
    *
    * @returns {Promise.<boolean>} If ReCaptcha required returns true, otherwise false.
    */
-  isRecaptchaRequired () {
+  isRecaptchaRequired() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.LOGIN,
@@ -103,7 +106,7 @@ class EksiSozluk extends EksiGuest {
    * @returns {SessionToken}                              Eksi Sozluk session token.
    * @throws  {AuthError}                                 User not authorized, password or email is wrong.
    */
-  createToken (email, password, options = {}) {
+  createToken(email, password, options = {}) {
     return new Promise((resolve, reject) => {
       // handle default options
       const _options = objectAssignDeep(
@@ -200,7 +203,7 @@ class EksiSozluk extends EksiGuest {
    * @returns {EksiMember}            Eksi Sozluk session.
    * @throws  {AuthError}             User not authorized, password or email is wrong.
    */
-  async login (email, password) {
+  async login(email, password) {
     const token = await this.createToken(email, password, { extendTime: true })
     const cookie = `a=${token.value}`
 
@@ -219,7 +222,7 @@ class EksiSozluk extends EksiGuest {
    * @returns {EksiMember}         Eksi Sozluk session.
    * @throws  {AuthError}          User not authorized.
    */
-  async loginWithToken (token) {
+  async loginWithToken(token) {
     const cookie = `a=${token}`
 
     // check given session token

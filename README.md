@@ -20,6 +20,7 @@
 - [Development](#development)
   - [Commit Messages](#commit-messages)
   - [Code Quality](#code-quality)
+  - [Testing](#testing)
   - [Available Scripts](#available-scripts)
 - [Special Thanks](#special-thanks)
 - [License](#license)
@@ -80,23 +81,26 @@ Keeping code quality as good is a hard job in normally. Therefore, we are using 
 
 In short, run `npm run lint` command.
 
+## Testing
+
+Writing tests is boring but also necessary. If you want to write a test look at other tests and don't forget apply proxy over Travis because of ridvanaltun/eksi-sozluk#16. The proxy server running over my local environment therefore sometimes it is not reacable, test fails on Travis when my local environment is turned off or the proxy server is turned off.
+
+I accept PRs by myself anyway so running tests over Travis is not a problem for a contributor. You can run tests on your local anytime.
+
 ## Available Scripts
 
 ```bash
 # commit your changes with commitizen
 npm run commit
 
-# check linter and prettier errors, fix prettier errors in default
+# check eslint issues
 npm run lint
 
-# check the linter and prettier errors
-npm run lint:check
+# fix eslint issues
+npm run lint:fix
 
-# run prettier
-npm run format
-
-# check prettier errors
-npm run format:check
+# run eslint-nibble
+npm run lint:active
 
 # run all tests
 npm run test

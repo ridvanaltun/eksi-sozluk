@@ -21,10 +21,7 @@ const trashEntries = (_request, cookie, options) => {
 
       $('ul#trash-items li article').each((i, elm) => {
         const entryId = parseInt(
-          $(elm)
-            .find('h2 > a')
-            .attr('href')
-            .split('/')[2]
+          $(elm).find('h2 > a').attr('href').split('/')[2]
         )
         const entry = new TrashEntry(_request, entryId, cookie)
         entry.extendTrashProps($, elm)

@@ -10,7 +10,7 @@ class VoteError extends Error {
    *
    * @param {string} message Error message.
    */
-  constructor (message) {
+  constructor(message) {
     super()
     Error.captureStackTrace(this, this.constructor)
     this.name = 'VoteError'
