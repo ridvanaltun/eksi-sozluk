@@ -1,6 +1,6 @@
 /**
  * @typedef {number} TitleType
- **/
+ */
 
 /**
  * Title types.
@@ -17,7 +17,7 @@ const TITLE_TYPES = {
 
 /**
  * @typedef {string} TagName
- **/
+ */
 
 /**
  * Tag names.
@@ -57,7 +57,7 @@ const TAGS = {
 
 /**
  * @typedef {string} CollectionType
- **/
+ */
 
 /**
  * Entry sorting or filtering types.

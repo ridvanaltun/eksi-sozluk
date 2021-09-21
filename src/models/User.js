@@ -119,7 +119,7 @@ class User {
    * @param   {string}  username        Username.
    * @param   {string}  [cookies=null]  Cookie string.
    */
-  constructor (request, username, cookies = null) {
+  constructor(request, username, cookies = null) {
     this._request = request
     this._cookies = cookies
     this.username = username
@@ -132,7 +132,7 @@ class User {
    * @param   {object}  [elm=null]  Cheerio element.
    * @ignore
    */
-  serialize ($, elm = null) {
+  serialize($, elm = null) {
     // start - split badges
     const badges = []
     let badgePoints = null
@@ -152,17 +152,13 @@ class User {
       } else {
         badges.push({
           name: $(elm).text(),
-          description: $(elm)
-            .find('a')
-            .attr('title')
+          description: $(elm).find('a').attr('title')
         })
       }
     })
     // end - split badges
 
-    const lastEntryTime = $('ul li#last-entry-time')
-      .text()
-      .trim()
+    const lastEntryTime = $('ul li#last-entry-time').text().trim()
 
     this.username = $('h1#user-profile-title a').text()
     this.url = URLS.USER + this.username
@@ -193,7 +189,7 @@ class User {
    *
    * @returns {Promise}  Promise.
    */
-  retrieve () {
+  retrieve() {
     return new Promise((resolve, reject) => {
       // make username url ready
       const username = this.username.replace(' ', '-')
@@ -216,7 +212,7 @@ class User {
    * @param   {number}                        [options.page=1]  Page number.
    * @returns {Promise.<UserEntryCollection>}                   User entries by last posted.
    */
-  async entries (options) {
+  async entries(options) {
     const entries = new UserEntryCollection(
       this._request,
       URLS.USER_LATEST_ENTRIES,
@@ -236,7 +232,7 @@ class User {
    * @param   {number}                        [options.page=1]  Page number.
    * @returns {Promise.<UserEntryCollection>}                   User entries by last favorited.
    */
-  async favorites (options) {
+  async favorites(options) {
     const entries = new UserEntryCollection(
       this._request,
       URLS.USER_FAVORITE_ENTRIES,
@@ -256,7 +252,7 @@ class User {
    * @param   {number}                        [options.page=1]  Page number.
    * @returns {Promise.<UserEntryCollection>}                   User entries by most favorited.
    */
-  async favoritedEntries (options) {
+  async favoritedEntries(options) {
     const entries = new UserEntryCollection(
       this._request,
       URLS.USER_MOST_FAVORITE_ENTRIES,
@@ -276,7 +272,7 @@ class User {
    * @param   {number}                        [options.page=1]  Page number.
    * @returns {Promise.<UserEntryCollection>}                   User entries by last voted.
    */
-  async lastVotedEntries (options) {
+  async lastVotedEntries(options) {
     const entries = new UserEntryCollection(
       this._request,
       URLS.USER_LAST_VOTED_ENTRIES,
@@ -296,7 +292,7 @@ class User {
    * @param   {number}                        [options.page=1]  Page number.
    * @returns {Promise.<UserEntryCollection>}                   User entries by self favorited.
    */
-  async selfFavoritedEntries (options) {
+  async selfFavoritedEntries(options) {
     const entries = new UserEntryCollection(
       this._request,
       URLS.USER_SELF_FAVORITE_ENTRIES,
@@ -316,7 +312,7 @@ class User {
    * @param   {number}                        [options.page=1]  Page number.
    * @returns {Promise.<UserEntryCollection>}                   User entries by most liked.
    */
-  async mostLikedEntries (options) {
+  async mostLikedEntries(options) {
     const entries = new UserEntryCollection(
       this._request,
       URLS.USER_MOST_LIKED_ENTRIES,
@@ -334,7 +330,7 @@ class User {
    *
    * @returns {ImageCollection} User images.
    */
-  async images () {
+  async images() {
     const images = new ImageCollection(this._request, this.username)
     await images.retrieve()
 
@@ -346,7 +342,7 @@ class User {
    *
    * @returns {UserFavoriteAuthorCollection}  User favorite authors.
    */
-  async favoriteAuthors () {
+  async favoriteAuthors() {
     const collection = new UserFavoriteAuthorCollection(
       this._request,
       this.username,
@@ -362,7 +358,7 @@ class User {
    *
    * @returns {UkteCollection}  User ukteler.
    */
-  async ukteler () {
+  async ukteler() {
     const collection = new UkteCollection(
       this._request,
       this.username,

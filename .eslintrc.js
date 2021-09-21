@@ -17,5 +17,8 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 12
   },
-  rules: {}
+  rules: {
+    'prefer-regex-literals': ['off'],
+    'jsdoc/no-undefined-types': ['off']
+  }
 }

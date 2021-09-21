@@ -32,7 +32,7 @@ class UserFavoriteAuthorCollection {
    * @param {string}  username        Username.
    * @param {string}  [cookies=null]  Cookie string.
    */
-  constructor (request, username, cookies = null) {
+  constructor(request, username, cookies = null) {
     this._request = request
     this._cookies = cookies
     this.username = username
@@ -43,7 +43,7 @@ class UserFavoriteAuthorCollection {
    *
    * @returns {Promise} Promise.
    */
-  retrieve () {
+  retrieve() {
     return new Promise((resolve, reject) => {
       const requestOptions = {
         endpoint: URLS.USER_FAVORITE_AUTHORS,

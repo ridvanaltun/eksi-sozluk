@@ -39,25 +39,15 @@ class Question {
    * @param {object}  elm Cheerio element.
    * @ignore
    */
-  serialize ($, elm) {
-    const title = $(elm)
-      .find('div')
-      .text()
-    const answerCountStr = $(elm)
-      .find('small')
-      .text()
+  serialize($, elm) {
+    const title = $(elm).find('div').text()
+    const answerCountStr = $(elm).find('small').text()
     const answerCount = parseInt(answerCountStr)
-    const questionTitle = $(elm)
-      .text()
-      .split(title)[0]
+    const questionTitle = $(elm).text().split(title)[0]
 
     this.title = title.substring(1, title.length - 1)
     this.questionTitle = questionTitle.substring(0, questionTitle.length).trim()
-    this.questionLink =
-      URLS.BASE +
-      $(elm)
-        .find('a')
-        .attr('href')
+    this.questionLink = URLS.BASE + $(elm).find('a').attr('href')
     this.answerCount = answerCountStr.includes('b')
       ? 1000 * answerCount
       : answerCount || null

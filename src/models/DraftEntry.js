@@ -70,7 +70,7 @@ class DraftEntry {
    * @param {string}  title       Title.
    * @param {string}  cookies     Cookie string.
    */
-  constructor (request, title, cookies) {
+  constructor(request, title, cookies) {
     this.title = title
     this._request = request
     this._cookies = cookies
@@ -83,7 +83,7 @@ class DraftEntry {
    * @param   {object}  $    Cheerio document.
    * @ignore
    */
-  serialize ($) {
+  serialize($) {
     const username = $('div.mobile-notification-icons ul li a').attr('title')
 
     this.titleId = $('#title').data('id')
@@ -103,7 +103,7 @@ class DraftEntry {
    *
    * @returns {Promise} Promise.
    */
-  retrieve () {
+  retrieve() {
     return new Promise((resolve, reject) => {
       const requestOptions = {
         endpoint: `/?q=${this.title}`,
@@ -121,7 +121,7 @@ class DraftEntry {
    *
    * @returns {Promise} Promise.
    */
-  publish () {
+  publish() {
     return new Promise((resolve, reject) => {
       if (!this._isRetrieved) {
         return reject(new Error('Retrieve first.'))
@@ -177,7 +177,7 @@ class DraftEntry {
    * @param   {string}  content Draft entry content.
    * @returns {Promise}         Promise.
    */
-  change (content) {
+  change(content) {
     return new Promise((resolve, reject) => {
       if (!this._isRetrieved) {
         return reject(new Error('Retrieve first.'))
@@ -217,7 +217,7 @@ class DraftEntry {
    *
    * @returns {Promise} Promise.
    */
-  dismiss () {
+  dismiss() {
     return new Promise((resolve, reject) => {
       if (!this._isRetrieved) {
         return reject(new Error('Retrieve first.'))

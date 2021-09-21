@@ -44,7 +44,7 @@ class Tag {
    *
    * @param {string}  [cookies=null]  Cookie string.
    */
-  constructor (cookies = null) {
+  constructor(cookies = null) {
     this._cookies = cookies
   }
 
@@ -55,38 +55,20 @@ class Tag {
    * @param {object}  elm Cheerio element.
    * @ignore
    */
-  serialize ($, elm) {
+  serialize($, elm) {
     this.name = $(elm)
       .find('h3 a')
       .text()
-      .substring(
-        1,
-        $(elm)
-          .find('h3 a')
-          .text().length
-      )
-    this.description = $(elm)
-      .find('p')
-      .text()
-    this.link =
-      URLS.BASE +
-      $(elm)
-        .find('h3 a')
-        .attr('href')
+      .substring(1, $(elm).find('h3 a').text().length)
+    this.description = $(elm).find('p').text()
+    this.link = URLS.BASE + $(elm).find('h3 a').attr('href')
 
     const isAuth = this._cookies
 
     // bind auth properties
     if (isAuth) {
-      this.id = parseInt(
-        $(elm)
-          .find('button')
-          .data('follow-url')
-          .split('/')[2]
-      )
-      this.followed = $(elm)
-        .find('button')
-        .data('followed')
+      this.id = parseInt($(elm).find('button').data('follow-url').split('/')[2])
+      this.followed = $(elm).find('button').data('followed')
     }
   }
 }

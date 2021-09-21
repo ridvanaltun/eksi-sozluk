@@ -36,7 +36,7 @@ class SearchResults {
    * @param {string}  text            Search text.
    * @param {string}  [cookies=null]  Cookie string.
    */
-  constructor (request, text, cookies = null) {
+  constructor(request, text, cookies = null) {
     this.searchText = text
     this._request = request
     this._cookies = cookies
@@ -47,7 +47,7 @@ class SearchResults {
    *
    * @returns {Promise} Promise.
    */
-  retrieve () {
+  retrieve() {
     return new Promise((resolve, reject) => {
       axios({
         url: URLS.SEARCH,

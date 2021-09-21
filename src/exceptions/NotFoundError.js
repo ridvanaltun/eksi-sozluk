@@ -11,7 +11,7 @@ class NotFoundError extends Error {
    *
    * @param {string} [resourceName=Resource]  Resource name.
    */
-  constructor (resourceName = 'Resource') {
+  constructor(resourceName = 'Resource') {
     super()
     Error.captureStackTrace(this, this.constructor)
     this.name = 'NotFoundError'

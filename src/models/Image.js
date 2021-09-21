@@ -25,7 +25,7 @@ class Image {
    * @param {object}  elm Cheerio element.
    * @ignore
    */
-  serialize ($, elm) {
+  serialize($, elm) {
     this.url = URLS.BASE + $(elm).attr('href')
     this.cdnUrl = $(elm)
       .find('div')

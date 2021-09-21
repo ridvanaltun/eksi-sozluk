@@ -19,7 +19,7 @@ class CollectionBase {
   /**
    * Retrieve first page.
    */
-  async first () {
+  async first() {
     this.currPage = 1
     await this.retrieve()
   }
@@ -27,7 +27,7 @@ class CollectionBase {
   /**
    * Retrieve last page.
    */
-  async last () {
+  async last() {
     this.currPage = this.pageCount
     await this.retrieve()
   }
@@ -35,7 +35,7 @@ class CollectionBase {
   /**
    * Retrieve next page.
    */
-  async next () {
+  async next() {
     const isLastPage = this.currPage === this.pageCount
 
     if (isLastPage) {
@@ -49,7 +49,7 @@ class CollectionBase {
   /**
    * Retrieve previous page.
    */
-  async prev () {
+  async prev() {
     const isFirstPage = this.currPage === 1
 
     if (isFirstPage) {

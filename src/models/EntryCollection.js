@@ -87,7 +87,7 @@ class EntryCollection extends CollectionBase {
    * @param {number}          [options.page=1]        Page number.
    * @param {string}          [options.cookies=null]  Cookie string.
    */
-  constructor (request, path, options) {
+  constructor(request, path, options) {
     super()
     // handle default options
     const _options = objectAssignDeep(
@@ -118,7 +118,7 @@ class EntryCollection extends CollectionBase {
    *
    * @returns {Promise} Promise.
    */
-  retrieve () {
+  retrieve() {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
       const isPathProvided = this._path
@@ -199,7 +199,7 @@ class EntryCollection extends CollectionBase {
    * @returns {Promise.<(EntryForMember|DraftEntry)>}                             Created entry.
    * @throws  {AuthError}                                                         User not authorized.
    */
-  async createEntry (content, options) {
+  async createEntry(content, options) {
     const isAuth = this._cookies
 
     if (!isAuth) {

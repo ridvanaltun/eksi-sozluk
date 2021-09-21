@@ -12,23 +12,12 @@ const debeEntries = (_request, cookie = null) => {
       const entries = []
 
       $('ul.topic-list.partial li').each((i, elm) => {
-        const entryId = parseInt(
-          $(elm)
-            .find('a')
-            .attr('href')
-            .split('/')[2]
-        )
+        const entryId = parseInt($(elm).find('a').attr('href').split('/')[2])
         const entry = cookie
           ? new EntryForMember(_request, entryId, cookie)
           : new Entry(_request, entryId)
-        entry.title = $(elm)
-          .text()
-          .trim()
-        entry.permalink =
-          URLS.BASE +
-          $(elm)
-            .find('a')
-            .attr('href')
+        entry.title = $(elm).text().trim()
+        entry.permalink = URLS.BASE + $(elm).find('a').attr('href')
         entries.push(entry)
       })
 
