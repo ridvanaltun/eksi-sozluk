@@ -72,10 +72,7 @@
     "semantic-release": "^17.4.7"
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --cache --fix",
-      "git add"
-    ]
+    "*.js": ["eslint --fix"]
   },
   "config": {
     "commitizen": {
