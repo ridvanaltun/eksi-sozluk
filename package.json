@@ -60,7 +60,7 @@
     "lint-staged": "^11.1.2",
     "minami": "^1.2.3",
     "prettier-standard": "^16.4.1",
-    "semantic-release": "^17.4.7"
+    "semantic-release": "^19.0.3"
   },
   "lint-staged": {
     "*.js": [
